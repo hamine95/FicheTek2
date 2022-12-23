@@ -1,0 +1,138 @@
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\BackEnd.dll.config
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\BackEnd.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\BackEnd.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Options.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\MvvmCross.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Newtonsoft.Json.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\SQLitePCLRaw.core.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Buffers.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Collections.Immutable.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.ComponentModel.Annotations.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Memory.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Numerics.Vectors.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Data.Sqlite.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.DotNet.PlatformAbstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyModel.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Options.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\MvvmCross.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\MvvmCross.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\Newtonsoft.Json.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Buffers.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Collections.Immutable.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Memory.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Numerics.Vectors.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.csproj.AssemblyReference.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.csproj.CoreCompileInputs.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.csproj.CopyComplete
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\BackEnd.dll.config
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\BackEnd.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\BackEnd.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Data.Sqlite.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.DotNet.PlatformAbstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyModel.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Options.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\MvvmCross.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Newtonsoft.Json.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\SQLitePCLRaw.core.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Buffers.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Collections.Immutable.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.ComponentModel.Annotations.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Memory.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Numerics.Vectors.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Data.Sqlite.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.DotNet.PlatformAbstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.DependencyModel.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Options.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\MvvmCross.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\MvvmCross.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\Newtonsoft.Json.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Buffers.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Collections.Immutable.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Memory.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Numerics.Vectors.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.csproj.CoreCompileInputs.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.csproj.CopyComplete
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd\obj\x86\Debug\BackEnd.csproj.AssemblyReference.cache
