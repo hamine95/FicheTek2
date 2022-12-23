@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Th0ZJiPsaQ+MTE5WcpodbSV+ETIPihYvUp3bI5e7h8SrxQA9K04oLk3zFh+iC7KO5HunPJXSYAvXsIog43Wteg==",
+  "success": true,
+  "projectFilePath": "F:\\Development\\backup VS project\\Repos\\DataSheetDesign\\DataSheetDesign\\DataSheetDesign.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Calmbatman\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+  ],
+  "logs": []
+}

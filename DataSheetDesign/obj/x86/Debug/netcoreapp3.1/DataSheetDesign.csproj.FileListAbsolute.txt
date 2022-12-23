@@ -1,0 +1,53 @@
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.exe
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.deps.json
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.runtimeconfig.json
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.runtimeconfig.dev.json
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\Microsoft.Xaml.Behaviors.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.csproj.AssemblyReference.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\PrintWindow.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\Schema2.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\App.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign_MarkupCompile.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign_MarkupCompile.lref
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\PrintWindow.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\Schema2.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.g.resources
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.AssemblyInfoInputs.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.AssemblyInfo.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.csproj.CoreCompileInputs.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.csproj.CopyComplete
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.genruntimeconfig.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.exe
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.deps.json
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.runtimeconfig.json
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.runtimeconfig.dev.json
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\DataSheetDesign.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\bin\x86\Debug\netcoreapp3.1\Microsoft.Xaml.Behaviors.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.csprojAssemblyReference.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\PrintWindow.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\Schema2.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\MainWindow.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\PrintWindow.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\Schema2.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\App.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign_MarkupCompile.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign_MarkupCompile.lref
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\MainWindow.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.g.resources
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.AssemblyInfoInputs.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.AssemblyInfo.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.csproj.CoreCompileInputs.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.csproj.CopyComplete
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\DataSheetDesign\obj\x86\Debug\netcoreapp3.1\DataSheetDesign.genruntimeconfig.cache

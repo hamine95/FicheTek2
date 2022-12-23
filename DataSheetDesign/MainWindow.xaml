@@ -1,0 +1,23 @@
+﻿<Window x:Class="DataSheetDesign.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataSheetDesign"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+
+
+        Title="MainWindow" Height="auto" Width="auto">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" KeyboardNavigation.DirectionalNavigation="None">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="9*" />
+        </Grid.ColumnDefinitions>
+        <Button Click="Button_Click">Print</Button>
+        <local:Schema2 Grid.Column="1" x:Name="DataSheet" SetColumn="83" ListComposant="{Binding ListCompo}"
+                       SetRow="59" />
+
+
+    </Grid>
+</Window>
