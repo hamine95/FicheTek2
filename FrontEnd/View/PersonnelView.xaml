@@ -1,0 +1,477 @@
+﻿<view:MvxWpfView x:Class="FrontEnd.View.PersonnelView"
+                 xmlns:view="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 Loaded="MvxWpfView_Loaded"
+                 mc:Ignorable="d"
+                 xmlns:Converter="clr-namespace:FrontEnd.Converter"
+                 d:DesignHeight="550" d:DesignWidth="800">
+    <view:MvxWpfView.Resources>
+        <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+    </view:MvxWpfView.Resources>
+    <TabControl>
+       <TabItem Header="Personnel">
+            <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.ColumnSpan="1" Grid.Column="3" FontSize="16"
+                  FontWeight="Bold" Foreground="SteelBlue" Header="Concepteur">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="2" FontSize="16" FontWeight="Bold"
+                          Foreground="SteelBlue" Header="Ajouter Concepteur">
+
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="14" FontWeight="Bold">
+                            Nom Prénom:
+                        </TextBlock>
+
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="16" Text="{Binding NameConcepteur}" />
+                        <Button Command="{Binding AjouterNovConcepteur}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Ajouter
+                        </Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox IsEnabled="{Binding IsEditEnabledConcepteur}" 
+                          BorderBrush="CadetBlue" 
+                          BorderThickness="2"
+                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                          Grid.Row="1" Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
+                          Header="Modifier Concepteur">
+
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="14" FontWeight="Bold">
+                            Nom Prénom:
+                        </TextBlock>
+
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="16" Text="{Binding NovNameConcepteur}" />
+                        <Button Command="{Binding CancelConcepteurCmd}" Grid.Row="2" Grid.Column="1"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Annuler
+                        </Button>
+                        <Button Command="{Binding SaveConcepteurChange}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Enregistrer
+                        </Button>
+                    </Grid>
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Row="1" Grid.ColumnSpan="1" Grid.Column="3"
+                  FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Vérificateur">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="3" FontSize="16" FontWeight="Bold"
+                          Foreground="SteelBlue" Header="Ajouter Vérificateur">
+
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="14" FontWeight="Bold">
+                            Nom Prénom:
+                        </TextBlock>
+
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="16" Text="{Binding NameVerificateur}" />
+                        <Button Command="{Binding AjouterNovVerificateur}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Ajouter
+                        </Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox IsEnabled="{Binding IsEditEnabledVerificateur}"
+                          Margin="5" BorderBrush="CadetBlue"
+                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                          BorderThickness="2" Grid.Row="1" Grid.Column="3" FontSize="16" FontWeight="Bold"
+                          Foreground="SteelBlue" Header="Modifier Vérificateur">
+
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="14" FontWeight="Bold">
+                            Nom Prénom:
+                        </TextBlock>
+
+
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="16" Text="{Binding NovNameVerificateur}" />
+                        <Button Command="{Binding CancelVerificateurCmd}" Grid.Row="2" Grid.Column="1"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Annuler
+                        </Button>
+                        <Button Command="{Binding SaveVerificateurChange}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Enregistrer
+                        </Button>
+                    </Grid>
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>
+             <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Row="2" Grid.ColumnSpan="1" Grid.Column="3"
+                  FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Rédacteur">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="3" FontSize="16" FontWeight="Bold"
+                          Foreground="SteelBlue" Header="Ajouter Rédacteur">
+
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="14" FontWeight="Bold">
+                            Nom Prénom:
+                        </TextBlock>
+
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="14" Text="{Binding NameRedacteur}" />
+                        <Button Command="{Binding AjouterNovRedacteur}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Ajouter
+                        </Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox IsEnabled="{Binding IsEditEnabledRedacteur}"
+                          Margin="5" BorderBrush="CadetBlue"
+                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                          BorderThickness="2" Grid.Row="1" Grid.Column="3" FontSize="16" FontWeight="Bold"
+                          Foreground="SteelBlue" Header="Modifier Rédacteur">
+
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="14" FontWeight="Bold">
+                            Nom Prénom:
+                        </TextBlock>
+
+
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="16" Text="{Binding NovNameRedacteur}" />
+                        <Button Command="{Binding CancelRedacteurCmd}" Grid.Row="2" Grid.Column="1"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Annuler
+                        </Button>
+                        <Button Command="{Binding SaveRedacteurChange}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue" FontSize="16" Height="25">
+                            Enregistrer
+                        </Button>
+                    </Grid>
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>   
+        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="3" Grid.Row="0" Grid.Column="0"
+                  FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Concepteur">
+            <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged"
+                      ItemsSource="{Binding ListConcepteur}" SelectedItem="{Binding SelectedConcepteur}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="Auto"
+                                        DisplayMemberBinding="{Binding ID,StringFormat={}{00:00}}" />
+                        <GridViewColumn Header="Nom Prénom" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="3" Grid.Row="0" Grid.Column="1"
+                  FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Vérificateur">
+            <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged"
+                      ItemsSource="{Binding ListVerificateur}" SelectedItem="{Binding SelectedVerificateur}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="Auto"
+                                        DisplayMemberBinding="{Binding ID,StringFormat={}{00:00}}" />
+                        <GridViewColumn Header="Nom Prénom" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="3" Grid.Row="0" Grid.Column="2"
+                          FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Rédacteur">
+                    <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged"
+                              ItemsSource="{Binding ListRedacteur}" SelectedItem="{Binding SelectedRedacteur}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="Auto"
+                                                DisplayMemberBinding="{Binding ID,StringFormat={}{00:00}}" />
+                                <GridViewColumn Header="Nom Prénom" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+        <UniformGrid Grid.Row="3" Columns="2">
+
+            <Button Foreground="SteelBlue" FontSize="14" 
+                    FontWeight="Bold" Margin="5"
+                    Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                    Command="{Binding ModifierConceptuer}">
+                Modifier
+            </Button>
+            <Button Foreground="SteelBlue" FontSize="14" 
+                    FontWeight="Bold" Margin="5"
+                    Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                    Command="{Binding SupprimerConcepteur}">
+                Supprimer
+            </Button>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="3" Columns="2" Grid.Column="1">
+
+            <Button Foreground="SteelBlue" FontSize="14"
+                    FontWeight="Bold" Margin="5"
+                    Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                    Command="{Binding ModifierVerificateur}">
+                Modifier
+            </Button>
+            <Button Foreground="SteelBlue" FontSize="14" 
+                    FontWeight="Bold" Margin="5"
+                    Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                    Command="{Binding SupprimerVerificateur}">
+                Supprimer
+            </Button>
+        </UniformGrid>
+                <UniformGrid Grid.Row="3" Columns="2" Grid.Column="2">
+
+                    <Button Foreground="SteelBlue" FontSize="14"
+                            FontWeight="Bold" Margin="5"
+                            Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                            Command="{Binding ModifierRedacteur}">
+                        Modifier
+                    </Button>
+                    <Button Foreground="SteelBlue" FontSize="14" 
+                            FontWeight="Bold" Margin="5"
+                            Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                            Command="{Binding SupprimerRedacteur}">
+                        Supprimer
+                    </Button>
+                </UniformGrid>    
+    </Grid>
+       </TabItem>
+       <TabItem Header="Client" >
+           <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" FontSize="18"
+                  FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouvelle Client">
+
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="16"
+                           FontWeight="Bold">
+                    Nom Prénom:
+                </TextBlock>
+
+                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30"
+                         FontSize="18" Text="{Binding ClientNom}" VerticalAlignment="Center"/>
+                <Button Cursor="Hand" Command="{Binding AjouterNovClient}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
+                        FontSize="16" Height="30">
+                    Ajouter
+                </Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox IsEnabled="{Binding IsEditEnabled}"
+                  Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                  Margin="5" BorderBrush="CadetBlue" BorderThickness="2"
+                  Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="SteelBlue"
+                  Header="Modifier Client">
+
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="16"
+                           FontWeight="Bold">
+                    Nom Prénom:
+                </TextBlock>
+
+                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30"
+                         FontSize="16" Text="{Binding NovClientNom}" />
+                <Button Cursor="Hand" Command="{Binding CancelCmd}" Grid.Row="2" Grid.Column="1" Foreground="SteelBlue" FontSize="16"
+                        Height="30">
+                    Annuler
+                </Button>
+                <Button Cursor="Hand" Command="{Binding SaveChange}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
+                        FontSize="16" Height="30">
+                    Enregistrer
+                </Button>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0"
+                  FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Client">
+            <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged"
+                      ItemsSource="{Binding ListClient}" SelectedItem="{Binding SelectedClient}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="Auto"
+                                        DisplayMemberBinding="{Binding ID,StringFormat={}{00:00}}" />
+                        <GridViewColumn Header="Nom Prénom" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+        <UniformGrid Grid.Row="2" Columns="2">
+
+            <Button Cursor="Hand" Foreground="SteelBlue" 
+                    Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                    FontSize="14" FontWeight="Bold" Margin="5" Command="{Binding Modifier}">Modifier</Button>
+            <Button Cursor="Hand" Foreground="SteelBlue" 
+                    Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                    FontSize="14" FontWeight="Bold" Margin="5" Command="{Binding Supprimer}">Supprimer</Button>
+        </UniformGrid>
+    </Grid>
+       </TabItem>
+   </TabControl>
+</view:MvxWpfView>

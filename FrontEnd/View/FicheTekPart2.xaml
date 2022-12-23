@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="FrontEnd.View.FicheTekPart2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             xmlns:enfilageSch="clr-namespace:DSheetEnfilage;assembly=DSheetEnfilage"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+     
+        <enfilageSch:CanvasControl ChainRotateY="{Binding RotateY,Mode=TwoWay}" ChainRotateX="{Binding RotateX,Mode=TwoWay}" WorkinRect="{Binding WorkRectan,Mode=TwoWay}" SelectedColComp="{Binding SelectedColComp,Mode=TwoWay}" CompList="{Binding Compolist,Mode=TwoWay}" EnableChaineEdit="{Binding IsCreateChaine}"  TrameXposition="{Binding TrameXposition}" TrameYposition="{Binding TrameYposition}" IsDentFil="{Binding IsDentFilVis,Mode=TwoWay}" LastYposition="{Binding LastYposition,Mode=TwoWay}" LastXposition="{Binding LastXposition,Mode=TwoWay}" ChaineList2="{Binding ChaineList2}" ChaineList="{Binding ChaineList}" ChRowSum="{Binding ChRowSum}" ChaineRows2="{Binding ChaineRows2,Mode=TwoWay}" ChaineRows="{Binding ChaineRows,Mode=TwoWay}" enfilageElement="{Binding AddedElement,Mode=TwoWay}" SelectedChaine="{Binding SelectedChaine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" ChaineColumns="{Binding ChaineColumns,Mode=TwoWay}" KeyboardNavigation.TabIndex="0" NbrDent="{Binding NbrDent,Mode=TwoWay}" ContentEnfilageList="{Binding ContentEnfilageList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}"  KeyboardNavigation.DirectionalNavigation="Local" ListComposant="{Binding SchCompList,Mode=TwoWay}" EnfilageBoard="{Binding EnfilageList}"></enfilageSch:CanvasControl>
+
+    </Grid>
+</UserControl>

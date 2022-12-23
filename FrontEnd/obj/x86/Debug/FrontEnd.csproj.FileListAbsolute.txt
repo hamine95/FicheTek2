@@ -1,0 +1,347 @@
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.AssemblyReference.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart1.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart2.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\HomepageView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\SplashScreenView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\Window1.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\App.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd_Content.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd_MarkupCompile.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd_MarkupCompile.lref
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\runtimes\win-x86\native\e_sqlcipher.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\runtimes\win-x64\native\e_sqlcipher.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\runtimes\win-arm\native\e_sqlcipher.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\FrontEnd.exe.config
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\FrontEnd.exe
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\FrontEnd.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\BackEnd2.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DSheetEnfilage.exe
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Options.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Platforms.Wpf.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Newtonsoft.Json.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Remotion.Linq.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.Extensions.Logging.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.batteries_v2.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.core.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.nativelibrary.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.provider.dynamic_cdecl.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Buffers.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Collections.Immutable.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.ComponentModel.Annotations.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Data.SQLite.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Interactive.Async.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Memory.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Numerics.Vectors.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\WpfApp1.exe
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\BackEnd2.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DSheetEnfilage.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DSheetEnfilage.exe.config
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\WpfApp1.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\WpfApp1.exe.config
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Data.Sqlite.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Options.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Platforms.Wpf.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Platforms.Wpf.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Newtonsoft.Json.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Remotion.Linq.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.Extensions.Logging.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Buffers.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Collections.Immutable.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Data.SQLite.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Interactive.Async.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Memory.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Numerics.Vectors.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTechniqueView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\MainWindow.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTechniqueView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart1.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart2.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\HomepageView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\SplashScreenView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\Window1.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.g.resources
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.Properties.Resources.resources
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.GenerateResource.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.CoreCompileInputs.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.CopyComplete
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.exe
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\CouleurView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MatiereView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\CouleurView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MatiereView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MachineView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MachineView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ComposantView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ComposantView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ClientView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\PersonnelView.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ClientView.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\PersonnelView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.AssemblyReference.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.SuggestedBindingRedirects.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\MainWindow.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ClientView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ComposantView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\CouleurView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart2.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\HomepageView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MachineView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MatiereView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\PersonnelView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\SplashScreenView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\Window1.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\MainWindow.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ClientView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ComposantView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\CouleurView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTechniqueView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart1.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart2.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\HomepageView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MachineView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\MatiereView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\PersonnelView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\SplashScreenView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\Window1.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\App.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd_Content.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd_MarkupCompile.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd_MarkupCompile.lref
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\runtimes\win-x86\native\e_sqlcipher.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\runtimes\win-x64\native\e_sqlcipher.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\runtimes\win-arm\native\e_sqlcipher.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\FrontEnd.exe.config
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\FrontEnd.exe
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\FrontEnd.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\BackEnd2.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DSheetEnfilage.exe
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Data.Sqlite.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Options.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Xaml.Behaviors.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Platforms.Wpf.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Newtonsoft.Json.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Remotion.Linq.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.Extensions.Logging.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.batteries_v2.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.core.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.nativelibrary.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\SQLitePCLRaw.provider.dynamic_cdecl.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Buffers.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Collections.Immutable.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.ComponentModel.Annotations.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Data.SQLite.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Interactive.Async.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Memory.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Numerics.Vectors.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\BackEnd2.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DSheetEnfilage.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DSheetEnfilage.exe.config
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Bcl.HashCode.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Data.Sqlite.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Caching.Memory.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Configuration.Binder.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Options.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Extensions.Primitives.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Microsoft.Xaml.Behaviors.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Platforms.Wpf.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Platforms.Wpf.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Newtonsoft.Json.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Remotion.Linq.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Serilog.Extensions.Logging.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Buffers.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Collections.Immutable.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Data.SQLite.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Interactive.Async.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Memory.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Numerics.Vectors.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\System.Threading.Tasks.Extensions.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTechniqueView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\FicheTekPart1.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.g.resources
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.Properties.Resources.resources
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.GenerateResource.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.CoreCompileInputs.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csproj.CopyComplete
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.exe
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\TestView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\TestView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DotNetZip.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\unvell.ReoGrid.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DotNetZip.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DotNetZip.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\unvell.ReoGrid.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\square.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\stop.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dottedCell.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dotGris.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareOne.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareHighlight.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp3.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp4.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp5.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp6.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp7.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareGris.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp1light.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp2light.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp3light.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp4light.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp5light.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp6light.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\comp7light.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\PrintView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\PrintView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\ChainSquare.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\menu.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\menu2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\back.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\back2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareGris2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareLine.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareLine2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\version.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\add.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\edit.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\remove2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\search.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ModelFicheTekView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\ModelFicheTekView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\print.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\fil.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\reed.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dent1.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dent2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dent3.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dent4.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dent5.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dent6.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\dent7.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\Comp2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\Comp1.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\cancel.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\save.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\CategorieView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\CategorieView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\categorie.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\DLL\Dapper.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Dapper.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\checker.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\checker2.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\checkerB.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\editor.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\LoginView.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\obj\x86\Debug\View\LoginView.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\logout.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Xceed.Wpf.AvalonDock.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Xceed.Wpf.Toolkit.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\cs-CZ\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\ja-JP\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\nl-BE\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\imageLoad.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\confirm.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\settings.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareDent.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareLisse.png
+F:\Development\backup VS project\Repos\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\squareRect.png

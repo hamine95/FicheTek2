@@ -1,0 +1,79 @@
+﻿<view:MvxWindow x:Class="FrontEnd.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:view="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:FrontEnd.View"
+        Loaded="LoginView_OnLoaded"
+        mc:Ignorable="d"
+        Title="Identification"
+        Width="320" Height="300"
+        d:DesignHeight="300" d:DesignWidth="320"
+        WindowStartupLocation="CenterScreen"  SnapsToDevicePixels="True"
+         ResizeMode="NoResize"
+        >
+    <Window.Resources>
+      
+        
+    </Window.Resources>
+    <TabControl>
+        <TabItem FontFamily="arial" Header="Rédacteur">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.3*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="0.8*"></RowDefinition>
+                    <RowDefinition Height="0.8*"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="0">
+                    <Image Height="80" ClipToBounds="True"  Source="/Asset/editor.png"></Image>
+
+                </StackPanel>
+                <TextBlock FontSize="14" VerticalAlignment="Center" FontWeight="Bold" FontFamily="arial" Grid.Column="1" Grid.Row="2">Nom utilisateur:</TextBlock>
+                <TextBox FontSize="16" MinHeight="25" Text="{Binding UsernameRed}"  VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" ></TextBox>
+                <TextBlock FontSize="14" FontWeight="Bold" FontFamily="arial" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">Mot de passe:</TextBlock>
+                <PasswordBox FontSize="16" MinHeight="25"  x:Name="PasswordRed"  Grid.Column="2" VerticalAlignment="Center" Grid.Row="3"></PasswordBox>
+                <Button MaxHeight="25" Grid.Column="2" Grid.Row="4" Command="{Binding RedacteurCmd}"  CommandParameter="{Binding ElementName=PasswordRed}" >Connecter</Button>
+            </Grid>
+        </TabItem>
+        <TabItem FontFamily="arial"  Header="Vérificateur">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.3*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="0.8*"></RowDefinition>
+                    <RowDefinition Height="0.8*"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="0">
+                    <Image Height="80" ClipToBounds="True"  Source="/Asset/checkerB.png"></Image>
+
+                </StackPanel>
+               
+                <TextBlock FontSize="14" FontWeight="Bold" VerticalAlignment="Center"  FontFamily="arial" Grid.Column="1" Grid.Row="2">Nom utilisateur:</TextBlock>
+                <TextBox FontSize="16"  MinHeight="25" Text="{Binding UsernameVer}"  VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" ></TextBox>
+                <TextBlock FontSize="14" FontFamily="arial" FontWeight="Bold"  Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">Mot de passe:</TextBlock>
+                <PasswordBox FontSize="16" MinHeight="25"  x:Name="Password"  Grid.Column="2" VerticalAlignment="Center" Grid.Row="3"></PasswordBox>
+                <Button Grid.Column="2" MaxHeight="25" Grid.Row="4" Command="{Binding VerificateurCmd}"  CommandParameter="{Binding ElementName=Password}" >Connecter</Button>
+            </Grid>
+            
+        </TabItem>
+    </TabControl>
+</view:MvxWindow>

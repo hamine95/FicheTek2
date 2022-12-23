@@ -1,0 +1,1229 @@
+﻿<view:MvxWpfView x:Class="FrontEnd.View.FicheTechniqueView"
+                 xmlns:view="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:local="clr-namespace:FrontEnd.View"
+                 xmlns:xcd="http://schemas.xceed.com/wpf/xaml/toolkit"
+                 Loaded="MvxWpfView_Loaded"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactions"
+                 xmlns:CustClass="clr-namespace:FrontEnd.CustomClass"
+                 xmlns:Converter="clr-namespace:FrontEnd.Converter"
+                 xmlns:ei="http://schemas.microsoft.com/xaml/behaviors"
+                 mc:Ignorable="d"
+                 Focusable="True"
+                 d:DesignHeight="450" d:DesignWidth="800">
+    <view:MvxWpfView.Resources>
+	     <Style x:Key="SwitchTypeToggleButton"
+       TargetType="{x:Type ToggleButton}">
+
+    <Style.Resources>
+        <Color x:Key="Color.Additional.LightGrey">#989EA8</Color>
+        <Color x:Key="Color.Additional.MediumGrey">#61656B</Color>
+        <Color x:Key="Color.MedtronicBranding.MedtronicBlue">#004B87</Color>
+        <Color x:Key="Color.MedtronicBranding.CobaltBlue">#0085CA</Color>
+
+        <Style x:Key="ToggleButtonContentTextbox"
+               TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+        <SolidColorBrush x:Key="ToggleButtonFalseBackground"
+                         Color="{StaticResource Color.Additional.LightGrey}" />
+        <SolidColorBrush x:Key="ToggleButtonTrueBackground"
+                         Color="{StaticResource Color.MedtronicBranding.CobaltBlue}" />
+        <SolidColorBrush x:Key="ToggleButtonFalseForeground"
+                         Color="{StaticResource Color.Additional.MediumGrey}" />
+        <SolidColorBrush x:Key="ToggleButtonTrueForeground"
+                         Color="{StaticResource Color.MedtronicBranding.MedtronicBlue}" />
+        <TextBlock x:Key="OffContent"
+                   Style="{StaticResource ToggleButtonContentTextbox}"
+                   Text="Off" />
+        <Style x:Key="OnContentControl"
+               TargetType="ContentControl">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <TextBlock FontFamily="Wingdings 2"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   Style="{StaticResource ToggleButtonContentTextbox}"
+                                   Text="P" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="OffContentControl"
+               TargetType="ContentControl">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <TextBlock FontSize="24"
+                                   Foreground="White"
+                                   Style="{StaticResource ToggleButtonContentTextbox}"
+                                   Text="X" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+    </Style.Resources>
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                <Grid x:Name="MainRow">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding ElementName=TopRow,
+                        Path=ActualHeight}" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="{Binding ElementName=TopRow,
+                        Path=ActualHeight}" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="TopRow" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Ellipse x:Name="BackgroundEllipse1"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="3"
+                                 Width="{Binding ElementName=MainRow,
+                                                 Path=ActualHeight}"
+                                 Height="{Binding ElementName=MainRow,
+                                                  Path=ActualHeight}"
+                                 HorizontalAlignment="Left"
+                                 Fill="{StaticResource ToggleButtonTrueBackground}" />
+                        <Ellipse x:Name="BackgroundEllipse2"
+                                 Grid.Row="0"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="3"
+                                 Width="{Binding ElementName=MainRow,
+                                                 Path=ActualHeight}"
+                                 Height="{Binding ElementName=MainRow,
+                                                  Path=ActualHeight}"
+                                 HorizontalAlignment="Right"
+                                 Fill="{StaticResource ToggleButtonFalseBackground}" />
+                        <Border x:Name="BackgroundBorder"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Background="{StaticResource ToggleButtonTrueBackground}" />
+                    </Grid>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="AnimationWidth" />
+                            <ColumnDefinition Width="{Binding ElementName=MainRow,
+                        Path=ActualHeight}" />
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="AnimationSizeBorder"
+                                Grid.Column="0" />
+                        <ContentControl Grid.Column="0"
+                                        Style="{StaticResource OnContentControl}" />
+                     </Grid>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding ElementName=MainRow,
+                Path=ActualHeight}" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl Grid.Column="1"
+                                        Style="{StaticResource OffContentControl}" />
+                    </Grid>
+                    <Grid Background="Transparent">
+                        <StackPanel HorizontalAlignment="Left"
+                                    Orientation="Horizontal">
+                            <Border Width="{Binding ElementName=AnimationSizeBorder,
+                Path=ActualWidth}" />
+                            <Ellipse x:Name="ForegroundEllipse"
+                                     Width="{Binding ElementName=MainRow,
+                                                     Path=ActualHeight}"
+                                     Height="{Binding ElementName=MainRow,
+                                                      Path=ActualHeight}"
+                                     HorizontalAlignment="Right"
+                                     Fill="{StaticResource ToggleButtonTrueForeground}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="False">
+                        <Setter TargetName="BackgroundBorder" Property="Background"
+                Value="{StaticResource ToggleButtonFalseBackground}" />
+                        <Setter TargetName="ForegroundEllipse" Property="Fill"
+                Value="{StaticResource ToggleButtonFalseForeground}" />
+                        <!--<Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName
+                        ="AnimationSizeBorder"
+                        Storyboard.TargetProperty="(Border.Width)"
+                        To="0" Duration="0:0:3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName=
+                        "AnimationSizeBorder"
+                        Storyboard.TargetProperty="(Border.Width)"
+                        From="0" Duration="0:0:3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>-->
+                        <Setter TargetName="AnimationSizeBorder" Property="Width" Value="0" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+	    <Style x:Key="SaveBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Width="24" Height="24" Source="/Asset/save.png" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	    <Style x:Key="CancelBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Width="24" Height="24" Source="/Asset/cancel.png" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	    <Style x:Key="PrintBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Width="24" Height="24" Source="/Asset/print.png" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+        <Style x:Key="SearchBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Width="24" Height="24" Source="/Asset/search.png" />
+							</Viewbox>
+							
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+       <Style x:Key="EditBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Width="24" Height="24" Source="/Asset/edit.png" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+        <Style x:Key="RemoveBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Height="24" Width="24" Source="/Asset/remove2.png" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+          <Style x:Key="VersionBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+					
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Source="/Asset/version.png" Height="24" Width="24" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	    <Style x:Key="ConfirmBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Source="/Asset/confirm.png" Width="24" Height="24" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+        <Style x:Key="AddBtn" TargetType="{x:Type CustClass:GitHubButton}">
+		<Setter Property="UseLayoutRounding" Value="True"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Foreground" Value="#FFFFFF"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="25"/>
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+					<ControlTemplate.Resources>
+						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+							<Setter Property="BorderBrush" Value="#24a0ed"/>
+							<Setter Property="BorderThickness" Value="1 1 1 1"/>
+							<Setter Property="Background" Value="#24a0ed"/>
+							<Setter Property="CornerRadius" Value="5"/>
+						</Style>
+						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Orientation" Value="Horizontal"/>
+						</Style>
+						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="2 0 2 0"/>
+							<Setter Property="Width" Value="16"/>
+							<Setter Property="Height" Value="16"/>
+						</Style>
+						
+						<Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
+							<Setter Property="VerticalAlignment" Value="Center"/>
+							<Setter Property="Margin" Value="0 4 2 4"/>
+						</Style>
+					</ControlTemplate.Resources>
+                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+						<StackPanel Style="{StaticResource IN.PANEL}">
+							<Viewbox Style="{StaticResource IN.VBOX}">
+								<Image Source="/Asset/add.png" Width="24" Height="24" />
+							</Viewbox>
+							<ContentPresenter Style="{StaticResource IN.CONTENT}"/>
+						</StackPanel>
+					</Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#084469"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+        <ImageBrush x:Key="tb_mouse_over"
+                    ImageSource="/Asset/back2.png"/>
+        <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                        <Border  x:Name="border"
+                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                 Background="{TemplateBinding Background}"
+                                 SnapsToDevicePixels="True">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="true">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+                            
+                        </ControlTemplate.Triggers>
+                        
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+                
+            </Setter>
+            
+        </Style>
+        <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+        <Converter:EqualityConverter x:Key="EqualConverter" />
+    </view:MvxWpfView.Resources>
+    <Grid KeyboardNavigation.DirectionalNavigation="Contained" Focusable="True">
+        <Grid.InputBindings>
+            <KeyBinding Modifiers="Ctrl" Key="Down" Command="{Binding SecondPageCmd}"></KeyBinding>
+            <KeyBinding Modifiers="Ctrl" Key="Up" Command="{Binding FirstPageCmd}"></KeyBinding>
+        </Grid.InputBindings>
+      
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        
+            <Grid Width="300"  KeyboardNavigation.TabNavigation="None">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+
+                <DockPanel IsEnabled="{Binding DisplayDate}" Height="30" Grid.Row="1" LastChildFill="True">
+                   
+                    <CustClass:GitHubButton Visibility="Collapsed" Cursor="Hand" Width="30" Style="{StaticResource SearchBtn}" DockPanel.Dock="Right"></CustClass:GitHubButton>
+	                <TextBox  Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Stretch" DockPanel.Dock="Left" ToolTip="Rechercher Fiche Technique">
+		                <!-- <ei:Interaction.Triggers> -->
+			               <!--  <ei:EventTrigger EventName="TextChanged" > -->
+				              <!--   <ei:CallMethodAction TargetObject="{Binding}" MethodName="SearchingFicheTechnique"  /> -->
+			               <!--  </ei:EventTrigger> -->
+		                <!-- </ei:Interaction.Triggers> -->
+	                </TextBox>
+                </DockPanel>
+	            <StackPanel Margin="0 0 0 10" Grid.Row="2" Orientation="Horizontal">
+		            <CheckBox IsChecked="{Binding IsSearchByCat}" Margin="0 0 10 0" VerticalAlignment="Center" FontFamily="arial" FontSize="14">Catégorie:</CheckBox>
+		            <ComboBox ItemsSource="{Binding CategorieList }" IsEnabled="{Binding IsSearchByCat}" DisplayMemberPath="Designation" SelectedItem="{Binding SelectedCatSearch}"  Width="100" Height="20"></ComboBox>
+		           
+	            </StackPanel>
+	            <UniformGrid Grid.Row="3" Margin="5" Columns="3">
+		              
+		            <RadioButton Width="80" IsChecked="True" Cursor="Hand"  Command="{Binding TousFTCmd}" Height="20" Content="Tous" Style="{StaticResource {x:Type ToggleButton}}" >
+		            </RadioButton>
+        
+		            <RadioButton  Width="80"  Cursor="Hand" Command="{Binding ProdFTCmd}"  Height="20" Content="Production" Style="{StaticResource {x:Type ToggleButton}}" >
+		            </RadioButton>
+        
+		            <RadioButton  Width="80"  Cursor="Hand" Command="{Binding EchFTCmd}"  Height="20" Content="Échantillon" Style="{StaticResource {x:Type ToggleButton}}" >
+		            </RadioButton>
+	            </UniformGrid>
+                <ListView IsEnabled="{Binding DisplayDate}" FontSize="10" FontWeight="Bold" FontFamily="arial" Grid.Row="4" SizeChanged="ListView_SizeChanged" ItemsSource="{Binding FicheTechniqueList}" SelectedItem="{Binding SelectedFicheTechnique}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Réf" DisplayMemberBinding="{Binding Produits[0].Ref}" />
+                            <GridViewColumn Header="Désignation" DisplayMemberBinding="{Binding Produits[0].Name}" />
+
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+                <StackPanel IsEnabled="{Binding IsAddEnabled}"  Grid.Row="5" HorizontalAlignment="Center" Orientation="Horizontal">
+                    
+	                <CustClass:GitHubButton FontSize="10"  Cursor="Hand" 
+	                                        Style="{StaticResource AddBtn}" 
+	                                        Command="{Binding CmdValiderFicheTek}"
+	                                        Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+	                >Valider</CustClass:GitHubButton>
+                    <CustClass:GitHubButton FontSize="10"  Cursor="Hand" Style="{StaticResource AddBtn}"
+                                            Visibility="{Binding IsRedacteur,Converter={StaticResource BoolToVis}}"
+                                            Command="{Binding CmdAddFicheTek}">Ajouter</CustClass:GitHubButton>
+	                <CustClass:GitHubButton FontSize="10"  Cursor="Hand" Style="{StaticResource ConfirmBtn}"
+	                                        Visibility="{Binding IsConfirm,Converter={StaticResource BoolToVis}}"
+	                                        Command="{Binding CmdConfirmer}">Confirmer</CustClass:GitHubButton>
+	                <CustClass:GitHubButton FontSize="10" Cursor="Hand" 
+	                                        Style="{StaticResource VersionBtn}"   
+	                                        Visibility="{Binding IsPerm,Converter={StaticResource BoolToVis}}"
+	                                        Command="{Binding CmdAddNewVersion}" >Ajout Version</CustClass:GitHubButton>
+                    <CustClass:GitHubButton IsEnabled="{Binding IsTempo}" 
+                                            FontSize="10" Cursor="Hand" Style="{StaticResource EditBtn}"  
+                                            Command="{Binding CmdEditFicheTek}" 
+                                            Visibility="{Binding tempo,Converter={StaticResource BoolToVis}}"
+                                            >Modifier</CustClass:GitHubButton>
+                    <CustClass:GitHubButton FontSize="10" Cursor="Hand" Style="{StaticResource RemoveBtn}"  Command="{Binding CmdDeleteFicheTek}" Visibility="{Binding SuperUser,Converter={StaticResource BoolToVis}}">Supprimer</CustClass:GitHubButton>
+                </StackPanel>
+            </Grid>
+       
+        <Grid Name="Frm" Grid.Column="1"  ClipToBounds="True">
+           
+            <local:FicheTekPart2 x:Name="Part2Tek" IsEnabled="{Binding EnableEditing}"  Visibility="{Binding Part2Visible,Converter={StaticResource BoolToVis}}"
+                                 Grid.RowSpan="2" >
+             
+            </local:FicheTekPart2>
+            <local:FicheTekPart1 x:Name="Part1Tek"  KeyboardNavigation.TabIndex="0" KeyboardNavigation.DirectionalNavigation="Local" Visibility="{Binding Part1Visible,Converter={StaticResource BoolToVis}}" 
+                                 Grid.RowSpan="2" />
+           
+        </Grid>
+       
+  <Grid Grid.Column="1" ColumnSpan="2" ZIndex="1" HorizontalAlignment="Right" >
+      <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+	  <Grid HorizontalAlignment="Center"  
+	        Width="30" Name="ShortEnfView"
+	        Visibility="{Binding Part2Visible,Converter={StaticResource BoolToVis}}">
+		  <Grid.RowDefinitions>
+			  <RowDefinition Height="Auto"	></RowDefinition>
+			  <RowDefinition Height="Auto"></RowDefinition>
+			  <RowDefinition Height="*"></RowDefinition>
+		  </Grid.RowDefinitions>
+		  <ListBox  ItemsSource="{Binding SchCompList}" DisplayMemberPath="EnfNbrFil">
+			
+		  </ListBox>
+		  <StackPanel>
+			  <TextBlock HorizontalAlignment="Center"  Grid.Row="1">
+				  <TextBlock.Text >
+					  <MultiBinding  StringFormat="{}{0}/{1}">
+						  <Binding Path="NbrDent" ></Binding>
+						  <Binding Path="NewProd.Dent"></Binding>
+					  </MultiBinding>
+				  </TextBlock.Text>
+			  </TextBlock>
+			  <TextBox Text="{Binding RotateX}"></TextBox>
+			  <TextBox Text="{Binding RotateY}"></TextBox>
+		  </StackPanel>
+		  
+	  </Grid>
+      <ToggleButton 
+          Height="30" Width="25" 
+          HorizontalAlignment="Right"
+          VerticalAlignment="Center"
+         Cursor="Hand"
+          IsChecked="False"          BorderThickness="0"
+          Style="{StaticResource tb_style}"
+          >
+          <ToggleButton.Background>
+
+                                
+                                <ImageBrush  ImageSource="/Asset/back.png"
+                                                AlignmentY="Center" 
+                                                AlignmentX="Center"
+                                            Stretch="Fill">
+                                  
+                                </ImageBrush>
+
+                            </ToggleButton.Background>
+                            
+                            <!--// Toggle Button - Checked, Unchecked events //-->
+
+                            <ToggleButton.Triggers>
+
+                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+	                                <BeginStoryboard>
+
+		                                <Storyboard x:Name="ShowQuickEnfilage">
+
+			                                <DoubleAnimation
+                                                
+				                                Storyboard.TargetName="ShortEnfView"
+				                                Storyboard.TargetProperty="Opacity"
+				                                BeginTime="0:0:0"
+				                                
+				                                From="0" To="1"
+				                                Duration="0:0:0.3">                                                
+                                                
+			                                </DoubleAnimation>
+                                            
+		                                </Storyboard>
+                                        
+	                                </BeginStoryboard>
+                                    <BeginStoryboard>
+
+                                        <Storyboard x:Name="HideStackPanel">
+
+                                            <DoubleAnimation    
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="180" To="0"
+                                                Duration="0:0:0.2">                                                
+                                                
+                                            </DoubleAnimation>
+                                            
+                                        </Storyboard>
+                                        
+                                    </BeginStoryboard>
+                                    
+                                </EventTrigger>
+
+                                <EventTrigger RoutedEvent="ToggleButton.Checked">
+	                                <BeginStoryboard>
+
+		                                <Storyboard x:Name="HideQuickEnfilage">
+
+			                                <DoubleAnimation    
+                                                
+				                                Storyboard.TargetName="ShortEnfView"
+				                                Storyboard.TargetProperty="Opacity"
+				                                BeginTime="0:0:0"
+				                                From="1" To="0"
+				                                Duration="0:0:0.2">                                                
+                                                
+			                                </DoubleAnimation>
+                                            
+		                                </Storyboard>
+                                        
+	                                </BeginStoryboard>
+	                                
+	                                
+                                    <BeginStoryboard>
+
+                                        <Storyboard x:Name="ShowStackPanel">
+
+                                            <DoubleAnimation
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="0" To="180"
+                                                Duration="0:0:0.3">                                                
+                                                
+                                            </DoubleAnimation>
+                                            
+                                        </Storyboard>
+                                        
+                                    </BeginStoryboard>
+                                    
+                                </EventTrigger>
+                                
+                            </ToggleButton.Triggers>
+      </ToggleButton>
+      <StackPanel Background="WhiteSmoke" HorizontalAlignment="Right" x:Name="nav_pnl" Width="0" Grid.Column="1"   KeyboardNavigation.DirectionalNavigation="None">
+          <CustClass:GitHubButton Width="80" Style="{StaticResource PrintBtn}" Command="{Binding PrintCmd}" Panel.ZIndex="1" Height="25">Imprimer</CustClass:GitHubButton>
+	      <CheckBox 
+		      Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+		      IsChecked="{Binding IsEnfilage}">Enfilage</CheckBox>
+	      <GroupBox IsEnabled="{Binding IsEnfilage}" Header="Nbr Fils">
+		      <StackPanel Orientation="Vertical">
+			      <Grid>
+				      <Grid.RowDefinitions>
+					      <RowDefinition />
+					  
+				      </Grid.RowDefinitions>
+				      <Grid.ColumnDefinitions>
+					      <ColumnDefinition />
+				      </Grid.ColumnDefinitions>
+				      <ListView ItemsSource="{Binding SchCompList}">
+					      <ListView.ItemContainerStyle>
+						      <Style  TargetType="{x:Type ListViewItem}"  >
+							      <Setter Property="Border.BorderBrush" Value="Red"/>
+							      <Style.Triggers>
+								      <DataTrigger Value="True">
+									      <DataTrigger.Binding>
+										      <MultiBinding>
+											      <MultiBinding.Converter>
+												      <Converter:EqualityConverter />
+											      </MultiBinding.Converter>
+											      <Binding  Path="EnfNbrFil" NotifyOnTargetUpdated="True"  NotifyOnSourceUpdated="True" />
+											      <Binding Path=" NbrFil" NotifyOnTargetUpdated="True" NotifyOnSourceUpdated="True" />
+										      </MultiBinding>
+									      </DataTrigger.Binding>
+									      <Setter Property="Border.BorderBrush" Value="Green"/>
+								      </DataTrigger>
+							      </Style.Triggers>
+						      </Style>
+						      </ListView.ItemContainerStyle>
+					      <ListView.View>
+						      <GridView>
+							     
+							      <GridViewColumn Header="Composant" DisplayMemberBinding="{Binding GetComposant.Name,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" />
+							      <GridViewColumn Header="Enfilage" x:Name="EnfK" DisplayMemberBinding="{Binding EnfNbrFil,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" />
+							      <GridViewColumn Header="Nbr Fils" DisplayMemberBinding="{Binding NbrFil,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" />
+							
+						      </GridView>
+					      </ListView.View>
+				      </ListView>
+			      </Grid>
+		      </StackPanel>
+
+	      </GroupBox>
+	      <GroupBox IsEnabled="{Binding IsEnfilage}" Header="Nbr Dents">
+		     
+				      <Grid>
+					      <Grid.ColumnDefinitions>
+						      <ColumnDefinition></ColumnDefinition>
+						      <ColumnDefinition></ColumnDefinition>
+					      </Grid.ColumnDefinitions>
+					      <Grid.RowDefinitions>
+						      <RowDefinition></RowDefinition>
+						      <RowDefinition></RowDefinition>
+					      </Grid.RowDefinitions>
+					      <TextBlock Grid.Column="1">Annoncé</TextBlock>
+					      <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NewProd.Dent,StringFormat=0;;#}"></TextBlock>
+					      
+					      <TextBlock Grid.Column="0">Enfilage</TextBlock>
+					      <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding NbrDent,StringFormat=0;;#}"></TextBlock>
+				      </Grid>
+
+	      </GroupBox>
+	       <GroupBox IsEnabled="{Binding IsEnfilage}" Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" Header="Chaine">
+		       <StackPanel>
+			       <StackPanel Orientation="Vertical">
+				       <Grid>
+					       <Grid.RowDefinitions>
+						       <RowDefinition />
+						       <RowDefinition />
+					       </Grid.RowDefinitions>
+					       <Grid.ColumnDefinitions>
+						       <ColumnDefinition  Width="2.5*"/>
+						       <ColumnDefinition Width="2*"/>
+					       </Grid.ColumnDefinitions>
+					      
+					       <TextBlock FontSize="10" VerticalAlignment="Center" FontWeight="Bold">Chaine Séléctionnée</TextBlock>
+					       <ComboBox IsEnabled="{Binding UseCreatedChaine}" DisplayMemberPath="Nom"  ItemsSource="{Binding ChaineNameList}" SelectedItem="{Binding SelectedChaine}"  Grid.Column="1" Height="20"></ComboBox>
+					       
+						       <CheckBox  Grid.Row="1" Command="{Binding CreateChaine}" IsChecked="{Binding IsCreateChaine}" FontSize="10" >Création</CheckBox>
+						     
+				       </Grid>
+			       </StackPanel>
+			       <GroupBox IsEnabled="{Binding EnableChaineCreation}" FontSize="14" FontWeight="Bold" Header="Armure">
+				       <StackPanel Orientation="Vertical">
+					       <Grid>
+						       <Grid.RowDefinitions>
+							       <RowDefinition />
+							       <RowDefinition />
+							       <RowDefinition />
+							       <RowDefinition />
+						       </Grid.RowDefinitions>
+						       <Grid.ColumnDefinitions>
+							       <ColumnDefinition />
+							       <ColumnDefinition />
+						       </Grid.ColumnDefinitions>
+						      
+							       <TextBlock FontSize="12" FontWeight="Bold" >designation:</TextBlock>
+							       <TextBox Grid.Column="1" Text="{Binding DesignationChaine}"></TextBox>
+						       
+						       <TextBlock Grid.Row="1" FontSize="12" FontWeight="Bold" VerticalAlignment="Center">N° Colonne:</TextBlock>
+						       <xcd:IntegerUpDown Grid.Column="1" Grid.Row="1"  Width="60" Minimum="1" Maximum="10" Text="{Binding ChaineColumns,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" />
+
+						       <TextBlock Grid.Row="2" FontSize="12" FontWeight="Bold" VerticalAlignment="Center">N° Lignes:</TextBlock>
+						       <xcd:IntegerUpDown Grid.Row="2" Grid.Column="1" Minimum="4" Maximum="96" Width="60" Text="{Binding ChRowSum,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" />
+						       <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding ValiderChaine}" >Valider</Button>
+					       </Grid>
+				       </StackPanel>
+
+			       </GroupBox>
+		       </StackPanel>
+	       </GroupBox>
+	      
+	     
+	      
+            <GroupBox Visibility="Collapsed" Header="Enfilage">
+                <ListView ItemsSource="{Binding ListComposant}" Width="100">
+                    <ListView.View>
+
+                        <GridView>
+                            <GridViewColumn Header="Composant" DisplayMemberBinding="{Binding NameComposant}" />
+                            <GridViewColumn Header="N° Fil">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Width="30" Text="{Binding NbrFil}" />
+
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+
+                            </GridViewColumn>
+                            <GridViewColumn Header="Debut Fil">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBox Width="30" Text="{Binding DebutFil}" />
+
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+
+                            </GridViewColumn>
+                            <GridViewColumn Header="Intermittent">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <ComboBox>
+
+                                            <ComboBoxItem Content="False" />
+                                            <ComboBoxItem Content="True" IsSelected="{Binding Intermittent}" />
+                                        </ComboBox>
+
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+            </GroupBox>
+            <GroupBox Visibility="Collapsed" Header="Dent" Focusable="True">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="N° Dents" />
+                    <TextBox Width="30" Grid.Column="1" Height="20" Text="{Binding NumDents}" />
+                    <TextBlock Grid.Row="1">Répétition</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Width="30" Height="20" Text="{Binding Rep}" />
+                    <TextBlock Grid.Row="2">Fil/Dent</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Width="30" Height="20" Text="{Binding FilDent}" />
+                </Grid>
+
+            </GroupBox>
+            <Button Width="80" Visibility="Collapsed">Appliquer</Button>
+            <Button Width="80" Visibility="Collapsed">Vider Tous</Button>
+	      <Grid>
+		      <Grid.RowDefinitions>
+			      <RowDefinition></RowDefinition>
+			      <RowDefinition></RowDefinition>
+		      </Grid.RowDefinitions>
+		      <Grid Grid.Row="1" Background="Lavender">
+	             
+			      <Grid.ColumnDefinitions>
+				      <ColumnDefinition Width="1*"/>
+				      <ColumnDefinition Width="0.1*"/>
+				      <ColumnDefinition Width="1.2*"/>
+              
+			      </Grid.ColumnDefinitions>
+			      <CustClass:GitHubButton Style="{StaticResource SaveBtn}" Visibility="{Binding SaveCancelBtn,Converter={StaticResource BoolToVis}}" Grid.Column="2"
+			                              Cursor="Hand" Background="LightSteelBlue" Command="{Binding CmdSaveFicheTek}"
+			                              Height="25" VerticalAlignment="Top">
+				      Enregistrer
+			      </CustClass:GitHubButton>
+			      <CustClass:GitHubButton Style="{StaticResource CancelBtn}" Visibility="{Binding SaveCancelBtn,Converter={StaticResource BoolToVis}}" Grid.Column="0"
+			                              Cursor="Hand" Background="LightSteelBlue"  Height="25"
+			                              Command="{Binding CmdCancelFicheTek}">
+				      Annuler
+			      </CustClass:GitHubButton>
+			      </Grid>
+		      <Grid>
+			      <Grid.ColumnDefinitions>
+				      <ColumnDefinition></ColumnDefinition>
+				      <ColumnDefinition></ColumnDefinition>
+				      <ColumnDefinition></ColumnDefinition>
+			      </Grid.ColumnDefinitions>
+			      <Button Cursor="Hand" IsEnabled="{Binding IsPrevPage}" HorizontalAlignment="Right" Grid.Column="0"
+			              Command="{Binding PrevPage}" Width="auto" BorderBrush="Transparent" Background="Transparent">
+				      <Image Height="20" Source="../Asset/ArrowLeft.png" />
+			      </Button>
+			      <Border Grid.Column="1" BorderBrush="LightPink" Background="WhiteSmoke" CornerRadius="4"
+			              BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+				      <TextBlock Text="{Binding PageNumber}" FontFamily="Arial" Width="20" />
+			      </Border>
+			      <Button IsEnabled="{Binding IsNextPage}" Cursor="Hand" HorizontalAlignment="Left" Grid.Column="2"
+			              Command="{Binding NextPage}" Width="auto" BorderBrush="Transparent" Background="Transparent">
+				      <Image Height="20" Source="../Asset/ArrowRight.png" />
+			      </Button>
+		      </Grid>
+	      </Grid>
+            
+
+            
+
+           
+        </StackPanel>
+  </Grid>
+    </Grid>
+</view:MvxWpfView>
