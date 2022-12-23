@@ -1,0 +1,447 @@
+﻿<UserControl x:Class="DSheetEnfilage.EnfilageSchemas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:behiavor="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             SizeChanged="EnfilageSchemas_OnSizeChanged"
+             >
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="Empty" >
+             <Border Background="{Binding Path=color}" 
+                                BorderThickness="1 0 0 0"
+                                
+                                
+
+                                Height="15"
+                                Width="17"
+
+
+                                Focusable="True"
+
+
+                                GotFocus="Border_GotFocus"
+                                LostFocus="Border_LostFocus"
+                                MouseDown="Border_MouseDown"
+                                Tag="{Binding}">
+                           
+                            <Border.BorderBrush>
+
+                                 <!-- <LinearGradientBrush StartPoint="0,0" EndPoint="0,3" MappingMode="Absolute"  -->
+                                 <!--                    SpreadMethod="Repeat">  -->
+                                 <!--   <GradientStop Offset="0" Color="Black" />  -->
+                                 <!--    <GradientStop Offset="0.25" Color="Black" />  -->
+                                 <!--    <GradientStop Offset="0.5" Color="Black" />  -->
+                                 <!--    <GradientStop Offset="0.5" Color="Transparent" />  -->
+                                 <!--    <GradientStop Offset="0.75" Color="Transparent" />  -->
+                                 <!--   <GradientStop Offset="1" Color="Transparent" /> -->
+                                 <!-- </LinearGradientBrush>  -->
+
+ 
+                                 
+                                <VisualBrush >
+                                    <VisualBrush.Visual>
+                                        <Rectangle StrokeDashArray="{Binding Dash,TargetNullValue=''}" Stroke="{Binding BorderCO}" StrokeThickness="1"
+                  Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                  Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+
+                            </Border.BorderBrush>
+                            <Border BorderThickness="0 0 0 1"
+
+                                    Height="11.5"
+                                    Width="13">
+
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="3,0" MappingMode="Absolute"
+                                                         SpreadMethod="Repeat">
+                                        <GradientStop Offset="0" Color="Black" />
+                                        <GradientStop Offset="0.25" Color="Black" />
+                                        <GradientStop Offset="0.5" Color="Black" />
+                                        <GradientStop Offset="0.5" Color="Transparent" />
+                                        <GradientStop Offset="0.75" Color="Transparent" />
+                                        <GradientStop Offset="1" Color="Transparent" />
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <TextBlock TextAlignment="Center" VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center" Foreground="{Binding TextBK}"
+                                           Text="{Binding Num}" />
+                            </Border>
+
+                        </Border>
+
+        </DataTemplate> 
+
+        <DataTemplate x:Key="Content" >
+            <Border
+                
+                Focusable="True"
+
+
+                GotFocus="Border_GotFocus"
+                LostFocus="Border_LostFocus"
+                MouseDown="Border_MouseDown"
+                Tag="{Binding}"
+                BorderThickness="1" Background="{Binding color}" BorderBrush="{Binding BorderCO}" Height="11.5" Width="13">
+                <TextBlock TextAlignment="Center" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" Foreground="{Binding TextBK}"
+                           Text="{Binding Num}" />
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Visibility="Collapsed" KeyboardNavigation.DirectionalNavigation="None">
+            <Button Click="Button_Click" Panel.ZIndex="1" Height="30">Print</Button>
+            <GroupBox Header="Rapport Armure">
+                <StackPanel Orientation="Vertical">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="12" FontWeight="Bold" VerticalAlignment="Center">N° Colonne:</TextBlock>
+                        <TextBox Grid.Column="1" Height="25" Width="30" Text="{Binding ArmureColumns}" />
+
+                        <TextBlock Grid.Row="1" FontSize="12" FontWeight="Bold" VerticalAlignment="Center">N° Lignes:</TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="1" Height="25" Width="30" Text="{Binding ArmureRows}" />
+                        <Button Grid.Row="2" Grid.ColumnSpan="2" Click="Button_Click_1">Valider</Button>
+                    </Grid>
+                </StackPanel>
+
+            </GroupBox>
+            <GroupBox Header="Enfilage">
+                <ListView ItemsSource="{Binding ListComposant}" Width="100">
+                    <ListView.View>
+
+                        <GridView>
+                            <GridViewColumn Header="Composant" DisplayMemberBinding="{Binding NameComposant}" />
+                            <GridViewColumn Header="N° Fil">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Width="30" Text="{Binding NbrFil}" />
+
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+
+                            </GridViewColumn>
+                            <GridViewColumn Header="Debut Fil">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBox Width="30" Text="{Binding DebutFil}" />
+
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+
+                            </GridViewColumn>
+                            <GridViewColumn Header="Intermittent">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <ComboBox>
+
+                                            <ComboBoxItem Content="False" />
+                                            <ComboBoxItem Content="True" IsSelected="{Binding Intermittent}" />
+                                        </ComboBox>
+
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+            </GroupBox>
+            <GroupBox Header="Dent" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="N° Dents" />
+                    <TextBox Width="30" Grid.Column="1" Height="20" Text="{Binding NumDents}" />
+                    <TextBlock Grid.Row="1">Répétition</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Width="30" Height="20" Text="{Binding Rep}" />
+                    <TextBlock Grid.Row="2">Fil/Dent</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Width="30" Height="20" Text="{Binding FilDent}" />
+                </Grid>
+
+            </GroupBox>
+            <Button Width="80" Click="Button_Click_2">Appliquer</Button>
+            <Button Width="80" Click="Button_Click_3">Vider Tous</Button>
+        </StackPanel>
+
+
+        <Grid Grid.Column="1" VerticalAlignment="Center" KeyboardNavigation.DirectionalNavigation="None"
+              PreviewKeyDown="Board_PreviewKeyDown" Name="FicheTec">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+
+            <ListBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                     ItemsSource="{Binding ListComposant,RelativeSource={RelativeSource AncestorType=UserControl}}" SelectedItem="{Binding SelectedComposant,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                     KeyboardNavigation.DirectionalNavigation="None" Cursor="Hand" Panel.ZIndex="1">
+
+                <ListBox.ItemContainerStyle>
+
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="Red" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Black" Margin="1">
+
+                            <DockPanel Cursor="Hand">
+
+                                <Border BorderThickness="1" BorderBrush="{Binding BKBorderComposant}">
+                                    <TextBlock Background="{Binding BKComposant}" Text="{Binding NumComposant}"
+                                               Foreground="{Binding FGComposant}" Width="12" TextAlignment="Center"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+
+                                <TextBlock Width="70" Margin="2 0 2 0" Foreground="Black" FontSize="12"
+                                           FontWeight="Bold"  TextAlignment="Center"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    
+                                    <DockPanel>
+                                        <TextBlock Text="{Binding GetComposant.Name}" Margin="0 0 1 0">
+                                            
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Num,StringFormat=0;;#}"></TextBlock>
+                                    </DockPanel>
+                                </TextBlock>
+
+
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+
+            </ListBox>
+
+            <StackPanel AllowDrop="True" Panel.ZIndex="1" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top"
+                        Width="60" Height="80">
+                <behiavor:Interaction.Behaviors>
+                    <behiavor:MouseDragElementBehavior ConstrainToParentBounds="True" />
+                </behiavor:Interaction.Behaviors>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="Black" Background="WhiteSmoke" BorderThickness="1">
+                        <TextBlock FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            Trame
+                        </TextBlock>
+
+                    </Border>
+                    <Border VerticalAlignment="Stretch" Height="40" HorizontalAlignment="Center" Width="25"
+                            Grid.Row="1" BorderBrush="Black" Background="WhiteSmoke" BorderThickness="1">
+                        <TextBlock FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" FontFamily="Jokerman">
+                            )
+                        </TextBlock>
+
+                    </Border>
+                </Grid>
+
+
+            </StackPanel>
+
+            <ItemsControl BorderBrush="Black" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="0"
+                          VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Board"
+                           ItemsSource="{Binding BoardItems,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                          KeyboardNavigation.TabNavigation="None" 
+                          ClipToBounds="True"
+                          KeyboardNavigation.DirectionalNavigation="None">
+
+                <ItemsControl.ItemsPanel>
+
+
+                    <ItemsPanelTemplate>
+
+                        <UniformGrid FlowDirection="RightToLeft" HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" Columns="83" Rows="59"
+                                    Cursor="Hand"
+                                     Background="AliceBlue" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      
+                        <ContentControl Content="{Binding }"> 
+                            <ContentControl.Style> 
+                               <Style TargetType="{x:Type ContentControl}">
+                                 <Setter Property="ContentTemplate" Value="{StaticResource Empty}" />
+                                    <Style.Triggers> 
+                                        <DataTrigger Binding="{Binding IsContent}" Value="True"> 
+                                             <Setter Property="ContentTemplate" Value="{StaticResource Content}" />
+                                        </DataTrigger> 
+                                    </Style.Triggers> 
+                                 </Style> 
+                            </ContentControl.Style>
+                        </ContentControl> 
+                      
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!--</ScrollViewer>-->
+
+            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+
+                </Grid.RowDefinitions>
+
+                <ItemsControl HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Grid.Row="0"
+                              Background="Beige" Name="ChaineBoard" ItemsSource="{Binding ChaineList,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              KeyboardNavigation.TabNavigation="None" KeyboardNavigation.DirectionalNavigation="None">
+
+                    <ItemsControl.ItemsPanel>
+
+
+                        <ItemsPanelTemplate>
+
+
+                            <UniformGrid Height="auto" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                         Columns="{Binding ChaineColumns,RelativeSource={RelativeSource AncestorType=UserControl}}" Rows="{Binding ChaineRows,RelativeSource={RelativeSource AncestorType=UserControl}}" x:Name="UniGrid"
+                                         Cursor="Hand" Background="AliceBlue" />
+
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border Background="{Binding Path=color}"
+                                    Height="11.5"
+                                    Width="13"
+
+                                    Focusable="True"
+
+                                    MouseDown="Border_MouseDown_1"
+                                    LostFocus="Border_LostFocus_1"
+                                    GotFocus="Border_GotFocus_1"
+                                    BorderThickness="1"
+                                    Tag="{Binding}">
+                                <Border.BorderBrush>
+                                    <VisualBrush>
+                                        <VisualBrush.Visual>
+                                            <Rectangle StrokeDashArray="{Binding Dash,TargetNullValue=''}"
+                                                       Stroke="{Binding BorderCO}" StrokeThickness="1"
+                                                       Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                                       Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Border.BorderBrush>
+                                <TextBlock TextAlignment="Center" VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" Foreground="{Binding TextBK}"
+                                           Text="{Binding Num}" />
+                            </Border>
+
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!--</Border>-->
+
+                <Grid Grid.Column="0" Height="46" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <UniformGrid HorizontalAlignment="Right" Columns="8" Rows="1" Background="White">
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">1</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">2</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">3</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">4</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">5</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">6</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">7</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="13" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">8</TextBlock>
+                        </Border>
+                    </UniformGrid>
+                    <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black">
+                        <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"
+                                       FontSize="13" FontWeight="Bold">
+                                Rapport:
+                            </TextBlock>
+                            <TextBlock Margin="10 0 0 0" Grid.Column="1" FontSize="13" FontWeight="Bold"
+                                       VerticalAlignment="Center" Text="{Binding ChaineRows}" />
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

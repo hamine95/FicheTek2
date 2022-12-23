@@ -1,0 +1,67 @@
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DSheetEnfilage.exe.config
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DSheetEnfilage.exe
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DSheetEnfilage.pdb
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.AssemblyReference.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\EnfilageSchemas.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\MainWindow.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\App.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage_MarkupCompile.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage_MarkupCompile.lref
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\EnfilageSchemas.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\MainWindow.baml
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.g.resources
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.Properties.Resources.resources
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.GenerateResource.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.CoreCompileInputs.cache
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.CopyComplete
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.exe
+C:\Users\Calmbatman\source\repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.Properties.Resources.resources
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.GenerateResource.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.CoreCompileInputs.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DSheetEnfilage.exe.config
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DSheetEnfilage.exe
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DSheetEnfilage.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Microsoft.Xaml.Behaviors.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Microsoft.Xaml.Behaviors.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\EnfilageSchemas.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\EnfilageSchemas.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\MainWindow.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\App.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage_MarkupCompile.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage_MarkupCompile.lref
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\MainWindow.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.g.resources
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.CopyComplete
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.exe
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.AssemblyReference.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csproj.SuggestedBindingRedirects.cache
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\BackEnd2.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\BackEnd2.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\EnfilageSchV2.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\EnfilageSchV2.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\CanvasControl.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\CanvasControl.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DotNetZip.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\unvell.ReoGrid.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DotNetZip.pdb
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DotNetZip.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\unvell.ReoGrid.xml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\GeoGrid.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\GeoGrid.baml
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage_Content.g.cs
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\square.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\stop.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\dottedCell.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\dotGris.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\squareOne.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\squareHighlight.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\fil.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\reed.png
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\DLL\Dapper.dll
+F:\Development\backup VS project\Repos\DataSheetDesign\DSheetEnfilage\bin\Debug\Dapper.dll

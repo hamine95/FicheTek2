@@ -1,0 +1,566 @@
+﻿<UserControl x:Class="DSheetEnfilage.CanvasControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rg="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+             xmlns:local="clr-namespace:DSheetEnfilage"
+             xmlns:CustClass="clr-namespace:DSheetEnfilage.CustomClass"
+             xmlns:behiavor="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             SizeChanged="CanvasControl_OnSizeChanged"
+             xmlns:Converter="clr-namespace:FrontEnd.Converter"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style  TargetType="{x:Type ToggleButton}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                        <Border  x:Name="border"
+                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                 Background="{TemplateBinding Background}"
+                                 SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="SteelBlue"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="SteelBlue"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="true">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="SteelBlue"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="SteelBlue"/>
+
+                            </Trigger>
+                            
+                        </ControlTemplate.Triggers>
+                        
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+                
+            </Setter>
+            
+        </Style>
+        <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid ClipToBounds="True"  VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+      
+
+
+        <Grid Grid.Column="0" VerticalAlignment="Center" 
+              KeyboardNavigation.DirectionalNavigation="None"
+              PreviewKeyDown="Board_PreviewKeyDown" Name="FicheTec">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+
+            <Grid
+                Panel.ZIndex="1"
+                Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ListBox   
+                    VerticalAlignment="Bottom"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                     ItemsSource="{Binding ListComposant,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                     SelectedItem="{Binding SelectedComposant,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                     KeyboardNavigation.DirectionalNavigation="None" Cursor="Hand" >
+
+                <ListBox.ItemContainerStyle>
+
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="Red" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Black" Margin="0">
+
+                            <DockPanel Cursor="Hand">
+
+                               
+                                <Image Source="{Binding ImagePath}" Width="12"></Image>
+
+                                <TextBlock Height="12" Width="55" Margin="1 0 0 0" Foreground="Black" FontSize="12"
+                                           FontWeight="Bold"  TextAlignment="Center"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    
+                                    <DockPanel>
+                                        <TextBlock Text="{Binding GetComposant.Name}" VerticalAlignment="Center" Margin="0 0 1 0">
+                                            
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Num,StringFormat=0;;#}" VerticalAlignment="Center"></TextBlock>
+                                    </DockPanel>
+                                </TextBlock>
+
+
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+
+            </ListBox>
+                <StackPanel Grid.Column="1" Margin="5 0 0 0" Visibility="{Binding IsDentFil,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}">
+                    <RadioButton Margin="0 0 0 5" ToolTip="Dent" Unchecked="ToggleButton_OnUnchecked" Checked="ToggleButton_OnChecked" IsChecked="True" Width="14" Height="14" Cursor="Hand"    Style="{StaticResource {x:Type ToggleButton}}" >
+                        <Image Height="14" Width="14" Source="/Asset/reed.png"></Image>
+                    </RadioButton>
+                    <RadioButton ToolTip="Lisse"   Width="14" Cursor="Hand"   Style="{StaticResource {x:Type ToggleButton}}" >
+                        <Image Height="14" Width="14" Source="/Asset/fil.png"></Image>
+                    </RadioButton>
+                </StackPanel>
+            </Grid>
+                
+             
+
+            <StackPanel   AllowDrop="True"  Panel.ZIndex="1" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left"
+                        Width="60" Height="80">
+                <StackPanel.RenderTransform>
+                    <TranslateTransform   X="{Binding TrameXposition,RelativeSource={RelativeSource AncestorType=UserControl}}" Y="{Binding TrameYposition,RelativeSource={RelativeSource AncestorType=UserControl}}"  />
+                </StackPanel.RenderTransform>
+                <behiavor:Interaction.Behaviors>
+                    <behiavor:MouseDragElementBehavior DragFinished="MouseDragElementBehavior_OnDragFinished"     ConstrainToParentBounds="True" >
+                        
+                    </behiavor:MouseDragElementBehavior>
+                </behiavor:Interaction.Behaviors>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="Black" Background="WhiteSmoke" BorderThickness="1">
+                        <TextBlock FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            Trame
+                        </TextBlock>
+
+                    </Border>
+                    <Border VerticalAlignment="Stretch" Height="40" HorizontalAlignment="Center" Width="25"
+                            Grid.Row="1" BorderBrush="Black" Background="WhiteSmoke" BorderThickness="1">
+                        <TextBlock FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" FontFamily="Jokerman">
+                            )
+                        </TextBlock>
+
+                    </Border>
+                </Grid>
+
+
+            </StackPanel>
+
+            <ItemsControl BorderBrush="Black" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="0"
+                          VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Board"
+                           ItemsSource="{Binding EnfilageBoard,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                     
+                          KeyboardNavigation.TabIndex="0"
+                          ClipToBounds="True"
+                        >
+
+                <ItemsControl.ItemsPanel>
+
+
+                    <ItemsPanelTemplate>
+
+                        <UniformGrid  FlowDirection="RightToLeft" HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" Columns="83" Rows="58"
+                                     
+                                    Cursor="Hand" 
+                                      />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      
+                        <Image  Tag="{Binding}" MouseDown="ImageMouseDown" LostFocus="ImageLostFocus" GotFocus="ImageFocus" Cursor="Hand"  Source="{Binding Num}"  Height="12"
+                             ></Image>
+                      
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+             
+            </ItemsControl>
+
+
+           
+            <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1"
+                  HorizontalAlignment="Right"     VerticalAlignment="Bottom" >
+               <Grid.RowDefinitions>
+                   <RowDefinition></RowDefinition>
+                   <RowDefinition></RowDefinition>
+               </Grid.RowDefinitions>
+                <StackPanel 
+                    
+                             HorizontalAlignment="Right"
+                             Visibility="{Binding IsEditChain2,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                             Grid.Row="0"  Grid.Column="2" Height="20"  Orientation="Horizontal">
+                    <Border Background="White" BorderThickness="1" Width="12" BorderBrush="Black">
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedColChain,RelativeSource={RelativeSource AncestorType=UserControl}}"></TextBlock>
+                    </Border>
+                    <ComboBox DisplayMemberPath="Name" SelectedItem="{Binding SelectedComp,RelativeSource={RelativeSource AncestorType=UserControl}}" ItemsSource="{Binding CompList,RelativeSource={RelativeSource AncestorType=UserControl}}" Width="70"></ComboBox>
+                </StackPanel>
+                <Grid RenderTransformOrigin="0.5,0.5" ClipToBounds="True"
+                       Grid.Row="1"
+                      >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="auto" />
+                    
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.LayoutTransform>
+                    <RotateTransform  CenterY="{Binding ChainRotateY,RelativeSource={RelativeSource AncestorType=UserControl }}" 
+                                      CenterX="{Binding ChainRotateX,RelativeSource={RelativeSource AncestorType=UserControl }}" 
+                                      Angle="{Binding AngleChain,RelativeSource={RelativeSource AncestorType=UserControl }}" ></RotateTransform>
+                </Grid.LayoutTransform>
+
+                <StackPanel  Grid.Column="1" VerticalAlignment="Top" 
+                             Visibility="{Binding IsEditChain,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                             Grid.Row="1" Height="20"  Orientation="Horizontal">
+                    <Border Background="White" BorderThickness="1" Width="12" BorderBrush="Black">
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedColChain,RelativeSource={RelativeSource AncestorType=UserControl}}"></TextBlock>
+                    </Border>
+                    <ComboBox DisplayMemberPath="Name" SelectedItem="{Binding SelectedComp,RelativeSource={RelativeSource AncestorType=UserControl}}" ItemsSource="{Binding CompList,RelativeSource={RelativeSource AncestorType=UserControl}}" Width="70"></ComboBox>
+                </StackPanel>
+                <ItemsControl Grid.Column="2" 
+                              VerticalAlignment="Bottom"
+                              Visibility="{Binding SecChainVis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                            
+                              IsEnabled="{Binding EnableChaineEdit,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                              HorizontalAlignment="Left" BorderThickness="1" 
+                              BorderBrush="Black" 
+                              Grid.Row="0"
+                              Background="Beige" Name="ChaineBoard2" 
+                              ItemsSource="{Binding ChaineList2,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              KeyboardNavigation.TabNavigation="None" 
+                              KeyboardNavigation.DirectionalNavigation="None">
+
+                    <ItemsControl.ItemsPanel>
+
+
+                        <ItemsPanelTemplate>
+
+
+                            <UniformGrid Height="auto" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                         Columns="{Binding ChaineColumns,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                         Rows="{Binding ChaineRows2,RelativeSource={RelativeSource AncestorType=UserControl}}" x:Name="UniGrid2"
+                                         Cursor="Hand" Background="AliceBlue" />
+
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image  Tag="{Binding}" MouseDown="ImageMouseDown1" LostFocus="ImageLostFocus" GotFocus="ImageFocus" Cursor="Hand"  Source="{Binding ImagePath}" Width="12"  Height="12"></Image>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Grid Grid.Column="2"  
+                      Visibility="{Binding SecChainVis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+
+                      Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                      Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <UniformGrid 
+                        
+                        HorizontalAlignment="Right" Columns="{Binding ChainColNum,RelativeSource={RelativeSource AncestorType=UserControl}}" Rows="1" Background="White">
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">1</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">2</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">3</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">4</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">5</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">6</TextBlock>
+                        </Border>
+                        <Border  BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock  FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">7</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">8</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" 
+                                Visibility="{Binding Btn9Vis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                                Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">9</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" 
+                                Visibility="{Binding Btn10Vis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                                Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                10
+                                <TextBlock.LayoutTransform>
+                                    <RotateTransform Angle="90"></RotateTransform>
+                                </TextBlock.LayoutTransform>
+                            </TextBlock>
+                        </Border>
+                    </UniformGrid>
+                    <Border Grid.Row="1"  BorderThickness="1" BorderBrush="Black">
+                        <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"
+                                       FontSize="13" FontWeight="Bold">
+                                Rapport:
+                            </TextBlock>
+                            <TextBlock Margin="5 0 0 0" Grid.Column="1" FontSize="13" FontWeight="Bold"
+                                       VerticalAlignment="Center"  Text="{Binding ChRowSum}" ></TextBlock>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+                <ItemsControl Grid.Column="4" IsEnabled="{Binding EnableChaineEdit,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                              HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" 
+                              Grid.Row="0"
+                              Background="Beige" Name="ChaineBoard" ItemsSource="{Binding ChaineList,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              KeyboardNavigation.TabNavigation="None" KeyboardNavigation.DirectionalNavigation="None">
+
+                    <ItemsControl.ItemsPanel>
+
+
+                        <ItemsPanelTemplate>
+
+
+                            <UniformGrid Height="auto" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                         Columns="{Binding ChaineColumns,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                         Rows="{Binding ChaineRows,RelativeSource={RelativeSource AncestorType=UserControl}}" x:Name="UniGrid"
+                                         Cursor="Hand" Background="AliceBlue" />
+
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image  Tag="{Binding}" MouseDown="ImageMouseDown1" LostFocus="ImageLostFocus" GotFocus="ImageFocus" Cursor="Hand"  Source="{Binding ImagePath}" Width="12"  Height="12"></Image>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Grid Grid.Column="4"  Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                      Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <UniformGrid 
+                        Visibility="{Binding IsDisplayChain,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                        HorizontalAlignment="Right" Columns="{Binding ChainColNum,RelativeSource={RelativeSource AncestorType=UserControl}}" Rows="1" Background="White">
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">1</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">2</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">3</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">4</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">5</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">6</TextBlock>
+                        </Border>
+                        <Border  BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock  FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">7</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">8</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" 
+                                Visibility="{Binding Btn9Vis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                                Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">9</TextBlock>
+                        </Border>
+                        <Border BorderThickness="1" 
+                                Visibility="{Binding Btn10Vis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                                Width="12" BorderBrush="Black">
+                            <TextBlock FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                10
+                                <TextBlock.LayoutTransform>
+                                    <RotateTransform Angle="90"></RotateTransform>
+                                </TextBlock.LayoutTransform>
+                            </TextBlock>
+                        </Border>
+                    </UniformGrid>
+                    <UniformGrid 
+                        Visibility="{Binding IsEditChainBtn,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                        HorizontalAlignment="Right"
+                        Columns="{Binding ChainColNum,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        Rows="1" Background="White">
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton 
+                                IsChecked="{Binding Col1,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                GroupName="grp1"
+                                Style="{StaticResource {x:Type ToggleButton}}"  IsEnabled="{Binding Btn1,RelativeSource={RelativeSource AncestorType=UserControl}}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">1</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="16" GroupName="grp1"
+                                         IsChecked="{Binding Col2,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                    IsEnabled="{Binding Btn2,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">2</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="16" GroupName="grp1"
+                                         IsChecked="{Binding Col3,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                         IsEnabled="{Binding Btn3,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center">3</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="16" 
+                                         IsChecked="{Binding Col4,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         GroupName="grp1"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                         IsEnabled="{Binding Btn4,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center">4</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="16" GroupName="grp1"
+                                         IsChecked="{Binding Col5,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                         IsEnabled="{Binding Btn5,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center">5</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="16" GroupName="grp1"
+                                         IsChecked="{Binding Col6,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                         IsEnabled="{Binding Btn6,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center">6</RadioButton>
+                        </Border>
+                        <Border  BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton  FontSize="16" GroupName="grp1"
+                                          IsChecked="{Binding Col7,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                          Style="{StaticResource {x:Type ToggleButton}}" 
+                                          IsEnabled="{Binding Btn7,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center">7</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1" Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="16" GroupName="grp1"
+                                         IsChecked="{Binding Col8,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                         IsEnabled="{Binding Btn8,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center">8</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1"
+                                Visibility="{Binding Btn9Vis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                                
+                                Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="16" GroupName="grp1"
+                                         IsChecked="{Binding Col9,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                         IsEnabled="{Binding Btn9,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center">9</RadioButton>
+                        </Border>
+                        <Border BorderThickness="1" 
+                                Visibility="{Binding Btn10Vis,RelativeSource={RelativeSource AncestorType=UserControl},Converter={StaticResource BoolToVis}}"
+                                Width="12" BorderBrush="Black">
+                            <RadioButton FontSize="10" GroupName="grp1"
+                                         IsChecked="{Binding Col10,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Style="{StaticResource {x:Type ToggleButton}}" 
+                                         IsEnabled="{Binding Btn10,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         HorizontalAlignment="Center"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" >
+                                <TextBlock HorizontalAlignment="Center" Text="10">
+                                    <TextBlock.LayoutTransform  >
+                                        <RotateTransform Angle="90" ></RotateTransform>
+                                    </TextBlock.LayoutTransform>
+                                </TextBlock>
+                                
+                            </RadioButton>
+                        </Border>
+                    </UniformGrid>
+                    <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black">
+                        <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"
+                                       FontSize="13" FontWeight="Bold">
+                                Rapport:
+                            </TextBlock>
+                            <TextBlock Margin="10 0 0 0" Grid.Column="1" FontSize="13" FontWeight="Bold"
+                                       VerticalAlignment="Center" Text="{Binding ChRowSum}" />
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+            </Grid>
+                
+        </Grid>
+    </Grid>
+</UserControl>
