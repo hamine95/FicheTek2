@@ -19,6 +19,7 @@ namespace FrontEnd.View
     [MvxViewFor(typeof(ComposantViewModel))]
     public partial class ComposantView : MvxWpfView
     {
+        private static readonly Regex _regex = new Regex("[^0-9]+");
         private IMvxInteraction<YesNoQuestion> _ConfirmBox;
 
         private IMvxInteraction<string> _SentNote;
@@ -87,12 +88,12 @@ namespace FrontEnd.View
             gView.Columns[0].Width = workingWidth * col1;
             gView.Columns[1].Width = workingWidth * col2;
         }
-        private static readonly Regex _regex = new Regex("[^0-9]+");
 
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
         }
+
         private void DataObject_OnPasting(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(typeof(string)))

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class ChaineBoardStructure: INotifyPropertyChanged
+    public class ChaineBoardStructure : INotifyPropertyChanged
     {
         private List<ChaineMatrixElement> _board;
 
@@ -14,17 +14,14 @@ namespace BackEnd2.Model
             Board = new List<ChaineMatrixElement>();
             for (var r = 0; r < rows; r++)
             for (var c = 0; c < columns; c++)
-                Board.Add(new ChaineMatrixElement(c, r)
-                    { ImagePath = "/Asset/squareLine2.png"});
+                Board.Add(new ChaineMatrixElement(c, r));
             ;
             ;
         }
 
         public List<ChaineMatrixElement> Board
         {
-            get
-            {return _board;
-            } 
+            get => _board;
             set
             {
                 _board = value;

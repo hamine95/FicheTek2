@@ -2,20 +2,8 @@
 {
     public class EquivalentID
     {
-        private int _ID;
+        public int Id { get; set; }
 
-        private int _EquivID;
-
-        public int Id
-        {
-            get => _ID;
-            set => _ID = value;
-        }
-
-        public int EquivId
-        {
-            get => _EquivID;
-            set => _EquivID = value;
-        }
+        public int EquivId { get; set; }
     }
 }

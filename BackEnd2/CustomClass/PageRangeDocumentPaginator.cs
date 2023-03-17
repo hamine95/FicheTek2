@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using Size = System.Windows.Size;
 
 namespace BackEnd2.CustomClass
 {
-    public class PageRangeDocumentPaginator: DocumentPaginator
+    public class PageRangeDocumentPaginator : DocumentPaginator
     {
-        private int _startIndex;
-        private int _endIndex;
-        private DocumentPaginator _paginator;
+        private readonly int _endIndex;
+        private readonly DocumentPaginator _paginator;
+        private readonly int _startIndex;
+
         public PageRangeDocumentPaginator(
             DocumentPaginator paginator,
             PageRange pageRange)
@@ -22,17 +22,8 @@ namespace BackEnd2.CustomClass
             // Adjust the _endIndex
             _endIndex = Math.Min(_endIndex, _paginator.PageCount - 1);
         }
-        public override DocumentPage GetPage(int pageNumber)
-        {
-            // Just return the page from the original
-            // paginator by using the "startIndex"
-            return _paginator.GetPage(pageNumber + _startIndex);
-        }
 
-        public override bool IsPageCountValid
-        {
-            get { return true; }
-        }
+        public override bool IsPageCountValid => true;
 
         public override int PageCount
         {
@@ -49,13 +40,17 @@ namespace BackEnd2.CustomClass
 
         public override Size PageSize
         {
-            get{return _paginator.PageSize;}
-            set{_paginator.PageSize = value;}
+            get => _paginator.PageSize;
+            set => _paginator.PageSize = value;
         }
 
-        public override IDocumentPaginatorSource Source
+        public override IDocumentPaginatorSource Source => _paginator.Source;
+
+        public override DocumentPage GetPage(int pageNumber)
         {
-            get { return _paginator.Source; }
+            // Just return the page from the original
+            // paginator by using the "startIndex"
+            return _paginator.GetPage(pageNumber + _startIndex);
         }
     }
 }

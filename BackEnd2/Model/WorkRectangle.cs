@@ -3,23 +3,65 @@ using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class WorkRectangle: INotifyPropertyChanged
+    public class WorkRectangle : INotifyPropertyChanged
     {
-        private int _PartsHeight;
-        private int _PartsWidth;
-        private int _PartsWidth_Start;
-        private int _PartsWidth_End;
-        private int _PartsHeight_Start;
-        private int _PartsHeight_End;
-        private int _PartHeight;
+        private int _DentLen;
+        private int _FirstEmptyLen;
+
+        private int _LisseLen;
         private int _NbrPart;
+        private int _PartHeight;
+        private int _PartsHeight;
+        private int _PartsHeight_End;
+        private int _PartsHeight_Start;
+        private int _PartsWidth;
+        private int _PartsWidth_End;
+        private int _PartsWidth_Start;
+        private int _SecEmptyLen;
+
+        public int LisseLen
+        {
+            get => _LisseLen;
+            set
+            {
+                _LisseLen = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int FirstEmptyLen
+        {
+            get => _FirstEmptyLen;
+            set
+            {
+                _FirstEmptyLen = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int DentLen
+        {
+            get => _DentLen;
+            set
+            {
+                _DentLen = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int SecEmptyLen
+        {
+            get => _SecEmptyLen;
+            set
+            {
+                _SecEmptyLen = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public int NbrPart
         {
-            get
-            {
-                return _NbrPart;
-            }
+            get => _NbrPart;
             set
             {
                 _NbrPart = value;
@@ -29,10 +71,7 @@ namespace BackEnd2.Model
 
         public int PartHeight
         {
-            get
-            {
-                return _PartHeight;
-            }
+            get => _PartHeight;
             set
             {
                 _PartHeight = value;

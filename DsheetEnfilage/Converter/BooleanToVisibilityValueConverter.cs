@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace FrontEnd.Converter
+namespace DSheetEnfilage.Converter
 {
     public class BooleanToVisibilityValueConverter : IValueConverter
     {

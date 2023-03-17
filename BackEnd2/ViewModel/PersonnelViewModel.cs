@@ -12,14 +12,30 @@ namespace BackEnd2.ViewModel
 {
     public class PersonnelViewModel : MvxViewModel<user>
     {
+        private IMvxCommand _AjouterNovConcepteur;
+
+        private IMvxCommand _AjouterNovVerificateur;
+
+        private IMvxCommand _CancelConcepteurCmd;
+
+        private IMvxCommand _CancelVerificateurCmd;
         private int _EditConcepteurId;
         private int _EditVerificateurId;
         private bool _IsEditEnabledConcepteur;
         private bool _IsEditEnabledVerificateur;
+        private bool _IsSuperUser;
+
+        private bool _IsVerificateur;
 
 
         private MvxObservableCollection<Concepteur> _ListConcepteur;
         private MvxObservableCollection<Verificateur> _ListVerificateur;
+
+        private MvxNotifyTask _LoadList;
+
+        private IMvxCommand _ModifierConcepteur;
+
+        private IMvxCommand _ModifierVerificateur;
 
         private string _NameConcepteur;
 
@@ -33,32 +49,32 @@ namespace BackEnd2.ViewModel
 
         private string _NovNameVerificateur;
 
+        private IMvxCommand _SaveConcepteurChange;
+
+        private IMvxCommand _SaveVerificateurChange;
+
         private Concepteur _SelectedConcepteur;
         private Verificateur _SelectedVerificateur;
-        private  MyDBContext db;
+
+        private IMvxCommand _SupprimerConcepteur;
+
+        private IMvxCommand _SupprimerVerificateur;
+        private MyDBContext db;
+        private SqliteData db2;
+        private user UserSession;
 
         public PersonnelViewModel(IMvxNavigationService _navser)
         {
             _navigationService = _navser;
-
         }
-
-        public override Task Initialize()
-        {
-            LoadLists = MvxNotifyTask.Create(UpdateLists);
-            return base.Initialize();
-        }
-
-        private MvxNotifyTask _LoadList;
 
         public MvxNotifyTask LoadLists
         {
             get => _LoadList;
             set => SetProperty(ref _LoadList, value);
-
         }
-       
-        
+
+
         public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
         public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
@@ -103,8 +119,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _ModifierConcepteur;
-
         public IMvxCommand ModifierConceptuer
         {
             get
@@ -113,8 +127,6 @@ namespace BackEnd2.ViewModel
                 return _ModifierConcepteur;
             }
         }
-
-        private IMvxCommand _SupprimerConcepteur;
 
         public IMvxCommand SupprimerConcepteur
         {
@@ -125,8 +137,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _ModifierVerificateur;
-
         public IMvxCommand ModifierVerificateur
         {
             get
@@ -135,8 +145,6 @@ namespace BackEnd2.ViewModel
                 return _ModifierVerificateur;
             }
         }
-
-        private IMvxCommand _SupprimerVerificateur;
 
         public IMvxCommand SupprimerVerificateur
         {
@@ -147,8 +155,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _AjouterNovConcepteur;
-
         public IMvxCommand AjouterNovConcepteur
         {
             get
@@ -157,8 +163,6 @@ namespace BackEnd2.ViewModel
                 return _AjouterNovConcepteur;
             }
         }
-
-        private IMvxCommand _AjouterNovVerificateur;
 
         public IMvxCommand AjouterNovVerificateur
         {
@@ -169,8 +173,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _CancelConcepteurCmd;
-
         public IMvxCommand CancelConcepteurCmd
         {
             get
@@ -179,8 +181,6 @@ namespace BackEnd2.ViewModel
                 return _CancelConcepteurCmd;
             }
         }
-
-        private IMvxCommand _SaveConcepteurChange;
 
         public IMvxCommand SaveConcepteurChange
         {
@@ -191,8 +191,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _CancelVerificateurCmd;
-
         public IMvxCommand CancelVerificateurCmd
         {
             get
@@ -201,8 +199,6 @@ namespace BackEnd2.ViewModel
                 return _CancelVerificateurCmd;
             }
         }
-
-        private IMvxCommand _SaveVerificateurChange;
 
         public IMvxCommand SaveVerificateurChange
         {
@@ -293,13 +289,39 @@ namespace BackEnd2.ViewModel
             }
         }
 
+        public bool IsVerificateur
+        {
+            get => _IsVerificateur;
+            set
+            {
+                _IsVerificateur = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsSuperUser
+        {
+            get => _IsSuperUser;
+            set
+            {
+                _IsSuperUser = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public override Task Initialize()
+        {
+            LoadLists = MvxNotifyTask.Create(UpdateLists);
+            return base.Initialize();
+        }
+
         public void SaveEditConcepteurChange()
         {
-            if (!IsEditFieldsConcepteurEmpty() && db.GetConcepteur(NovNameConcepteur) == null)
+            if (!IsEditFieldsConcepteurEmpty() && db2.GetConcepteur(NovNameConcepteur) == null)
             {
                 var NewConcepteur = new Concepteur();
                 NewConcepteur.Name = NovNameConcepteur.ToUpper();
-                db.EditConcepteur(NewConcepteur);
+                db2.EditConcepteur(NewConcepteur);
                 UpdateConcepteurList();
                 CancelEditConcepteur();
             }
@@ -313,14 +335,15 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("Concepteur existe déja");
             }
         }
+       
 
         public void SaveEditVerificateurChange()
         {
-            if (!IsEditFieldsVerificateurrEmpty() && db.GetVerificateur(NovNameVerificateur) == null)
+            if (!IsEditFieldsVerificateurrEmpty() && db2.GetVerificateur(NovNameVerificateur) == null)
             {
                 var NewVerificateur = new Verificateur();
                 NewVerificateur.Name = NovNameVerificateur.ToUpper();
-                db.EditVerificateur(NewVerificateur);
+                db2.EditVerificateur(NewVerificateur);
                 UpdateVerificateurList();
                 CancelEditVerificateur();
             }
@@ -337,14 +360,13 @@ namespace BackEnd2.ViewModel
 
         public async Task UpdateVerificateurList()
         {
-           await Task.Run(() =>
+            await Task.Run(() =>
                 {
-                    var listVerifica = db.GetVerificateur();
+                    var listVerifica = db2.GetVerificateur();
                     foreach (var col in listVerifica) col.Name = col.Name.ToUpper();
                     ListVerificateur = new MvxObservableCollection<Verificateur>(listVerifica);
                 }
             );
-
         }
 
         public async Task UpdateLists()
@@ -354,17 +376,16 @@ namespace BackEnd2.ViewModel
             await UpdateClientList();
             await UpdateRedacteurList();
         }
+
         public async Task UpdateConcepteurList()
         {
-          await  Task.Run(() =>
+            await Task.Run(() =>
                 {
-                    var ListConcept = db.GetConcepteur();
+                    var ListConcept = db2.GetConcepteurs();
                     foreach (var col in ListConcept) col.Name = col.Name.ToUpper();
                     ListConcepteur = new MvxObservableCollection<Concepteur>(ListConcept);
                 }
             );
-      
-           
         }
 
         public void CancelEditConcepteur()
@@ -418,7 +439,7 @@ namespace BackEnd2.ViewModel
                     {
                         if (ok)
                         {
-                            db.DeleteConcepteur(SelectedConcepteur);
+                            db2.DeleteConcepteur(SelectedConcepteur);
                             UpdateConcepteurList();
                         }
                     }
@@ -442,7 +463,7 @@ namespace BackEnd2.ViewModel
                     {
                         if (ok)
                         {
-                            db.DeleteVerificateur(SelectedVerificateur);
+                            db2.DeleteVerificateur(SelectedVerificateur);
                             UpdateVerificateurList();
                         }
                     }
@@ -457,11 +478,11 @@ namespace BackEnd2.ViewModel
 
         public void AjouterNoveauConcepteur()
         {
-            if (!IsAddFieldsConcepteurEmpty() && db.GetConcepteur(NameConcepteur) == null)
+            if (!IsAddFieldsConcepteurEmpty() && db2.GetConcepteur(NameConcepteur) == null)
             {
                 var NewConcept = new Concepteur();
                 NewConcept.Name = NameConcepteur.ToUpper();
-                db.AddNewConcepteur(NewConcept);
+                db2.AddNewConcepteur(NewConcept);
                 UpdateConcepteurList();
                 NameConcepteur = "";
             }
@@ -478,11 +499,11 @@ namespace BackEnd2.ViewModel
 
         public void AjouterNoveauVerificateur()
         {
-            if (!IsAddFieldsVerificateurEmpty() && db.GetVerificateur(NameVerificateur) == null)
+            if (!IsAddFieldsVerificateurEmpty() && db2.GetVerificateur(NameVerificateur) == null)
             {
                 var NewVerificateur = new Verificateur();
                 NewVerificateur.Name = NameVerificateur.ToUpper();
-                db.AddNewVerificateur(NewVerificateur);
+                db2.AddNewVerificateur(NewVerificateur);
                 UpdateVerificateurList();
                 NameVerificateur = "";
             }
@@ -517,54 +538,20 @@ namespace BackEnd2.ViewModel
             return NovNameVerificateur == null || string.IsNullOrWhiteSpace(NovNameVerificateur);
         }
 
-        private bool _IsVerificateur;
-
-        public bool IsVerificateur
-        {
-            get
-            {
-                return _IsVerificateur;
-            }
-            set
-            {
-                _IsVerificateur = value;
-                RaisePropertyChanged();
-            }
-        }
-        private bool _IsSuperUser;
-
-        public bool IsSuperUser
-        {
-            get
-            {
-                return _IsSuperUser;
-            }
-            set
-            {
-                _IsSuperUser = value;
-                RaisePropertyChanged();
-            }
-        }
-        private user UserSession;
-        private SqliteData db2;
         public override void Prepare(user parameter)
         {
             UserSession = parameter;
             db = Mvx.IoCProvider.Resolve<MyDBContext>();
             db2 = Mvx.IoCProvider.Resolve<SqliteData>();
             if (UserSession.type == user.UserType.verificateur)
-            {
                 IsVerificateur = true;
-                
-            }
             else
-            {
                 IsVerificateur = false;
-            }
         }
 
         #region Client
- private string _ClientNom;
+
+        private string _ClientNom;
 
 
         private int _EditClientId;
@@ -575,10 +562,7 @@ namespace BackEnd2.ViewModel
         private string _NovClientNom;
 
         private Client _SelectedClient;
-       
 
-     
-      
 
         public int EditClientId
         {
@@ -697,12 +681,12 @@ namespace BackEnd2.ViewModel
 
         public void SaveEditChange()
         {
-            if (!IsEditFieldsEmpty() && db.GetClient(NovClientNom) == null)
+            if (!IsEditFieldsEmpty() && db2.GetClient(NovClientNom) == null)
             {
                 var NewClient = new Client();
                 NewClient.ID = EditClientId;
                 NewClient.Name = NovClientNom;
-                db.EditClient(NewClient);
+                db2.EditClient(NewClient);
                 UpdateClientList();
                 CancelEdit();
             }
@@ -721,12 +705,11 @@ namespace BackEnd2.ViewModel
         {
             await Task.Run(() =>
                 {
-                    var ListCli = db.GetClients();
+                    var ListCli = db2.GetClient();
                     foreach (var col in ListCli) col.Name = col.Name.ToUpper();
                     ListClient = new MvxObservableCollection<Client>(ListCli);
                 }
             );
-
         }
 
         public void CancelEdit()
@@ -760,7 +743,7 @@ namespace BackEnd2.ViewModel
                     {
                         if (ok)
                         {
-                            db.DeleteClient(SelectedClient);
+                            db2.DeleteClient(SelectedClient);
                             UpdateClientList();
                         }
                     }
@@ -775,11 +758,11 @@ namespace BackEnd2.ViewModel
 
         public void AjouterNoveauClient()
         {
-            if (!IsAddFieldsEmpty() && db.GetClient(ClientNom) == null)
+            if (!IsAddFieldsEmpty() && db2.GetClient(ClientNom) == null)
             {
                 var NewClient = new Client();
                 NewClient.Name = ClientNom.ToUpper();
-                db.AddNewClient(NewClient);
+                db2.AddNewClient(NewClient);
                 UpdateClientList();
                 ClientNom = "";
             }
@@ -803,7 +786,6 @@ namespace BackEnd2.ViewModel
         {
             return NovClientNom == null || string.IsNullOrWhiteSpace(NovClientNom);
         }
-        
 
         #endregion
 
@@ -819,6 +801,7 @@ namespace BackEnd2.ViewModel
                 return _AjouterNovRedacteur;
             }
         }
+
         public bool IsAddFieldsRedacteurEmpty()
         {
             return NameRedacteur == null || string.IsNullOrWhiteSpace(NameRedacteur);
@@ -828,16 +811,14 @@ namespace BackEnd2.ViewModel
 
         public string NameRedacteur
         {
-            get
-            {
-                return _NameRedacteur;
-            }
+            get => _NameRedacteur;
             set
             {
                 _NameRedacteur = value;
                 RaisePropertyChanged();
             }
         }
+
         private IMvxCommand _SaveRedacteurChange;
 
         public IMvxCommand SaveRedacteurChange
@@ -848,10 +829,12 @@ namespace BackEnd2.ViewModel
                 return _SaveRedacteurChange;
             }
         }
+
         public bool IsEditFieldsRedacteurEmpty()
         {
             return NovNameConcepteur == null || string.IsNullOrWhiteSpace(NovNameConcepteur);
         }
+
         public void SaveEditRedacteurChange()
         {
             if (!IsEditFieldsRedacteurEmpty() && db2.GetRedacteur(NovNameRedacteur) == null)
@@ -873,11 +856,13 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("Rédacteur existe déja");
             }
         }
+
         public void CancelEditRedacteur()
         {
             IsEditEnabledRedacteur = false;
             NovNameRedacteur = "";
         }
+
         public void AjouterNoveauRedacteur()
         {
             if (!IsAddFieldsRedacteurEmpty() && db2.GetRedacteur(NameRedacteur) == null)
@@ -898,6 +883,7 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("Rédacteur existe déja");
             }
         }
+
         private IMvxCommand _ModifierRedacteur;
 
         public IMvxCommand ModifierRedacteur
@@ -908,6 +894,7 @@ namespace BackEnd2.ViewModel
                 return _ModifierRedacteur;
             }
         }
+
         private IMvxCommand _SupprimerRedacteur;
 
         public IMvxCommand SupprimerRedacteur
@@ -918,6 +905,7 @@ namespace BackEnd2.ViewModel
                 return _SupprimerRedacteur;
             }
         }
+
         public void SupprimerRedacteurSelected()
         {
             if (SelectedRedacteur != null)
@@ -941,6 +929,7 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("S.V.P Séléctionnez une Rédacteur");
             }
         }
+
         private IMvxCommand _CancelRedacteurCmd;
 
         public IMvxCommand CancelRedacteurCmd
@@ -951,32 +940,30 @@ namespace BackEnd2.ViewModel
                 return _CancelRedacteurCmd;
             }
         }
+
         public async Task UpdateRedacteurList()
         {
-            await  Task.Run(() =>
+            await Task.Run(() =>
                 {
                     var ListVer = db2.GetRedacteurs();
                     foreach (var col in ListVer) col.Name = col.Name.ToUpper();
                     ListRedacteur = new MvxObservableCollection<Redacteur>(ListVer);
                 }
             );
-      
-           
         }
+
         private string _NovNameRedacteur;
 
         public string NovNameRedacteur
         {
-            get
-            {
-                return _NovNameRedacteur;
-            }
+            get => _NovNameRedacteur;
             set
             {
                 _NovNameRedacteur = value;
                 RaisePropertyChanged();
             }
         }
+
         public void ModifierRedacteurSelected()
         {
             if (SelectedRedacteur != null)
@@ -992,6 +979,7 @@ namespace BackEnd2.ViewModel
         }
 
         public int _EditRedacteurId;
+
         public int EditRedacteurId
         {
             get => _EditRedacteurId;
@@ -1001,7 +989,9 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private bool _IsEditEnabledRedacteur;
+
         public bool IsEditEnabledRedacteur
         {
             get => _IsEditEnabledRedacteur;
@@ -1011,8 +1001,9 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+
         private Redacteur _SelectedRedacteur;
+
         public Redacteur SelectedRedacteur
         {
             get => _SelectedRedacteur;
@@ -1022,8 +1013,9 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+
         private MvxObservableCollection<Redacteur> _ListRedacteur;
+
         public MvxObservableCollection<Redacteur> ListRedacteur
         {
             get => _ListRedacteur;

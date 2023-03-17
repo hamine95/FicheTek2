@@ -1,12 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 using BackEnd2.Database;
 using BackEnd2.Model;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.Navigation.EventArguments;
 using MvvmCross.ViewModels;
 
 namespace BackEnd2.ViewModel
@@ -14,31 +14,48 @@ namespace BackEnd2.ViewModel
     public class HomepageViewModel : MvxViewModel<user>
     {
         private readonly IMvxNavigationService _navigationService;
-        private MyDBContext db;
 
-        private user UserSession;
+        private IMvxCommand _ActivateSuperUser;
 
-        public bool IsSafePassage = true;
-        public IMvxCommand MenuCmd { get; set; }
+        private IMvxCommand _CmdLogout;
+
+        private string _ImageSrc;
+        private bool _IsVerificateur = false;
+        private bool _IsParam= true;
+
+        private bool _IsCategorie = true;
+        private bool _IsClient = true;
+        private bool _IsComposant = true;
+        private bool _IsCouleur = true;
+        private bool _IsFicheTechnique;
+        private bool _IsRapport=true;
+
+        private bool _IsLogout = true;
+        private bool _IsMachine = true;
+
+        private bool _IsMatiere = true;
+        private bool _IsPersonnel = true;
+        private bool _IsProduit = true;
+        private string _TipText;
 
         private bool _ToolTipVis = true;
 
-        public bool ToolTipVis
-        {
-            get { return _ToolTipVis; }
-            set
-            {
-                _ToolTipVis = value;
-                RaisePropertyChanged();
-            }
-        }
+        private int CountClick;
+        private readonly MyDBContext db;
 
         private DispatcherTimer dispatcherTimer;
+
+        public bool IsSafePassage = true;
+
+        private user.UserType PrevType;
+
+        private user UserSession;
 
         public HomepageViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
             FicheTechniqueBtn = new MvxCommand(StartFicheTechniquePanel);
+            RapportBtn = new MvxCommand(NavigateToRapportView);
             db = Mvx.IoCProvider.Resolve<MyDBContext>();
             Nav2Color = new MvxCommand(NavigateToCouleurView);
             CmdMatiere = new MvxCommand(NavigateToMatiereView);
@@ -47,53 +64,21 @@ namespace BackEnd2.ViewModel
             CmdCategorie = new MvxCommand(NavigateToCategorieView);
             CmdPersonnel = new MvxCommand(NavigateToPersonnel);
             CmdClient = new MvxCommand(NavigateToClient);
+            CmdParam = new MvxCommand(NavigateToParam);
             MenuCmd = new MvxCommand(OpenMenu);
         }
 
+        public IMvxCommand MenuCmd { get; set; }
 
-        public void OpenMenu()
+        public bool ToolTipVis
         {
-            ToolTipVis = !ToolTipVis;
-        }
-
-        public override void Prepare(user parameter)
-        {
-            UserSession = parameter;
-            if (UserSession.type == user.UserType.redacteur)
+            get => _ToolTipVis;
+            set
             {
-                TipText = "Rédacteur";
-                ImageSrc = "/Asset/editor.png";
-
-            }
-            else
-            {
-                TipText = "Vérificateur";
-                ImageSrc = "/Asset/checkerB.png";
+                _ToolTipVis = value;
+                RaisePropertyChanged();
             }
         }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-        }
-
-        public override async void ViewAppeared()
-        {
-            base.ViewAppeared();
-            dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += StartFirstView;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
-            dispatcherTimer.Start();
-        }
-
-        private void StartFirstView(object sender, EventArgs e)
-        {
-            // code goes here
-            StartFicheTechniquePanel();
-            dispatcherTimer.Stop();
-        }
-
-        private IMvxCommand _ActivateSuperUser;
 
         public IMvxCommand ActivateSuperUser
         {
@@ -102,33 +87,11 @@ namespace BackEnd2.ViewModel
                 _ActivateSuperUser = new MvxCommand(ActivatingSuperUser);
                 return _ActivateSuperUser;
             }
-           
         }
 
-        private int CountClick;
-        public void ActivatingSuperUser()
-        {
-            CountClick++;
-            if (CountClick > 5)
-            {
-                if (UserSession.type == user.UserType.superuser)
-                {
-                    UserSession.type = PrevType;
-                }
-                else
-                {
-                    PrevType = UserSession.type;
-                    UserSession.type = user.UserType.superuser;
-                }
-
-                CountClick = 0;
-            }
-        }
-
-        private user.UserType PrevType;
         public IMvxCommand CmdTest { get; set; }
         public IMvxCommand CmdPersonnel { get; set; }
-
+        public IMvxCommand CmdParam{ get; set; }
         public IMvxCommand CmdClient { get; set; }
 
         public IMvxCommand CmdCategorie { get; set; }
@@ -137,8 +100,7 @@ namespace BackEnd2.ViewModel
         public IMvxCommand CmdMatiere { get; set; }
         public IMvxCommand Nav2Color { get; set; }
         public IMvxCommand FicheTechniqueBtn { get; set; }
-
-        private IMvxCommand _CmdLogout;
+        public IMvxCommand RapportBtn { get; set; }
 
         public IMvxCommand CmdLogout
         {
@@ -148,15 +110,6 @@ namespace BackEnd2.ViewModel
                 return _CmdLogout;
             }
         }
-
-        public void LogOut()
-        {
-            _navigationService.Navigate<LoginViewModel>();
-            _navigationService.Close(this);
-        }
-        private bool _IsFicheTechnique = false;
-        private bool _IsProduit = true;
-        private bool _IsMachine = true;
 
         public bool IsProduit
         {
@@ -227,7 +180,24 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
-
+        public bool IsParam
+        {
+            get => _IsParam;
+            set
+            {
+                _IsParam = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool IsVerificateur
+        {
+            get => _IsVerificateur;
+            set
+            {
+                _IsVerificateur = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool IsCategorie
         {
             get => _IsCategorie;
@@ -238,13 +208,21 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private bool _IsLogout=true;
         public bool IsLogout
         {
             get => _IsLogout;
             set
             {
                 _IsLogout = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool IsRapport
+        {
+            get => _IsRapport;
+            set
+            {
+                _IsRapport = value;
                 RaisePropertyChanged();
             }
         }
@@ -258,17 +236,112 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private bool _IsMatiere = true;
-        private bool _IsComposant = true;
-        private bool _IsCouleur = true;
-        private bool _IsPersonnel = true;
-        private bool _IsClient = true;
-        private bool _IsCategorie = true;
+        public string ImageSrc
+        {
+            get => _ImageSrc;
+            set
+            {
+                _ImageSrc = value;
+                RaisePropertyChanged();
+            }
+        }
 
+        public string TipText
+        {
+            get => _TipText;
+            set
+            {
+                _TipText = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public void OpenMenu()
+        {
+            ToolTipVis = !ToolTipVis;
+        }
+
+        public override void Prepare(user parameter)
+        {
+            UserSession = parameter;
+            if (UserSession.type == user.UserType.redacteur)
+            {
+                TipText = "Rédacteur";
+                ImageSrc = "/Asset/editor.png";
+            }
+            else
+            {
+                IsVerificateur = true;
+                TipText = "Vérificateur";
+                ImageSrc = "/Asset/checkerB.png";
+            }
+        }
+
+
+        public override  void ViewAppeared()
+        {
+            base.ViewAppeared();
+            
+            if(UserSession.LoginViewM!=null)
+                UserSession.LoginViewM.CloseWindow();
+            StartFicheTechniquePanel();
+            
+        }
+
+       
+       
+
+        public void ActivatingSuperUser()
+        {
+            CountClick++;
+            if (CountClick > 5)
+            {
+                if (UserSession.type == user.UserType.superuser)
+                {
+                    UserSession.type = PrevType;
+                }
+                else
+                {
+                    PrevType = UserSession.type;
+                    UserSession.type = user.UserType.superuser;
+                }
+
+                CountClick = 0;
+            }
+        }
+
+        public void LogOut()
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+
+            //_navigationService.Navigate<LoginViewModel>();
+            //_navigationService.Close(this);
+        }
+        public void NavigateToParam()
+        {
+            CountClick = 0;
+            if (IsSafePassage)
+            {
+                IsCouleur = true;
+                IsClient = true;
+                IsFicheTechnique = true;
+                IsProduit = true;
+                IsComposant = true;
+                IsPersonnel = true;
+                IsMatiere = true;
+                IsMachine = true;
+                IsCategorie = true;
+                IsParam = false;
+                IsRapport = true;
+                _navigationService.Navigate<ParamViewModel, user>(UserSession);
+            }
+        }
         public void NavigateToClient()
         {
             CountClick = 0;
-            if (IsSafePassage == true)
+            if (IsSafePassage)
             {
                 IsCouleur = true;
                 IsClient = false;
@@ -279,14 +352,16 @@ namespace BackEnd2.ViewModel
                 IsMatiere = true;
                 IsMachine = true;
                 IsCategorie = true;
-                _navigationService.Navigate<ClientViewModel, MyDBContext>(db);
+                IsParam = true;
+                IsRapport = true;
+                _navigationService.Navigate<ClientViewModel, user>(UserSession);
             }
         }
 
         public void NavigateToPersonnel()
         {
             CountClick = 0;
-            if (IsSafePassage == true)
+            if (IsSafePassage)
             {
                 IsCouleur = true;
                 IsClient = true;
@@ -297,6 +372,8 @@ namespace BackEnd2.ViewModel
                 IsMatiere = true;
                 IsMachine = true;
                 IsCategorie = true;
+                IsParam = true;
+                IsRapport = true;
                 _navigationService.Navigate<PersonnelViewModel, user>(UserSession);
             }
         }
@@ -304,7 +381,7 @@ namespace BackEnd2.ViewModel
         public void NavigateToCategorieView()
         {
             CountClick = 0;
-            if (IsSafePassage == true)
+            if (IsSafePassage)
             {
                 IsCouleur = true;
                 IsClient = true;
@@ -315,6 +392,8 @@ namespace BackEnd2.ViewModel
                 IsMatiere = true;
                 IsMachine = true;
                 IsCategorie = false;
+                IsParam = true;
+                IsRapport = true;
                 _navigationService.Navigate<CategorieViewModel, user>(UserSession);
             }
         }
@@ -322,7 +401,7 @@ namespace BackEnd2.ViewModel
         public void NavigateToComposantView()
         {
             CountClick = 0;
-            if (IsSafePassage == true)
+            if (IsSafePassage)
             {
                 IsCouleur = true;
                 IsClient = true;
@@ -333,6 +412,8 @@ namespace BackEnd2.ViewModel
                 IsMatiere = true;
                 IsMachine = true;
                 IsCategorie = true;
+                IsParam = true;
+                IsRapport = true;
                 _navigationService.Navigate<ComposantViewModel, user>(UserSession);
             }
         }
@@ -340,7 +421,7 @@ namespace BackEnd2.ViewModel
         public void NavigateToMachineView()
         {
             CountClick = 0;
-            if (IsSafePassage == true)
+            if (IsSafePassage)
             {
                 IsCouleur = true;
                 IsClient = true;
@@ -351,6 +432,8 @@ namespace BackEnd2.ViewModel
                 IsMatiere = true;
                 IsMachine = false;
                 IsCategorie = true;
+                IsParam = true;
+                IsRapport = true;
                 _navigationService.Navigate<MachineViewModel, user>(UserSession);
             }
         }
@@ -358,7 +441,7 @@ namespace BackEnd2.ViewModel
         public void NavigateToMatiereView()
         {
             CountClick = 0;
-            if (IsSafePassage == true)
+            if (IsSafePassage)
             {
                 IsCouleur = true;
                 IsClient = true;
@@ -369,14 +452,16 @@ namespace BackEnd2.ViewModel
                 IsMatiere = false;
                 IsMachine = true;
                 IsCategorie = true;
-                _navigationService.Navigate<MatiereViewModel, MyDBContext>(db);
+                IsParam = true;
+                IsRapport = true;
+                _navigationService.Navigate<MatiereViewModel, user>(UserSession);
             }
         }
 
         public void NavigateToCouleurView()
         {
             CountClick = 0;
-            if (IsSafePassage == true)
+            if (IsSafePassage)
             {
                 IsCouleur = false;
                 IsClient = true;
@@ -387,10 +472,30 @@ namespace BackEnd2.ViewModel
                 IsMatiere = true;
                 IsMachine = true;
                 IsCategorie = true;
-                _navigationService.Navigate<CouleurViewModel, MyDBContext>(db);
+                IsParam = true;
+                IsRapport = true;
+                _navigationService.Navigate<CouleurViewModel, user>(UserSession);
             }
         }
-
+        public void NavigateToRapportView()
+        {
+            CountClick = 0;
+            if (IsSafePassage)
+            {
+                IsCouleur = true;
+                IsClient = true;
+                IsFicheTechnique = true;
+                IsProduit = true;
+                IsComposant = true;
+                IsPersonnel = true;
+                IsMatiere = true;
+                IsMachine = true;
+                IsCategorie = true;
+                IsParam = true;
+                IsRapport = false;
+                _navigationService.Navigate<RapportViewModel, user>(UserSession);
+            }
+        }
         public void StartFicheTechniquePanel()
         {
             IsSafePassage = false;
@@ -402,32 +507,10 @@ namespace BackEnd2.ViewModel
             IsPersonnel = true;
             IsMatiere = true;
             IsMachine = true;
+            IsRapport = true;
 
             _navigationService.Navigate<FicheTechniqueViewModel, user>(UserSession);
             FicheTechniqueViewModel.SafeThEvent = SafePassage;
-        }
-
-        private string _ImageSrc;
-        private string _TipText;
-
-        public string ImageSrc
-        {
-            get { return _ImageSrc; }
-            set
-            {
-                _ImageSrc = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string TipText
-        {
-            get { return _TipText; }
-            set
-            {
-                _TipText = value;
-                RaisePropertyChanged();
-            }
         }
 
         public void SafePassage(bool b)

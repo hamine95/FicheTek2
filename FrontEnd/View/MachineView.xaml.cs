@@ -20,12 +20,7 @@ namespace FrontEnd.View
     public partial class MachineView : MvxWpfView
     {
         private static readonly Regex _regexDouble = new Regex(@"^[0-9]*(?:\,[0-9]*)?$");
-        
-        private static bool IsDouble(string text)
-        {
-            return !_regexDouble.IsMatch(text);
-        }
-        
+
         private IMvxInteraction<YesNoQuestion> _ConfirmBox;
 
         private IMvxInteraction<string> _SentNote;
@@ -57,6 +52,11 @@ namespace FrontEnd.View
                 _SentNote = value;
                 _SentNote.Requested += DisplayMsg;
             }
+        }
+
+        private static bool IsDouble(string text)
+        {
+            return !_regexDouble.IsMatch(text);
         }
 
         public void ConfirmMsg(object sender, MvxValueEventArgs<YesNoQuestion> args)

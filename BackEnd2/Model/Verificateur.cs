@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
@@ -12,7 +12,6 @@ namespace BackEnd2.Model
         private string _Name;
 
 
-        [Key]
         public int ID
         {
             get => _ID;

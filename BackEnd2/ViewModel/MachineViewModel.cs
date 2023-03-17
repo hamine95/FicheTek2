@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 using BackEnd2.CustomClass;
 using BackEnd2.Data;
 using BackEnd2.Database;
@@ -9,52 +8,117 @@ using BackEnd2.Model;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.Presenters;
 using MvvmCross.ViewModels;
 
 namespace BackEnd2.ViewModel
 {
     public class MachineViewModel : MvxViewModel<user>
     {
+        private MvxNotifyTask _LoadList;
+
+        private IMvxCommand _ModifierPeigne;
         private IMvxNavigationService _navigationService;
-        private  MyDBContext db;
-        private  SqliteData db2;
+
+        private IMvxCommand _SupprimerPeigne;
+        private MyDBContext db;
+        private SqliteData db2;
+        private user UserSession;
 
         public MachineViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
-           
-        
         }
-
-      
-
-        public override Task Initialize()
-        {
-          
-            LoadList=MvxNotifyTask.Create(RefreshLists);
-            UpdateReedList();
-            return base.Initialize();
-        }
-
-        public async Task RefreshLists()
-        {
-            await UpdateMachineModelList();
-            await UpdateMachineList();
-            
-        }
-        private MvxNotifyTask _LoadList;
 
         public MvxNotifyTask LoadList
         {
             get => _LoadList;
             set => SetProperty(ref _LoadList, value);
         }
-        
-       
+
+
         public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
         public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
+
+        public IMvxCommand SupprimerPeigne
+        {
+            get
+            {
+                _SupprimerPeigne = new MvxCommand(SupprimerSelectedPeigne);
+                return _SupprimerPeigne;
+            }
+        }
+
+        public IMvxCommand ModifierPeigne
+        {
+            get
+            {
+                _ModifierPeigne = new MvxCommand(ModifierSelectedPeigne);
+                return _ModifierPeigne;
+            }
+        }
+
+
+        public override Task Initialize()
+        {
+            RefreshLists();
+            UpdateReedList();
+            return base.Initialize();
+        }
+
+        public void  RefreshLists()
+        {
+             UpdateMachineModelList();
+             UpdateMachineList();
+        }
+
+        public void SupprimerSelectedPeigne()
+        {
+            if (SelectedPeigne != null)
+            {
+                var req = new YesNoQuestion
+                {
+                    Question = "êtes-vous sûr de vouloir supprimer cet Peigne séléctionné ?",
+                    UploadCallback = ok =>
+                    {
+                        if (ok)
+                        {
+                            db2.DeletePeigne(SelectedPeigne);
+                            UpdateReedList();
+                        }
+                    }
+                };
+                ConfirmAction.Raise(req);
+            }
+            else
+            {
+                SendNotification.Raise("Aucun Peigne séléctionné");
+            }
+        }
+
+        public void ModifierSelectedPeigne()
+        {
+            if (SelectedPeigne != null)
+            {
+                IsEditPeigneEnabled = true;
+                NovNumero = SelectedPeigne.Nombre.ToString();
+            }
+            else
+            {
+                SendNotification.Raise("Aucun Peigne Séléctionné");
+            }
+        }
+
+        public override void Prepare(user parameter)
+        {
+            UserSession = parameter;
+            db = Mvx.IoCProvider.Resolve<MyDBContext>();
+            db2 = Mvx.IoCProvider.Resolve<SqliteData>();
+            if (UserSession.type == user.UserType.verificateur)
+                IsVerificateur = true;
+            else
+                IsVerificateur = false;
+        }
 
 
         #region Methods
@@ -77,7 +141,7 @@ namespace BackEnd2.ViewModel
                     {
                         if (ok)
                         {
-                            db.DeleteMatiere(SelectedMachine);
+                            db2.DeleteMachine(SelectedMachine);
                             UpdateMachineList();
                         }
                     }
@@ -159,14 +223,10 @@ namespace BackEnd2.ViewModel
                     mMachine.Model = SelectedMachineModel;
                     mMachine.Name = Designation;
                     if (SelectedMachineModel.method != ModelMachine.Method.Crochetage)
-                    {
                         mMachine.DoubleDuitage = 0;
-                    }
                     else
-                    {
                         mMachine.DoubleDuitage = 1;
-                    }
-                  
+
                     if (db2.GetMachine(mMachine.Num, mMachine.Model) == null)
                     {
                         db2.AddNewMachine(mMachine);
@@ -192,58 +252,47 @@ namespace BackEnd2.ViewModel
             }
         }
 
-      
-        public async Task UpdateMachineList()
+
+        public  void UpdateMachineList()
         {
-           await Task.Run(() =>
-               {
-                   ListMachineModel = new MvxObservableCollection<ModelMachine>(db2.GetModelMachines());
+            
+                    ListMachineModel = new MvxObservableCollection<ModelMachine>(db2.GetModelMachines());
                     ListMachine = new MvxObservableCollection<Machine>(db2.GetMachines());
                     MethodList = new MvxObservableCollection<ModelMachine.Method>();
-                    
+
                     ListMachineDuit = new MvxObservableCollection<Machine>();
                     ListDuitage = new MvxObservableCollection<Duitages>();
                     ListMachineDD = new MvxObservableCollection<Machine>();
                     foreach (var Mmachine in ListMachine)
                     {
-                        if (Mmachine.Model.method==ModelMachine.Method.Crochetage)
-                        {
-                            ListMachineDD.Add(Mmachine);
-                        }
-                        if (Mmachine.Model.method!=ModelMachine.Method.Tressage)
-                        {
-                            ListMachineDuit.Add(Mmachine);
-                        }
+                        if (Mmachine.Model.method == ModelMachine.Method.Crochetage) ListMachineDD.Add(Mmachine);
+                        if (Mmachine.Model.method != ModelMachine.Method.Tressage) ListMachineDuit.Add(Mmachine);
                     }
-                }
-
-            );
-
-        }
-
-        public async Task  UpdateMachineModelList()
-        {
-            await Task.Run(() =>
-            {
-                ListMachineModel = new MvxObservableCollection<ModelMachine>(db2.GetModelMachines());
                 
-            });
-
+           
         }
+
+        public void UpdateMachineModelList()
+        {
+          
+                ListMachineModel = new MvxObservableCollection<ModelMachine>(db2.GetModelMachines());
+           
+        }
+
         public void AjouterNouveauCrochetModel()
         {
-            if (CrochetNomModel!=null && !string.IsNullOrWhiteSpace(CrochetNomModel))
+            if (CrochetNomModel != null && !string.IsNullOrWhiteSpace(CrochetNomModel))
             {
                 var modelM = new ModelMachine();
                 modelM.NomModel = CrochetNomModel.ToUpper();
-                modelM.Name = CrochetNomModel ;
+                modelM.Name = CrochetNomModel;
                 modelM.method = ModelMachine.Method.Crochetage;
                 if (db2.GetTresseCrochetModelMachine(modelM) == null)
                 {
                     db2.AddTresseCrochetModelMachine(modelM);
                     UpdateMachineModelList();
 
-                   
+
                     CrochetNomModel = "";
                 }
                 else
@@ -253,25 +302,24 @@ namespace BackEnd2.ViewModel
             }
             else
             {
-             
                 SendNotification.Raise("Nom model est requis");
-         
             }
         }
+
         public void AjouterNouveauTresseModel()
         {
-            if (TresseNomModel!=null && !string.IsNullOrWhiteSpace(TresseNomModel))
+            if (TresseNomModel != null && !string.IsNullOrWhiteSpace(TresseNomModel))
             {
                 var modelM = new ModelMachine();
                 modelM.NomModel = TresseNomModel.ToUpper();
-                modelM.Name = TresseNomModel ;
+                modelM.Name = TresseNomModel;
                 modelM.method = ModelMachine.Method.Tressage;
                 if (db2.GetTresseCrochetModelMachine(modelM) == null)
                 {
                     db2.AddTresseCrochetModelMachine(modelM);
                     UpdateMachineModelList();
 
-                   
+
                     TresseNomModel = "";
                 }
                 else
@@ -281,11 +329,10 @@ namespace BackEnd2.ViewModel
             }
             else
             {
-             
-                    SendNotification.Raise("Nom model est requis");
-         
+                SendNotification.Raise("Nom model est requis");
             }
         }
+
         public void AjouterNouveauModel()
         {
             if (NbrBande != null && !string.IsNullOrWhiteSpace(NbrBande) && MaxWidth != null &&
@@ -296,10 +343,10 @@ namespace BackEnd2.ViewModel
                 modelM.MaxWidth = Convert.ToInt32(MaxWidth);
                 modelM.NomModel = NomModel.ToUpper();
                 modelM.Name = NomModel + " " + NbrBande + "/" + MaxWidth;
-                
-                if (db.GetModelMachine(modelM) == null)
+
+                if (db2.GetModelMachine(modelM) == null)
                 {
-                    db.AddModelMachine(modelM);
+                    db2.AddModelMachine(modelM);
                     UpdateMachineModelList();
 
                     NbrBande = "";
@@ -331,16 +378,12 @@ namespace BackEnd2.ViewModel
                 IsEditEnabled = true;
                 EditNum = SelectedMachine.Num.ToString();
                 EditDesignation = SelectedMachine.Name;
-                SelectedModelEdit =ListMachineModel.SingleOrDefault(machM=>machM.ID ==SelectedMachine.Model.ID);
+                SelectedModelEdit = ListMachineModel.SingleOrDefault(machM => machM.ID == SelectedMachine.Model.ID);
                 if (SelectedMachine.DoubleDuitage == 1)
-                {
                     NovDoubleDuitage = true;
-                }
                 else
-                {
                     NovDoubleDuitage = false;
-                }
-                
+
                 EditingMachineID = SelectedMachine.ID;
             }
             else
@@ -353,10 +396,7 @@ namespace BackEnd2.ViewModel
 
         public ModelMachine SelectedModelMachine
         {
-            get
-            {
-                return _SelectedModelMachine;
-            }
+            get => _SelectedModelMachine;
             set
             {
                 _SelectedModelMachine = value;
@@ -365,6 +405,7 @@ namespace BackEnd2.ViewModel
         }
 
         private int EditModelID;
+
         public void ModifierModelMachine()
         {
             if (SelectedModelMachine != null)
@@ -381,7 +422,8 @@ namespace BackEnd2.ViewModel
                 {
                     SelectedMethod = ModelMachine.Method.Crochetage;
                     IsTissage = false;
-                }else if (SelectedModelMachine.method == ModelMachine.Method.Tissage)
+                }
+                else if (SelectedModelMachine.method == ModelMachine.Method.Tissage)
                 {
                     SelectedMethod = ModelMachine.Method.Tissage;
                     IsTissage = true;
@@ -397,7 +439,6 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("S.V.P séléctionnez un model de machine");
             }
         }
-        
 
         #endregion
 
@@ -414,6 +455,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private bool _IsEditModelEnabled;
 
         public bool IsEditModelEnabled
@@ -425,6 +467,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private MvxObservableCollection<Reed> _ListPeigne;
 
         public MvxObservableCollection<Reed> ListPeigne
@@ -436,6 +479,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private Reed _SelectedPeigne;
 
         public Reed SelectedPeigne
@@ -447,6 +491,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _Numero;
 
         public string Numero
@@ -458,6 +503,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovNumero;
 
         public string NovNumero
@@ -479,7 +525,6 @@ namespace BackEnd2.ViewModel
                 _SavePeigneChange = new MvxCommand(SaveReedChanges);
                 return _SavePeigneChange;
             }
-           
         }
 
         public void SaveReedChanges()
@@ -488,12 +533,13 @@ namespace BackEnd2.ViewModel
 
             if (NovNumero != null && !string.IsNullOrWhiteSpace(NovNumero))
             {
-                if (Double.TryParse(NovNumero,out ReedNum))
+                if (double.TryParse(NovNumero, out ReedNum))
                 {
-                    Reed DublicateReed=  ListPeigne.SingleOrDefault(pn => pn.Nombre == ReedNum && pn.ID!=SelectedPeigne.ID);
+                    var DublicateReed =
+                        ListPeigne.SingleOrDefault(pn => pn.Nombre == ReedNum && pn.ID != SelectedPeigne.ID);
                     if (DublicateReed == null)
                     {
-                        db2.ModifierNouveauPeigne(new Reed() {ID = SelectedPeigne.ID,Nombre = ReedNum });
+                        db2.ModifierNouveauPeigne(new Reed { ID = SelectedPeigne.ID, Nombre = ReedNum });
                         UpdateReedList();
                     }
                     else
@@ -505,14 +551,13 @@ namespace BackEnd2.ViewModel
                 {
                     SendNotification.Raise("Valeaur Incorrect");
                 }
-
             }
             else
             {
                 SendNotification.Raise("Numero est requis");
             }
         }
-       
+
         private IMvxCommand _CancelPeigneCmd;
 
         public IMvxCommand CancelPeigneCmd
@@ -523,20 +568,19 @@ namespace BackEnd2.ViewModel
                 return _CancelPeigneCmd;
             }
         }
+
         public void CancelPeigneChange()
         {
             IsEditPeigneEnabled = false;
-            NovNumero = "";;
+            NovNumero = "";
+            ;
         }
 
         private bool _IsEditPeigneEnabled;
 
         public bool IsEditPeigneEnabled
         {
-            get
-            {
-                return _IsEditPeigneEnabled;
-            }
+            get => _IsEditPeigneEnabled;
 
             set
             {
@@ -560,20 +604,21 @@ namespace BackEnd2.ViewModel
         {
             ListPeigne = new MvxObservableCollection<Reed>(db2.GetPeigneList());
         }
+
         public void AjouterNouveauPeigne()
         {
             double ReedNum;
 
             if (Numero != null && !string.IsNullOrWhiteSpace(Numero))
             {
-                if (Double.TryParse(Numero,out ReedNum))
+                if (double.TryParse(Numero, out ReedNum))
                 {
-                    Reed DublicateReed=  ListPeigne.SingleOrDefault(pn => pn.Nombre == ReedNum);
+                    var DublicateReed = ListPeigne.SingleOrDefault(pn => pn.Nombre == ReedNum);
                     if (DublicateReed == null)
                     {
-                        db2.AjouterNouveauPeigne(new Reed() { Nombre = ReedNum });
+                        db2.AjouterNouveauPeigne(new Reed { Nombre = ReedNum });
                         Numero = "";
-                        
+
                         UpdateReedList();
                     }
                     else
@@ -585,16 +630,13 @@ namespace BackEnd2.ViewModel
                 {
                     SendNotification.Raise("Valeaur Incorrect");
                 }
-
             }
             else
             {
                 SendNotification.Raise("Numero est requis");
             }
-           
         }
-        
-      
+
 
         private MvxObservableCollection<Machine> _ListMachineDD;
 
@@ -607,6 +649,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private MvxObservableCollection<Machine> _ListMachineDuit;
 
         public MvxObservableCollection<Machine> ListMachineDuit
@@ -618,6 +661,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private MvxObservableCollection<Machine> _ListMachine;
 
         public MvxObservableCollection<Machine> ListMachine
@@ -634,16 +678,14 @@ namespace BackEnd2.ViewModel
 
         public bool IsTissage
         {
-            get
-            {
-                return _IsTissage;
-            }
+            get => _IsTissage;
             set
             {
                 _IsTissage = value;
                 RaisePropertyChanged();
             }
         }
+
         private ModelMachine.Method? _SelectedMethod;
 
         public ModelMachine.Method? SelectedMethod
@@ -655,17 +697,15 @@ namespace BackEnd2.ViewModel
                 if (_SelectedMethod != null)
                 {
                     if (_SelectedMethod == ModelMachine.Method.Tissage)
-                    {
                         IsTissage = true;
-                    }
                     else
-                    {
                         IsTissage = false;
-                    }
                 }
+
                 RaisePropertyChanged();
             }
         }
+
         private MvxObservableCollection<ModelMachine.Method> _MethodList;
 
         public MvxObservableCollection<ModelMachine.Method> MethodList
@@ -677,6 +717,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private Machine _SelectedMachine;
 
         public Machine SelectedMachine
@@ -686,7 +727,6 @@ namespace BackEnd2.ViewModel
             {
                 _SelectedMachine = value;
                 RaisePropertyChanged();
-                
             }
         }
 
@@ -701,6 +741,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _TresseNomModel;
 
         public string TresseNomModel
@@ -712,6 +753,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovTresseNomModel;
 
         public string NovTresseNomModel
@@ -723,6 +765,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _CrochetNomModel;
 
         public string CrochetNomModel
@@ -734,6 +777,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovCrochetNomModel;
 
         public string NovCrochetNomModel
@@ -745,6 +789,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovNomModel;
 
         public string NovNomModel
@@ -756,7 +801,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
-      
+
 
         private string _Num;
 
@@ -846,36 +891,31 @@ namespace BackEnd2.ViewModel
             }
         }
 
-      
 
         private bool _IsVerificateur;
 
         public bool IsVerificateur
         {
-            get
-            {
-                return _IsVerificateur;
-            }
+            get => _IsVerificateur;
             set
             {
                 _IsVerificateur = value;
                 RaisePropertyChanged();
             }
         }
+
         private bool _IsSuperUser;
 
         public bool IsSuperUser
         {
-            get
-            {
-                return _IsSuperUser;
-            }
+            get => _IsSuperUser;
             set
             {
                 _IsSuperUser = value;
                 RaisePropertyChanged();
             }
         }
+
         #endregion
 
         #region Button Commands
@@ -890,6 +930,7 @@ namespace BackEnd2.ViewModel
                 return _Modifier;
             }
         }
+
         private IMvxCommand _ModifierDuitage;
 
         public IMvxCommand ModifierDuitage
@@ -900,6 +941,7 @@ namespace BackEnd2.ViewModel
                 return _ModifierDuitage;
             }
         }
+
         private IMvxCommand _ModifierDuitageGo;
 
         public IMvxCommand ModifierDuitageGo
@@ -910,22 +952,24 @@ namespace BackEnd2.ViewModel
                 return _ModifierDuitageGo;
             }
         }
+
         public void EditingDuitageGo()
         {
             if (SelectedDuitageGo != null)
             {
                 IsEditEnabledDuitageGo = true;
-                NumDuitageGoEdit = SelectedDuitageGo.Duitage.ToString();
+                NumDuitageGoEdit = SelectedDuitageGo.Duitage;
 
-                SelectedMachineDuitGoEdit =ListMachineDD.SingleOrDefault(mach=>mach.ID== SelectedDuitageGo.Machine.ID);
+                SelectedMachineDuitGoEdit =
+                    ListMachineDD.SingleOrDefault(mach => mach.ID == SelectedDuitageGo.Machine.ID);
                 //VitesseGoEdit = SelectedDuitageGo.Vitesse.ToString();
-                 
             }
             else
             {
                 SendNotification.Raise("aucun duitage séléctionné");
             }
         }
+
         private IMvxCommand _SaveDuitageChange;
 
         public IMvxCommand SaveDuitageChange
@@ -936,7 +980,7 @@ namespace BackEnd2.ViewModel
                 return _SaveDuitageChange;
             }
         }
-        
+
         private IMvxCommand _SaveDuitageGoChange;
 
         public IMvxCommand SaveDuitageGoChange
@@ -947,37 +991,33 @@ namespace BackEnd2.ViewModel
                 return _SaveDuitageGoChange;
             }
         }
+
         public void SaveNovDuitageGo()
         {
             if (NumDuitageGoEdit != null && !string.IsNullOrWhiteSpace(NumDuitageGoEdit)
-                                    )
+               )
             {
-           
-                        DuitageGomme NovDuit = new DuitageGomme();
-                        NovDuit.ID = SelectedDuitageGo.ID;
-                        NovDuit.Duitage = NumDuitageGoEdit;
-                        NovDuit.Machine = SelectedMachineDuitGoEdit;
-                        if (db2.GetDuitageGoEdit(NovDuit.ID,NovDuit.Duitage) == null)
-                        {
-                            db2.EditDuitageGo(NovDuit);
-                            UpdateDuitageGoList();
-                            CancelDuitageGoChange();
-                        }
-                        else
-                        {
-                            SendNotification.Raise("Duitage Gomme existe déja");
-                        }
-                    
-                  
-               
+                var NovDuit = new DuitageGomme();
+                NovDuit.ID = SelectedDuitageGo.ID;
+                NovDuit.Duitage = NumDuitageGoEdit;
+                NovDuit.Machine = SelectedMachineDuitGoEdit;
+                if (db2.GetDuitageGoEdit(NovDuit.ID, NovDuit.Duitage) == null)
+                {
+                    db2.EditDuitageGo(NovDuit);
+                    UpdateDuitageGoList();
+                    CancelDuitageGoChange();
+                }
+                else
+                {
+                    SendNotification.Raise("Duitage Gomme existe déja");
+                }
             }
             else
             {
-               
-                    SendNotification.Raise("Duitage requis");
-            
+                SendNotification.Raise("Duitage requis");
             }
         }
+
         private IMvxCommand _CancelEditDuitageCmd;
 
         public IMvxCommand CancelEditDuitageCmd
@@ -988,6 +1028,7 @@ namespace BackEnd2.ViewModel
                 return _CancelEditDuitageCmd;
             }
         }
+
         private IMvxCommand _CancelEditDuitageGoCmd;
 
         public IMvxCommand CancelEditDuitageGoCmd
@@ -998,13 +1039,15 @@ namespace BackEnd2.ViewModel
                 return _CancelEditDuitageGoCmd;
             }
         }
+
         public void CancelDuitageGoChange()
         {
             NumDuitageGoEdit = "";
             VitesseGoEdit = "";
             SelectedMachineDuitGoEdit = null;
-            IsEditEnabledDuitageGo= false;
+            IsEditEnabledDuitageGo = false;
         }
+
         public void CancelDuitageChange()
         {
             NovNumDuitage = "";
@@ -1012,6 +1055,7 @@ namespace BackEnd2.ViewModel
             SelectedMachineDuitEdit = null;
             IsEditEnabledDuitage = false;
         }
+
         public void SaveNovDuitage()
         {
             if (NovNumDuitage != null && !string.IsNullOrWhiteSpace(NovNumDuitage)
@@ -1023,12 +1067,12 @@ namespace BackEnd2.ViewModel
                 {
                     if (double.TryParse(NovVitesse, out ConvertedVitesse))
                     {
-                        Duitages NovDuit = new Duitages();
+                        var NovDuit = new Duitages();
                         NovDuit.ID = SelectedDuitage.ID;
                         NovDuit.Duitage = ConvertedDuitage;
-                        NovDuit.Vitesse =ConvertedVitesse;
+                        NovDuit.Vitesse = ConvertedVitesse;
                         NovDuit.Machine = SelectedMachineDuitEdit;
-                        if (db2.GetDuitageEdit(NovDuit.ID,NovDuit.Duitage,NovDuit.Vitesse) == null)
+                        if (db2.GetDuitageEdit(NovDuit.ID, NovDuit.Duitage, NovDuit.Vitesse) == null)
                         {
                             db2.EditDuitage(NovDuit);
                             UpdateDuitageList();
@@ -1043,22 +1087,21 @@ namespace BackEnd2.ViewModel
                     {
                         SendNotification.Raise("Vitesse Incorrecte");
                     }
-                    
                 }
                 else
                 {
                     SendNotification.Raise("Duitage Incorrect");
                 }
-               
             }
             else
             {
-                if(NovNumDuitage == null || string.IsNullOrWhiteSpace(NovNumDuitage))
+                if (NovNumDuitage == null || string.IsNullOrWhiteSpace(NovNumDuitage))
                     SendNotification.Raise("Duitage requis");
-                else if(NovVitesse == null || string.IsNullOrWhiteSpace(NovVitesse))
+                else if (NovVitesse == null || string.IsNullOrWhiteSpace(NovVitesse))
                     SendNotification.Raise("vitesse requise");
             }
         }
+
         public void EditingDuitage()
         {
             if (SelectedDuitage != null)
@@ -1066,15 +1109,16 @@ namespace BackEnd2.ViewModel
                 IsEditEnabledDuitage = true;
                 NovNumDuitage = SelectedDuitage.Duitage.ToString();
 
-                SelectedMachineDuitEdit =ListMachineDuit.SingleOrDefault(mach=>mach.ID== SelectedDuitage.Machine.ID);
+                SelectedMachineDuitEdit =
+                    ListMachineDuit.SingleOrDefault(mach => mach.ID == SelectedDuitage.Machine.ID);
                 NovVitesse = SelectedDuitage.Vitesse.ToString();
-                 
             }
             else
             {
                 SendNotification.Raise("aucun duitage séléctionné");
             }
         }
+
         private IMvxCommand _ModifierModel;
 
         public IMvxCommand ModifierModel
@@ -1085,6 +1129,7 @@ namespace BackEnd2.ViewModel
                 return _ModifierModel;
             }
         }
+
         private IMvxCommand _Supprimer;
 
         public IMvxCommand Supprimer
@@ -1106,6 +1151,7 @@ namespace BackEnd2.ViewModel
                 return _AjouterNovModelMachine;
             }
         }
+
         private IMvxCommand _AjouterTresseNovModelMachine;
 
         public IMvxCommand AjouterTresseNovModelMachine
@@ -1116,6 +1162,7 @@ namespace BackEnd2.ViewModel
                 return _AjouterTresseNovModelMachine;
             }
         }
+
         private IMvxCommand _AjouterCrochetNovModelMachine;
 
         public IMvxCommand AjouterCrochetNovModelMachine
@@ -1126,34 +1173,31 @@ namespace BackEnd2.ViewModel
                 return _AjouterCrochetNovModelMachine;
             }
         }
-        private bool _DoubleDuitage=false;
+
+        private bool _DoubleDuitage;
 
         public bool DoubleDuitage
         {
-            get
-            {
-                return _DoubleDuitage;
-            }
+            get => _DoubleDuitage;
             set
             {
                 _DoubleDuitage = value;
                 RaisePropertyChanged();
             }
         }
+
         private bool _NovDoubleDuitage;
 
         public bool NovDoubleDuitage
         {
-            get
-            {
-                return _NovDoubleDuitage;
-            }
+            get => _NovDoubleDuitage;
             set
             {
                 _NovDoubleDuitage = value;
                 RaisePropertyChanged();
             }
         }
+
         private IMvxCommand _AjouterDuitageGoMachine;
 
         public IMvxCommand AjouterDuitageGoMachine
@@ -1164,7 +1208,7 @@ namespace BackEnd2.ViewModel
                 return _AjouterDuitageGoMachine;
             }
         }
-     
+
 
         private IMvxCommand _AjouterNovMachine;
 
@@ -1187,6 +1231,7 @@ namespace BackEnd2.ViewModel
                 return _CancelCmd;
             }
         }
+
         private IMvxCommand _SaveModelChange;
 
         public IMvxCommand SaveModelChange
@@ -1197,6 +1242,7 @@ namespace BackEnd2.ViewModel
                 return _SaveModelChange;
             }
         }
+
         private IMvxCommand _CancelModelCmd;
 
         public IMvxCommand CancelModelCmd
@@ -1218,48 +1264,39 @@ namespace BackEnd2.ViewModel
             MethodList = new MvxObservableCollection<ModelMachine.Method>();
             IsTissage = false;
         }
+
         public bool IsEditModelEmpty()
         {
             if (NovNbrBande == null || string.IsNullOrWhiteSpace(NovNbrBande))
-            {
                 return true;
-            }else if (NovNomModel==null || string.IsNullOrWhiteSpace(NovNomModel))
-            {
+            if (NovNomModel == null || string.IsNullOrWhiteSpace(NovNomModel))
                 return true;
-            }
-            else if(NovMaxWidth==null || string.IsNullOrWhiteSpace(NovMaxWidth))
-            {
-                return true  ;
-            }
-            else
-            {
-                return false;
-            }
+            if (NovMaxWidth == null || string.IsNullOrWhiteSpace(NovMaxWidth))
+                return true;
+            return false;
         }
+
         public void SavingModelChange()
         {
             if (SelectedMethod != ModelMachine.Method.Tissage)
             {
-                if (NovNomModel!=null && !string.IsNullOrWhiteSpace(NovNomModel))
+                if (NovNomModel != null && !string.IsNullOrWhiteSpace(NovNomModel))
                 {
-                   
-                
-                            var modelMachine = new ModelMachine();
-                            modelMachine.ID = EditModelID;
-                            modelMachine.NomModel = NovNomModel;
-                            modelMachine.Name=NovNomModel;
-                            modelMachine.method =(ModelMachine.Method) SelectedMethod;
-                                if (db2.GetTresseCrochetModelMachine(modelMachine)==null)
-                                {
-                                    db2.SaveModelCrochetTresseMachineChange(modelMachine);
-                                    UpdateMachineList();
-                                    CancelingModelChange();
-                                }
-                                else
-                                {
-                                    SendNotification.Raise("Model Machine existe déja");
-                                }
-                      
+                    var modelMachine = new ModelMachine();
+                    modelMachine.ID = EditModelID;
+                    modelMachine.NomModel = NovNomModel;
+                    modelMachine.Name = NovNomModel;
+                    modelMachine.method = (ModelMachine.Method)SelectedMethod;
+                    if (db2.GetTresseCrochetModelMachine(modelMachine) == null)
+                    {
+                        db2.SaveModelCrochetTresseMachineChange(modelMachine);
+                        UpdateMachineList();
+                        CancelingModelChange();
+                    }
+                    else
+                    {
+                        SendNotification.Raise("Model Machine existe déja");
+                    }
                 }
                 else
                 {
@@ -1284,19 +1321,19 @@ namespace BackEnd2.ViewModel
                             modelMachine.NomModel = NovNomModel;
                             modelMachine.MaxWidth = ConvertedMaxWidth;
                             modelMachine.NbrBande = ConvertedNbrBande;
-                            modelMachine.method =(ModelMachine.Method) SelectedMethod;
-                            modelMachine.Name=NovNomModel + " " + NovNbrBande + "/" + NovMaxWidth;
-                            
-                                if (!db2.CheckModelDuplicate(modelMachine))
-                                {
-                                    db2.SaveModelMachineChange(modelMachine);
-                                    UpdateMachineList();
-                                    CancelingModelChange();
-                                }
-                                else
-                                {
-                                    SendNotification.Raise("Model Machine existe déja");
-                                }
+                            modelMachine.method = (ModelMachine.Method)SelectedMethod;
+                            modelMachine.Name = NovNomModel + " " + NovNbrBande + "/" + NovMaxWidth;
+
+                            if (!db2.CheckModelDuplicate(modelMachine))
+                            {
+                                db2.SaveModelMachineChange(modelMachine);
+                                UpdateMachineList();
+                                CancelingModelChange();
+                            }
+                            else
+                            {
+                                SendNotification.Raise("Model Machine existe déja");
+                            }
                         }
                         else
                         {
@@ -1307,8 +1344,6 @@ namespace BackEnd2.ViewModel
                     {
                         SendNotification.Raise("Largeur Incorrecte");
                     }
-                   
-              
                 }
                 else
                 {
@@ -1318,8 +1353,8 @@ namespace BackEnd2.ViewModel
                         SendNotification.Raise("Numéro machine est requis");
                 }
             }
-            
         }
+
         private IMvxCommand _SaveChange;
 
         public IMvxCommand SaveChange
@@ -1330,8 +1365,8 @@ namespace BackEnd2.ViewModel
                 return _SaveChange;
             }
         }
-        
-        
+
+
         private string _NbrBande;
 
         public string NbrBande
@@ -1343,6 +1378,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovNbrBande;
 
         public string NovNbrBande
@@ -1354,6 +1390,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _MaxWidth;
 
         public string MaxWidth
@@ -1365,6 +1402,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovMaxWidth;
 
         public string NovMaxWidth
@@ -1376,82 +1414,8 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         #endregion
-
-        private IMvxCommand _SupprimerPeigne;
-
-        public IMvxCommand SupprimerPeigne
-        {
-            get
-            {
-                _SupprimerPeigne = new MvxCommand(SupprimerSelectedPeigne);
-                return _SupprimerPeigne;
-            }
-        }
-
-        public void SupprimerSelectedPeigne()
-        {
-            if (SelectedPeigne != null)
-            {
-                var req = new YesNoQuestion
-                {
-                    Question = "êtes-vous sûr de vouloir supprimer cet Peigne séléctionné ?",
-                    UploadCallback = ok =>
-                    {
-                        if (ok)
-                        {
-                            db2.DeletePeigne(SelectedPeigne);
-                            UpdateReedList();
-                        }
-                    }
-                };
-                ConfirmAction.Raise(req);
-            }
-            else
-            {
-                SendNotification.Raise("Aucun Peigne séléctionné");
-            }
-        }
-        
-        private IMvxCommand _ModifierPeigne;
-
-        public IMvxCommand ModifierPeigne
-        {
-            get
-            {
-                _ModifierPeigne = new MvxCommand(ModifierSelectedPeigne);
-                return _ModifierPeigne;
-            }
-        }
-
-        public void ModifierSelectedPeigne()
-        {
-            if (SelectedPeigne != null)
-            {
-                IsEditPeigneEnabled = true;
-                NovNumero = SelectedPeigne.Nombre.ToString();
-                
-            }
-            else
-            {
-                SendNotification.Raise("Aucun Peigne Séléctionné");
-            }
-        }
-        private user UserSession;
-        public override void Prepare(user parameter)
-        {
-            UserSession = parameter;
-            db = Mvx.IoCProvider.Resolve<MyDBContext>();
-            db2 = Mvx.IoCProvider.Resolve<SqliteData>();
-            if (UserSession.type == user.UserType.verificateur)
-            {
-                IsVerificateur = true;
-            }
-            else
-            {
-                IsVerificateur = false;
-            }
-        }
 
         #region Duitage View
 
@@ -1459,47 +1423,38 @@ namespace BackEnd2.ViewModel
 
         public Machine SelectedMachineDuitEdit
         {
-            get
-            {
-                return _SelectedMachineDuitEdit;
-            }
+            get => _SelectedMachineDuitEdit;
             set
             {
                 _SelectedMachineDuitEdit = value;
                 RaisePropertyChanged();
             }
         }
+
         private Machine _SelectedMachineDuitGoEdit;
 
         public Machine SelectedMachineDuitGoEdit
         {
-            get
-            {
-                return _SelectedMachineDuitGoEdit;
-            }
+            get => _SelectedMachineDuitGoEdit;
             set
             {
                 _SelectedMachineDuitGoEdit = value;
                 RaisePropertyChanged();
             }
-        }    
-            
+        }
+
         private Machine _SelectedMachine2;
 
         public Machine SelectedMachine2
         {
-            get
-            {
-                return _SelectedMachine2;
-                
-            }
+            get => _SelectedMachine2;
             set
             {
                 _SelectedMachine2 = value;
 
                 if (_SelectedMachine2 != null)
                 {
-                    if (_SelectedMachine2.Model.method==ModelMachine.Method.Crochetage)
+                    if (_SelectedMachine2.Model.method == ModelMachine.Method.Crochetage)
                     {
                         IsDoubleDuitage = true;
                         UpdateDuitageGoList();
@@ -1513,21 +1468,24 @@ namespace BackEnd2.ViewModel
                 {
                     IsDoubleDuitage = false;
                 }
-               
+
                 RaisePropertyChanged();
                 UpdateDuitageList();
             }
         }
+
         public void UpdateDuitageGoList()
         {
             if (SelectedMachine2 != null)
                 ListDuitageGo = new MvxObservableCollection<DuitageGomme>(db2.GetDuitageMachineGo(SelectedMachine2));
         }
+
         public void UpdateDuitageList()
         {
             if (SelectedMachine2 != null)
                 ListDuitage = new MvxObservableCollection<Duitages>(db2.GetDuitageMachine(SelectedMachine2));
         }
+
         private MvxObservableCollection<Duitages> _ListDuitage;
 
         public MvxObservableCollection<Duitages> ListDuitage
@@ -1544,59 +1502,50 @@ namespace BackEnd2.ViewModel
 
         public bool IsDoubleDuitage
         {
-            get
-            {
-                return _IsDoubleDuitage;
-            }
+            get => _IsDoubleDuitage;
             set
             {
                 _IsDoubleDuitage = value;
                 RaisePropertyChanged();
             }
         }
+
         private MvxObservableCollection<DuitageGomme> _ListDuitageGo;
 
         public MvxObservableCollection<DuitageGomme> ListDuitageGo
         {
-            get
-            {
-                return _ListDuitageGo;
-            }
+            get => _ListDuitageGo;
             set
             {
                 _ListDuitageGo = value;
                 RaisePropertyChanged();
             }
         }
+
         private Duitages _SelectedDuitage;
 
         public Duitages SelectedDuitage
         {
-            get
-            {
-                return _SelectedDuitage;
-            }
+            get => _SelectedDuitage;
             set
             {
                 _SelectedDuitage = value;
                 RaisePropertyChanged();
             }
         }
+
         private DuitageGomme _SelectedDuitageGo;
 
         public DuitageGomme SelectedDuitageGo
         {
-            get
-            {
-                return _SelectedDuitageGo;
-            }
+            get => _SelectedDuitageGo;
             set
             {
                 _SelectedDuitageGo = value;
                 RaisePropertyChanged();
             }
         }
-        
+
 
         private string _NumDuitage;
 
@@ -1609,6 +1558,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovNumDuitage;
 
         public string NovNumDuitage
@@ -1620,6 +1570,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovNumDuitageGo;
 
         public string NovNumDuitageGo
@@ -1631,6 +1582,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NumDuitageGo;
 
         public string NumDuitageGo
@@ -1642,6 +1594,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NumDuitageGoEdit;
 
         public string NumDuitageGoEdit
@@ -1653,6 +1606,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private Machine _SelectedMachineDuitGo;
 
         public Machine SelectedMachineDuitGo
@@ -1664,6 +1618,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private Machine _SelectedMachineDuit;
 
         public Machine SelectedMachineDuit
@@ -1675,6 +1630,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _Vitesse;
 
         public string Vitesse
@@ -1686,6 +1642,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _NovVitesse;
 
         public string NovVitesse
@@ -1697,6 +1654,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _VitesseGo;
 
         public string VitesseGo
@@ -1708,6 +1666,7 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         private string _VitesseGoEdit;
 
         public string VitesseGoEdit
@@ -1719,8 +1678,8 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
-       
-          public void AjouterDuitageAuMachine()
+
+        public void AjouterDuitageAuMachine()
         {
             if (SelectedMachineDuit != null && NumDuitage != null && !string.IsNullOrWhiteSpace(NumDuitage) &&
                 Vitesse != null && !string.IsNullOrWhiteSpace(Vitesse))
@@ -1769,65 +1728,61 @@ namespace BackEnd2.ViewModel
                     SendNotification.Raise("Numéro duitage est requis");
             }
         }
-          private IMvxCommand _AjouterDuitageMachine;
 
-          public IMvxCommand AjouterDuitageMachine
-          {
-              get
-              {
-                  _AjouterDuitageMachine = new MvxCommand(AjouterDuitageAuMachine);
-                  return _AjouterDuitageMachine;
-              }
-          }
+        private IMvxCommand _AjouterDuitageMachine;
 
-          private bool _IsEditEnabledDuitage;
+        public IMvxCommand AjouterDuitageMachine
+        {
+            get
+            {
+                _AjouterDuitageMachine = new MvxCommand(AjouterDuitageAuMachine);
+                return _AjouterDuitageMachine;
+            }
+        }
 
-          public bool IsEditEnabledDuitage
-          {
-              get
-              {
-                  return _IsEditEnabledDuitage;
-              }
-              set
-              {
-                  _IsEditEnabledDuitage = value;
-                  RaisePropertyChanged();
-              }
-          }
-          private bool _IsEditEnabledDuitageGo;
+        private bool _IsEditEnabledDuitage;
 
-          public bool IsEditEnabledDuitageGo
-          {
-              get
-              {
-                  return _IsEditEnabledDuitageGo;
-              }
-              set
-              {
-                  _IsEditEnabledDuitageGo = value;
-                  RaisePropertyChanged();
-              }
-          }
+        public bool IsEditEnabledDuitage
+        {
+            get => _IsEditEnabledDuitage;
+            set
+            {
+                _IsEditEnabledDuitage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsEditEnabledDuitageGo;
+
+        public bool IsEditEnabledDuitageGo
+        {
+            get => _IsEditEnabledDuitageGo;
+            set
+            {
+                _IsEditEnabledDuitageGo = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public void AjouterDuitageGoAuMachine()
         {
-            if (SelectedMachineDuitGo != null && NumDuitageGo != null && !string.IsNullOrWhiteSpace(NumDuitageGo) )
+            if (SelectedMachineDuitGo != null && NumDuitageGo != null && !string.IsNullOrWhiteSpace(NumDuitageGo))
             {
                 var duit = new DuitageGomme();
                 duit.Machine = SelectedMachineDuitGo;
-               
-                        duit.Duitage = NumDuitageGo;
-                        if (db2.GetDuitageGo(SelectedMachineDuitGo.ID, duit.Duitage) == null)
-                        {
-                            db2.AddNewDuitageGo(duit);
-                            UpdateMachineList();
-                            SelectedMachineDuitGo = null;
-                            NumDuitageGo = "";
-                        }
-                        else
-                        {
-                            SendNotification.Raise("Duitage existe déja dans la machine");
-                        }
-                  
+
+                duit.Duitage = NumDuitageGo;
+                if (db2.GetDuitageGo(SelectedMachineDuitGo.ID, duit.Duitage) == null)
+                {
+                    db2.AddNewDuitageGo(duit);
+                    UpdateMachineList();
+                    SelectedMachineDuitGo = null;
+                    NumDuitageGo = "";
+                }
+                else
+                {
+                    SendNotification.Raise("Duitage existe déja dans la machine");
+                }
             }
             else
             {
@@ -1839,6 +1794,7 @@ namespace BackEnd2.ViewModel
                     SendNotification.Raise("Numéro duitage est requis");
             }
         }
+
         #endregion
     }
 }

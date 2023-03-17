@@ -52,7 +52,7 @@ namespace FrontEnd.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrontEnd;component/view/matiereview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/rrgem;component/view/matiereview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\MatiereView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

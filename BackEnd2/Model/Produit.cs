@@ -1,41 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class Produit: INotifyPropertyChanged,ICloneable
+    public class Produit : INotifyPropertyChanged, ICloneable
     {
-         private int ID;
-         private int _Version;
-         private int _NumArticle;
-         private FicheTechnique _FicheTekId;
-         private DateTime? _DateCreation;
-         private DateTime? _MiseAJour;
-         private Concepteur _Concepteur;
-         private DateTime? _Redaction;
-         private Verificateur _Verificateur;
-         private int _Redacteur;
-         private Redacteur _RedacteurObj;
-         private Duitages _DuitageId;
-         private DuitageGomme _DuitageGomme;
-         private int _Dent;
-         private Reed _PeigneObj;
-         private int _Peigne;
-         private string _Ref;
-         private string _Name;
-         private string _Name2;
-         private int _Largeur;
-         private int _Epaisseur;
-         private Client _Client;
-         private Enfilage _EnfilageId;
-         private List<Composition> _GetComposition;
-         private int _definite;
+        private Client _Client;
+        private Concepteur _Concepteur;
+        private DateTime? _DateCreation;
+        private int _Dent;
+        private DuitageGomme _DuitageGomme;
+        private Duitages _DuitageId;
 
-   
+        private int _EnfDent;
+        private Enfilage _EnfilageId;
+        private int _Epaisseur;
+        private FicheTechnique _FicheTekId;
+        private List<Composition> _GetComposition;
+
+
+        private string _image;
+
+        private int _IsEnfilage;
+        private int _Largeur;
+        private DateTime? _MiseAJour;
+        private string _Name;
+        private string _Name2;
+        private int _NumArticle;
+        private int _Peigne;
+        private Reed _PeigneObj;
+        private int _Redacteur;
+        private Redacteur _RedacteurObj;
+        private DateTime? _Redaction;
+        private string _Ref;
+        private Verificateur _Verificateur;
+        private int _Version;
+
+
+        private int FicheID;
+        private int ID;
+
+
         public int Id
         {
             get => ID;
@@ -66,14 +73,9 @@ namespace BackEnd2.Model
             }
         }
 
-        private int _EnfDent;
-
         public int EnfDent
         {
-            get
-            {
-                return _EnfDent;
-            }
+            get => _EnfDent;
             set
             {
                 _EnfDent = value;
@@ -81,9 +83,6 @@ namespace BackEnd2.Model
             }
         }
 
-
-        private int FicheID;
-        
         //[ForeignKey("FicheTechnique")]
         public int FicheId
         {
@@ -154,6 +153,7 @@ namespace BackEnd2.Model
                 NotifyPropertyChanged();
             }
         }
+
         public int Redacteur
         {
             get => _Redacteur;
@@ -163,6 +163,7 @@ namespace BackEnd2.Model
                 NotifyPropertyChanged();
             }
         }
+
         public Verificateur Verificateur
         {
             get => _Verificateur;
@@ -203,6 +204,7 @@ namespace BackEnd2.Model
                 NotifyPropertyChanged();
             }
         }
+
         public int Peigne
         {
             get => _Peigne;
@@ -283,8 +285,6 @@ namespace BackEnd2.Model
             }
         }
 
-        private int _IsEnfilage;
-        
         public string Name2
         {
             get => _Name2;
@@ -316,26 +316,52 @@ namespace BackEnd2.Model
             }
         }
 
-        public int Definite
-        {
-            get => _definite;
-            set => _definite = value;
-        }
-
-
-        private string _image;
+        public int Definite { get; set; }
 
         public string image
         {
-            get
-            {
-                return _image;
-            }
+            get => _image;
             set
             {
                 _image = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        public object Clone()
+        {
+            return new Produit
+            {
+                ID = ID,
+                image = image,
+                Version = Version,
+                NumArticle = NumArticle,
+                FicheTekID = FicheTekID,
+                DateCreation = DateCreation,
+                MiseAJour = MiseAJour,
+                Concepteur = Concepteur,
+                Redaction = Redaction,
+                EnfDent = EnfDent,
+                Verificateur = Verificateur,
+                DuitageID = DuitageID,
+                DuitageGomme = DuitageGomme,
+                Dent = Dent,
+                Peigne = Peigne,
+                Ref = Ref,
+                Name = Name,
+                Name2 = Name2,
+                Largeur = Largeur,
+                Epaisseur = Epaisseur,
+                Client = Client,
+                EnfilageID = EnfilageID,
+                GetComposition = GetComposition,
+                IsEnfilage = IsEnfilage,
+                FicheId = FicheId,
+                Definite = Definite,
+                RedacteurObj = RedacteurObj,
+                Redacteur = Redacteur,
+                PeigneObj = PeigneObj
+            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -345,47 +371,11 @@ namespace BackEnd2.Model
             // Did the property cash change?
             NotifyPropertyChanged(e.PropertyName);
         }
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public object Clone()
-        {
-            
-            return new Produit()
-            {
-                ID=this.ID,
-                image = this.image,
-            Version=this.Version,
-           NumArticle=this.NumArticle,
-           FicheTekID=this.FicheTekID,
-         DateCreation=this.DateCreation,
-         MiseAJour=this.MiseAJour,
-        Concepteur=this.Concepteur,
-        Redaction=this.Redaction,
-        EnfDent = this.EnfDent,
-        Verificateur=this.Verificateur,
-        DuitageID=this.DuitageID,
-        DuitageGomme=this.DuitageGomme,
-        Dent=this.Dent,
-        Peigne=this.Peigne,
-        Ref=this.Ref,
-        Name=this.Name,
-        Name2=this.Name2,
-        Largeur=this.Largeur,
-        Epaisseur=this.Epaisseur,
-        Client=this.Client,
-        EnfilageID = this.EnfilageID,
-        GetComposition=this.GetComposition,
-        IsEnfilage = this.IsEnfilage,
-        FicheId=this.FicheId,
-        Definite = this.Definite,
-        RedacteurObj = this.RedacteurObj,
-        Redacteur = this.Redacteur,
-        PeigneObj = this.PeigneObj,
-            };
         }
     }
 }

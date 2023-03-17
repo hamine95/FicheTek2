@@ -4,12 +4,383 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
+           
+             xmlns:behiavor="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:enfilageSch="clr-namespace:DSheetEnfilage;assembly=DSheetEnfilage"
+             xmlns:customClass="clr-namespace:FrontEnd.CustomClass"
+             xmlns:converter="clr-namespace:FrontEnd.Converter"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:TrameSizeConverter x:Key="TrameSizeConverter" />
+        <converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+        <ResourceDictionary x:Key="dic1">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DSheetEnfilage;component/legendStyle.xaml" ></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/DSheetEnfilage;component/ChaineStyle.xaml" ></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </UserControl.Resources>
+    <Grid 
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        x:Name="Grid1"
+        >
 
-    <Grid>
-     
-        <enfilageSch:CanvasControl ChainRotateY="{Binding RotateY,Mode=TwoWay}" ChainRotateX="{Binding RotateX,Mode=TwoWay}" WorkinRect="{Binding WorkRectan,Mode=TwoWay}" SelectedColComp="{Binding SelectedColComp,Mode=TwoWay}" CompList="{Binding Compolist,Mode=TwoWay}" EnableChaineEdit="{Binding IsCreateChaine}"  TrameXposition="{Binding TrameXposition}" TrameYposition="{Binding TrameYposition}" IsDentFil="{Binding IsDentFilVis,Mode=TwoWay}" LastYposition="{Binding LastYposition,Mode=TwoWay}" LastXposition="{Binding LastXposition,Mode=TwoWay}" ChaineList2="{Binding ChaineList2}" ChaineList="{Binding ChaineList}" ChRowSum="{Binding ChRowSum}" ChaineRows2="{Binding ChaineRows2,Mode=TwoWay}" ChaineRows="{Binding ChaineRows,Mode=TwoWay}" enfilageElement="{Binding AddedElement,Mode=TwoWay}" SelectedChaine="{Binding SelectedChaine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" ChaineColumns="{Binding ChaineColumns,Mode=TwoWay}" KeyboardNavigation.TabIndex="0" NbrDent="{Binding NbrDent,Mode=TwoWay}" ContentEnfilageList="{Binding ContentEnfilageList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}"  KeyboardNavigation.DirectionalNavigation="Local" ListComposant="{Binding SchCompList,Mode=TwoWay}" EnfilageBoard="{Binding EnfilageList}"></enfilageSch:CanvasControl>
+        <DockPanel 
+            
+            Visibility="{Binding rep1.vis,Converter={StaticResource BoolToVis}}"
+                 AllowDrop="True"
+                 Panel.ZIndex="8"
+                 VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                 Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=3}" 
+                 Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=2}"
+                 >
+            <DockPanel.RenderTransform>
+                <TranslateTransform
+                    X="{Binding rep1.x}"
+                    Y="{Binding rep1.y}"
+                >
 
+                </TranslateTransform>
+            </DockPanel.RenderTransform>
+            <behiavor:Interaction.Behaviors >
+                <behiavor:MouseDragElementBehavior  
+                    DragFinished="Rep1_OnDragFinished"
+                    x:Name="rep1" 
+                    ConstrainToParentBounds="True"
+                />
+            </behiavor:Interaction.Behaviors>
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="16" 
+                FontWeight="Bold" 
+                >X</TextBlock>
+            <TextBox 
+                FontSize="16"
+                FontWeight="Bold"
+                BorderBrush="White"
+                Text="{Binding rep1.value}"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+                ></TextBox>
+        </DockPanel>
+        
+        <DockPanel 
+            Visibility="{Binding rep2.vis,Converter={StaticResource BoolToVis}}"
+            AllowDrop="True"
+            Panel.ZIndex="8"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=3}" 
+            Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=2}"
+        >
+            <DockPanel.RenderTransform>
+                <TranslateTransform
+                    X="{Binding rep2.x}"
+                    Y="{Binding rep2.y}"
+                >
+
+                </TranslateTransform>
+            </DockPanel.RenderTransform>
+            <behiavor:Interaction.Behaviors >
+                <behiavor:MouseDragElementBehavior  
+                    DragFinished="Rep2_OnDragFinished"
+                    x:Name="rep2" 
+                    ConstrainToParentBounds="True"
+                />
+            </behiavor:Interaction.Behaviors>
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="16" 
+                FontWeight="Bold" 
+            >X</TextBlock>
+            <TextBox 
+                FontSize="16"
+                FontWeight="Bold"
+                BorderBrush="White"
+                Text="{Binding rep2.value}"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+            ></TextBox>
+        </DockPanel>
+        <DockPanel 
+            Visibility="{Binding rep3.vis,Converter={StaticResource BoolToVis}}"
+            AllowDrop="True"
+            Panel.ZIndex="8"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=3}" 
+            Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=2}"
+        >
+            <DockPanel.RenderTransform>
+                <TranslateTransform
+                    X="{Binding rep3.x}"
+                    Y="{Binding rep3.y}"
+                >
+
+                </TranslateTransform>
+            </DockPanel.RenderTransform>
+            <behiavor:Interaction.Behaviors >
+                <behiavor:MouseDragElementBehavior  
+                    DragFinished="Rep3_OnDragFinished"
+                    x:Name="rep3" 
+                    ConstrainToParentBounds="True"
+                />
+            </behiavor:Interaction.Behaviors>
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="16" 
+                FontWeight="Bold" 
+            >X</TextBlock>
+            <TextBox 
+                FontSize="16"
+                FontWeight="Bold"
+                BorderBrush="White"
+                Text="{Binding rep3.value}"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+            ></TextBox>
+        </DockPanel>
+        <DockPanel 
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Visibility="{Binding rep4.vis,Converter={StaticResource BoolToVis}}"
+            AllowDrop="True"
+            Panel.ZIndex="8"
+            Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=3}" 
+            Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=2}"
+        >
+            <DockPanel.RenderTransform>
+                <TranslateTransform
+                    X="{Binding rep4.x}"
+                    Y="{Binding rep4.y}"
+                >
+
+                </TranslateTransform>
+            </DockPanel.RenderTransform>
+            <behiavor:Interaction.Behaviors >
+                <behiavor:MouseDragElementBehavior  
+                    DragFinished="Rep4_OnDragFinished"
+                    x:Name="rep4" 
+                    ConstrainToParentBounds="True"
+                />
+            </behiavor:Interaction.Behaviors>
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="16" 
+                FontWeight="Bold" 
+            >X</TextBlock>
+            <TextBox 
+                FontSize="16"
+                FontWeight="Bold"
+                BorderBrush="White"
+                Text="{Binding rep4.value}"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+            ></TextBox>
+        </DockPanel>
+        <DockPanel 
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Visibility="{Binding rep5.vis,Converter={StaticResource BoolToVis}}"
+            AllowDrop="True"
+            Panel.ZIndex="8"
+            Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=3}" 
+            Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=2}"
+        >
+            <DockPanel.RenderTransform>
+                <TranslateTransform
+                    X="{Binding rep5.x}"
+                    Y="{Binding rep5.y}"
+                >
+
+                </TranslateTransform>
+            </DockPanel.RenderTransform>
+            <behiavor:Interaction.Behaviors >
+                <behiavor:MouseDragElementBehavior  
+                    DragFinished="Rep5_OnDragFinished"
+                    x:Name="rep5" 
+                    ConstrainToParentBounds="True"
+                />
+            </behiavor:Interaction.Behaviors>
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="16" 
+                FontWeight="Bold" 
+            >X</TextBlock>
+            <TextBox 
+                FontSize="16"
+                FontWeight="Bold"
+                BorderBrush="White"
+                Text="{Binding rep5.value}"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+            ></TextBox>
+        </DockPanel>
+        <StackPanel  
+                        AllowDrop="{Binding EnableEditing}" 
+                        Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                         Panel.ZIndex="8"
+                        ClipToBounds="True"
+            
+                     
+                
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        x:Name="TrameS"
+                        Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=4}" 
+                        Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=5}"
+
+                        >
+            <StackPanel.RenderTransform>
+                <TranslateTransform
+                    X="{Binding TrameXposition}"
+                    Y="{Binding TrameYposition}"
+                    >
+
+                </TranslateTransform>
+                </StackPanel.RenderTransform>
+                <behiavor:Interaction.Behaviors >
+                <behiavor:MouseDragElementBehavior  
+                        DragFinished="TrameDragger_DragFinished"
+                    
+                         x:Name="TrameDragger" 
+                    ConstrainToParentBounds="True"
+                          />
+            </behiavor:Interaction.Behaviors>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" 
+                        Background="WhiteSmoke" 
+                        BorderThickness="1">
+                    <TextBlock FontSize="14" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            Trame
+                    </TextBlock>
+
+                </Border>
+                <Border VerticalAlignment="Stretch" 
+                        Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=3}"
+                       
+                        Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=2}"
+
+                        HorizontalAlignment="Center" 
+                        
+                            Grid.Row="1" 
+                        BorderBrush="Black" 
+                        Background="WhiteSmoke" 
+                        BorderThickness="1">
+                    <TextBlock FontSize="28" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" 
+                               FontFamily="Jokerman">
+                            )
+                    </TextBlock>
+
+                </Border>
+            </Grid>
+
+
+        </StackPanel>
+        <StackPanel  
+                        ClipToBounds="True"
+                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                         Panel.ZIndex="8"
+            
+                     
+                
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        
+                        Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=4}" 
+                        Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=5}"
+                        
+                        >
+
+            <StackPanel.RenderTransform>
+                <TranslateTransform
+                    X="{Binding TrameXposition}"
+                        Y="{Binding TrameYposition}"
+                    >
+                    
+                </TranslateTransform>
+            </StackPanel.RenderTransform>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" 
+                        Background="WhiteSmoke" 
+                        BorderThickness="1">
+                    <TextBlock FontSize="14" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            Trame
+                    </TextBlock>
+
+                </Border>
+                <Border VerticalAlignment="Stretch" 
+                        Height="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=3}"
+                       
+                        Width="{Binding ElementName=spaceX,Path=ActualWidth,Converter={StaticResource TrameSizeConverter},ConverterParameter=2}"
+                        
+                        HorizontalAlignment="Center" 
+                            Grid.Row="1" 
+                        BorderBrush="Black" 
+                        Background="WhiteSmoke" 
+                        BorderThickness="1">
+                    <TextBlock FontSize="28" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" 
+                               FontFamily="Jokerman">
+                            )
+                    </TextBlock>
+
+                </Border>
+            </Grid>
+
+
+        </StackPanel>
+        <enfilageSch:SpaceFreeGrid Columns="83" Rows="59" 
+                                   AllowDrop="True"
+                                   x:Name="spaceX"
+                                   Resources="{StaticResource dic1}"
+                                   KeyboardNavigation.DirectionalNavigation="Cycle"
+                                   EnfilageList="{Binding ContentEnfilageList}"
+                                   AddNewElement="{Binding AddedElement,Mode=TwoWay}"
+                                   WorkspaceSpec="{Binding WorkRectan,Mode=TwoWay}"
+                                   TrameXposition="{Binding TrameXposition,Mode=TwoWay}"
+                                   TrameYposition="{Binding TrameYposition,Mode=TwoWay}"
+                                   ChaineList="{Binding ChaineList,Mode=TwoWay}"
+                                   SecondRect="{Binding SecondRect,Mode=TwoWay}"
+                                   ChaineList2="{Binding ChaineList2}"
+                                   CreateChaine="{Binding IsCreateChaine}"
+                                   customClass:perSizeBindingHelper.Active="True"
+                                   customClass:perSizeBindingHelper.BoundActualHeight="{Binding ContainerHeight, Mode=OneWayToSource}"
+                                   customClass:perSizeBindingHelper.BoundActualWidth="{Binding ContainerWidth, Mode=OneWayToSource}"
+                                   ContainerWidth="{Binding ContWidth,Mode=TwoWay}"
+                                   ChColList="{Binding ChcolList}"
+                                   NbrDent="{Binding NbrDent,Mode=TwoWay}"
+                                   horizontalFreeSpace="{Binding horizontalFreeSpace,Mode=TwoWay}"
+                                   VerticalFreeSpace="{Binding VerticalFreeSpace,Mode=TwoWay}"
+                                   CompositionList="{Binding SchCompList,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}"
+                                   ></enfilageSch:SpaceFreeGrid>
     </Grid>
 </UserControl>

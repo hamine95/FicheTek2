@@ -1,26 +1,41 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using BackEnd2.ViewModel;
+using MvvmCross.ViewModels;
 
 namespace BackEnd2.Model
 {
-    public class user: INotifyPropertyChanged
+    public class user : INotifyPropertyChanged
     {
         public enum UserType
         {
-            verificateur=1,
-            redacteur=2,
-            superuser=3,
-            
+            verificateur = 1,
+            redacteur = 2,
+            superuser = 3
         }
 
         private int _ID;
+        private LoginViewModel _LoginViewM;
 
-        private string _username;
+        public LoginViewModel LoginViewM
+        {
+            get
+            {
+                return _LoginViewM;
+            }
+            set
+            {
+                _LoginViewM = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private string _password;
         private UserType _type;
 
-        public int Id
+        private string _username;
+
+        public int ID
         {
             get => _ID;
             set
@@ -62,6 +77,7 @@ namespace BackEnd2.Model
 
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)

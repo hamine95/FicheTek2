@@ -15,6 +15,13 @@ namespace FrontEnd.View
     public partial class CategorieView : MvxWpfView
     {
         private IMvxInteraction<YesNoQuestion> _ConfirmBox;
+        private IMvxInteraction<string> _SentNote;
+
+        public CategorieView()
+        {
+            InitializeComponent();
+        }
+
         public IMvxInteraction<YesNoQuestion> ConfirmBox
         {
             get => _ConfirmBox;
@@ -26,7 +33,7 @@ namespace FrontEnd.View
                 _ConfirmBox.Requested += ConfirmMsg;
             }
         }
-        private IMvxInteraction<string> _SentNote;
+
         public IMvxInteraction<string> SentNotification
         {
             get => _SentNote;
@@ -38,10 +45,12 @@ namespace FrontEnd.View
                 _SentNote.Requested += DisplayMsg;
             }
         }
+
         public void DisplayMsg(object sender, MvxValueEventArgs<string> args)
         {
             MessageBox.Show(args.Value);
         }
+
         public void ConfirmMsg(object sender, MvxValueEventArgs<YesNoQuestion> args)
         {
             var result = MessageBox.Show(args.Value.Question, "Confirmation", MessageBoxButton.YesNo);
@@ -49,11 +58,6 @@ namespace FrontEnd.View
                 args.Value.UploadCallback(true);
             else
                 args.Value.UploadCallback(false);
-        }
-
-        public CategorieView()
-        {
-            InitializeComponent();
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)

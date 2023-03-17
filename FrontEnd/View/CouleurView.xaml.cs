@@ -19,14 +19,9 @@ namespace FrontEnd.View
     [MvxViewFor(typeof(CouleurViewModel))]
     public partial class CouleurView : MvxWpfView
     {
-        private IMvxInteraction<YesNoQuestion> _ConfirmBox;
         private static readonly Regex _regex = new Regex("[^0-9]+");
+        private IMvxInteraction<YesNoQuestion> _ConfirmBox;
 
-        private static bool IsTextAllowed(string text)
-        {
-            return !_regex.IsMatch(text);
-        }
-        
         private IMvxInteraction<string> _SentNote;
 
         public CouleurView()
@@ -56,6 +51,11 @@ namespace FrontEnd.View
                 _SentNote = value;
                 _SentNote.Requested += DisplayMsg;
             }
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
         }
 
         public void ConfirmMsg(object sender, MvxValueEventArgs<YesNoQuestion> args)

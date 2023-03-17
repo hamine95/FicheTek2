@@ -1,62 +1,52 @@
-﻿using System.Collections.Generic;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using BackEnd2.CustomClass;
 using BackEnd2.Data;
-using BackEnd2.Database;
 using BackEnd2.Model;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.Navigation.EventArguments;
 using MvvmCross.ViewModels;
 
 namespace BackEnd2.ViewModel
 {
-    public class LoginViewModel: MvxViewModel
+    public class LoginViewModel : MvxViewModel<MvxViewModel>
     {
-        public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
+        private readonly SqliteData _db2;
 
-        public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
-        private SqliteData _db2;
+        private readonly IMvxNavigationService _navigationService;
+        private IMvxCommand _RedacteurCmd;
 
-        private IMvxNavigationService _navigationService;
+        private IMvxCommand _VerificateurCmd;
+
+        private user UserSession;
 
         public LoginViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
             _db2 = Mvx.IoCProvider.Resolve<SqliteData>();
             
-      
         }
 
-        private user UserSession;
-
-        private string _UsernameRed;
-        private string _UsernameVer;
-
-        public string UsernameRed
+        private MvxViewModel SplashScreen;
+        public override void Prepare(MvxViewModel parameter)
         {
-            get
-            {
-                return _UsernameRed;
-            }
-            set
-            {
-                _UsernameRed = value;
-            }
+            SplashScreen = parameter;
         }
-        
-        public string UsernameVer
+
+        public override void ViewAppeared()
         {
-            get
-            {
-                return _UsernameVer;
-            }
-            set
-            {
-                _UsernameVer = value;
-            }
+            base.ViewAppeared();
+            //_navigationService.DidNavigate+=CloseWindow;
         }
-        private IMvxCommand _VerificateurCmd;
+
+        public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
+
+        public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
+
+        public string UsernameRed { get; set; }
+
+        public string UsernameVer { get; set; }
 
         public IMvxCommand VerificateurCmd
         {
@@ -66,7 +56,6 @@ namespace BackEnd2.ViewModel
                 return _VerificateurCmd;
             }
         }
-        private IMvxCommand _RedacteurCmd;
 
         public IMvxCommand RedacteurCmd
         {
@@ -79,69 +68,76 @@ namespace BackEnd2.ViewModel
 
         public void RedacteurLogin(object obj)
         {
-            PasswordBox passW = obj as PasswordBox;
-      
-            if (UsernameRed != null && passW.Password != null && !string.IsNullOrWhiteSpace(UsernameRed) && !string.IsNullOrWhiteSpace(passW.Password) )
+            var passW = obj as PasswordBox;
+
+            if (UsernameRed != null && passW.Password != null && !string.IsNullOrWhiteSpace(UsernameRed) &&
+                !string.IsNullOrWhiteSpace(passW.Password))
             {
-                bool CorrectAuth = false;
-                List<user> userlist= _db2.GetUsers();
+                var CorrectAuth = false;
+                var userlist = _db2.GetUsers();
                 foreach (var user in userlist)
-                {
                     if (user.type == user.UserType.redacteur)
-                    {
                         if (user.username.Equals(UsernameRed) && user.password.Equals(passW.Password))
                         {
                             CorrectAuth = true;
                             UserSession = user;
                         }
-                    }
-                }
 
                 if (CorrectAuth)
                 {
-                    _navigationService.Navigate<HomepageViewModel,user>(UserSession);
-                    _navigationService.Close(this);
+                    UserSession.LoginViewM = this;
+                    _navigationService.Navigate<HomepageViewModel, user>(UserSession);
+                    //_navigationService.Close(this);
                 }
                 else
                 {
                     SendNotification.Raise("Utilisateur ou mode passe incorrect");
                 }
-             
             }
             else
             {
                 SendNotification.Raise("Champ vide");
             }
         }
+        public async void CloseWindow()
+        {
+            var b= await _navigationService.Close(this);
+            if(SplashScreen!=null)
+                b= await _navigationService.Close(SplashScreen);
+        }
+        public async void CloseWindow(object obj,IMvxNavigateEventArgs args)
+        {
+          var b= await _navigationService.Close(this);
+          if(SplashScreen!=null)
+              b= await _navigationService.Close(SplashScreen);
+        }
         public void VerificateurLogin(object obj)
         {
-            PasswordBox passW = obj as PasswordBox;
-            if (UsernameVer != null && passW.Password != null && !string.IsNullOrWhiteSpace(UsernameVer) && !string.IsNullOrWhiteSpace(passW.Password) )
+            var passW = obj as PasswordBox;
+            if (UsernameVer != null && passW.Password != null && !string.IsNullOrWhiteSpace(UsernameVer) &&
+                !string.IsNullOrWhiteSpace(passW.Password))
             {
-                bool CorrectAuth = false;
-               List<user> userlist= _db2.GetUsers();
-               foreach (var user in userlist)
-               {
-                   if (user.type == user.UserType.verificateur)
-                   {
-                       if (user.username.Equals(UsernameVer) && user.password.Equals(passW.Password))
-                       {
-                           CorrectAuth = true;
-                           UserSession = user;
-                       }
-                   }
-               }
+                var CorrectAuth = false;
+                var userlist = _db2.GetUsers();
+                foreach (var user in userlist)
+                    if (user.type == user.UserType.verificateur)
+                        if (user.username.Equals(UsernameVer) && user.password.Equals(passW.Password))
+                        {
+                            CorrectAuth = true;
+                            UserSession = user;
+                        }
 
-               if (CorrectAuth)
-               {
-                   _navigationService.Navigate<HomepageViewModel,user>(UserSession);
-                   _navigationService.Close(this);
-               }
-               else
-               {
-                   SendNotification.Raise("Utilisateur ou mode passe incorrect");
-               }
-             
+                if (CorrectAuth)
+                {
+                    UserSession.LoginViewM = this;
+                    UIServices.SetBusyState();
+                    _navigationService.Navigate<HomepageViewModel, user>(UserSession);
+                    //_navigationService.Close(this);
+                }
+                else
+                {
+                    SendNotification.Raise("Utilisateur ou mode passe incorrect");
+                }
             }
             else
             {

@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DSheetEnfilage"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <local:EnfilageSchV2 />
+        WindowState="Maximized"
+        xmlns:system="clr-namespace:System;assembly=System"
+        xmlns:system1="clr-namespace:System;assembly=mscorlib"
+        xmlns:backEnd2="clr-namespace:BackEnd2;assembly=BackEnd2"
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="800" Width="1080">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="legendStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="ChaineStyle.xaml"></ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid >
+        
+        <local:SpaceFreeGrid x:Name="spaceX" Columns="83" Rows="59" >
+        
+        </local:SpaceFreeGrid>
+        <!--<local:legend  x:Name="legend" Height="50">
+          
+        </local:legend>-->
+   
     </Grid>
 </Window>

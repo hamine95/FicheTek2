@@ -6,13 +6,13 @@ using System.Windows.Input;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
 using BackEnd2.CustomClass;
-using BackEnd2.Model;
 using BackEnd2.ViewModel;
 using MvvmCross.Base;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.ViewModels;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using ListView = System.Windows.Controls.ListView;
 using MessageBox = System.Windows.MessageBox;
 
@@ -25,11 +25,19 @@ namespace FrontEnd.View
     [MvxViewFor(typeof(FicheTechniqueViewModel))]
     public partial class FicheTechniqueView : MvxWpfView
     {
+        
         private IMvxInteraction<YesNoQuestion> _ConfirmBox;
+
+        private IMvxInteraction<LoadedImage> _GetImageProd;
 
         private IMvxInteraction<string> _SentNote;
 
-        private IMvxInteraction<LoadedImage> _GetImageProd;
+        public FicheTechniqueView()
+        {
+            InitializeComponent();
+            Loaded += (s, e) => Keyboard.Focus(this);
+        }
+
         public IMvxInteraction<LoadedImage> GetImageProd
         {
             get => _GetImageProd;
@@ -42,14 +50,7 @@ namespace FrontEnd.View
                     _GetImageProd = value;
                     _GetImageProd.Requested += GetImagePath;
                 }
-             
             }
-        }
-        
-        public FicheTechniqueView()
-        {
-            InitializeComponent();
-            Loaded += (s, e) => Keyboard.Focus(this);
         }
 
         public IMvxInteraction<YesNoQuestion> ConfirmBox
@@ -64,7 +65,6 @@ namespace FrontEnd.View
                     _ConfirmBox = value;
                     _ConfirmBox.Requested += ConfirmMsg;
                 }
-             
             }
         }
 
@@ -80,20 +80,19 @@ namespace FrontEnd.View
                     _SentNote = value;
                     _SentNote.Requested += DisplayMsg;
                 }
-              
             }
         }
+
         public void GetImagePath(object sender, MvxValueEventArgs<LoadedImage> args)
         {
-            OpenFileDialog fileDialog= new OpenFileDialog(); 
+            var fileDialog = new OpenFileDialog();
             fileDialog.DefaultExt = "Files|*.jpg;*.jpeg;*.png"; // Required file extension 
             fileDialog.Filter = "Files|*.jpg;*.jpeg;*.png"; // Optional file extensions
 
-            if ( fileDialog.ShowDialog() == DialogResult.OK)
-            {
+            if (fileDialog.ShowDialog() == DialogResult.OK)
                 args.Value.UploadCallback(fileDialog.FileName, fileDialog.SafeFileName, true);
-            }
         }
+
         public void ConfirmMsg(object sender, MvxValueEventArgs<YesNoQuestion> args)
         {
             var result = MessageBox.Show(args.Value.Question, "Confirmation", MessageBoxButton.YesNo);
@@ -123,7 +122,7 @@ namespace FrontEnd.View
             var gView = listView.View as GridView;
 
             var workingWidth =
-                listView.ActualWidth ; // take into account vertical scrollbar
+                listView.ActualWidth; // take into account vertical scrollbar
             var col1 = 0.20;
             var col2 = 0.80;
             //var col3 = 0.50;
@@ -147,21 +146,34 @@ namespace FrontEnd.View
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            if (File.Exists("printPreview.xps")) File.Delete("printPreview.xps");
-            var xpsDocument = new XpsDocument("printPreview.xps", FileAccess.ReadWrite);
-            var writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
-            var packagePolicy = new XpsPackagingPolicy(xpsDocument);
-            var serializationMgr = new XpsSerializationManager(packagePolicy, false);
-            serializationMgr.SaveAsXaml(Part1Tek);
-            var hei = Part1Tek.ActualHeight;
-            var wid = Part1Tek.ActualWidth;
-            var fixedDocSeq = xpsDocument.GetFixedDocumentSequence();
-            //writer.Write((fixedDocSeq).DocumentPaginator);
-            //DocumentPaginator paginator = ((IDocumentPaginatorSource)xpsDocument.GetFixedDocumentSequence()).DocumentPaginator;
-            var Document = xpsDocument.GetFixedDocumentSequence();
-            xpsDocument.Close();
-            //var windows = new PrintView(Document);
-           //  windows.ShowDialog();
+            // if (File.Exists("printPreview.xps")) File.Delete("printPreview.xps");
+            // var xpsDocument = new XpsDocument("printPreview.xps", FileAccess.ReadWrite);
+            // var writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+            // var packagePolicy = new XpsPackagingPolicy(xpsDocument);
+            // var serializationMgr = new XpsSerializationManager(packagePolicy, false);
+            // serializationMgr.SaveAsXaml(Part1Tek);
+            // var hei = Part1Tek.ActualHeight;
+            // var wid = Part1Tek.ActualWidth;
+            // var fixedDocSeq = xpsDocument.GetFixedDocumentSequence();
+            // var Document = xpsDocument.GetFixedDocumentSequence();
+            // xpsDocument.Close();
+         
+        }
+
+        private void Frm_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control) // Is Alt key pressed
+            {
+                if (Keyboard.IsKeyDown(Key.R) && Keyboard.IsKeyDown(Key.T))
+                {
+                    if(RepBtn.Visibility==Visibility.Collapsed)
+                        RepBtn.Visibility = Visibility.Visible;
+                    else
+                    {
+                        RepBtn.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
         }
     }
 }

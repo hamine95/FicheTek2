@@ -9,17 +9,20 @@ using MvvmCross.ViewModels;
 
 namespace FrontEnd.View
 {
-    [MvxWindowPresentation]
+    [MvxContentPresentation]
     [MvxViewFor(typeof(LoginViewModel))]
-    public partial class LoginView : MvxWindow
+    public partial class LoginView : MvxWpfView
     {
         private IMvxInteraction<YesNoQuestion> _ConfirmBox;
 
         private IMvxInteraction<string> _SentNote;
+
         public LoginView()
         {
             InitializeComponent();
+            
         }
+
         public IMvxInteraction<YesNoQuestion> ConfirmBox
         {
             get => _ConfirmBox;
@@ -32,7 +35,6 @@ namespace FrontEnd.View
                     _ConfirmBox = value;
                     _ConfirmBox.Requested += ConfirmMsg;
                 }
-             
             }
         }
 
@@ -48,9 +50,9 @@ namespace FrontEnd.View
                     _SentNote = value;
                     _SentNote.Requested += DisplayMsg;
                 }
-              
             }
         }
+
         public void ConfirmMsg(object sender, MvxValueEventArgs<YesNoQuestion> args)
         {
             var result = MessageBox.Show(args.Value.Question, "Confirmation", MessageBoxButton.YesNo);
@@ -72,6 +74,8 @@ namespace FrontEnd.View
             set.Bind(this).For(view => view.SentNotification).To(viewmodel => viewmodel.SendNotification);
             set.Bind(this).For(view => view.ConfirmBox).To(viewmodel => viewmodel.ConfirmAction);
             set.Apply();
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow.WindowStyle = WindowStyle.SingleBorderWindow;
         }
     }
 }

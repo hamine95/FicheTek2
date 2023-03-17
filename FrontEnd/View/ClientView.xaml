@@ -40,8 +40,9 @@
                 </TextBlock>
 
                 <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30"
-                         FontSize="18" Text="{Binding ClientNom}" VerticalAlignment="Center"/>
-                <Button Cursor="Hand" Command="{Binding AjouterNovClient}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
+                         FontSize="18" Text="{Binding ClientNom}" VerticalAlignment="Center" />
+                <Button Cursor="Hand" Command="{Binding AjouterNovClient}" Grid.Row="2" Grid.Column="3"
+                        Foreground="SteelBlue"
                         FontSize="16" Height="30">
                     Ajouter
                 </Button>
@@ -72,11 +73,13 @@
 
                 <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30"
                          FontSize="16" Text="{Binding NovClientNom}" />
-                <Button Cursor="Hand" Command="{Binding CancelCmd}" Grid.Row="2" Grid.Column="1" Foreground="SteelBlue" FontSize="16"
+                <Button Cursor="Hand" Command="{Binding CancelCmd}" Grid.Row="2" Grid.Column="1" Foreground="SteelBlue"
+                        FontSize="16"
                         Height="30">
                     Annuler
                 </Button>
-                <Button Cursor="Hand" Command="{Binding SaveChange}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
+                <Button Cursor="Hand" Command="{Binding SaveChange}" Grid.Row="2" Grid.Column="3"
+                        Foreground="SteelBlue"
                         FontSize="16" Height="30">
                     Enregistrer
                 </Button>
@@ -103,8 +106,14 @@
         </GroupBox>
         <UniformGrid Grid.Row="2" Columns="2">
 
-            <Button Cursor="Hand" Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5" Command="{Binding Modifier}">Modifier</Button>
-            <Button Cursor="Hand" Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5" Command="{Binding Supprimer}">Supprimer</Button>
+            <Button Cursor="Hand" Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5"
+                    Command="{Binding Modifier}">
+                Modifier
+            </Button>
+            <Button Cursor="Hand" Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5"
+                    Command="{Binding Supprimer}">
+                Supprimer
+            </Button>
         </UniformGrid>
     </Grid>
 </view:MvxWpfView>

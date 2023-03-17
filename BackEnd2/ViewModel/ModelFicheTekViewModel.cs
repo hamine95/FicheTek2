@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using BackEnd2.CustomClass;
+﻿using BackEnd2.CustomClass;
 using BackEnd2.Model;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -7,48 +6,44 @@ using MvvmCross.ViewModels;
 
 namespace BackEnd2.ViewModel
 {
-    public class ModelFicheTekViewModel:MvxViewModel<ModelFiche,ModelFiche>
+    public class ModelFicheTekViewModel : MvxViewModel<ModelFiche, ModelFiche>
     {
+        private IMvxCommand _AnnulerCmd;
+
+        private IMvxCommand _CorchetCmd;
+        private IMvxCommand _EhcCmd;
+        private bool _IsCrochet;
         private bool _IsEchantillon;
+
+        private bool _IsEhc;
+        private bool _IsNormal;
+
+        public ModelFiche _model;
+
+        private readonly IMvxNavigationService _navigationService;
+
+        private IMvxCommand _NormaleCmd;
+        private IMvxCommand _ValiderCmd;
+
+        public ModelFicheTekViewModel(IMvxNavigationService _navSer)
+        {
+            _navigationService = _navSer;
+        }
 
         public bool IsEchantillon
         {
-            get
-            {
-                return _IsEchantillon;
-            }
+            get => _IsEchantillon;
             set
             {
                 _IsEchantillon = value;
                 RaisePropertyChanged();
             }
         }
-        
-        private IMvxNavigationService _navigationService;
+
         public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
         public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
-        public ModelFiche _model;
-        
-        public ModelFicheTekViewModel(IMvxNavigationService _navSer)
-        {
-            _navigationService = _navSer;
-           
-        }
-        public void ClosingView(ModelFiche mModel)
-        {
-             _navigationService.Close(this, mModel);
-        }
-        public override void Prepare(ModelFiche parameter)
-        {
-            _model = parameter;
-        }
-
-        private bool _IsEhc=false;
-        private bool _IsNormal=false;
-        private bool _IsCrochet=false;
-
-        public bool IsEhc 
+        public bool IsEhc
         {
             get => _IsEhc;
             set
@@ -78,8 +73,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _AnnulerCmd;
-
         public IMvxCommand AnnulerCmd
         {
             get
@@ -88,7 +81,6 @@ namespace BackEnd2.ViewModel
                 return _AnnulerCmd;
             }
         }
-        private IMvxCommand _ValiderCmd;
 
         public IMvxCommand ValiderCmd
         {
@@ -98,8 +90,6 @@ namespace BackEnd2.ViewModel
                 return _ValiderCmd;
             }
         }
-        
-        private IMvxCommand _NormaleCmd;
 
         public IMvxCommand NormaleCmd
         {
@@ -109,8 +99,6 @@ namespace BackEnd2.ViewModel
                 return _NormaleCmd;
             }
         }
-        
-        private IMvxCommand _CorchetCmd;
 
         public IMvxCommand CorchetCmd
         {
@@ -120,7 +108,6 @@ namespace BackEnd2.ViewModel
                 return _CorchetCmd;
             }
         }
-        private IMvxCommand _EhcCmd;
 
         public IMvxCommand EhcCmd
         {
@@ -131,14 +118,26 @@ namespace BackEnd2.ViewModel
             }
         }
 
+        public void ClosingView(ModelFiche mModel)
+        {
+            _navigationService.Close(this, mModel);
+        }
+
+        public override void Prepare(ModelFiche parameter)
+        {
+            _model = parameter;
+        }
+
         public void CrochetCommand()
         {
             IsCrochet = true;
         }
+
         public void NormalCommand()
         {
             IsNormal = true;
         }
+
         public void EhcCommand()
         {
             IsEhc = true;
@@ -149,21 +148,15 @@ namespace BackEnd2.ViewModel
             if (IsCrochet || IsEhc || IsNormal)
             {
                 if (IsCrochet)
-                {
                     _model.model = ModelFiche.ModelFicheTek.FicheTekCrochetage;
-                }
-                else if(IsEhc)
-                {
+                else if (IsEhc)
                     _model.model = ModelFiche.ModelFicheTek.FicheTekEHC;
-                }
                 else
-                {
                     _model.model = ModelFiche.ModelFicheTek.FicheTekNormal;
-                }
 
-                
-                    _model.IsEchantillon = IsEchantillon;
-                
+
+                _model.IsEchantillon = IsEchantillon;
+
 
                 ClosingView(_model);
             }
@@ -172,6 +165,7 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("Aucun Modèle séléctionné");
             }
         }
+
         public void AnnulerCommand()
         {
             ClosingView(null);

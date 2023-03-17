@@ -1,7 +1,7 @@
-﻿using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using BackEnd2.CustomClass;
+using BackEnd2.Data;
 using BackEnd2.Database;
 using BackEnd2.Model;
 using MvvmCross;
@@ -11,9 +11,16 @@ using MvvmCross.ViewModels;
 
 namespace BackEnd2.ViewModel
 {
-    public class MatiereViewModel : MvxViewModel<MyDBContext>
+    public class MatiereViewModel : MvxViewModel<user>
     {
+        private IMvxCommand _AjouterNovMatiere;
+
+        private IMvxCommand _AjouterNovTitrage;
+
+        private IMvxCommand _AjouterNovTypeMatiere;
         private bool _AllColor = true;
+
+        private IMvxCommand _CancelCmd;
         private string _CodificationTypM;
 
         private string _Designation;
@@ -38,6 +45,11 @@ namespace BackEnd2.ViewModel
         private MvxObservableCollection<Titrage> _ListTitrage;
         private MvxObservableCollection<Titrage> _ListTitrageEdit;
 
+
+        private MvxNotifyTask _LoadLists;
+
+        private IMvxCommand _Modifier;
+
         private IMvxNavigationService _navigationService;
         private string _NomMatiere;
 
@@ -47,6 +59,8 @@ namespace BackEnd2.ViewModel
 
         private string _NumTwist;
         private string _Ref;
+
+        private IMvxCommand _saveChange;
         private Couleur _SelectedCouleur;
 
 
@@ -62,42 +76,23 @@ namespace BackEnd2.ViewModel
 
         private TypeMatiere _SelectedTypeMatiereEdit;
         private TypeMatiere _SelectedTypeMatiereT;
+
+        private IMvxCommand _Supprimer;
         private MvxObservableCollection<TypeMatiere> _TypeMatiereList;
-        private  MyDBContext db;
+        private SqliteData db2;
         private int SelectedMatiereEdit;
 
         public MatiereViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
-           
-           
-           
         }
-
-        public override Task Initialize()
-        {
-       
-            LoadLists=MvxNotifyTask.Create( RefreshLists);
-            return base.Initialize();
-        }
-
-        public async Task RefreshLists()
-        {
-            await UpdateListeMatiere();
-            await UpdateTypeMatiereList();
-            await UpdateCouleur();
-        }
-
-       
-        
-        private MvxNotifyTask _LoadLists;
 
         public MvxNotifyTask LoadLists
         {
             get => _LoadLists;
             set => SetProperty(ref _LoadLists, value);
-
         }
+
         public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
         public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
@@ -181,13 +176,12 @@ namespace BackEnd2.ViewModel
             {
                 _SelectedTypeMatiereEdit = value;
                 RaisePropertyChanged();
-                
+
                 if (value != null)
                 {
                     OnEditChangeNovFields();
                     UpdateTitrageEdit(SelectedTypeMatiereEdit);
                 }
-                
             }
         }
 
@@ -279,13 +273,12 @@ namespace BackEnd2.ViewModel
             {
                 _SelectedTypeMatiere = value;
                 RaisePropertyChanged();
-                
+
                 if (value != null)
                 {
                     OnChangeNovFields();
                     UpdateTitrage(SelectedTypeMatiere);
                 }
-                
             }
         }
 
@@ -400,8 +393,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _AjouterNovTitrage;
-
         public IMvxCommand AjouterNovTitrage
         {
             get
@@ -410,8 +401,6 @@ namespace BackEnd2.ViewModel
                 return _AjouterNovTitrage;
             }
         }
-
-        private IMvxCommand _AjouterNovTypeMatiere;
 
         public IMvxCommand AjouterNovTypeMatiere
         {
@@ -422,8 +411,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _saveChange;
-
         public IMvxCommand SaveChange
         {
             get
@@ -432,8 +419,6 @@ namespace BackEnd2.ViewModel
                 return _saveChange;
             }
         }
-
-        private IMvxCommand _CancelCmd;
 
         public IMvxCommand CancelCmd
         {
@@ -444,8 +429,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _AjouterNovMatiere;
-
         public IMvxCommand AjouterNovMatiere
         {
             get
@@ -455,8 +438,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _Modifier;
-
         public IMvxCommand Modifier
         {
             get
@@ -465,8 +446,6 @@ namespace BackEnd2.ViewModel
                 return _Modifier;
             }
         }
-
-        private IMvxCommand _Supprimer;
 
         public IMvxCommand Supprimer
         {
@@ -497,6 +476,19 @@ namespace BackEnd2.ViewModel
             }
         }
 
+        public override Task Initialize()
+        {
+            LoadLists = MvxNotifyTask.Create(RefreshLists);
+            return base.Initialize();
+        }
+
+        public async Task RefreshLists()
+        {
+            await UpdateListeMatiere();
+            await UpdateTypeMatiereList();
+            await UpdateCouleur();
+        }
+
         public void EnablingRetordageField()
         {
             if (EnableRetordage) IsRetordu = true;
@@ -521,15 +513,14 @@ namespace BackEnd2.ViewModel
                             NewTitrage.NumMetric = NumMetric;
                             NewTitrage.TypeMatiere = SelectedTypeMatiereT;
                             NewTitrage.Designation = NumTwist + "/" + NumMetric;
-                            db.AddNewTitrage(NewTitrage);
+                            db2.AddNewTitrage(NewTitrage);
                             UpdateTypeMatiereList();
                             SelectedTypeMatiere = null;
                             SelectedTypeMatiereEdit = null;
-                            
+
                             SelectedTypeMatiereT = null;
                             NumMetric = "";
                             NumTwist = "";
-
                         }
                         else
                         {
@@ -552,7 +543,7 @@ namespace BackEnd2.ViewModel
                     NewTitrage.NumMetric = NumMetric;
                     NewTitrage.TypeMatiere = SelectedTypeMatiereT;
                     NewTitrage.Designation = NumMetric;
-                    db.AddNewTitrage(NewTitrage);
+                    db2.AddNewTitrage(NewTitrage);
                     UpdateTypeMatiereList();
                     SelectedTypeMatiere = null;
                     SelectedTypeMatiereEdit = null;
@@ -577,7 +568,7 @@ namespace BackEnd2.ViewModel
                     {
                         if (ok)
                         {
-                            db.DeleteMatiere(SelectedMatiere);
+                            db2.DeleteMatiere(SelectedMatiere);
                             UpdateListeMatiere();
                         }
                     }
@@ -594,7 +585,7 @@ namespace BackEnd2.ViewModel
         {
             if (!IsEditFieldsEmpty2())
             {
-                if (db.GetMatiere(EditRef) == null)
+                if (db2.GetMatiere(EditRef) == null)
                 {
                     var mMatiere = new Matiere();
                     mMatiere.ID = SelectedMatiereEdit;
@@ -602,7 +593,7 @@ namespace BackEnd2.ViewModel
                     mMatiere.Designation = EditDesignation;
                     mMatiere.Titrage = selectedEditTitrage;
                     mMatiere.GetCouleur = SelectedCouleurEdit;
-                    db.EditMatiere(mMatiere);
+                    db2.EditMatiere(mMatiere);
                     UpdateListeMatiere();
                     CancelEditing();
                 }
@@ -651,25 +642,25 @@ namespace BackEnd2.ViewModel
 
         public void UpdateTitrage(TypeMatiere tm)
         {
-            ListTitrage = new MvxObservableCollection<Titrage>(db.GetTitrageByTypMat(tm));
+            ListTitrage = new MvxObservableCollection<Titrage>(db2.GetTitrageByTypMat(tm));
         }
 
         public void UpdateTitrageEdit(TypeMatiere tm)
         {
-            ListTitrageEdit = new MvxObservableCollection<Titrage>(db.GetTitrageByTypMat(tm));
+            ListTitrageEdit = new MvxObservableCollection<Titrage>(db2.GetTitrageByTypMat(tm));
         }
-
+        
         public void AjouterNoveauTypeMatiere()
         {
             if (NomMatiere != null && !string.IsNullOrWhiteSpace(NomMatiere) && CodificationTypM != null &&
                 !string.IsNullOrWhiteSpace(CodificationTypM))
             {
-                if (db.GetTypeMatiereNom(NomMatiere) == null)
+                if (db2.GetTypeMatiereNom(NomMatiere) == null)
                 {
                     var typeM = new TypeMatiere();
                     typeM.MatiereNom = NomMatiere;
                     typeM.Codification = CodificationTypM;
-                    db.AddNewTypeMatiere(typeM);
+                    db2.AddNewTypeMatiere(typeM);
                     UpdateTypeMatiereList();
                     NomMatiere = "";
                     CodificationTypM = "";
@@ -678,7 +669,6 @@ namespace BackEnd2.ViewModel
                 {
                     SendNotification.Raise("Type Matière existe déja");
                 }
-               
             }
             else
             {
@@ -688,11 +678,7 @@ namespace BackEnd2.ViewModel
 
         public async Task UpdateTypeMatiereList()
         {
-          await  Task.Run(() =>
-            {
-                TypeMatiereList = new MvxObservableCollection<TypeMatiere>(db.GetTypeMatieres());
-            });
-
+            await Task.Run(() => { TypeMatiereList = new MvxObservableCollection<TypeMatiere>(db2.GetTypeMatieres()); });
         }
 
 
@@ -722,19 +708,19 @@ namespace BackEnd2.ViewModel
             {
                 if (AllColor == false)
                 {
-                    if (db.GetMatiere(Ref) == null)
+                    if (db2.GetMatiere(Ref) == null)
                     {
                         var mMatiere = new Matiere();
                         mMatiere.Ref = Ref;
                         mMatiere.Designation = Designation;
                         mMatiere.Titrage = SelectedTitrage;
                         mMatiere.GetCouleur = SelectedCouleur;
-                        db.AddNewMatiere(mMatiere);
+                        db2.AddNewMatiere(mMatiere);
                         UpdateListeMatiere();
 
                         Ref = "";
                         Designation = "";
-                        
+
                         SelectedTitrage = null;
                         SelectedCouleur = null;
                         SelectedCouleur = null;
@@ -757,13 +743,13 @@ namespace BackEnd2.ViewModel
                         {
                             var mMatiere = new Matiere();
                             mMatiere.Ref = Ref + colr.Nbr.ToString("00");
-                            if (db.GetMatiere(mMatiere.Ref) == null)
+                            if (db2.GetMatiere(mMatiere.Ref) == null)
                             {
                                 AddedNewMatiere = true;
                                 mMatiere.Designation = Designation + " " + colr.Name;
                                 mMatiere.Titrage = SelectedTitrage;
                                 mMatiere.GetCouleur = colr;
-                                db.AddNewMatiere(mMatiere);
+                                db2.AddNewMatiere(mMatiere);
                             }
                         }
 
@@ -843,27 +829,24 @@ namespace BackEnd2.ViewModel
 
         public async Task UpdateCouleur()
         {
-            await Task.Run(async() =>
+            await Task.Run(async () =>
                 {
-                   var collist= await db.GetCouleurs();
-                    ListeCouleur = new MvxObservableCollection<Couleur>(collist );
+                    var collist =  db2.GetCouleurs();
+                    ListeCouleur = new MvxObservableCollection<Couleur>(collist);
                 }
             );
-          
-        }
-        public async Task UpdateListeMatiere()
-        {
-            await Task.Run(() =>
-                {
-                    ListMatiere = new MvxObservableCollection<Matiere>(db.GetMatieres());
-                }
-            );
-          
         }
 
-        public override void Prepare(MyDBContext parameter)
+        public async Task UpdateListeMatiere()
         {
-            db = parameter;
+            await Task.Run(() => { ListMatiere = new MvxObservableCollection<Matiere>(db2.GetMatieres()); }
+            );
+        }
+
+        public override void Prepare(user parameter)
+        {
+            
+            db2 = Mvx.IoCProvider.Resolve<SqliteData>();
         }
     }
 }

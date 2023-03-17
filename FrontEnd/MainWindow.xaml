@@ -6,9 +6,13 @@
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 mc:Ignorable="d"
                 WindowStartupLocation="CenterScreen"
-                WindowStyle="None"
                 ResizeMode="NoResize"
-                ShowInTaskbar="False"
-                Title="MainWindow" Height="250" Width="380">
+                WindowStyle="None"
+                
+                
+                SizeToContent='Height'
+                Title="Gestionnaire Fiche Technique" 
+                Height="290" Width="380"
+                >
     <Grid />
 </view:MvxWindow>

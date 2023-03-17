@@ -11,47 +11,87 @@ namespace BackEnd2.Model
             Dents,
             Lisses,
             Empty,
-            Inaccessible,
+            Inaccessible
         }
+        
+        public enum CompImages
+        {
+            [Description(@"/Asset/comp1light.png")]
+            comp1 = 1,
+            [Description(@"/Asset/comp2light.png")]
+            comp2,
+            [Description(@"/Asset/comp3light.png")]
+            comp3,
+            [Description(@"/Asset/comp4light.png")]
+            comp4,
+            [Description(@"/Asset/comp5light.png")]
+            comp5,
+            [Description(@"/Asset/comp6light.png")]
+            comp6,
+            [Description(@"/Asset/comp7light.png")]
+            comp7,
+            [Description(@"/Asset/comp1.png")]
+            comp1Print,
+            [Description(@"/Asset/comp2.png")]
+            comp2Print,
+            [Description(@"/Asset/comp3.png")]
+            comp3Print,
+            [Description(@"/Asset/comp4.png")]
+            comp4Print,
+            [Description(@"/Asset/comp5.png")]
+            comp5Print,
+            [Description(@"/Asset/comp6.png")]
+            comp6Print,
+            [Description(@"/Asset/comp7.png")]
+            comp7Print,
+            [Description(@"/Asset/squareHighlight.png")]
+            HighlightSquare,
+
+        }
+
+        private string _BorderCO;
+        private string _color;
+        private Composition _Content;
+
+        private string _Dash;
+
+        private int _DentFil;
+        private string _Hei;
+
+        private bool _IsContent;
+        private bool _IsSelected;
+
+        private ComponentDepiction _Num;
+
+        private int _position;
+
+        private Composant _SupportedComp;
+
+        private string _TextBK;
 
         private BoxType _TypBox;
 
+        public MatrixElement(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
         public BoxType TypBox
         {
-            get
-            {
-                return _TypBox;
-            }
+            get => _TypBox;
             set
             {
                 _TypBox = value;
                 NotifyPropertyChanged();
             }
         }
-          private string _BorderCO;
-        private string _color;
 
-        private int _DentFil;
-        private Composition _Content;
-
-        private string _Dash;
-        private string _Hei;
-        private bool _IsSelected;
-
-        private string _Num;
-
-        private string _TextBK;
-
-        private bool _IsContent;
-
-        private int _position;
+    
 
         public int position
         {
-            get
-            {
-                return _position;
-            }
+            get => _position;
             set
             {
                 _position = value;
@@ -59,40 +99,14 @@ namespace BackEnd2.Model
             }
         }
 
-        
 
-        public void SetBoxType(BoxType typB)
+        public string ImagePath(CompImages val)
         {
-            TypBox = typB;
-            if (IsContent == false)
-            {
-                if (typB == BoxType.Dents)
-                {
-                    Num = "/Asset/squareDent.png";
-                
-                }else if (typB == BoxType.Lisses)
-                {
-                    Num = "/Asset/squareLisse.png";
-                }
-                else if(typB==BoxType.Empty)
-                {
-                    Num = "/Asset/squareRect.png";
-                }
-                else if(typB==BoxType.OutRange)
-                {
-                    Num = "/Asset/squareLine2.png";
-                }
-                else
-                {
-                    Num = "/Asset/squareRect.png";
-                }
-            }
-            
-        }
-        public MatrixElement(int x, int y)
-        {
-            X = x;
-            Y = y;
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])val
+               .GetType()
+               .GetField(val.ToString())
+               .GetCustomAttributes(typeof(DescriptionAttribute), false);
+            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
         }
 
         public bool IsSelected
@@ -106,62 +120,39 @@ namespace BackEnd2.Model
                 {
                     if (Content == null)
                     {
-                        Num = @"/Asset/squareHighlight.png";
+                        Num = new ComponentDepiction(ImagePath(CompImages.HighlightSquare), ImagePath(CompImages.HighlightSquare));
                     }
                     else
                     {
                         if (Content.NumComposant == 1)
-                        {
-                            Num = @"/Asset/comp1light.png";
-                        }else if (Content.NumComposant == 2)
-                        {
-                            Num = @"/Asset/comp2light.png";
-                        }else if (Content.NumComposant == 3)
-                        {
-                            Num = @"/Asset/comp3light.png";
-                        }else if (Content.NumComposant == 4)
-                        {
-                            Num = @"/Asset/comp4light.png";
-                        }else if (Content.NumComposant ==5)
-                        {
-                            Num = @"/Asset/comp5light.png";
-                        }else if (Content.NumComposant == 6)
-                        {
-                            Num = @"/Asset/comp6light.png";
-                        }else if (Content.NumComposant == 7)
-                        {
-                            Num = @"/Asset/comp7light.png";
-                        }
-                       
+                            Num =new ComponentDepiction(ImagePath(CompImages.comp1Print), ImagePath(CompImages.comp1));
+                        else if (Content.NumComposant == 2)
+                            Num = new ComponentDepiction(ImagePath(CompImages.comp2Print), ImagePath(CompImages.comp2));
+                        else if (Content.NumComposant == 3)
+                            Num = new ComponentDepiction(ImagePath(CompImages.comp3Print), ImagePath(CompImages.comp3));
+                        else if (Content.NumComposant == 4)
+                            Num = new ComponentDepiction(ImagePath(CompImages.comp4Print), ImagePath(CompImages.comp4));
+                        else if (Content.NumComposant == 5)
+                            Num = new ComponentDepiction(ImagePath(CompImages.comp5Print), ImagePath(CompImages.comp5));
+                        else if (Content.NumComposant == 6)
+                            Num = new ComponentDepiction(ImagePath(CompImages.comp6Print), ImagePath(CompImages.comp6));
+                        else if (Content.NumComposant == 7) Num = new ComponentDepiction(ImagePath(CompImages.comp7Print), ImagePath(CompImages.comp7));
                     }
-                 
                 }
                 else
                 {
                     if (Content == null)
                     {
                         if (TypBox == BoxType.Dents)
-                        {
-                            Num = "/Asset/squareDent.png";
-                
-                        }else if (TypBox == BoxType.Lisses)
-                        {
-                            Num = "/Asset/squareLisse.png";
-                        }else if (TypBox == BoxType.Empty)
-                        {
-                            Num = "/Asset/squareRect.png";
-                        }
+                            Num = new ComponentDepiction("/Asset/squareDent.png", "/Asset/squareDent.png");
+                        else if (TypBox == BoxType.Lisses)
+                            Num = new ComponentDepiction("/Asset/squareLisse.png", "/Asset/squareLisse.png");
+                        else if (TypBox == BoxType.Empty)
+                            Num = new ComponentDepiction("/Asset/squareRect.png", "/Asset/squareRect.png"); 
                         else
-                        {
-                            Num = @"/Asset/squareLine2.png";
-                        }
-                        
-                      
+                            Num = new ComponentDepiction("/Asset/squareLine2.png", "/Asset/squareLine2.png");
                     }
-                    else
-                    {
-                      SetContent();
-                    }
+                    
                 }
             }
         }
@@ -219,7 +210,7 @@ namespace BackEnd2.Model
             }
         }
 
-        public string Num
+        public ComponentDepiction Num
         {
             get => _Num;
             set
@@ -236,7 +227,6 @@ namespace BackEnd2.Model
             {
                 _Content = value;
                 NotifyPropertyChanged();
-                SetContent();
             }
         }
 
@@ -250,7 +240,7 @@ namespace BackEnd2.Model
             }
         }
 
-        
+
         public int DentFil
         {
             get => _DentFil;
@@ -261,14 +251,9 @@ namespace BackEnd2.Model
             }
         }
 
-        private Composant _SupportedComp;
-
         public Composant SupportedComp
         {
-            get
-            {
-                return _SupportedComp;
-            }
+            get => _SupportedComp;
             set
             {
                 _SupportedComp = value;
@@ -278,35 +263,27 @@ namespace BackEnd2.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void SetContentComp1()
+
+        public void SetBoxType(BoxType typB)
         {
-            TextBK = "White";
-            BorderCO = "Black";
-            color = "Black";
-        }
-        public void SetContent()
-        {
-            if (Content != null)
+            TypBox = typB;
+            if (IsContent == false)
             {
-             
-                if (DentFil == 0)
-                {
-                    Num = Content.ImageReedPath;
-                }
+                if (typB == BoxType.Dents)
+                    Num = new ComponentDepiction("/Asset/squareDent.png", "/Asset/squareDent.png"); 
+                else if (typB == BoxType.Lisses)
+                    Num = new ComponentDepiction("/Asset/squareLisse.png", "/Asset/squareLisse.png"); 
+                else if (typB == BoxType.Empty)
+                    Num = new ComponentDepiction("/Asset/squareRect.png", "/Asset/squareRect.png");
+                else if (typB == BoxType.OutRange)
+                    Num = new ComponentDepiction("/Asset/squareLine2.png", "/Asset/squareLine2.png");
                 else
-                {
-                    Num = Content.ImagePath;
-                }
-                
-                IsContent = true;
-                
-            }
-            else
-            {
-                Num = "/Asset/squareLine2.png";
-                IsContent = false;
+                    Num = new ComponentDepiction("/Asset/squareRect.png", "/Asset/squareRect.png"); 
             }
         }
+
+        
+
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {

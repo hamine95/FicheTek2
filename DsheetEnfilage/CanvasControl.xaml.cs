@@ -1,29 +1,221 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using BackEnd2.Model;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using BackEnd2.CustomClass;
+using BackEnd2.Model;
+using Microsoft.Xaml.Behaviors;
 using Microsoft.Xaml.Behaviors.Layout;
 
 namespace DSheetEnfilage
 {
     public partial class CanvasControl : UserControl, INotifyPropertyChanged
     {
+        public static readonly DependencyProperty SecondRectProperty = DependencyProperty.Register(
+            nameof(SecondRect), typeof(SecRectangle), typeof(CanvasControl), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty AngleChainProperty = DependencyProperty.Register(
+            nameof(AngleChain), typeof(int), typeof(CanvasControl), new PropertyMetadata(0, SetAngleChain));
+
+        public static readonly DependencyProperty ChainRotateYProperty = DependencyProperty.Register(
+            nameof(ChainRotateY), typeof(int), typeof(CanvasControl), new PropertyMetadata(0, SetChainRotateY));
+
+        public static readonly DependencyProperty ChainRotateXProperty = DependencyProperty.Register(
+            nameof(ChainRotateX), typeof(int), typeof(CanvasControl), new PropertyMetadata(0, SetChainRotateX));
+
+        public static readonly DependencyProperty WorkinRectProperty = DependencyProperty.Register(
+            nameof(WorkinRect), typeof(WorkRectangle), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetRectWork));
+
+        public static readonly DependencyProperty CompListProperty =
+            DependencyProperty.RegisterAttached("CompList", typeof(List<Composant>),
+                typeof(CanvasControl), new PropertyMetadata(null, OnSetCompList));
+
+        public static readonly DependencyProperty SelectedChaineProperty = DependencyProperty.Register(
+            nameof(SelectedChaine), typeof(chaine), typeof(CanvasControl),
+            new PropertyMetadata(null, OnsetSelectedChaine));
+
+        public static readonly DependencyProperty SelectedColCompProperty = DependencyProperty.Register(
+            nameof(SelectedColComp), typeof(ChColComp), typeof(CanvasControl),
+            new PropertyMetadata(null, OnsetChaineColComp));
+
+        public static readonly DependencyProperty enfilageElementProperty = DependencyProperty.Register(
+            nameof(enfilageElement), typeof(EnfilageElement), typeof(CanvasControl),
+            new PropertyMetadata(default(EnfilageElement)));
+
+        public static readonly DependencyProperty EnableChaineEditProperty = DependencyProperty.Register(
+            nameof(EnableChaineEdit), typeof(bool), typeof(CanvasControl),
+            new PropertyMetadata(default(bool), OnStartEditing));
+
+
+        public static readonly DependencyProperty RangsProperty = DependencyProperty.Register(
+            nameof(Rangs), typeof(LinkedList<Rang>), typeof(CanvasControl), new PropertyMetadata(null, OnSetRang));
+
+        public static readonly DependencyProperty RogueDentListProperty = DependencyProperty.Register(
+            nameof(RogueDentList), typeof(LinkedList<LinkedList<MatrixElement>>), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetRogueDentList));
+
+        public static readonly DependencyProperty DentListProperty = DependencyProperty.Register(
+            nameof(DentList), typeof(LinkedList<LinkedList<MatrixElement>>), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetDentList));
+
+        public static readonly DependencyProperty NbrDentProperty = DependencyProperty.Register(
+            nameof(NbrDent), typeof(int), typeof(CanvasControl), new PropertyMetadata(default(int)));
+
+        public static readonly DependencyProperty IsDentFilProperty = DependencyProperty.Register(
+            nameof(IsDentFil), typeof(bool), typeof(CanvasControl),
+            new PropertyMetadata(default(bool), OnSetIsDentFil));
+
+        public static readonly DependencyProperty TrameXpositionProperty = DependencyProperty.Register(
+            nameof(TrameXposition), typeof(string), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetTramePosition));
+
+        public static readonly DependencyProperty TrameYpositionProperty = DependencyProperty.Register(
+            nameof(TrameYposition), typeof(string), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetTramePosition));
+
+        public static readonly DependencyProperty LastXpositionProperty = DependencyProperty.Register(
+            nameof(LastXposition), typeof(string), typeof(CanvasControl), new PropertyMetadata(null, OnSetPosition));
+
+        public static readonly DependencyProperty LastYpositionProperty = DependencyProperty.Register(
+            nameof(LastYposition), typeof(string), typeof(CanvasControl), new PropertyMetadata(null, OnSetPosition));
+
+        public static readonly DependencyProperty ChaineList2ValueProperty = DependencyProperty.Register(
+            nameof(ChaineList2), typeof(ObservableCollection<ChaineMatrixElement>), typeof(CanvasControl),
+            new PropertyMetadata(null, null));
+
+        public static readonly DependencyProperty ChaineListValueProperty =
+            DependencyProperty.Register("ChaineList", typeof(ObservableCollection<ChaineMatrixElement>),
+                typeof(CanvasControl),
+                new PropertyMetadata(null, null));
+
+        public static readonly DependencyProperty ChaineRows2Property = DependencyProperty.Register(
+            nameof(ChaineRows2), typeof(int), typeof(CanvasControl), new PropertyMetadata(0, null));
+
+        public static readonly DependencyProperty ChRowSumProperty = DependencyProperty.Register(
+            nameof(ChRowSum), typeof(int), typeof(CanvasControl), new PropertyMetadata(0, OnSetChaine));
+
+
+        public static readonly DependencyProperty ChaineColumnsValueProperty =
+            DependencyProperty.Register("ChaineColumns", typeof(object), typeof(CanvasControl),
+                new PropertyMetadata(0, OnSetChaineCol));
+
+        public static readonly DependencyProperty ChaineRowsValueProperty =
+            DependencyProperty.Register("ChaineRows", typeof(object), typeof(CanvasControl),
+                new PropertyMetadata(0, null));
+
+
+        public static readonly DependencyProperty ProhibitAreaProperty = DependencyProperty.Register(
+            nameof(ProhibitArea), typeof(ProhibitedRectangle), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetProhibitedArea));
+
+        public static readonly DependencyProperty ListComposantProperty = DependencyProperty.Register(
+            nameof(ListComposant), typeof(ObservableCollection<Composition>), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetComposantList));
+
+
+        public static readonly DependencyProperty ContentEnfilageListProperty = DependencyProperty.Register(
+            nameof(ContentEnfilageList), typeof(ObservableCollection<MatrixElement>), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetContentEnfilage));
+
+        public static readonly DependencyProperty EnfilageBoardProperty = DependencyProperty.Register(
+            nameof(EnfilageBoard), typeof(TrulyObservableCollection<MatrixElement>), typeof(CanvasControl),
+            new PropertyMetadata(null, OnSetEnfBoard));
+
+
+        public static DependencyProperty SetRowProperty = DependencyProperty.RegisterAttached("SetRow", typeof(object),
+            typeof(EnfilageSchemas), new PropertyMetadata(0, OnSetRow));
+
+        public static readonly DependencyProperty SetColumnProperty =
+            DependencyProperty.RegisterAttached("SetColumn", typeof(object), typeof(EnfilageSchemas),
+                new PropertyMetadata(0, OnSetColumn));
+
+
+        public BoardStructure _board;
+        private bool _Btn1;
+        private bool _Btn10;
+        private bool _Btn10Vis;
+
+        private bool _Btn2;
+
+        private bool _Btn3;
+
+        private bool _Btn4;
+
+        private bool _Btn5;
+
+        private bool _Btn6;
+
+        private bool _Btn7;
+
+        private bool _Btn8;
+        private bool _Btn9;
+
+        private bool _Btn9Vis;
+
+        private int _ChainColNum = 8;
+
+
+        private int _ChaineRo;
+        private bool _Col1;
+        private bool _Col10;
+
+        private bool _Col2;
+
+        private bool _Col3;
+
+        private bool _Col4;
+
+        private bool _Col5;
+
+        private bool _Col6;
         private bool _Col7;
+        private bool _Col8;
+
+        private bool _Col9;
+
+
+        private List<Composant> _CompList;
+        private bool _IsDisplayChain = true;
+
+        private bool _IsEditChain;
+        private bool _IsEditChain2;
+        private bool _IsEditChainBtn;
+
+        private bool _SecChainVis;
+        private string _SelectedColChain;
+
+        private Composant _SelectedComp;
+
+        private int _StartChaineRow;
+        private int _StartLegendRow;
+
+        public bool IsDent = true;
+
+        public ObservableCollection<CanvasElement> ListItem;
+
+        public CanvasControl()
+        {
+            InitializeComponent();
+            SetRow = 58;
+              SetColumn = 83;
+        }
 
         public bool Col7
         {
-            get { return _Col7; }
+            get => _Col7;
             set
             {
                 _Col7 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "7";
@@ -33,14 +225,9 @@ namespace DSheetEnfilage
             }
         }
 
-        private int _ChainColNum = 8;
-
         public int ChainColNum
         {
-            get
-            {
-                return _ChainColNum;
-            }
+            get => _ChainColNum;
             set
             {
                 _ChainColNum = value;
@@ -48,39 +235,29 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn9Vis;
-
         public bool Btn9Vis
         {
-            get
-            {
-                return _Btn9Vis;
-            }
+            get => _Btn9Vis;
             set
             {
                 _Btn9Vis = value;
                 NotifyPropertyChanged();
             }
         }
-        private bool _Btn10Vis;
 
         public bool Btn10Vis
         {
-            get
-            {
-                return _Btn10Vis;
-            }
+            get => _Btn10Vis;
             set
             {
                 _Btn10Vis = value;
                 NotifyPropertyChanged();
             }
         }
-        private string _SelectedColChain;
 
         public string SelectedColChain
         {
-            get { return _SelectedColChain; }
+            get => _SelectedColChain;
             set
             {
                 _SelectedColChain = value;
@@ -88,52 +265,37 @@ namespace DSheetEnfilage
             }
         }
 
-        public static readonly DependencyProperty AngleChainProperty = DependencyProperty.Register(
-            nameof(AngleChain), typeof(int), typeof(CanvasControl), new PropertyMetadata(0,SetAngleChain));
+        public SecRectangle SecondRect
+        {
+            get => (SecRectangle)GetValue(SecondRectProperty);
+            set => SetValue(SecondRectProperty, value);
+        }
 
         public int AngleChain
         {
-            get { return (int)GetValue(AngleChainProperty); }
-            set { SetValue(AngleChainProperty, value); }
+            get => (int)GetValue(AngleChainProperty);
+            set => SetValue(AngleChainProperty, value);
         }
-        
-        public static readonly DependencyProperty ChainRotateYProperty = DependencyProperty.Register(
-            nameof(ChainRotateY), typeof(int), typeof(CanvasControl), new PropertyMetadata(0,SetChainRotateY));
 
         public int ChainRotateY
         {
-            get { return (int)GetValue(ChainRotateYProperty); }
-            set { SetValue(ChainRotateYProperty, value); }
+            get => (int)GetValue(ChainRotateYProperty);
+            set => SetValue(ChainRotateYProperty, value);
         }
-        public static readonly DependencyProperty ChainRotateXProperty = DependencyProperty.Register(
-            nameof(ChainRotateX), typeof(int), typeof(CanvasControl), new PropertyMetadata(0,SetChainRotateX));
 
         public int ChainRotateX
         {
-            get { return (int)GetValue(ChainRotateXProperty); }
-            set { SetValue(ChainRotateXProperty, value); }
+            get => (int)GetValue(ChainRotateXProperty);
+            set => SetValue(ChainRotateXProperty, value);
         }
-        public static void SetAngleChain(DependencyObject e,DependencyPropertyChangedEventArgs arg)
-        {
-            
-        }
-        public static void SetChainRotateX(DependencyObject e,DependencyPropertyChangedEventArgs arg)
-        {
-            
-        }
-        public static void SetChainRotateY(DependencyObject e,DependencyPropertyChangedEventArgs arg)
-        {
-            
-        }
-        private bool _Col8;
 
         public bool Col8
         {
-            get { return _Col8; }
+            get => _Col8;
             set
             {
                 _Col8 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "8";
@@ -143,15 +305,13 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Col9;
-
         public bool Col9
         {
-            get { return _Col9; }
+            get => _Col9;
             set
             {
                 _Col9 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "9";
@@ -160,15 +320,14 @@ namespace DSheetEnfilage
                 NotifyPropertyChanged();
             }
         }
-        private bool _Col10;
 
         public bool Col10
         {
-            get { return _Col10; }
+            get => _Col10;
             set
             {
                 _Col10 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "10";
@@ -177,15 +336,14 @@ namespace DSheetEnfilage
                 NotifyPropertyChanged();
             }
         }
-        private bool _Col1;
 
         public bool Col1
         {
-            get { return _Col1; }
+            get => _Col1;
             set
             {
                 _Col1 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "1";
@@ -195,15 +353,13 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Col2;
-
         public bool Col2
         {
-            get { return _Col2; }
+            get => _Col2;
             set
             {
                 _Col2 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "2";
@@ -213,15 +369,13 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Col3;
-
         public bool Col3
         {
-            get { return _Col3; }
+            get => _Col3;
             set
             {
                 _Col3 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "3";
@@ -231,15 +385,13 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Col4;
-
         public bool Col4
         {
-            get { return _Col4; }
+            get => _Col4;
             set
             {
                 _Col4 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "4";
@@ -249,294 +401,47 @@ namespace DSheetEnfilage
             }
         }
 
-        private static void OnSetRectWork(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CanvasControl mycontrol = (CanvasControl)d;
-            mycontrol.SetWorkRectangle();
-
-        }
-
-        public void SetWorkRectangle()
-        {
-            if (WorkinRect == null)
-            {
-                foreach (var EnfCont in EnfilageBoard)
-                {
-                    if (EnfCont.TypBox != MatrixElement.BoxType.OutRange)
-                    {
-                        EnfCont.SetBoxType(MatrixElement.BoxType.OutRange);
-                    }
-                }
-            }
-            else
-            {
-                foreach (var EnfCont in EnfilageBoard)
-            {
-                if (EnfCont.X >= WorkinRect.PartsWidthStart
-                    && EnfCont.X <= WorkinRect.PartsWidthEnd
-                    && EnfCont.Y >= WorkinRect.PartsHeightStart
-                    && EnfCont.Y <= WorkinRect.PartsHeightEnd)
-                {
-                    int PartNbr =(EnfCont.Y- WorkinRect.PartsHeightStart) / WorkinRect.PartHeight;
-                    if ((EnfCont.Y - (PartNbr * WorkinRect.PartHeight)) ==
-                        (WorkinRect.PartHeight - 2 + WorkinRect.PartsHeightStart)
-                        || (EnfCont.Y - (PartNbr * WorkinRect.PartHeight)) ==
-                        (WorkinRect.PartHeight - 3 + WorkinRect.PartsHeightStart))
-                    {
-                        EnfCont.SetBoxType(MatrixElement.BoxType.Dents);
-
-                        if ((EnfCont.Y - (PartNbr * WorkinRect.PartHeight)) ==
-                            (WorkinRect.PartHeight - 2 + WorkinRect.PartsHeightStart))
-                        {
-                            EnfCont.position = 2;
-                        }
-                        else
-                        {
-                            EnfCont.position = 1;
-                        }
-
-                    }
-                    else if ((EnfCont.Y - (PartNbr * WorkinRect.PartHeight)) >=
-                             (WorkinRect.PartsHeightStart)
-                             && (EnfCont.Y - (PartNbr * WorkinRect.PartHeight)) <=
-                             (WorkinRect.PartsHeightStart+(WorkinRect.PartHeight-5)))
-                    {
-                       int positionEl =EnfCont.Y - (PartNbr * WorkinRect.PartHeight)-(WorkinRect.PartsHeightStart)+1;
-                        EnfCont.SetBoxType(MatrixElement.BoxType.Lisses);
-
-                        EnfCont.SupportedComp = SelectedChaine.ChaineCompos.Single(ch => ch.ColNum == positionEl).Comp;
-                        EnfCont.position = positionEl;
-
-                    }
-                    else
-                    {
-                        EnfCont.SetBoxType(MatrixElement.BoxType.Empty);
-                    }
-                }
-
-            }
-            }
-            
-        }
-        
-        public static readonly DependencyProperty WorkinRectProperty = DependencyProperty.Register(
-            nameof(WorkinRect), typeof(WorkRectangle), typeof(CanvasControl), new PropertyMetadata(null,OnSetRectWork));
-
         public WorkRectangle WorkinRect
         {
-            get { return (WorkRectangle)GetValue(WorkinRectProperty); }
-            set { SetValue(WorkinRectProperty, value); }
-        }
-        
-        public static readonly DependencyProperty CompListProperty =
-            DependencyProperty.RegisterAttached("CompList", typeof(List<Composant>),
-                typeof(CanvasControl), new PropertyMetadata(null, OnSetCompList));
-
-        private static void OnSetCompList(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-         
+            get => (WorkRectangle)GetValue(WorkinRectProperty);
+            set => SetValue(WorkinRectProperty, value);
         }
 
-        public void SetInaccessibleCompCells()
+        public int StartChaineRow
         {
-            if (IsDentFil )
+            get => _StartChaineRow;
+            set
             {
-                if (SelectedChaine != null && ChRowSum >= 78)
-                {
-                    int NumRow =ChaineColumns*2+1;
-                        
-                    int lastcol = 4+ChaineRows;
-                    if (ChaineColumns <= 8)
-                    {
-                        NumRow = 8*2+1;
-                    }
-                    int startRow= 58 - NumRow;
-                    for(int j=startRow;j<58;j++)
-                    {
-                        for (int i = 0; i < lastcol; i++)
-                        {
-                            int ij = j * 83 + i;
-                            EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.Inaccessible);
-                        }
-                    }
-                }
-                else
-                {
-                    if (ListComposant.Count > 0)
-                {
-                    int NumCol =Convert.ToInt32(Math.Ceiling((ListComposant.Count*18)/(double)12));
-                    int StartCol = 58 - NumCol;
-                    for (int i = StartCol; i <= 57; i++)
-                    {
-                        for (int j = 76; j <= 82; j++)
-                        {
-                            int ij = i * 83+j;
-                            EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.Inaccessible);
-                        }
-                    
-                    }
-                }
-
-                if (SelectedChaine != null)
-                {
-                    if (ChaineRows <= 26)
-                    {
-                        int NumRow = 4 + ChaineRows;
-                        int startRow = 58 - NumRow;
-                        int lastcol = ChaineColumns;
-                        if (ChaineColumns <= 8)
-                        {
-                            lastcol = 8;
-                        }
-                       
-                        for(int j=startRow;j<58;j++)
-                        {
-                            for (int i = 0; i < lastcol; i++)
-                            {
-                                int ij = j * 83 + i;
-                                EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.Inaccessible);
-                            }
-                            }
-                        
-                    }else if (ChRowSum > 26)
-                    {
-                        int NumRow =ChaineColumns+1;
-                        
-                        int lastcol = 4+ChaineRows;
-                        if (ChaineColumns <= 8)
-                        {
-                            NumRow = 8+1;
-                        }
-                        int startRow= 58 - NumRow;
-                        for(int j=startRow;j<58;j++)
-                        {
-                            for (int i = 0; i < lastcol; i++)
-                            {
-                                int ij = j * 83 + i;
-                                EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.Inaccessible);
-                            }
-                        }
-                    }
-                        
-                        
-                }
-                }
-                
-                
-            }
-            else if (IsDentFil == false && WorkinRect == null  )
-            {
-
-               if (SelectedChaine != null && ChRowSum >= 78)
-                {
-                    int NumRow =ChaineColumns*2+1;
-                        
-                    int lastcol = 4+ChaineRows;
-                    if (ChaineColumns <= 8)
-                    {
-                        NumRow = 8*2+1;
-                    }
-                    int startRow= 58 - NumRow;
-                    for(int j=startRow;j<58;j++)
-                    {
-                        for (int i = 0; i < lastcol; i++)
-                        {
-                            int ij = j * 83 + i;
-                            EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.OutRange);
-                        }
-                    }
-                }
-                else
-                {
-                    if (ListComposant.Count > 0)
-                {
-                    int NumCol =Convert.ToInt32(Math.Ceiling((ListComposant.Count*18)/(double)12));
-                    int StartCol = 58 - NumCol;
-                    for (int i = StartCol; i <= 57; i++)
-                    {
-                        for (int j = 76; j <= 82; j++)
-                        {
-                            int ij = i * 83+j;
-                            EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.OutRange);
-                        }
-                    
-                    }
-                }
-
-                if (SelectedChaine != null)
-                {
-                    if (ChaineRows <= 26)
-                    {
-                        int NumRow = 4 + ChaineRows;
-                        int startRow = 58 - NumRow;
-                        int lastcol = ChaineColumns;
-                        if (ChaineColumns <= 8)
-                        {
-                            lastcol = 8;
-                        }
-                       
-                        for(int j=startRow;j<58;j++)
-                        {
-                            for (int i = 0; i < lastcol; i++)
-                            {
-                                int ij = j * 83 + i;
-                                EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.OutRange);
-                            }
-                            }
-                        
-                    }else if (ChRowSum > 26)
-                    {
-                        int NumRow =ChaineColumns+1;
-                        
-                        int lastcol = 4+ChaineRows;
-                        if (ChaineColumns <= 8)
-                        {
-                            NumRow = 8+1;
-                        }
-                        int startRow= 58 - NumRow;
-                        for(int j=startRow;j<58;j++)
-                        {
-                            for (int i = 0; i < lastcol; i++)
-                            {
-                                int ij = j * 83 + i;
-                                EnfilageBoard[ij].SetBoxType(MatrixElement.BoxType.OutRange);
-                            }
-                        }
-                    }
-                        
-                        
-                }
-                }
-               
+                _StartChaineRow = value;
+                NotifyPropertyChanged();
             }
         }
 
-        public static readonly DependencyProperty SelectedChaineProperty = DependencyProperty.Register(
-            nameof(SelectedChaine), typeof(chaine), typeof(CanvasControl), new PropertyMetadata(null,OnSetSelectedChain));
+        public int StartLegendRow
+        {
+            get => _StartLegendRow;
+            set
+            {
+                _StartLegendRow = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public chaine SelectedChaine
         {
-            get { return (chaine)GetValue(SelectedChaineProperty); }
-            set { SetValue(SelectedChaineProperty, value); }
+            get => (chaine)GetValue(SelectedChaineProperty);
+            set => SetValue(SelectedChaineProperty, value);
         }
-
-        public static void OnSetSelectedChain(DependencyObject obj,DependencyPropertyChangedEventArgs e)
-        {
-            
-        }
-        private List<Composant> _CompList;
 
         public List<Composant> CompList
         {
             get => (List<Composant>)GetValue(CompListProperty);
-            set { SetValue(CompListProperty, value); }
+            set => SetValue(CompListProperty, value);
         }
-
-        private Composant _SelectedComp;
 
         public Composant SelectedComp
         {
-            get { return _SelectedComp; }
+            get => _SelectedComp;
             set
             {
                 _SelectedComp = value;
@@ -552,31 +457,19 @@ namespace DSheetEnfilage
             }
         }
 
-        public static readonly DependencyProperty SelectedColCompProperty = DependencyProperty.Register(
-            nameof(SelectedColComp), typeof(ChColComp), typeof(CanvasControl),
-            new PropertyMetadata(null, OnsetChaineColComp));
-
         public ChColComp SelectedColComp
         {
-            get { return (ChColComp)GetValue(SelectedColCompProperty); }
-            set { SetValue(SelectedColCompProperty, value); }
+            get => (ChColComp)GetValue(SelectedColCompProperty);
+            set => SetValue(SelectedColCompProperty, value);
         }
-
-        public static void OnsetChaineColComp(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-      
-            
-        }
-
-        private bool _Col5;
 
         public bool Col5
         {
-            get { return _Col5; }
+            get => _Col5;
             set
             {
                 _Col5 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "5";
@@ -586,15 +479,13 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Col6;
-
         public bool Col6
         {
-            get { return _Col6; }
+            get => _Col6;
             set
             {
                 _Col6 = value;
-                if (value == true)
+                if (value)
                 {
                     SelectedComp = null;
                     SelectedColChain = "6";
@@ -604,44 +495,39 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn8;
-
         public bool Btn8
         {
-            get { return _Btn8; }
+            get => _Btn8;
             set
             {
                 _Btn8 = value;
                 NotifyPropertyChanged();
             }
         }
-        private bool _Btn9;
 
         public bool Btn9
         {
-            get { return _Btn9; }
+            get => _Btn9;
             set
             {
                 _Btn9 = value;
                 NotifyPropertyChanged();
             }
         }
-        private bool _Btn10;
 
         public bool Btn10
         {
-            get { return _Btn10; }
+            get => _Btn10;
             set
             {
                 _Btn10 = value;
                 NotifyPropertyChanged();
             }
         }
-        private bool _Btn1;
 
         public bool Btn1
         {
-            get { return _Btn1; }
+            get => _Btn1;
             set
             {
                 _Btn1 = value;
@@ -649,11 +535,9 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn2;
-
         public bool Btn2
         {
-            get { return _Btn2; }
+            get => _Btn2;
             set
             {
                 _Btn2 = value;
@@ -661,11 +545,9 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn3;
-
         public bool Btn3
         {
-            get { return _Btn3; }
+            get => _Btn3;
             set
             {
                 _Btn3 = value;
@@ -673,11 +555,9 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn4;
-
         public bool Btn4
         {
-            get { return _Btn4; }
+            get => _Btn4;
             set
             {
                 _Btn4 = value;
@@ -685,11 +565,9 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn5;
-
         public bool Btn5
         {
-            get { return _Btn5; }
+            get => _Btn5;
             set
             {
                 _Btn5 = value;
@@ -697,11 +575,9 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn6;
-
         public bool Btn6
         {
-            get { return _Btn6; }
+            get => _Btn6;
             set
             {
                 _Btn6 = value;
@@ -709,11 +585,9 @@ namespace DSheetEnfilage
             }
         }
 
-        private bool _Btn7;
-
         public bool Btn7
         {
-            get { return _Btn7; }
+            get => _Btn7;
             set
             {
                 _Btn7 = value;
@@ -721,35 +595,532 @@ namespace DSheetEnfilage
             }
         }
 
-        public static readonly DependencyProperty enfilageElementProperty = DependencyProperty.Register(
-            nameof(enfilageElement), typeof(EnfilageElement), typeof(CanvasControl),
-            new PropertyMetadata(default(EnfilageElement)));
-
         public EnfilageElement enfilageElement
         {
-            get { return (EnfilageElement)GetValue(enfilageElementProperty); }
-            set { SetValue(enfilageElementProperty, value); }
+            get => (EnfilageElement)GetValue(enfilageElementProperty);
+            set => SetValue(enfilageElementProperty, value);
         }
 
-        public static readonly DependencyProperty EnableChaineEditProperty = DependencyProperty.Register(
-            nameof(EnableChaineEdit), typeof(bool), typeof(CanvasControl),
-            new PropertyMetadata(default(bool), OnStartEditing));
+        public bool EnableChaineEdit
+        {
+            get => (bool)GetValue(EnableChaineEditProperty);
+            set => SetValue(EnableChaineEditProperty, value);
+        }
+
+        public LinkedList<Rang> Rangs
+        {
+            get => (LinkedList<Rang>)GetValue(RangsProperty);
+            set => SetValue(RangsProperty, value);
+        }
+
+        public LinkedList<LinkedList<MatrixElement>> RogueDentList
+        {
+            get => (LinkedList<LinkedList<MatrixElement>>)GetValue(RogueDentListProperty);
+            set => SetValue(RogueDentListProperty, value);
+        }
+
+        public LinkedList<LinkedList<MatrixElement>> DentList
+        {
+            get => (LinkedList<LinkedList<MatrixElement>>)GetValue(DentListProperty);
+            set => SetValue(DentListProperty, value);
+        }
+
+        public int NbrDent
+        {
+            get => (int)GetValue(NbrDentProperty);
+            set => SetValue(NbrDentProperty, value);
+        }
+
+        public bool IsEditChain
+        {
+            get => _IsEditChain;
+            set
+            {
+                _IsEditChain = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsEditChainBtn
+        {
+            get => _IsEditChainBtn;
+            set
+            {
+                _IsEditChainBtn = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsEditChain2
+        {
+            get => _IsEditChain2;
+            set
+            {
+                _IsEditChain2 = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsDisplayChain
+        {
+            get => _IsDisplayChain;
+            set
+            {
+                _IsDisplayChain = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _IsDisplay=true;
+        public bool IsDisplay
+        {
+            get {
+                return _IsDisplay;
+            }
+            set {
+                _IsDisplay = value;
+                NotifyPropertyChanged();
+                    }
+        }
+
+        public bool IsDentFil
+        {
+            get => (bool)GetValue(IsDentFilProperty);
+            set{
+                SetValue(IsDentFilProperty, value);
+               
+                    }
+        }
+
+        public string TrameXposition
+        {
+            get => (string)GetValue(TrameXpositionProperty);
+            set => SetValue(TrameXpositionProperty, value);
+        }
+
+        public string TrameYposition
+        {
+            get => (string)GetValue(TrameYpositionProperty);
+            set => SetValue(TrameYpositionProperty, value);
+        }
+
+        public string LastXposition
+        {
+            get => (string)GetValue(LastXpositionProperty);
+            set
+            {
+                SetValue(LastXpositionProperty, value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string LastYposition
+        {
+            get => (string)GetValue(LastYpositionProperty);
+            set
+            {
+                SetValue(LastYpositionProperty, value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ChaineMatrixElement> ChaineList2
+        {
+            get => (ObservableCollection<ChaineMatrixElement>)GetValue(ChaineList2ValueProperty);
+            set => SetValue(ChaineList2ValueProperty, value);
+        }
+
+        public int ChaineRows2
+        {
+            get => (int)GetValue(ChaineRows2Property);
+            set => SetValue(ChaineRows2Property, value);
+        }
+
+        public int ChRowSum
+        {
+            get => (int)GetValue(ChRowSumProperty);
+            set => SetValue(ChRowSumProperty, value);
+        }
+
+        public bool SecChainVis
+        {
+            get => _SecChainVis;
+            set
+            {
+                _SecChainVis = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int ChaineRows
+        {
+            get => (int)GetValue(ChaineRowsValueProperty);
+            set => SetValue(ChaineRowsValueProperty, value);
+        }
+
+        public int ChaineColumns
+        {
+            get => (int)GetValue(ChaineColumnsValueProperty);
+            set => SetValue(ChaineColumnsValueProperty, value);
+        }
+
+        public ObservableCollection<ChaineMatrixElement> ChaineList
+        {
+            get => (ObservableCollection<ChaineMatrixElement>)GetValue(ChaineListValueProperty);
+            set => SetValue(ChaineListValueProperty, value);
+        }
+
+        public ProhibitedRectangle ProhibitArea
+        {
+            get => (ProhibitedRectangle)GetValue(ProhibitAreaProperty);
+            set => SetValue(ProhibitAreaProperty, value);
+        }
+
+
+        public ObservableCollection<Composition> ListComposant
+        {
+            get => (ObservableCollection<Composition>)GetValue(ListComposantProperty);
+            set
+            {
+                SetValue(ListComposantProperty, value);
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<MatrixElement> ContentEnfilageList
+        {
+            get => (ObservableCollection<MatrixElement>)GetValue(ContentEnfilageListProperty);
+            set
+            {
+                SetValue(ContentEnfilageListProperty, value);
+                NotifyPropertyChanged();
+            }
+        }
+
+
+        public ObservableCollection<MatrixElement> EnfilageBoard
+        {
+            get => (ObservableCollection<MatrixElement>)GetValue(EnfilageBoardProperty);
+            set => SetValue(EnfilageBoardProperty, value);
+        }
+
+        public object SetRow
+        {
+            get => GetValue(SetRowProperty);
+            set => SetValue(SetRowProperty, value);
+        }
+
+        public object SetColumn
+        {
+            get => GetValue(SetColumnProperty);
+            set => SetValue(SetColumnProperty, value);
+        }
+
+        public int ChaineRo
+        {
+            get => _ChaineRo;
+            set
+            {
+                _ChaineRo = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public MatrixElement SelectedCell { get; set; }
+
+        public Composition SelectedComposant { get; set; }
+
+        public ChaineMatrixElement SelectedChaineCell { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public static void SetAngleChain(DependencyObject e, DependencyPropertyChangedEventArgs arg)
+        {
+        }
+
+        public static void SetChainRotateX(DependencyObject e, DependencyPropertyChangedEventArgs arg)
+        {
+        }
+
+        public static void SetChainRotateY(DependencyObject e, DependencyPropertyChangedEventArgs arg)
+        {
+        }
+
+        private static void OnSetRectWork(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var mycontrol = (CanvasControl)d;
+            if (e.OldValue != null)
+            {
+                mycontrol.ResetWorkRectangle((WorkRectangle)e.OldValue,(WorkRectangle)e.NewValue);
+            }
+            mycontrol.SetWorkRectangle();
+        }
+
+        public void ResetWorkRectangle(WorkRectangle WorkRect,WorkRectangle NewWorkRect)
+        {
+
+            bool b = false;
+            if (NewWorkRect != null)
+            {
+                if (WorkRect.NbrPart != NewWorkRect.NbrPart
+                    || WorkRect.PartHeight!=NewWorkRect.PartHeight)
+                {
+                    b = true;
+                }
+            }
+            foreach (var EnfCont in EnfilageBoard)
+            {
+                if (EnfCont.TypBox != MatrixElement.BoxType.OutRange &&
+                    EnfCont.TypBox != MatrixElement.BoxType.Inaccessible)
+                {
+                    EnfCont.SetBoxType(MatrixElement.BoxType.OutRange);
+                    if (b)
+                    {
+                        EnfCont.Content = null;
+                        SettingContent(EnfCont);
+                    }
+                }
+                   
+            }
+
+            if (b)
+            {
+                foreach (var comp in ListComposant)
+                {
+                    comp.EnfNbrFil = 0;
+                }
+
+                NbrDent = 0;
+            }
+                 
+      
+        }
+        public void SetWorkRectangle()
+        {
+
+            if (WorkinRect != null)
+            {
+                        foreach (var EnfCont in EnfilageBoard)
+                    if (EnfCont.X >= WorkinRect.PartsWidthStart
+                        && EnfCont.X <= WorkinRect.PartsWidthEnd
+                        && EnfCont.Y >= WorkinRect.PartsHeightStart
+                        && EnfCont.Y < WorkinRect.PartsHeightEnd
+                        && EnfCont.TypBox != MatrixElement.BoxType.Inaccessible)
+                    {
+                        var PartNbr = (EnfCont.Y - WorkinRect.PartsHeightStart) / WorkinRect.PartHeight;
+                        if (EnfCont.Y - PartNbr * WorkinRect.PartHeight ==
+                            WorkinRect.DentLen - 1 + WorkinRect.PartsHeightStart
+                            || EnfCont.Y - PartNbr * WorkinRect.PartHeight ==
+                            WorkinRect.DentLen + WorkinRect.PartsHeightStart)
+                        {
+                            EnfCont.SetBoxType(MatrixElement.BoxType.Dents);
+
+                            if (EnfCont.Y - PartNbr * WorkinRect.PartHeight ==
+                                WorkinRect.PartHeight - 2 + WorkinRect.PartsHeightStart)
+                                EnfCont.position = 1;
+                            else
+                                EnfCont.position = 2;
+                        }
+                        else if (EnfCont.Y - PartNbr * WorkinRect.PartHeight >=
+                                 WorkinRect.PartsHeightStart + WorkinRect.SecEmptyLen
+                                 && EnfCont.Y - PartNbr * WorkinRect.PartHeight <
+                                 WorkinRect.PartsHeightStart + WorkinRect.LisseLen)
+                        {
+                            var positionEl = EnfCont.Y - PartNbr * WorkinRect.PartHeight - WorkinRect.PartsHeightStart;
+                            EnfCont.SetBoxType(MatrixElement.BoxType.Lisses);
+
+
+                            if (SelectedChaine.ChaineCompos.SingleOrDefault(ch => ch.ColNum == positionEl) != null)
+                            {
+                                EnfCont.SupportedComp = SelectedChaine.ChaineCompos
+                                    .Single(ch => ch.ColNum == positionEl).Comp;
+                                EnfCont.position = positionEl;
+                            }
+                        }
+                        else
+                        {
+                            EnfCont.SetBoxType(MatrixElement.BoxType.Empty);
+                        }
+                    }
+            }
+        
+         
+        }
+
+        private static void OnSetCompList(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
+
+        public void SetInaccessibleCompCells(MatrixElement.BoxType typ)
+        {
+            if (IsDentFil)
+            {
+                if (SelectedChaine != null && ChRowSum >= 78)
+                {
+                    var NumRow = ChaineColumns * 2 + 1;
+
+                    var lastcol = 4 + ChaineRows;
+                    if (ChaineColumns <= 8) NumRow = 8 * 2 + 1;
+                    StartChaineRow = 58 - NumRow;
+                    SecondRect = new SecRectangle(StartChaineRow, 0, 0);
+
+                    for (var j = StartChaineRow; j < 58; j++)
+                    for (var i = 0; i < lastcol; i++)
+                    {
+                        var ij = j * 83 + i;
+                        EnfilageBoard[ij].SetBoxType(typ);
+                    }
+                }
+                else
+                {
+                    if (ListComposant.Count > 0)
+                    {
+                        var NumCol = Convert.ToInt32(Math.Ceiling(ListComposant.Count * 18 / (double)12));
+                        StartLegendRow = 58 - NumCol;
+                        for (var i = StartLegendRow; i <= 57; i++)
+                        for (var j = 76; j <= 82; j++)
+                        {
+                            var ij = i * 83 + j;
+                            EnfilageBoard[ij].SetBoxType(typ);
+                        }
+                    }
+
+                    if (SelectedChaine != null)
+                    {
+                        if (SelectedChaine.Ligne <= 26)
+                        {
+                            var NumRow = 4 + SelectedChaine.Ligne;
+                            StartChaineRow = 58 - NumRow;
+                            var lastcol = SelectedChaine.Colonne;
+                            if (SelectedChaine.Colonne <= 8) lastcol = 8;
+
+                            for (var j = StartChaineRow; j < 58; j++)
+                            for (var i = 0; i < lastcol; i++)
+                            {
+                                var ij = j * 83 + i;
+                                EnfilageBoard[ij].SetBoxType(typ);
+                            }
+                        }
+                        else if (ChRowSum > 26)
+                        {
+                            var NumRow = ChaineColumns + 1;
+
+                            var lastcol = 4 + ChaineRows;
+                            if (ChaineColumns <= 8) NumRow = 8 + 1;
+                            StartChaineRow = 58 - NumRow;
+                            for (var j = StartChaineRow; j < 58; j++)
+                            for (var i = 0; i < lastcol; i++)
+                            {
+                                var ij = j * 83 + i;
+                                EnfilageBoard[ij].SetBoxType(typ);
+                            }
+                        }
+                    }
+
+                    var StartWidth = ChaineColumns + 1;
+                    if (ChRowSum > 26)
+                    {
+                        StartWidth = 4 + ChaineRows;
+                    }
+                    else
+                    {
+                        if (ChaineColumns <= 8) StartWidth = 8 + 1;
+                    }
+
+                    if (StartChaineRow > StartLegendRow)
+                        SecondRect = new SecRectangle(StartChaineRow, StartWidth, 82 - 7);
+                    else
+                        SecondRect = new SecRectangle(StartLegendRow, StartWidth, 82 - 7);
+                }
+            }
+            else if (IsDentFil == false && WorkinRect == null)
+            {
+                if (SelectedChaine != null && ChRowSum >= 78)
+                {
+                    var NumRow = ChaineColumns * 2 + 1;
+
+                    var lastcol = 4 + ChaineRows;
+                    if (ChaineColumns <= 8) NumRow = 8 * 2 + 1;
+                    var startRow = 58 - NumRow;
+                    for (var j = startRow; j < 58; j++)
+                    for (var i = 0; i < lastcol; i++)
+                    {
+                        var ij = j * 83 + i;
+                        EnfilageBoard[ij].SetBoxType(typ);
+                    }
+                }
+                else
+                {
+                    if (ListComposant != null && ListComposant.Count > 0)
+                    {
+                        var NumCol = Convert.ToInt32(Math.Ceiling(ListComposant.Count * 18 / (double)12));
+                        var StartCol = 58 - NumCol;
+                        for (var i = StartCol; i <= 57; i++)
+                        for (var j = 76; j <= 82; j++)
+                        {
+                            var ij = i * 83 + j;
+                            EnfilageBoard[ij].SetBoxType(typ);
+                        }
+                    }
+
+                    if (SelectedChaine != null)
+                    {
+                        if (ChaineRows <= 26)
+                        {
+                            var NumRow = 4 + ChaineRows;
+                            var startRow = 58 - NumRow;
+                            var lastcol = ChaineColumns;
+                            if (ChaineColumns <= 8) lastcol = 8;
+
+                            for (var j = startRow; j < 58; j++)
+                            for (var i = 0; i < lastcol; i++)
+                            {
+                                var ij = j * 83 + i;
+                                EnfilageBoard[ij].SetBoxType(typ);
+                            }
+                        }
+                        else if (ChRowSum > 26)
+                        {
+                            var NumRow = ChaineColumns + 1;
+
+                            var lastcol = 4 + ChaineRows;
+                            if (ChaineColumns <= 8) NumRow = 8 + 1;
+                            var startRow = 58 - NumRow;
+                            for (var j = startRow; j < 58; j++)
+                            for (var i = 0; i < lastcol; i++)
+                            {
+                                var ij = j * 83 + i;
+                                EnfilageBoard[ij].SetBoxType(typ);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void OnsetSelectedChaine(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var mycontrol = (CanvasControl)d;
+        }
+
+        public static void OnsetChaineColComp(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
 
         public static void OnStartEditing(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            CanvasControl mycontrol = (CanvasControl)d;
+            var mycontrol = (CanvasControl)d;
             mycontrol.StartEditing();
         }
 
         public void StartEditing()
         {
-            if (EnableChaineEdit == true)
+            if (EnableChaineEdit)
             {
                 IsEditChainBtn = true;
                 if (ChaineColumns > 26)
                 {
                     IsEditChain2 = true;
-                        IsEditChain = false;
+                    IsEditChain = false;
                     IsDisplayChain = false;
                 }
                 else
@@ -758,7 +1129,6 @@ namespace DSheetEnfilage
                     IsEditChain = true;
                     IsDisplayChain = false;
                 }
-               
             }
             else
             {
@@ -767,42 +1137,6 @@ namespace DSheetEnfilage
                 IsEditChain2 = false;
                 IsDisplayChain = true;
             }
-        }
-
-        public bool EnableChaineEdit
-        {
-            get { return (bool)GetValue(EnableChaineEditProperty); }
-            set { SetValue(EnableChaineEditProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty RangsProperty = DependencyProperty.Register(
-            nameof(Rangs), typeof(LinkedList<Rang>), typeof(CanvasControl), new PropertyMetadata(null, OnSetRang));
-
-        public LinkedList<Rang> Rangs
-        {
-            get { return (LinkedList<Rang>)GetValue(RangsProperty); }
-            set { SetValue(RangsProperty, value); }
-        }
-
-        public static readonly DependencyProperty RogueDentListProperty = DependencyProperty.Register(
-            nameof(RogueDentList), typeof(LinkedList<LinkedList<MatrixElement>>), typeof(CanvasControl),
-            new PropertyMetadata(null, OnSetRogueDentList));
-
-        public LinkedList<LinkedList<MatrixElement>> RogueDentList
-        {
-            get { return (LinkedList<LinkedList<MatrixElement>>)GetValue(RogueDentListProperty); }
-            set { SetValue(RogueDentListProperty, value); }
-        }
-
-        public static readonly DependencyProperty DentListProperty = DependencyProperty.Register(
-            nameof(DentList), typeof(LinkedList<LinkedList<MatrixElement>>), typeof(CanvasControl),
-            new PropertyMetadata(null, OnSetDentList));
-
-        public LinkedList<LinkedList<MatrixElement>> DentList
-        {
-            get { return (LinkedList<LinkedList<MatrixElement>>)GetValue(DentListProperty); }
-            set { SetValue(DentListProperty, value); }
         }
 
         private static void OnSetRang(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -817,182 +1151,20 @@ namespace DSheetEnfilage
         {
         }
 
-        public bool IsDent = true;
-
-        public static readonly DependencyProperty NbrDentProperty = DependencyProperty.Register(
-            nameof(NbrDent), typeof(int), typeof(CanvasControl), new PropertyMetadata(default(int)));
-
-        public int NbrDent
+        private static void OnSetIsDentFil(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return (int)GetValue(NbrDentProperty); }
-            set { SetValue(NbrDentProperty, value); }
+            var mycontrol = (CanvasControl)d;
+            mycontrol.IsDisplay = !(bool)e.NewValue;
         }
-
-        private bool _IsEditChain;
-
-        public bool IsEditChain
-        {
-            get { return _IsEditChain; }
-            set
-            {
-                _IsEditChain = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _IsEditChainBtn;
-
-        public bool IsEditChainBtn
-        {
-            get { return _IsEditChainBtn; }
-            set
-            {
-                _IsEditChainBtn = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _IsEditChain2;
-
-        public bool IsEditChain2
-        {
-            get { return _IsEditChain2; }
-            set
-            {
-                _IsEditChain2 = value;
-                NotifyPropertyChanged();
-            }
-        }
-        private bool _IsDisplayChain = true;
-
-        public bool IsDisplayChain
-        {
-            get { return _IsDisplayChain; }
-            set
-            {
-                _IsDisplayChain = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public static readonly DependencyProperty IsDentFilProperty = DependencyProperty.Register(
-            nameof(IsDentFil), typeof(bool), typeof(CanvasControl), new PropertyMetadata(default(bool),OnSetComposantList));
-
-        public bool IsDentFil
-        {
-            get { return (bool)GetValue(IsDentFilProperty); }
-            set { SetValue(IsDentFilProperty, value); }
-        }
-
-        public static readonly DependencyProperty TrameXpositionProperty = DependencyProperty.Register(
-            nameof(TrameXposition), typeof(string), typeof(CanvasControl),
-            new PropertyMetadata(null, OnSetTramePosition));
-
-        public string TrameXposition
-        {
-            get { return (string)GetValue(TrameXpositionProperty); }
-            set { SetValue(TrameXpositionProperty, value); }
-        }
-
-        public static readonly DependencyProperty TrameYpositionProperty = DependencyProperty.Register(
-            nameof(TrameYposition), typeof(string), typeof(CanvasControl),
-            new PropertyMetadata(null, OnSetTramePosition));
-
-        public string TrameYposition
-        {
-            get { return (string)GetValue(TrameYpositionProperty); }
-            set { SetValue(TrameYpositionProperty, value); }
-        }
-
-        public static readonly DependencyProperty LastXpositionProperty = DependencyProperty.Register(
-            nameof(LastXposition), typeof(string), typeof(CanvasControl), new PropertyMetadata(null, OnSetPosition));
-
-        public string LastXposition
-        {
-            get { return (string)GetValue(LastXpositionProperty); }
-            set
-            {
-                SetValue(LastXpositionProperty, value);
-                NotifyPropertyChanged();
-            }
-        }
-
-        public static readonly DependencyProperty LastYpositionProperty = DependencyProperty.Register(
-            nameof(LastYposition), typeof(string), typeof(CanvasControl), new PropertyMetadata(null, OnSetPosition));
-
-        public string LastYposition
-        {
-            get { return (string)GetValue(LastYpositionProperty); }
-            set
-            {
-                SetValue(LastYpositionProperty, value);
-                NotifyPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public static readonly DependencyProperty ChaineList2ValueProperty = DependencyProperty.Register(
-            nameof(ChaineList2), typeof(ObservableCollection<ChaineMatrixElement>), typeof(CanvasControl), new PropertyMetadata(null,null));
-
-        public ObservableCollection<ChaineMatrixElement> ChaineList2
-        {
-            get { return (ObservableCollection<ChaineMatrixElement>)GetValue(ChaineList2ValueProperty); }
-            set { SetValue(ChaineList2ValueProperty, value); }
-        }
-        public static readonly DependencyProperty ChaineListValueProperty =
-            DependencyProperty.Register("ChaineList", typeof(ObservableCollection<ChaineMatrixElement>),
-                typeof(CanvasControl),
-                new PropertyMetadata(null, null));
-
-        public static readonly DependencyProperty ChaineRows2Property = DependencyProperty.Register(
-            nameof(ChaineRows2), typeof(int), typeof(CanvasControl), new PropertyMetadata(0,null));
-
-        public int ChaineRows2
-        {
-            get { return (int)GetValue(ChaineRows2Property); }
-            set { SetValue(ChaineRows2Property, value); }
-        }
-        
-        public static readonly DependencyProperty ChRowSumProperty = DependencyProperty.Register(
-            nameof(ChRowSum), typeof(int), typeof(CanvasControl), new PropertyMetadata(0,OnSetChaine));
-
-        public int ChRowSum
-        {
-            get { return (int)GetValue(ChRowSumProperty); }
-            set { SetValue(ChRowSumProperty, value); }
-        }
-      
-        
-
- 
-      
-        
-        public static readonly DependencyProperty ChaineColumnsValueProperty =
-            DependencyProperty.Register("ChaineColumns", typeof(object), typeof(CanvasControl),
-                new PropertyMetadata(0, OnSetChaineCol));
 
         private static void OnSetChaine(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var mycontrol = (CanvasControl)d;
             mycontrol.RotateChain();
         }
-        
-        private bool _SecChainVis;
 
-        public bool SecChainVis
-        {
-            get
-            {
-                return _SecChainVis;
-            }
-            set
-            {
-                _SecChainVis = value;
-                NotifyPropertyChanged();
-            }
-        }
         public void RotateChain()
         {
-            
             if (ChaineRows > 26)
             {
                 if (EnableChaineEdit)
@@ -1000,8 +1172,9 @@ namespace DSheetEnfilage
                     IsEditChain = false;
                     IsEditChain2 = true;
                 }
+
                 AngleChain = 270;
-                
+
                 if (ChaineRows >= 78)
                 {
                     SecChainVis = true;
@@ -1013,39 +1186,36 @@ namespace DSheetEnfilage
                     ChaineRo = ChRowSum;
                     SecChainVis = false;
                 }
-
             }
             else
             {
-                if (SecChainVis)
-                {
-                    SecChainVis = false;
-                }
+                if (SecChainVis) SecChainVis = false;
                 if (EnableChaineEdit)
                 {
                     IsEditChain = true;
                     IsEditChain2 = false;
                 }
+
                 ChaineRows = ChRowSum;
                 if (AngleChain > 0)
                 {
                     AngleChain = 0;
-            
+
                     ChainRotateX = 0;
                     ChainRotateY = 0;
                 }
             }
+
         }
 
         private static void OnSetChaineCol(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            CanvasControl myControl = (CanvasControl)d;
+            var myControl = (CanvasControl)d;
             myControl.SetChainColumn();
         }
 
         public void SetChainColumn()
         {
-            
             Col1 = false;
             Col2 = false;
             Col3 = false;
@@ -1061,7 +1231,8 @@ namespace DSheetEnfilage
                 Btn10Vis = true;
                 Btn9Vis = true;
                 ChainColNum = 10;
-            }else if (ChaineColumns == 9)
+            }
+            else if (ChaineColumns == 9)
             {
                 Btn10Vis = false;
                 Btn9Vis = true;
@@ -1073,6 +1244,7 @@ namespace DSheetEnfilage
                 Btn9Vis = true;
                 ChainColNum = 8;
             }
+
             SelectedColChain = null;
             if (ChaineColumns == 10)
             {
@@ -1087,7 +1259,7 @@ namespace DSheetEnfilage
                 Btn2 = true;
                 Btn1 = true;
             }
-            else  if (ChaineColumns == 9)
+            else if (ChaineColumns == 9)
             {
                 Btn10 = false;
                 Btn9 = true;
@@ -1210,34 +1382,12 @@ namespace DSheetEnfilage
         {
             if (e.NewValue != null)
             {
-                string val = e.NewValue.ToString();
+                var val = e.NewValue.ToString();
             }
         }
 
         private static void OnSetPosition(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-        }
-
-        public static readonly DependencyProperty ChaineRowsValueProperty =
-            DependencyProperty.Register("ChaineRows", typeof(object), typeof(CanvasControl),
-                new PropertyMetadata(0, null));
-
-        public int ChaineRows
-        {
-            get => (int)GetValue(ChaineRowsValueProperty);
-            set => SetValue(ChaineRowsValueProperty, value);
-        }
-
-        public int ChaineColumns
-        {
-            get => (int)GetValue(ChaineColumnsValueProperty);
-            set => SetValue(ChaineColumnsValueProperty, value);
-        }
-
-        public ObservableCollection<ChaineMatrixElement> ChaineList
-        {
-            get => (ObservableCollection<ChaineMatrixElement>)GetValue(ChaineListValueProperty);
-            set => SetValue(ChaineListValueProperty, value);
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -1246,38 +1396,83 @@ namespace DSheetEnfilage
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ObservableCollection<CanvasElement> ListItem;
-
-        public CanvasControl()
+        public static void OnSetProhibitedArea(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            InitializeComponent();
-            SetRow = 58;
-            SetColumn = 83;
-        }
+            var mycontrol = (CanvasControl)obj;
+            if(mycontrol.IsSizeChanged)
+            {
+                mycontrol.ExecuteProhibitedArea = false;
+                if (args.OldValue != null)
+                    mycontrol.SetProhibitedArea((ProhibitedRectangle)args.OldValue, MatrixElement.BoxType.OutRange);
 
-        [Browsable(true)] [Category("Action")] [Description("Invoked when user clicks button")]
-        public static readonly DependencyProperty ListComposantProperty =
-            DependencyProperty.RegisterAttached("ListComposant", typeof(ObservableCollection<Composition>),
-                typeof(CanvasControl), new PropertyMetadata(null, OnSetComposantList));
+                mycontrol.SetProhibitedArea((ProhibitedRectangle)args.NewValue, MatrixElement.BoxType.Inaccessible);
+            }
+            else
+            {
+                mycontrol.ExecuteProhibitedArea = true;
+                if (args.OldValue != null)
+                    mycontrol.OldRectangle = (ProhibitedRectangle)args.OldValue;
+
+            }
+           
+        }
+        private ProhibitedRectangle OldRectangle;
+
+        public void SetProhibitedArea(ProhibitedRectangle ProhibArea, MatrixElement.BoxType typ)
+        {
+            if (ProhibArea != null)
+            {
+                if (ProhibArea.StartLegendRow > 0)
+                {
+                    int StartIndex =58-
+                        Convert.ToInt32(Math.Ceiling(ProhibArea.StartLegendRow * 18 / ((double)Board.ActualHeight/59)));
+                    for (var i = StartIndex; i <= 57; i++)
+                    for (var j = 76; j <= 82; j++)
+                    {
+                        var ij = i * 83 + j;
+                        EnfilageBoard[ij].SetBoxType(typ);
+                    }
+                }
+                  
+
+                for (var j = ProhibArea.StartChaineRow; j < 58; j++)
+                for (var i = 0; i < ProhibArea.EndColumn; i++)
+                {
+                    var ij = j * 83 + i;
+                    EnfilageBoard[ij].SetBoxType(typ);
+                }
+            }
+        }
 
         private static void OnSetComposantList(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var mycontrol=  (CanvasControl)d;
-            mycontrol.SetInaccessibleCompCells();
+            var mycontrol = (CanvasControl)d;
+            if (e.OldValue != null)
+            {
+                var coll = (ObservableCollection<Composition>)e.OldValue;
+                // Unsubscribe from CollectionChanged on the old collection
+                // mycontrol.TransientMethod(coll, false);
+            }
+
+            if (e.NewValue != null)
+            {
+                var coll = (ObservableCollection<Composition>)e.NewValue;
+                // Subscribe to CollectionChanged on the new collection
+                //   mycontrol.TransientMethod(coll, true);
+            }
         }
 
-        public static readonly DependencyProperty ContentEnfilageListProperty = DependencyProperty.Register(
-            nameof(ContentEnfilageList), typeof(ObservableCollection<MatrixElement>), typeof(CanvasControl),
-            new PropertyMetadata(null, OnSetContentEnfilage));
-
-        public ObservableCollection<MatrixElement> ContentEnfilageList
+        public void TransientMethod(ObservableCollection<Composition> col, bool b)
         {
-            get { return (ObservableCollection<MatrixElement>)GetValue(ContentEnfilageListProperty); }
-            set
-            {
-                SetValue(ContentEnfilageListProperty, value);
-                NotifyPropertyChanged();
-            }
+            if (b)
+                col.CollectionChanged += ListComposant_CollectionChanged;
+            else
+                col.CollectionChanged -= ListComposant_CollectionChanged;
+        }
+
+        private void ListComposant_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            // handle CollectionChanged
         }
 
         public void SetInitContents()
@@ -1293,7 +1488,7 @@ namespace DSheetEnfilage
 
         public void SettingContent(MatrixElement ex)
         {
-            MatrixElement matx = ContentEnfilageList.FirstOrDefault(co => co.X == ex.X && co.Y == ex.Y);
+            var matx = ContentEnfilageList.FirstOrDefault(co => co.X == ex.X && co.Y == ex.Y);
             if (ex.Content == null)
             {
                 if (matx != null)
@@ -1327,25 +1522,19 @@ namespace DSheetEnfilage
 
         private static void OnSetContentEnfilage(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            CanvasControl myControl = (CanvasControl)d;
+            var myControl = (CanvasControl)d;
             if (myControl.ContentEnfilageList != null && myControl.ContentEnfilageList.Count > 0)
-            {
                 myControl.SetInitContents();
-            }
             else
-            {
                 myControl.ResetEnfilageBoard();
-            }
         }
 
         public void ResetEnfilageBoard()
         {
             if (EnfilageBoard != null)
-            {
                 foreach (var element in EnfilageBoard)
                     if (element.Content != null)
                         element.Content = null;
-            }
         }
 
         public void ResetEnfilageBoardWithPermission()
@@ -1358,28 +1547,15 @@ namespace DSheetEnfilage
                         element.Content = null;
         }
 
-        public static readonly DependencyProperty EnfilageBoardProperty = DependencyProperty.Register(
-            nameof(EnfilageBoard), typeof(ObservableCollection<MatrixElement>), typeof(CanvasControl),
-            new PropertyMetadata(null, OnSetEnfBoard));
-
         private static void OnSetEnfBoard(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            var mycontrol = (CanvasControl)d;
         }
 
-        public ObservableCollection<Composition> ListComposant
+
+        private void ColChange(object d, NotifyCollectionChangedEventArgs args)
         {
-            get => (ObservableCollection<Composition>)GetValue(ListComposantProperty);
-            set => SetValue(ListComposantProperty, value);
         }
-
-        public ObservableCollection<MatrixElement> EnfilageBoard
-        {
-            get { return (ObservableCollection<MatrixElement>)GetValue(EnfilageBoardProperty); }
-            set { SetValue(EnfilageBoardProperty, value); }
-        }
-
-
-        public BoardStructure _board;
 
         private void CanvasControl_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -1387,27 +1563,25 @@ namespace DSheetEnfilage
             // Board.ItemsSource=new ObservableCollection<MatrixElement>(_board.Board);
         }
 
-
-        public static DependencyProperty SetRowProperty = DependencyProperty.RegisterAttached("SetRow", typeof(object),
-            typeof(EnfilageSchemas), new PropertyMetadata(0, OnSetRow));
-
         private static void OnSetRow(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-        }
-
-        public object SetRow
-        {
-            get => GetValue(SetRowProperty);
-            set { SetValue(SetRowProperty, value); }
         }
 
         public void MoveUp()
         {
             SelectedCell.IsSelected = false;
             if (SelectedCell.Y == 0)
-                SelectedCell = EnfilageBoard.First(b => b.Y == Convert.ToInt32(SetRow) - 1 && b.X == SelectedCell.X);
+            {
+                var FindY = Convert.ToInt32(SetRow) - 1;
+                while (EnfilageBoard.First(b => b.Y == Convert.ToInt32(SetRow) - 1 && b.X == SelectedCell.X).TypBox ==
+                       MatrixElement.BoxType.Inaccessible) FindY--;
+                SelectedCell = EnfilageBoard.First(b => b.Y == FindY && b.X == SelectedCell.X);
+            }
+
             else
+            {
                 SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y - 1 && b.X == SelectedCell.X);
+            }
 
             SelectedCell.IsSelected = true;
         }
@@ -1415,7 +1589,9 @@ namespace DSheetEnfilage
         public void MoveDown()
         {
             SelectedCell.IsSelected = false;
-            if (SelectedCell.Y == Convert.ToInt32(SetRow) - 1)
+            if (SelectedCell.Y == Convert.ToInt32(SetRow) - 1
+                || EnfilageBoard.First(b => b.Y == SelectedCell.Y + 1 && b.X == SelectedCell.X).TypBox ==
+                MatrixElement.BoxType.Inaccessible)
                 SelectedCell = EnfilageBoard.First(b => b.Y == 0 && b.X == SelectedCell.X);
             else
                 SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y + 1 && b.X == SelectedCell.X);
@@ -1428,23 +1604,23 @@ namespace DSheetEnfilage
             // some code here
         }
 
-        public static readonly DependencyProperty SetColumnProperty =
-            DependencyProperty.RegisterAttached("SetColumn", typeof(object), typeof(EnfilageSchemas),
-                new PropertyMetadata(0, OnSetColumn));
-
-        public object SetColumn
-        {
-            get => GetValue(SetColumnProperty);
-            set { SetValue(SetColumnProperty, value); }
-        }
-
         public void MoveRight()
         {
             SelectedCell.IsSelected = false;
-            if (SelectedCell.X == Convert.ToInt32(SetColumn) - 1)
-                SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == 0);
+            if (SelectedCell.X == Convert.ToInt32(SetColumn) - 1
+                || EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == SelectedCell.X + 1).TypBox ==
+                MatrixElement.BoxType.Inaccessible)
+            {
+                var FindX = 0;
+                while (EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == FindX).TypBox ==
+                       MatrixElement.BoxType.Inaccessible) FindX++;
+                SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == FindX);
+            }
+
             else
+            {
                 SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == SelectedCell.X + 1);
+            }
 
             SelectedCell.IsSelected = true;
         }
@@ -1452,10 +1628,20 @@ namespace DSheetEnfilage
         public void MoveLeft()
         {
             SelectedCell.IsSelected = false;
-            if (SelectedCell.X == 0)
-                SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == Convert.ToInt32(SetColumn) - 1);
+            if (SelectedCell.X == 0
+                || EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == SelectedCell.X - 1).TypBox ==
+                MatrixElement.BoxType.Inaccessible)
+            {
+                var FindX = Convert.ToInt32(SetColumn) - 1;
+                while (EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == FindX).TypBox ==
+                       MatrixElement.BoxType.Inaccessible) FindX--;
+                SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == FindX);
+            }
+
             else
+            {
                 SelectedCell = EnfilageBoard.First(b => b.Y == SelectedCell.Y && b.X == SelectedCell.X - 1);
+            }
 
             SelectedCell.IsSelected = true;
         }
@@ -1474,257 +1660,524 @@ namespace DSheetEnfilage
             else if (e.Key == Key.Left)
                 MoveRight();
             else if (e.Key == Key.D1 || e.Key == Key.NumPad1)
-            {
                 SetContent(1);
-                
-            }
 
 
             else if (e.Key == Key.D2 || e.Key == Key.NumPad2)
-            {
                 SetContent(2);
-            }
 
             else if (e.Key == Key.D3 || e.Key == Key.NumPad3)
-            {
                 SetContent(3);
-            }
 
             else if (e.Key == Key.D4 || e.Key == Key.NumPad4)
-            {
                 SetContent(4);
-            }
 
             else if (e.Key == Key.D5 || e.Key == Key.NumPad5)
-            {
                 SetContent(5);
-            }
 
             else if (e.Key == Key.D6 || e.Key == Key.NumPad6)
-            {
                 SetContent(6);
-            }
 
-            else if (e.Key == Key.D7 || e.Key == Key.NumPad7)
-            {
-                SetContent(7);
-            }
+            else if (e.Key == Key.D7 || e.Key == Key.NumPad7) SetContent(7);
         }
-
-  
-        private int _ChaineRo;
-
-        public int ChaineRo
+        public bool IsAddNewContent()
         {
-            get
-            {
-                return _ChaineRo;
-            }
-            set
-            {
-                _ChaineRo = value;
-                NotifyPropertyChanged();
-            }
+            return SelectedCell.Content == null;
+        }
+        public bool DoesCellAboveHasContent()
+        {
+            return SelectedCell.Y != 0 && EnfilageBoard
+                                        .SingleOrDefault(enf => enf.Y == SelectedCell.Y - 1 && enf.X == SelectedCell.X)
+                                        .IsContent;
+        }
+        public bool DoesCellBeneathHasContent()
+        {
+            return SelectedCell.Y != 57 && EnfilageBoard
+                                           .SingleOrDefault(enf => enf.Y == SelectedCell.Y + 1 && enf.X == SelectedCell.X)
+                                           .IsContent;
         }
         public void SetMatrixContent()
         {
-            if (
-                SelectedCell.TypBox != MatrixElement.BoxType.OutRange
-                && SelectedCell.TypBox != MatrixElement.BoxType.Empty
-                &&((SelectedCell.TypBox == MatrixElement.BoxType.Dents && IsDent)
-                   ||(SelectedCell.TypBox == MatrixElement.BoxType.Lisses && IsDent==false))
-                )
+            try
             {
-                if (SelectedComposant == null)
+                if (
+                SelectedCell.TypBox != MatrixElement.BoxType.Inaccessible
+                && SelectedCell.TypBox != MatrixElement.BoxType.OutRange
+                && SelectedCell.TypBox != MatrixElement.BoxType.Empty
+                && ((SelectedCell.TypBox == MatrixElement.BoxType.Dents && IsDent)
+                    || (SelectedCell.TypBox == MatrixElement.BoxType.Lisses && IsDent == false))
+            )
                 {
-                    SelectedComposant=  ListComposant[0];
-                }
+                    if (SelectedComposant == null) SelectedComposant = ListComposant[0];
 
-                if (SelectedCell.SupportedComp.ID == SelectedComposant.GetComposant.ID)
-                {
-                       if (SelectedCell.Content == null)
-                {
-                    bool IsCorrect = true;
-                    if (SelectedCell.TypBox == MatrixElement.BoxType.Dents)
+                    if (SelectedCell.TypBox == MatrixElement.BoxType.Dents
+                        || (SelectedCell.TypBox == MatrixElement.BoxType.Lisses
+                        && SelectedCell.SupportedComp.ID == SelectedComposant.GetComposant.ID))
                     {
-                        if (SelectedCell.position == 1)
+                        if (IsAddNewContent())
                         {
-                            if (SelectedCell.Y!=57 &&  EnfilageBoard
-                                    .SingleOrDefault(enf => enf.Y == (SelectedCell.Y + 1) && enf.X == SelectedCell.X)
-                                    .IsContent==true)
+                            var IsItAcceptible = true;
+                            if (SelectedCell.TypBox == MatrixElement.BoxType.Dents)
                             {
+                                if (SelectedCell.position == 1)
+                                {
+                                    if (DoesCellBeneathHasContent())
+                                        IsItAcceptible = false;
+                                }
+                                else
+                                {
+                                    if (DoesCellAboveHasContent())
+                                        IsItAcceptible = false;
+                                }
+                            }
+                            else
+                            {
+                                for (var i = 1; i <= ChaineColumns; i++)
+                                    if (i != SelectedCell.position)
+                                    {
+                                        var ecart = i - SelectedCell.position;
+                                        if (EnfilageBoard.SingleOrDefault(enf =>
+                                                enf.Y == SelectedCell.Y + ecart && enf.X == SelectedCell.X).IsContent)
+                                            IsItAcceptible = false;
+                                    }
+                            }
 
-                                IsCorrect = false;
+                            if (IsItAcceptible)
+                            {
+                                if (IsDent)
+                                {
+                                    SelectedCell.DentFil = 0;
+
+
+                                    var LeftAdjacentCellOnNextLine = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y + 1);
+
+                                    var RightAdjacentCellOnNextLine = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y + 1);
+                                    var Case_Pos2Plus = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y - 1);
+                                    var Case_Pos2Minus = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y - 1);
+                                    var Content_Pos1Plus = false;
+                                    var Content_Pos2Plus = false;
+                                    var Content_Pos1Minus = false;
+                                    var Content_Pos2Minus = false;
+                                    var InitLevelPlus = 0;
+                                    var InitXPlus = 1;
+                                    var InitLevelMinus = 0;
+                                    var InitXMinus = 1;
+                                    if (LeftAdjacentCellOnNextLine == null || WorkinRect.PartsWidthEnd < LeftAdjacentCellOnNextLine.X)
+                                    {
+                                        var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                            (SelectedCell.Y - WorkinRect.PartsHeightStart) /
+                                            (double)WorkinRect.PartHeight));
+
+                                        if (PartNbr < WorkinRect.NbrPart)
+                                        {
+                                            InitXPlus = WorkinRect.PartsWidthStart - SelectedCell.X;
+                                            InitLevelPlus = InitLevelPlus + WorkinRect.PartHeight;
+
+                                            Content_Pos1Plus = EnfilageBoard.Single(enf =>
+                                                enf.X == SelectedCell.X + InitXPlus &&
+                                                enf.Y == SelectedCell.Y + 1 + InitLevelPlus).IsContent;
+                                            Content_Pos2Plus = EnfilageBoard.Single(enf =>
+                                                enf.X == SelectedCell.X + InitXPlus &&
+                                                enf.Y == SelectedCell.Y - 1 + InitLevelPlus).IsContent;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Content_Pos1Plus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y + 1).IsContent;
+                                        Content_Pos2Plus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y - 1).IsContent;
+                                    }
+
+                                    if (RightAdjacentCellOnNextLine == null || WorkinRect.PartsWidthStart > LeftAdjacentCellOnNextLine.X)
+                                    {
+                                        var PartNbr = Convert.ToInt32(Math.Ceiling((SelectedCell.Y - WorkinRect.PartsHeightStart) /
+                                                      (double)WorkinRect.PartHeight));
+
+                                        if (PartNbr > 1)
+                                        {
+                                            InitXMinus = SelectedCell.X - WorkinRect.PartsWidthEnd;
+                                            InitLevelMinus = WorkinRect.PartHeight - InitLevelMinus;
+
+                                            Content_Pos1Minus = EnfilageBoard.Single(enf =>
+                                                enf.X == SelectedCell.X - InitXMinus &&
+                                                enf.Y == SelectedCell.Y - InitLevelMinus + 1).IsContent;
+
+                                            Content_Pos2Minus = EnfilageBoard.Single(enf =>
+                                                enf.X == SelectedCell.X - InitXMinus &&
+                                                enf.Y == SelectedCell.Y - InitLevelMinus - 1).IsContent;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Content_Pos1Minus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y + 1).IsContent;
+
+                                        Content_Pos2Minus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y - 1).IsContent;
+                                    }
+
+
+                                    var SearchXPlus = 0;
+                                    var SearchYPlus = 0;
+                                    var SearchXMinus = 0;
+                                    var SearchYMinus = 0;
+                                    var PossibleTripleTeeth = false;
+
+                                    var NotLinked = true;
+                                    if ((SelectedCell.position == 1 && Content_Pos1Plus)
+                                        || (SelectedCell.position == 2 && Content_Pos2Plus))
+                                    {
+                                        PossibleTripleTeeth = true;
+                                        SearchXPlus = SelectedCell.X + 1;
+                                        if (SelectedCell.position == 1)
+                                            SearchYPlus = SelectedCell.Y + 1;
+                                        else
+                                            SearchYPlus = SelectedCell.Y - 1;
+
+
+                                        var AdjacentContent = true;
+                                        var IsInRange = true;
+                                        var IncX = InitXPlus + 1;
+                                        var LevelY = InitLevelPlus;
+
+                                        while (NotLinked && AdjacentContent && IsInRange)
+                                        {
+                                            var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
+                                                enf.X == SelectedCell.X + IncX && enf.Y == SelectedCell.Y + LevelY);
+                                            if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                            {
+                                                var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                    (SelectedCell.Y + LevelY - WorkinRect.PartsHeightStart) /
+                                                    (double)WorkinRect.PartHeight));
+
+                                                if (PartNbr >= WorkinRect.NbrPart)
+                                                {
+                                                    IsInRange = false;
+                                                    NbrDent = NbrDent + 2;
+                                                }
+                                                else
+                                                {
+                                                    IncX = SelectedCell.X - WorkinRect.PartsWidthStart;
+                                                    LevelY = LevelY + WorkinRect.PartHeight;
+                                                }
+                                            }
+                                            else if (LinkCase.IsContent)
+                                            {
+                                                NotLinked = false;
+                                                NbrDent++;
+                                            }
+                                            else
+                                            {
+                                                var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
+                                                    enf.X == SelectedCell.X + IncX && enf.Y == SearchYPlus + LevelY);
+                                                if (CaseAdjacent.IsContent == false)
+                                                {
+                                                    AdjacentContent = false;
+                                                    NbrDent = NbrDent + 2;
+                                                }
+                                                else
+                                                {
+                                                    IncX++;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if ((SelectedCell.position == 1 && Content_Pos1Minus)
+                                        || (SelectedCell.position == 2 && Content_Pos2Minus))
+                                    {
+                                        SearchXMinus = SelectedCell.X + 1;
+                                        if (SelectedCell.position == 1)
+                                            SearchYMinus = SelectedCell.Y + 1;
+                                        else
+                                            SearchYMinus = SelectedCell.Y - 1;
+                                        NotLinked = true;
+                                        var AdjacentContent = true;
+                                        var IsInRange = true;
+                                        var SubX = InitXMinus + 1;
+                                        var LevelY = InitLevelMinus;
+                                        while (NotLinked && AdjacentContent && IsInRange)
+                                        {
+                                            var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
+                                                enf.X == SelectedCell.X - SubX && enf.Y == SelectedCell.Y - LevelY);
+                                            if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                            {
+                                                var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                    (SelectedCell.Y - LevelY - WorkinRect.PartsHeightStart) /
+                                                    (double)WorkinRect.PartHeight));
+                                                if (PartNbr <= 1)
+                                                {
+                                                    IsInRange = false;
+                                                    if (PossibleTripleTeeth)
+                                                        NbrDent++;
+                                                    else
+                                                        NbrDent = NbrDent + 2;
+                                                }
+                                                else
+                                                {
+                                                    SubX = SelectedCell.X - WorkinRect.PartsWidthEnd;
+                                                    LevelY = LevelY + WorkinRect.PartHeight;
+                                                }
+                                            }
+                                            else if (LinkCase.IsContent)
+                                            {
+                                                NotLinked = false;
+
+                                                NbrDent++;
+                                            }
+                                            else
+                                            {
+                                                var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
+                                                    enf.X == SelectedCell.X - SubX && enf.Y == SearchYMinus - LevelY);
+                                                if (CaseAdjacent.IsContent == false)
+                                                {
+                                                    AdjacentContent = false;
+                                                    if (PossibleTripleTeeth)
+                                                        NbrDent++;
+                                                    else
+                                                        NbrDent = NbrDent + 2;
+                                                }
+                                                else
+                                                {
+                                                    SubX++;
+                                                }
+                                            }
+                                        }
+
+                                        if (NotLinked == false)
+                                        {
+                                            NotLinked = true;
+                                            AdjacentContent = true;
+                                            IsInRange = true;
+                                            var IncX = InitXPlus;
+
+                                            LevelY = InitLevelPlus;
+                                            while (NotLinked && AdjacentContent && IsInRange)
+                                            {
+                                                var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
+                                                    enf.X == SelectedCell.X + IncX && enf.Y == SearchYMinus + LevelY);
+                                                if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                                {
+                                                    var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                        (SelectedCell.Y + LevelY - WorkinRect.PartsHeightStart) /
+                                                        (double)WorkinRect.PartHeight));
+                                                    if (PartNbr >= WorkinRect.NbrPart)
+                                                    {
+                                                        IsInRange = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        IncX = SelectedCell.X - WorkinRect.PartsWidthStart;
+                                                        LevelY = LevelY + WorkinRect.PartHeight;
+                                                    }
+                                                }
+                                                else if (LinkCase.IsContent)
+                                                {
+                                                    NotLinked = false;
+                                                    NbrDent--;
+                                                }
+                                                else
+                                                {
+                                                    var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
+                                                        enf.X == SelectedCell.X + IncX && enf.Y == SelectedCell.Y + LevelY);
+                                                    if (CaseAdjacent.IsContent == false)
+                                                        AdjacentContent = false;
+                                                    else
+                                                        IncX++;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (NotLinked == false)
+                                    {
+                                        NotLinked = true;
+                                        var AdjacentContent = true;
+                                        var IsInRange = true;
+                                        var SubX = InitXMinus;
+                                        var LevelY = InitLevelMinus;
+                                        while (NotLinked && AdjacentContent && IsInRange)
+                                        {
+                                            var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
+                                                enf.X == SelectedCell.X - SubX && enf.Y == SearchYPlus - LevelY);
+                                            if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                            {
+                                                var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                    (SelectedCell.Y - LevelY - WorkinRect.PartsHeightStart) /
+                                                    (double)WorkinRect.PartHeight));
+                                                if (PartNbr <= 1)
+                                                {
+                                                    IsInRange = false;
+                                                }
+                                                else
+                                                {
+                                                    SubX = SelectedCell.X - WorkinRect.PartsWidthEnd;
+                                                    LevelY = LevelY + WorkinRect.PartHeight;
+                                                }
+                                            }
+                                            else if (LinkCase.IsContent)
+                                            {
+                                                NotLinked = false;
+
+                                                NbrDent--;
+                                            }
+                                            else
+                                            {
+                                                var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
+                                                    enf.X == SelectedCell.X - SubX && enf.Y == SelectedCell.Y - LevelY);
+                                                if (CaseAdjacent.IsContent == false)
+                                                    AdjacentContent = false;
+                                                else
+                                                    SubX++;
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    SelectedCell.DentFil = 1;
+                                    SelectedComposant.EnfNbrFil++;
+                                }
+
+                                SelectedCell.Content = SelectedComposant;
                             }
                         }
                         else
                         {
-                            if (SelectedCell.Y!=0 && EnfilageBoard
-                                    .SingleOrDefault(enf => enf.Y == (SelectedCell.Y - 1) && enf.X == SelectedCell.X)
-                                    .IsContent==true)
+                            if (IsDent)
                             {
+                                var LeftAdjacentCellOnNextLine = EnfilageBoard.Single(enf =>
+                                    enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y + 1);
 
-                                IsCorrect = false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 1; i <= ChaineColumns; i++)
-                        {
-                            if (i != SelectedCell.position)
-                            {
-                                int ecart =i- SelectedCell.position;
-                                if (EnfilageBoard.SingleOrDefault(enf =>
-                                        enf.Y == (SelectedCell.Y + ecart) && enf.X == SelectedCell.X).IsContent)
+                                var RightAdjacentCellOnNextLine = EnfilageBoard.Single(enf =>
+                                    enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y + 1);
+                                var Case_Pos2Plus = EnfilageBoard.Single(enf =>
+                                    enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y - 1);
+                                var Case_Pos2Minus = EnfilageBoard.Single(enf =>
+                                    enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y - 1);
+                                var Content_Pos1Plus = false;
+                                var Content_Pos2Plus = false;
+                                var Content_Pos1Minus = false;
+                                var Content_Pos2Minus = false;
+                                var InitLevelPlus = 0;
+                                var InitXPlus = 1;
+                                var InitLevelMinus = 0;
+                                var InitXMinus = 1;
+                                if (LeftAdjacentCellOnNextLine == null || WorkinRect.PartsWidthEnd < LeftAdjacentCellOnNextLine.X)
                                 {
-                                    IsCorrect = false;
+                                    var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                        (SelectedCell.Y - WorkinRect.PartsHeightStart) / (double)WorkinRect.PartHeight));
+
+                                    if (PartNbr < WorkinRect.NbrPart)
+                                    {
+                                        InitXPlus = WorkinRect.PartsWidthStart - SelectedCell.X;
+                                        InitLevelPlus = InitLevelPlus + WorkinRect.PartHeight;
+
+                                        Content_Pos1Plus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X + InitXPlus &&
+                                            enf.Y == SelectedCell.Y + 1 + InitLevelPlus).IsContent;
+                                        Content_Pos2Plus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X + InitXPlus &&
+                                            enf.Y == SelectedCell.Y - 1 + InitLevelPlus).IsContent;
+                                    }
                                 }
-                            }
-                            
-                        }
-                    }
+                                else
+                                {
+                                    Content_Pos1Plus = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y + 1).IsContent;
+                                    Content_Pos2Plus = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X + 1 && enf.Y == SelectedCell.Y - 1).IsContent;
+                                }
 
-                    if (IsCorrect)
-                    {
-                        if (IsDent)
-                        {
-                            SelectedCell.DentFil = 0;
-                            
+                                if (RightAdjacentCellOnNextLine == null || WorkinRect.PartsWidthStart > LeftAdjacentCellOnNextLine.X)
+                                {
+                                    var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                        (SelectedCell.Y - WorkinRect.PartsHeightStart) / (double)WorkinRect.PartHeight));
 
-                            
-                             var Case_Pos1Plus= EnfilageBoard.Single(enf =>
-                                        enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y + 1));
-                             
-                             var Case_Pos1Minus = EnfilageBoard.Single(enf =>
-                                 enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y + 1));
-                             var Case_Pos2Plus = EnfilageBoard.Single(enf =>
-                                 enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y - 1));
-                             var Case_Pos2Minus = EnfilageBoard.Single(enf =>
-                                 enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y - 1));
-                             bool Content_Pos1Plus=false;
-                             bool Content_Pos2Plus=false;
-                             bool Content_Pos1Minus=false;
-                             bool Content_Pos2Minus=false;
-                             int InitLevelPlus = 0;
-                             int InitXPlus = 1;
-                             int InitLevelMinus = 0;
-                             int InitXMinus= 1;
-                             if (Case_Pos1Plus == null || Case_Pos1Plus.TypBox == MatrixElement.BoxType.OutRange)
-                             {
-                                 int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y- WorkinRect.PartsHeightStart) /(double) WorkinRect.PartHeight)));
+                                    if (PartNbr > 1)
+                                    {
+                                        InitXMinus = SelectedCell.X - WorkinRect.PartsWidthEnd;
+                                        InitLevelMinus = WorkinRect.PartHeight - InitLevelMinus;
 
-                                 if (PartNbr < WorkinRect.NbrPart)
-                                 {
-                                     InitXPlus=WorkinRect.PartsWidthStart- SelectedCell.X ;
-                                     InitLevelPlus=InitLevelPlus+WorkinRect.PartHeight;
-                                     
-                                     Content_Pos1Plus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X + InitXPlus) && enf.Y == (SelectedCell.Y + 1+InitLevelPlus)).IsContent;
-                                     Content_Pos2Plus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X + InitXPlus) && enf.Y == (SelectedCell.Y - 1+InitLevelPlus)).IsContent;
-                                 }
-                                 
-                                 
-                             }
-                             else
-                             {
-                                  Content_Pos1Plus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y + 1)).IsContent;
-                                  Content_Pos2Plus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y - 1)).IsContent;
-                             }
-                             if (Case_Pos1Minus == null || Case_Pos1Minus.TypBox == MatrixElement.BoxType.OutRange)
-                             {
-                                 double tempNbr = (SelectedCell.Y - WorkinRect.PartsHeightStart) /(double)WorkinRect.PartHeight;
-                                 int PartNbr =Convert.ToInt32(Math.Ceiling(tempNbr));
+                                        Content_Pos1Minus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X - InitXMinus &&
+                                            enf.Y == SelectedCell.Y - InitLevelMinus + 1).IsContent;
 
-                                 if (PartNbr > 1)
-                                 {
-                                     InitXMinus=SelectedCell.X -WorkinRect.PartsWidthEnd;
-                                     InitLevelMinus=WorkinRect.PartHeight-InitLevelMinus;
-                                     
-                                     Content_Pos1Minus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X -InitXMinus) && enf.Y == (SelectedCell.Y -InitLevelMinus+ 1)).IsContent;
-                                   
-                                     Content_Pos2Minus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X -InitXMinus) && enf.Y == (SelectedCell.Y -InitLevelMinus-1)).IsContent;
-                                 }
-                             }
-                             else
-                             {
-                                  Content_Pos1Minus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y + 1)).IsContent;
-                                   
-                                  Content_Pos2Minus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y - 1)).IsContent;
-                             }
-                                    
+                                        Content_Pos2Minus = EnfilageBoard.Single(enf =>
+                                            enf.X == SelectedCell.X - InitXMinus &&
+                                            enf.Y == SelectedCell.Y - InitLevelMinus - 1).IsContent;
+                                    }
+                                }
+                                else
+                                {
+                                    Content_Pos1Minus = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y + 1).IsContent;
 
-                                   
+                                    Content_Pos2Minus = EnfilageBoard.Single(enf =>
+                                        enf.X == SelectedCell.X - 1 && enf.Y == SelectedCell.Y - 1).IsContent;
+                                }
 
-                                    int SearchXPlus=0;
-                                    int SearchYPlus=0;
-                                    int SearchXMinus=0;
-                                    int SearchYMinus=0;
-                                    bool PossibleTripleTeeth = false;
-                                
-                                    bool NotLinked = true;
-                                        if ((SelectedCell.position == 1 && Content_Pos1Plus)
-                                            || (SelectedCell.position == 2 && Content_Pos2Plus))
-                                        {
-                                            PossibleTripleTeeth = true;
-                                            SearchXPlus = SelectedCell.X + 1;
-                                            if (SelectedCell.position == 1)
-                                            {
-                                                SearchYPlus = SelectedCell.Y + 1;
-                                            }
-                                            else
-                                            {
-                                                SearchYPlus = SelectedCell.Y - 1;
-                                            }
-                                            
-                                        
-                                        bool AdjacentContent = true;
-                                        bool IsInRange = true;
-                                         int IncX =InitXPlus+1;
-                                         int LevelY = InitLevelPlus;
-                                    
+                                var SearchXPlus = 0;
+                                var SearchYPlus = 0;
+                                var SearchXMinus = 0;
+                                var SearchYMinus = 0;
+                                var PossibleTripleTeeth = false;
+                                var NotLinked = true;
+
+                                if ((SelectedCell.position == 1 && Content_Pos1Plus)
+                                    || (SelectedCell.position == 2 && Content_Pos2Plus))
+                                {
+                                    SearchXPlus = SelectedCell.X + 1;
+                                    if (SelectedCell.position == 1)
+                                        SearchYPlus = SelectedCell.Y + 1;
+                                    else
+                                        SearchYPlus = SelectedCell.Y - 1;
+
+                                    NotLinked = true;
+                                    var AdjacentContent = true;
+                                    var IsInRange = true;
+                                    var IncX = InitXPlus + 1;
+                                    PossibleTripleTeeth = true;
+                                    var LevelY = InitLevelPlus;
                                     while (NotLinked && AdjacentContent && IsInRange)
                                     {
-                                       
                                         var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X + IncX) && enf.Y == (SelectedCell.Y +LevelY));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                            enf.X == SelectedCell.X + IncX && enf.Y == SelectedCell.Y + LevelY);
+                                        if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
                                         {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y+LevelY- WorkinRect.PartsHeightStart) /(double) WorkinRect.PartHeight)));
-                                            
+                                            var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                (SelectedCell.Y + LevelY - WorkinRect.PartsHeightStart) /
+                                                (double)WorkinRect.PartHeight));
+
                                             if (PartNbr >= WorkinRect.NbrPart)
                                             {
                                                 IsInRange = false;
-                                                NbrDent=NbrDent+2;
+                                                NbrDent = NbrDent - 2;
                                             }
                                             else
                                             {
-                                                IncX= SelectedCell.X - WorkinRect.PartsWidthStart;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
+                                                IncX = SelectedCell.X - WorkinRect.PartsWidthStart;
+                                                LevelY = LevelY + WorkinRect.PartHeight;
                                             }
-                                           
-                                        }else
-                                        if (LinkCase.IsContent)
+                                        }
+                                        else if (LinkCase.IsContent)
                                         {
                                             NotLinked = false;
-                                            NbrDent++;
+
+                                            NbrDent--;
                                         }
                                         else
                                         {
                                             var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X + IncX) && enf.Y == (SearchYPlus+LevelY));
-                                            if (CaseAdjacent.IsContent==false)
+                                                enf.X == SelectedCell.X + IncX && enf.Y == SearchYPlus + LevelY);
+                                            if (CaseAdjacent.IsContent == false)
                                             {
                                                 AdjacentContent = false;
-                                                NbrDent=NbrDent+2;
-                                                
+                                                NbrDent = NbrDent - 2;
                                             }
                                             else
                                             {
@@ -1732,75 +2185,63 @@ namespace DSheetEnfilage
                                             }
                                         }
                                     }
-                                        
-                                        }
-                                        if((SelectedCell.position == 1 && Content_Pos1Minus)
-                                           || (SelectedCell.position == 2 && Content_Pos2Minus)) 
-                                        {
-                                            SearchXMinus = SelectedCell.X + 1;
-                                            if (SelectedCell.position == 1)
-                                            {
-                                                SearchYMinus = SelectedCell.Y + 1;
-                                            }
-                                            else
-                                            {
-                                                SearchYMinus = SelectedCell.Y - 1;
-                                            }
-                                             NotLinked = true;
-                                    bool AdjacentContent = true;
-                                    bool IsInRange = true;
-                                    int SubX =InitXMinus+ 1;
-                                    int LevelY = InitLevelMinus;
+                                }
+
+                                if ((SelectedCell.position == 1 && Content_Pos1Minus)
+                                    || (SelectedCell.position == 2 && Content_Pos2Minus))
+                                {
+                                    SearchXMinus = SelectedCell.X + 1;
+                                    if (SelectedCell.position == 1)
+                                        SearchYMinus = SelectedCell.Y + 1;
+                                    else
+                                        SearchYMinus = SelectedCell.Y - 1;
+
+                                    var AdjacentContent = true;
+                                    var IsInRange = true;
+                                    NotLinked = true;
+                                    var SubX = InitXMinus + 1;
+                                    var LevelY = InitLevelMinus;
                                     while (NotLinked && AdjacentContent && IsInRange)
                                     {
                                         var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X - SubX) && enf.Y == (SelectedCell.Y -LevelY));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                            enf.X == SelectedCell.X - SubX && enf.Y == SelectedCell.Y - LevelY);
+                                        if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
                                         {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y-LevelY- WorkinRect.PartsHeightStart) / (double)WorkinRect.PartHeight)));
+                                            var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                (SelectedCell.Y + LevelY - WorkinRect.PartsHeightStart) /
+                                                (double)WorkinRect.PartHeight));
+
                                             if (PartNbr <= 1)
                                             {
                                                 IsInRange = false;
                                                 if (PossibleTripleTeeth)
-                                                {
-                                                    NbrDent++;
-                                                }
+                                                    NbrDent--;
                                                 else
-                                                {
-                                                    NbrDent=NbrDent+2;
-                                                }
+                                                    NbrDent = NbrDent - 2;
                                             }
                                             else
                                             {
-                                                SubX= SelectedCell.X - WorkinRect.PartsWidthEnd;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
+                                                SubX = SelectedCell.X - WorkinRect.PartsWidthStart;
+                                                LevelY = LevelY + WorkinRect.PartHeight;
                                             }
-                                           
-                                           
-                                        }else
-                                        if (LinkCase.IsContent)
+                                        }
+                                        else if (LinkCase.IsContent)
                                         {
                                             NotLinked = false;
-                                    
-                                                NbrDent++; 
-                                            
+
+                                            NbrDent--;
                                         }
                                         else
                                         {
                                             var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X - SubX) && enf.Y == (SearchYMinus-LevelY));
-                                            if (CaseAdjacent.IsContent==false)
+                                                enf.X == SelectedCell.X - SubX && enf.Y == SearchYMinus - LevelY);
+                                            if (CaseAdjacent.IsContent == false)
                                             {
                                                 AdjacentContent = false;
                                                 if (PossibleTripleTeeth)
-                                                {
-                                                    NbrDent++;
-                                                }
+                                                    NbrDent--;
                                                 else
-                                                {
-                                                    NbrDent=NbrDent+2; 
-                                                }
-                                               
+                                                    NbrDent = NbrDent - 2;
                                             }
                                             else
                                             {
@@ -1812,455 +2253,127 @@ namespace DSheetEnfilage
                                     if (NotLinked == false)
                                     {
                                         NotLinked = true;
-                                          AdjacentContent = true;
-                                         IsInRange = true;
-                                         int IncX = InitXPlus;
+                                        AdjacentContent = true;
+                                        IsInRange = true;
+                                        var IncX = InitXPlus;
 
-                                          LevelY = InitLevelPlus;
-                                    while (NotLinked && AdjacentContent && IsInRange)
-                                    {
-                                        var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X + IncX) && enf.Y == (SearchYMinus+LevelY));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                        LevelY = InitLevelPlus;
+                                        while (NotLinked && AdjacentContent && IsInRange)
                                         {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y+LevelY- WorkinRect.PartsHeightStart) /(double) WorkinRect.PartHeight)));
-                                            if (PartNbr >= WorkinRect.NbrPart)
+                                            var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
+                                                enf.X == SelectedCell.X + IncX && enf.Y == SearchYMinus + LevelY);
+                                            if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
                                             {
-                                                IsInRange = false;
+                                                var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                    (SelectedCell.Y + LevelY - WorkinRect.PartsHeightStart) /
+                                                    (double)WorkinRect.PartHeight));
+
+                                                if (PartNbr >= WorkinRect.NbrPart)
+                                                {
+                                                    IsInRange = false;
+                                                }
+                                                else
+                                                {
+                                                    IncX = SelectedCell.X - WorkinRect.PartsWidthStart;
+                                                    LevelY = LevelY + WorkinRect.PartHeight;
+                                                }
+                                            }
+                                            else if (LinkCase.IsContent)
+                                            {
+                                                NotLinked = false;
+                                                NbrDent++;
                                             }
                                             else
                                             {
-                                                IncX= SelectedCell.X - WorkinRect.PartsWidthStart;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
-                                            }
-                                            
-                                        }else
-                                        if (LinkCase.IsContent)
-                                        {
-                                            NotLinked = false;
-                                            NbrDent--;
-                                        }
-                                        else
-                                        {
-                                            var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X + IncX) && enf.Y == (SelectedCell.Y +LevelY));
-                                            if (CaseAdjacent.IsContent==false)
-                                            {
-                                                AdjacentContent = false;
-                                            }
-                                            else
-                                            {
-                                                IncX++;
+                                                var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
+                                                    enf.X == SelectedCell.X + IncX && enf.Y == SelectedCell.Y + LevelY);
+                                                if (CaseAdjacent.IsContent == false)
+                                                    AdjacentContent = false;
+                                                else
+                                                    IncX++;
                                             }
                                         }
                                     }
-                                    }
-                                       }
-                                        else if (NotLinked == false)
-                                        {
-                                                  NotLinked = true;
-                                    bool AdjacentContent = true;
-                                    bool IsInRange = true;
-                                    int SubX =InitXMinus;
-                                    int LevelY = InitLevelMinus;
-                                    while (NotLinked && AdjacentContent && IsInRange)
-                                    {
-                                        var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X - SubX) && enf.Y == ( SearchYPlus -LevelY));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
-                                        {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y-LevelY- WorkinRect.PartsHeightStart) / (double)WorkinRect.PartHeight)));
-                                            if (PartNbr <= 1)
-                                            {
-                                                
-                                                IsInRange = false;
-                                            }
-                                            else
-                                            {
-                                                SubX= SelectedCell.X - WorkinRect.PartsWidthEnd;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
-                                            }
-                                        }else
-                                        if (LinkCase.IsContent)
-                                        {
-                                            NotLinked = false;
-                                           
-                                                NbrDent--; 
-                                          
-                                            
-                                        }
-                                        else
-                                        {
-                                            var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X - SubX) && enf.Y == (SelectedCell.Y-LevelY));
-                                            if (CaseAdjacent.IsContent==false)
-                                            {
-                                                AdjacentContent = false;
-                                             
-                                               
-                                            }
-                                            else
-                                            {
-                                                SubX++;
-                                            }
-                                        }
-                                    }
-                                        }
-                                        
-                                  
-                        }
-                        else
-                        {
-                            SelectedCell.DentFil = 1;
-                            SelectedComposant.EnfNbrFil++;
-                        }
-
-                        SelectedCell.Content = SelectedComposant;
-                    }
-                }
-                else
-                {
-                  
-                    
-                        if (IsDent)
-                        {
-                            
-                                    var Case_Pos1Plus= EnfilageBoard.Single(enf =>
-                                        enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y + 1));
-                             
-                             var Case_Pos1Minus = EnfilageBoard.Single(enf =>
-                                 enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y + 1));
-                             var Case_Pos2Plus = EnfilageBoard.Single(enf =>
-                                 enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y - 1));
-                             var Case_Pos2Minus = EnfilageBoard.Single(enf =>
-                                 enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y - 1));
-                             bool Content_Pos1Plus=false;
-                             bool Content_Pos2Plus=false;
-                             bool Content_Pos1Minus=false;
-                             bool Content_Pos2Minus=false;
-                             int InitLevelPlus = 0;
-                             int InitXPlus = 1;
-                             int InitLevelMinus = 0;
-                             int InitXMinus= 1;
-                             if (Case_Pos1Plus == null || Case_Pos1Plus.TypBox == MatrixElement.BoxType.OutRange)
-                             {
-                                 int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y- WorkinRect.PartsHeightStart) / (double)WorkinRect.PartHeight)));
-
-                                 if (PartNbr < WorkinRect.NbrPart)
-                                 {
-                                     InitXPlus=WorkinRect.PartsWidthStart- SelectedCell.X ;
-                                     InitLevelPlus=InitLevelPlus+WorkinRect.PartHeight;
-                                     
-                                     Content_Pos1Plus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X + InitXPlus) && enf.Y == (SelectedCell.Y + 1+InitLevelPlus)).IsContent;
-                                     Content_Pos2Plus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X + InitXPlus) && enf.Y == (SelectedCell.Y - 1+InitLevelPlus)).IsContent;
-                                 }
-                                 
-                                 
-                             }
-                             else
-                             {
-                                  Content_Pos1Plus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y + 1)).IsContent;
-                                  Content_Pos2Plus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X + 1) && enf.Y == (SelectedCell.Y - 1)).IsContent;
-                             }
-                             if (Case_Pos1Minus == null || Case_Pos1Minus.TypBox == MatrixElement.BoxType.OutRange)
-                             {
-                                 int PartNbr =Convert.ToInt32(Math.Ceiling((SelectedCell.Y- WorkinRect.PartsHeightStart) / (double)WorkinRect.PartHeight));
-
-                                 if (PartNbr > 1)
-                                 {
-                                     InitXMinus=SelectedCell.X -WorkinRect.PartsWidthEnd;
-                                     InitLevelMinus=WorkinRect.PartHeight-InitLevelMinus;
-                                     
-                                     Content_Pos1Minus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X -InitXMinus) && enf.Y == (SelectedCell.Y -InitLevelMinus+1)).IsContent;
-                                   
-                                     Content_Pos2Minus = EnfilageBoard.Single(enf =>
-                                         enf.X == (SelectedCell.X -InitXMinus) && enf.Y == (SelectedCell.Y -InitLevelMinus-1)).IsContent;
-                                 }
-                             }
-                             else
-                             {
-                                  Content_Pos1Minus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y + 1)).IsContent;
-                                   
-                                  Content_Pos2Minus = EnfilageBoard.Single(enf =>
-                                     enf.X == (SelectedCell.X - 1) && enf.Y == (SelectedCell.Y - 1)).IsContent;
-                             }
-                                    int SearchXPlus=0;
-                                    int SearchYPlus=0;
-                                    int SearchXMinus=0;
-                                    int SearchYMinus=0;
-                                    bool PossibleTripleTeeth = false;
-                                    bool NotLinked = true;
-                                        
-                                        if ((SelectedCell.position == 1 && Content_Pos1Plus)
-                                            || (SelectedCell.position == 2 && Content_Pos2Plus))
-                                        {
-                                            SearchXPlus = SelectedCell.X + 1;
-                                            if (SelectedCell.position == 1)
-                                            {
-                                                SearchYPlus = SelectedCell.Y + 1;
-                                            }
-                                            else
-                                            {
-                                                SearchYPlus = SelectedCell.Y - 1;
-                                            }
-                                            
-                                         NotLinked = true;
-                                        bool AdjacentContent = true;
-                                        bool IsInRange = true;
-                                         int IncX = InitXPlus+ 1;
-                                         PossibleTripleTeeth = true;
-                                         int LevelY = InitLevelPlus;
-                                    while (NotLinked && AdjacentContent && IsInRange)
-                                    {
-                                        var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X + IncX) && enf.Y == (SelectedCell.Y +LevelY));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
-                                        {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y+LevelY- WorkinRect.PartsHeightStart) /(double) WorkinRect.PartHeight)));
-                                            
-                                            if (PartNbr >= WorkinRect.NbrPart)
-                                            {
-                                                IsInRange = false;
-                                                NbrDent=NbrDent-2;
-                                            } else
-                                            {
-                                                IncX= SelectedCell.X - WorkinRect.PartsWidthStart;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
-                                            }
-                                            
-                                           
-                                        }else
-                                        if (LinkCase.IsContent)
-                                        {
-                                            NotLinked = false;
-                                           
-                                                NbrDent--;
-                                           
-                                            
-                                        }
-                                        else
-                                        {
-                                            var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X + IncX) && enf.Y == (SearchYPlus+LevelY));
-                                            if (CaseAdjacent.IsContent==false)
-                                            {
-                                                AdjacentContent = false;
-                                                NbrDent=NbrDent-2;
-                                            }
-                                            else
-                                            {
-                                                IncX++;
-                                            }
-                                        }
-                                    }
-                                        
-                                        }
-                                        
-                                        if((SelectedCell.position == 1 && Content_Pos1Minus)
-                                           || (SelectedCell.position == 2 && Content_Pos2Minus)) 
-                                        {
-                                            SearchXMinus = SelectedCell.X + 1;
-                                            if (SelectedCell.position == 1)
-                                            {
-                                                SearchYMinus = SelectedCell.Y + 1;
-                                            }
-                                            else
-                                            {
-                                                SearchYMinus = SelectedCell.Y - 1;
-                                            }
-                                           
-                                    bool AdjacentContent = true;
-                                    bool IsInRange = true;
+                                }
+                                else if (NotLinked == false)
+                                {
                                     NotLinked = true;
-                                    int SubX =InitXMinus+ 1;
-                                    int LevelY = InitLevelMinus;
+                                    var AdjacentContent = true;
+                                    var IsInRange = true;
+                                    var SubX = InitXMinus;
+                                    var LevelY = InitLevelMinus;
                                     while (NotLinked && AdjacentContent && IsInRange)
                                     {
                                         var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X - SubX) && enf.Y == (SelectedCell.Y -LevelY));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
+                                            enf.X == SelectedCell.X - SubX && enf.Y == SearchYPlus);
+                                        if (LinkCase == null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
                                         {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y+LevelY- WorkinRect.PartsHeightStart) /(double) WorkinRect.PartHeight)));
+                                            var PartNbr = Convert.ToInt32(Math.Ceiling(
+                                                (SelectedCell.Y + LevelY - WorkinRect.PartsHeightStart) /
+                                                (double)WorkinRect.PartHeight));
 
                                             if (PartNbr <= 1)
                                             {
                                                 IsInRange = false;
-                                                if (PossibleTripleTeeth)
-                                                {
-                                                    NbrDent--;
-                                                }
-                                                else
-                                                {
-                                                    NbrDent=NbrDent-2;
-                                                }
                                             }
                                             else
                                             {
-                                                SubX= SelectedCell.X - WorkinRect.PartsWidthStart;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
-                                            }
-                                            
-                                           
-                                        }else
-                                        if (LinkCase.IsContent)
-                                        {
-                                            NotLinked = false;
-                                            
-                                                NbrDent--;
-                                            
-                                        }
-                                        else
-                                        {
-                                            var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X - SubX) && enf.Y == (SearchYMinus-LevelY));
-                                            if (CaseAdjacent.IsContent==false)
-                                            {
-                                                AdjacentContent = false;
-                                                if (PossibleTripleTeeth)
-                                                {
-                                                    NbrDent--;
-                                                }
-                                                else
-                                                {
-                                                    NbrDent=NbrDent-2; 
-                                                }
-                                               
-                                            }
-                                            else
-                                            {
-                                                SubX++;
+                                                SubX = SelectedCell.X - WorkinRect.PartsWidthStart;
+                                                LevelY = LevelY + WorkinRect.PartHeight;
                                             }
                                         }
-                                    }
-                                     if (NotLinked == false)
-                                    {
-                                        NotLinked = true;
-                                          AdjacentContent = true;
-                                         IsInRange = true;
-                                         int IncX = InitXPlus;
-
-                                         LevelY = InitLevelPlus;
-                                    while (NotLinked && AdjacentContent && IsInRange)
-                                    {
-                                        var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X + IncX) && enf.Y == (SearchYMinus+LevelY));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
-                                        {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y+LevelY- WorkinRect.PartsHeightStart) / (double)WorkinRect.PartHeight)));
-
-                                            if (PartNbr >= WorkinRect.NbrPart)
-                                            {
-                                                IsInRange = false;
-                                            }
-                                            else
-                                            {
-                                                IncX= SelectedCell.X - WorkinRect.PartsWidthStart;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
-                                            }
-                                           
-                                        }else
-                                        if (LinkCase.IsContent)
+                                        else if (LinkCase.IsContent)
                                         {
                                             NotLinked = false;
+
                                             NbrDent++;
                                         }
                                         else
                                         {
                                             var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X + IncX) && enf.Y == (SelectedCell.Y+LevelY ));
-                                            if (CaseAdjacent.IsContent==false)
-                                            {
+                                                enf.X == SelectedCell.X - SubX && enf.Y == SelectedCell.Y);
+                                            if (CaseAdjacent.IsContent == false)
                                                 AdjacentContent = false;
-                                            }
                                             else
-                                            {
-                                                IncX++;
-                                            }
-                                        }
-                                    }
-                                    }
-                                       }
-                                        else if (NotLinked == false)
-                                        {
-                                                  NotLinked = true;
-                                    bool AdjacentContent = true;
-                                    bool IsInRange = true;
-                                    int SubX = InitXMinus;
-                                    int LevelY = InitLevelMinus;
-                                    while (NotLinked && AdjacentContent && IsInRange)
-                                    {
-                                        var LinkCase = EnfilageBoard.SingleOrDefault(enf =>
-                                            enf.X == (SelectedCell.X - SubX) && enf.Y == ( SearchYPlus ));
-                                        if (LinkCase==null || LinkCase.TypBox == MatrixElement.BoxType.OutRange)
-                                        {
-                                            int PartNbr =Convert.ToInt32(Math.Ceiling(((SelectedCell.Y+LevelY- WorkinRect.PartsHeightStart) /(double) WorkinRect.PartHeight)));
-
-                                            if (PartNbr <= 1)
-                                            {
-                                                IsInRange = false;
-                                            }
-                                            else
-                                            {
-                                                SubX= SelectedCell.X - WorkinRect.PartsWidthStart;
-                                                LevelY=LevelY+WorkinRect.PartHeight;
-                                            }
-                                            
-                                          
-                                        }else
-                                        if (LinkCase.IsContent)
-                                        {
-                                            NotLinked = false;
-                                           
-                                                NbrDent++; 
-                                          
-                                            
-                                        }
-                                        else
-                                        {
-                                            var CaseAdjacent = EnfilageBoard.SingleOrDefault(enf =>
-                                                enf.X == (SelectedCell.X - SubX) && enf.Y == (SelectedCell.Y));
-                                            if (CaseAdjacent.IsContent==false)
-                                            {
-                                                AdjacentContent = false;
-                                             
-                                               
-                                            }
-                                            else
-                                            {
                                                 SubX++;
-                                            }
                                         }
                                     }
-                                        }
-                        
+                                }
+                            }
+                            else
+                            {
+                                SelectedCell.Content.EnfNbrFil--;
+                            }
+
+                            SelectedCell.Content = null;
                         }
-                        else
-                        {
-                        
-                            SelectedCell.Content.EnfNbrFil--;
-                        }
-                        SelectedCell.Content = null;  
-                    
-                    
+
+                        SettingContent(SelectedCell);
+                    }
                 }
-                SettingContent(SelectedCell);
-                }
-             
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
+
         public void SetContent(int Num)
         {
-            if (ListComposant.Count >= Num )
+            try
             {
-                SelectedComposant = ListComposant[Num - 1];
-                SetMatrixContent();
+                if (ListComposant.Count >= Num)
+                {
+                    SelectedComposant = ListComposant[Num - 1];
+                    SetMatrixContent();
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
 
@@ -2279,8 +2392,6 @@ namespace DSheetEnfilage
             throw new NotImplementedException();
         }
 
-        public MatrixElement SelectedCell { get; set; }
-
         private void ImageFocus(object sender, RoutedEventArgs e)
         {
             var img = (Image)sender;
@@ -2295,17 +2406,15 @@ namespace DSheetEnfilage
             SelectedCell.IsSelected = false;
         }
 
-        public Composition SelectedComposant { get; set; }
-
         public void ReedCalculation()
         {
             if (DentList != null && DentList.Count == 0)
             {
-                LinkedList<MatrixElement> dent = new LinkedList<MatrixElement>();
+                var dent = new LinkedList<MatrixElement>();
                 dent.AddLast(SelectedCell);
                 DentList.AddLast(dent);
                 NbrDent++;
-                Rang MRang = new Rang();
+                var MRang = new Rang();
                 MRang.Y1 = SelectedCell.Y;
                 Rangs.AddLast(MRang);
             }
@@ -2315,21 +2424,20 @@ namespace DSheetEnfilage
                 {
                     if (SelectedCell.Y == Rangs.First().Y1)
                     {
-                        LinkedListNode<LinkedList<MatrixElement>> node = RogueDentList.First;
+                        var node = RogueDentList.First;
                         LinkedListNode<LinkedList<MatrixElement>> FoundNode = null;
-                        bool ContinueLoop = true;
-                        bool LastCheck = false;
-                        while (node != null && ContinueLoop == true)
-                        {
+                        var ContinueLoop = true;
+                        var LastCheck = false;
+                        while (node != null && ContinueLoop)
                             if (LastCheck == false)
                             {
-                                if (node.Value.First().X == (SelectedCell.X + 1))
+                                if (node.Value.First().X == SelectedCell.X + 1)
                                 {
                                     node.Value.AddFirst(SelectedCell);
                                     ContinueLoop = false;
                                     FoundNode = node;
                                 }
-                                else if (node.Value.Last().X == (SelectedCell.X - 1))
+                                else if (node.Value.Last().X == SelectedCell.X - 1)
                                 {
                                     node.Value.AddLast(SelectedCell);
                                     LastCheck = true;
@@ -2340,10 +2448,10 @@ namespace DSheetEnfilage
                             }
                             else
                             {
-                                if (node.Value.First().X == (SelectedCell.X + 1))
+                                if (node.Value.First().X == SelectedCell.X + 1)
                                 {
-                                    LinkedList<MatrixElement> tempList = node.Value;
-                                    LinkedListNode<LinkedList<MatrixElement>> PrevNode = node.Previous;
+                                    var tempList = node.Value;
+                                    var PrevNode = node.Previous;
                                     foreach (var el in tempList)
                                     {
                                         PrevNode.Value.AddLast(el);
@@ -2355,63 +2463,50 @@ namespace DSheetEnfilage
 
                                 ContinueLoop = false;
                             }
-                        }
 
-                        if ((DentList.Last().First().X - 1) == SelectedCell.X)
+                        if (DentList.Last().First().X - 1 == SelectedCell.X)
                         {
                             if (FoundNode == null)
-                            {
                                 DentList.Last().AddFirst(SelectedCell);
-                            }
                             else
-                            {
                                 foreach (var el in FoundNode.Value.Reverse())
-                                {
                                     DentList.Last().AddFirst(el);
-                                }
-                            }
                         }
-                        else if ((DentList.Last().Last().X + 1) == SelectedCell.X)
+                        else if (DentList.Last().Last().X + 1 == SelectedCell.X)
                         {
                             if (FoundNode == null)
-                            {
                                 DentList.Last().AddLast(SelectedCell);
-                            }
                             else
-                            {
                                 foreach (var el in FoundNode.Value)
-                                {
                                     DentList.Last().AddLast(el);
-                                }
-                            }
                         }
                     }
-                    else if (SelectedCell.Y == (Rangs.First().Y1 - 1) || SelectedCell.Y == (Rangs.First().Y1 + 1))
+                    else if (SelectedCell.Y == Rangs.First().Y1 - 1 || SelectedCell.Y == Rangs.First().Y1 + 1)
                     {
+                       
                     }
-                    else
-                    {
-                    }
-                }
-                else
-                {
                 }
             }
         }
 
-        
+
         private void ImageMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (SelectedCell != null)
-                SelectedCell.IsSelected = false;
-            var img = (Image)sender;
-            SelectedCell = (MatrixElement)img.Tag;
+            try
+            {
+                if (SelectedCell != null)
+                    SelectedCell.IsSelected = false;
+                var img = (Image)sender;
+                SelectedCell = (MatrixElement)img.Tag;
 
-            SetMatrixContent();
-       
+                SetMatrixContent();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
-
-        public ChaineMatrixElement SelectedChaineCell { get; set; }
 
         private void ImageMouseDown1(object sender, MouseButtonEventArgs e)
         {
@@ -2419,20 +2514,35 @@ namespace DSheetEnfilage
                 SelectedChaineCell.IsSelected = false;
             var border = (Image)sender;
             SelectedChaineCell = (ChaineMatrixElement)border.Tag;
-            SelectedChaineCell.IsContent=true;
+            if(SelectedChaineCell.IsContent==false)
+            {
+                SelectedChaineCell.IsContent = true;
+            }else
+            {
+                SelectedChaineCell.IsContent = false;
+            }
+           
         }
+        private bool _AllowDrag=true;
+
+        public bool AllowDrag
+        {
+            get { return _AllowDrag; }
+            set { _AllowDrag= value; NotifyPropertyChanged(); }
+        }
+
 
         private void MouseDragElementBehavior_OnDragFinished(object sender, MouseEventArgs e)
         {
-            MouseDragElementBehavior df = (MouseDragElementBehavior)sender;
-            LastXposition = df.X.ToString();
-            LastYposition = df.Y.ToString();
-            string testx = TrameXposition;
-            string testy = TrameYposition;
-            NotifyPropertyChanged();
+            var df = (MouseDragElementBehavior)sender;
+            this.SetValue(CanvasControl.LastXpositionProperty, df.X.ToString());
+            this.SetValue(CanvasControl.LastYpositionProperty, df.Y.ToString());
+            
+
+
         }
 
-        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+            private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
             IsDent = true;
         }
@@ -2440,6 +2550,23 @@ namespace DSheetEnfilage
         private void ToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
         {
             IsDent = false;
+        }
+        private bool IsSizeChanged;
+        private bool ExecuteProhibitedArea;
+
+        private void Board_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            
+            IsSizeChanged = true;
+            if(ExecuteProhibitedArea)
+            {
+                if (OldRectangle != null)
+                    SetProhibitedArea(OldRectangle, MatrixElement.BoxType.OutRange);
+
+               SetProhibitedArea(ProhibitArea, MatrixElement.BoxType.Inaccessible);
+                ExecuteProhibitedArea = false;
+            }
+
         }
     }
 }

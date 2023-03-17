@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
     public class Couleur : INotifyPropertyChanged
     {
-        [Key] private int _ID;
+        private int _ID;
 
 
         private string _Name;

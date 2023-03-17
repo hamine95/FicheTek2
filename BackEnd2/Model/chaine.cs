@@ -1,30 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
-using System.Windows;
 
 namespace BackEnd2.Model
 {
-    public class chaine: INotifyPropertyChanged
+    public class chaine : INotifyPropertyChanged
     {
+        private List<ChColComp> _ChaineCompos;
 
-        private int id;
-        private string _Nom;
+
         private int _Col;
         private int _lign;
+        private string _Nom;
 
-
-        private List<ChaineMatrix> _ChMatrix;
+        private int id;
 
 
         public string Nom
         {
-            get
-            {
-                return _Nom;
-            }
+            get => _Nom;
             set
             {
                 _Nom = value;
@@ -34,10 +28,7 @@ namespace BackEnd2.Model
 
         public int Colonne
         {
-            get
-            {
-                return _Col;
-            }
+            get => _Col;
             set
             {
                 _Col = value;
@@ -47,10 +38,7 @@ namespace BackEnd2.Model
 
         public int Ligne
         {
-            get
-            {
-                return _lign;
-            }
+            get => _lign;
             set
             {
                 _lign = value;
@@ -58,7 +46,6 @@ namespace BackEnd2.Model
             }
         }
 
-        [Key]
         public int ID
         {
             get => id;
@@ -69,30 +56,22 @@ namespace BackEnd2.Model
             }
         }
 
-        private List<ChColComp> _ChaineCompos;
-
         public List<ChColComp> ChaineCompos
         {
-            get
-            {
-                return _ChaineCompos;
-            }
+            get => _ChaineCompos;
             set
             {
                 _ChaineCompos = value;
                 NotifyPropertyChanged();
             }
         }
-        public List<ChaineMatrix> ChMatrix
-        {
-            get => _ChMatrix;
-            set => _ChMatrix = value;
-        }
+
+        public List<ChaineMatrix> ChMatrix { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-  
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)

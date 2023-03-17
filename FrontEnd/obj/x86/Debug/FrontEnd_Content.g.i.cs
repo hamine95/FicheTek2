@@ -8,9 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("settings.ico")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/add.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/back.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/back2.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/background2.bmp")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/banner3.bmp")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/cancel.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/categorie.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/chainsquare.png")]
@@ -56,6 +59,7 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/square.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/comp2.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/squaredent.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/squaregris.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/squaregris2.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/squarehighlight.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/squareline.png")]
@@ -65,9 +69,5 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/squarerect.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/stop.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("asset/version.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("squaregris.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("e_sqlcipher.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("e_sqlcipher.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("e_sqlcipher.dll")]
 
 

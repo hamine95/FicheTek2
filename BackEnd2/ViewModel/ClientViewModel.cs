@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BackEnd2.CustomClass;
+using BackEnd2.Data;
 using BackEnd2.Database;
 using BackEnd2.Model;
 using MvvmCross;
@@ -9,41 +10,44 @@ using MvvmCross.ViewModels;
 
 namespace BackEnd2.ViewModel
 {
-    public class ClientViewModel : MvxViewModel<MyDBContext>
+    public class ClientViewModel : MvxViewModel<user>
     {
+        private IMvxCommand _AjouterNovClient;
+
+        private IMvxCommand _CancelCmd;
         private string _ClientNom;
 
 
         private int _EditClientId;
         private bool _IsEditEnabled;
         private MvxObservableCollection<Client> _ListClient;
+
+        private MvxNotifyTask _LoadClients;
+
+        private IMvxCommand _Modifier;
         private IMvxNavigationService _navigationService;
 
 
         private string _NovClientNom;
 
+        private IMvxCommand _saveChange;
+
         private Client _SelectedClient;
-        private  MyDBContext db;
+
+        private IMvxCommand _Supprimer;
+        private SqliteData db;
 
         public ClientViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
-           
         }
-
-        public override Task Initialize()
-        {
-            LoadClients=MvxNotifyTask.Create(UpdateClientList);
-            return base.Initialize();
-        }
-
-        private MvxNotifyTask _LoadClients;
 
         public MvxNotifyTask LoadClients
         {
             get => _LoadClients;
             set => SetProperty(ref _LoadClients, value);
         }
+
         public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
         public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
@@ -68,8 +72,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _Modifier;
-
         public IMvxCommand Modifier
         {
             get
@@ -78,8 +80,6 @@ namespace BackEnd2.ViewModel
                 return _Modifier;
             }
         }
-
-        private IMvxCommand _Supprimer;
 
         public IMvxCommand Supprimer
         {
@@ -90,8 +90,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _AjouterNovClient;
-
         public IMvxCommand AjouterNovClient
         {
             get
@@ -101,8 +99,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _CancelCmd;
-
         public IMvxCommand CancelCmd
         {
             get
@@ -111,8 +107,6 @@ namespace BackEnd2.ViewModel
                 return _CancelCmd;
             }
         }
-
-        private IMvxCommand _saveChange;
 
         public IMvxCommand SaveChange
         {
@@ -163,6 +157,12 @@ namespace BackEnd2.ViewModel
             }
         }
 
+        public override Task Initialize()
+        {
+            LoadClients = MvxNotifyTask.Create(UpdateClientList);
+            return base.Initialize();
+        }
+
         public void SaveEditChange()
         {
             if (!IsEditFieldsEmpty() && db.GetClient(NovClientNom) == null)
@@ -189,12 +189,11 @@ namespace BackEnd2.ViewModel
         {
             await Task.Run(() =>
                 {
-                    var ListCli = db.GetClients();
+                    var ListCli = db.GetClient();
                     foreach (var col in ListCli) col.Name = col.Name.ToUpper();
                     ListClient = new MvxObservableCollection<Client>(ListCli);
                 }
             );
-
         }
 
         public void CancelEdit()
@@ -272,9 +271,9 @@ namespace BackEnd2.ViewModel
             return NovClientNom == null || string.IsNullOrWhiteSpace(NovClientNom);
         }
 
-        public override void Prepare(MyDBContext parameter)
+        public override void Prepare(user parameter)
         {
-            db = parameter;
+            db = Mvx.IoCProvider.Resolve<SqliteData>();
         }
     }
 }

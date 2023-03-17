@@ -47,20 +47,25 @@ namespace DSheetEnfilage
         public static readonly DependencyProperty ChaineValueProperty =
             DependencyProperty.Register("Chaine", typeof(ChaineBoardStructure), typeof(EnfilageSchemas),
                 new PropertyMetadata(null, OnSetChaine));
+
         public static readonly DependencyProperty ChaineListValueProperty =
-            DependencyProperty.Register("ChaineList", typeof(ObservableCollection<ChaineMatrixElement>), typeof(EnfilageSchemas),
+            DependencyProperty.Register("ChaineList", typeof(ObservableCollection<ChaineMatrixElement>),
+                typeof(EnfilageSchemas),
                 new PropertyMetadata(null, OnSetChaine));
+
         public static readonly DependencyProperty ChaineColumnsValueProperty =
             DependencyProperty.Register("ChaineColumns", typeof(object), typeof(EnfilageSchemas),
                 new PropertyMetadata(null, OnSetChaine));
+
         public static readonly DependencyProperty ChaineRowsValueProperty =
             DependencyProperty.Register("ChaineRows", typeof(object), typeof(EnfilageSchemas),
                 new PropertyMetadata(null, OnSetChaine));
-        
+
         public static readonly DependencyProperty EnfilageBoardProperty =
-            DependencyProperty.Register("BoardItems", typeof(ObservableCollection<MatrixElement>), typeof(EnfilageSchemas),
+            DependencyProperty.Register("BoardItems", typeof(ObservableCollection<MatrixElement>),
+                typeof(EnfilageSchemas),
                 new PropertyMetadata(null, OnSetChaine));
-        
+
         private string _ArmureColumns;
 
         private string _ArmureRows;
@@ -86,8 +91,8 @@ namespace DSheetEnfilage
             //Chaine = new ChaineBoardStructure(Convert.ToInt32(ChaineRows), Convert.ToInt32(ChaineColumns));
             // ChaineList = new ObservableCollection<ChaineMatrixElement>(Chaine.Board);
             //ChaineBoard.ItemsSource = ChaineList;
-           
-           // BoardItems = new ObservableCollection<MatrixElement>(_board.Board);
+
+            // BoardItems = new ObservableCollection<MatrixElement>(_board.Board);
         }
 
 
@@ -125,7 +130,6 @@ namespace DSheetEnfilage
         {
             get => (int)GetValue(ChaineColumnsValueProperty);
             set => SetValue(ChaineColumnsValueProperty, value);
-
         }
 
         public string NumDents
@@ -162,7 +166,6 @@ namespace DSheetEnfilage
         {
             get => (int)GetValue(ChaineRowsValueProperty);
             set => SetValue(ChaineRowsValueProperty, value);
-
         }
 
         public string ArmureColumns
@@ -201,7 +204,7 @@ namespace DSheetEnfilage
 
         public ObservableCollection<MatrixElement> BoardItems
         {
-            get =>(ObservableCollection<MatrixElement>)GetValue(EnfilageBoardProperty);
+            get => (ObservableCollection<MatrixElement>)GetValue(EnfilageBoardProperty);
             set => SetValue(EnfilageBoardProperty, value);
         }
 
@@ -330,7 +333,6 @@ namespace DSheetEnfilage
         }
 
 
-
         private void Border_GotFocus(object sender, RoutedEventArgs e)
         {
             var border = (Border)sender;
@@ -440,7 +442,6 @@ namespace DSheetEnfilage
 
         private void Border_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-         
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -472,8 +473,8 @@ namespace DSheetEnfilage
             ChaineList = new ObservableCollection<ChaineMatrixElement>(Chaine.Board);
             ChaineBoard.ItemsSource = ChaineList;
 
-            ChaineColumns =Convert.ToInt32( ArmureColumns);
-            ChaineRows =Convert.ToInt32(  ArmureRows);
+            ChaineColumns = Convert.ToInt32(ArmureColumns);
+            ChaineRows = Convert.ToInt32(ArmureRows);
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -596,11 +597,10 @@ namespace DSheetEnfilage
             ChaineComposant.BKComposant = "Black";
             ChaineComposant.BKBorderComposant = "White";
             SelectedChaineValue = ChaineComposant;
-            
-            
-            
+
+
             _board = new BoardStructure(59, 83);
-            Board.ItemsSource=new ObservableCollection<MatrixElement>(_board.Board);
+            Board.ItemsSource = new ObservableCollection<MatrixElement>(_board.Board);
         }
     }
 

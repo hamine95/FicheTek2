@@ -3,42 +3,32 @@ using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class EnfilageElement: INotifyPropertyChanged
+    public class EnfilageElement : INotifyPropertyChanged
     {
-        private MatrixElement _EnfElement;
-
         private bool _AddElement;
 
-        private bool _UpdateContent;
+        private MatrixElement _EnfElement;
 
-        private Composition _Content;
-
-        public bool UpdateContent
-        {
-            get => _UpdateContent;
-            set => _UpdateContent = value;
-        }
-
-        public Composition Content
-        {
-            get => _Content;
-            set => _Content = value;
-        }
-
-        public EnfilageElement(MatrixElement enfEl,bool AddEl)
+        public EnfilageElement(MatrixElement enfEl, bool AddEl)
         {
             EnfElement = enfEl;
             AddElement = AddEl;
             UpdateContent = false;
             Content = null;
         }
-        public EnfilageElement(MatrixElement enfEl,bool UpdatCont,Composition cont)
+
+        public EnfilageElement(MatrixElement enfEl, bool UpdatCont, Composition cont)
         {
             EnfElement = enfEl;
             AddElement = false;
             UpdateContent = UpdatCont;
             Content = cont;
         }
+
+        public bool UpdateContent { get; set; }
+
+        public Composition Content { get; set; }
+
         public MatrixElement EnfElement
         {
             get => _EnfElement;
@@ -58,7 +48,9 @@ namespace BackEnd2.Model
                 NotifyPropertyChanged();
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)

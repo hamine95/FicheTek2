@@ -11,8 +11,8 @@
     <UserControl.Resources>
         <Storyboard x:Key="expandStoryboard">
             <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-                              To="2" Duration="0:0:0.2" />
-            
+                             To="2" Duration="0:0:0.2" />
+
             <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
                              To="2" Duration="0:0:0.2" />
         </Storyboard>
@@ -25,57 +25,57 @@
         </Storyboard>
         <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
         <Style x:Key="ImageLBtn" TargetType="{x:Type CustClass:GitHubButton}">
-		<Setter Property="UseLayoutRounding" Value="True"/>
-		<Setter Property="SnapsToDevicePixels" Value="True"/>
-		<Setter Property="Foreground" Value="#FFFFFF"/>
-		<Setter Property="FontWeight" Value="Bold"/>
-		<Setter Property="Margin" Value="2"/>
-        <Setter Property="Height" Value="25"/>
-		<Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
-					<ControlTemplate.Resources>
-						<Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
-							<Setter Property="BorderBrush" Value="#24a0ed"/>
-							<Setter Property="BorderThickness" Value="1 1 1 1"/>
-							<Setter Property="Background" Value="#24a0ed"/>
-							<Setter Property="CornerRadius" Value="5"/>
-						</Style>
-						<Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
-							<Setter Property="VerticalAlignment" Value="Center"/>
-							<Setter Property="Orientation" Value="Horizontal"/>
-						</Style>
-						<Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
-							<Setter Property="VerticalAlignment" Value="Center"/>
-							<Setter Property="Margin" Value="2 0 2 0"/>
-							<Setter Property="Width" Value="16"/>
-							<Setter Property="Height" Value="16"/>
-						</Style>
-						
-					</ControlTemplate.Resources>
-                    <Border x:Name="border" Style="{StaticResource IN.BORDER}">
-						<StackPanel Style="{StaticResource IN.PANEL}">
-							<Viewbox Style="{StaticResource IN.VBOX}">
-								<Image Source="/Asset/imageLoad.png" Width="24" Height="24" />
-							</Viewbox>
-						
-						</StackPanel>
-					</Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#084469"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#084469"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="#ADD8E6"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+            <Setter Property="UseLayoutRounding" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
+                        <ControlTemplate.Resources>
+                            <Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
+                                <Setter Property="BorderBrush" Value="#24a0ed" />
+                                <Setter Property="BorderThickness" Value="1 1 1 1" />
+                                <Setter Property="Background" Value="#24a0ed" />
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                            <Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Orientation" Value="Horizontal" />
+                            </Style>
+                            <Style TargetType="{x:Type Viewbox}" x:Key="IN.VBOX">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="2 0 2 0" />
+                                <Setter Property="Width" Value="16" />
+                                <Setter Property="Height" Value="16" />
+                            </Style>
+
+                        </ControlTemplate.Resources>
+                        <Border x:Name="border" Style="{StaticResource IN.BORDER}">
+                            <StackPanel Style="{StaticResource IN.PANEL}">
+                                <Viewbox Style="{StaticResource IN.VBOX}">
+                                    <Image Source="/Asset/imageLoad.png" Width="24" Height="24" />
+                                </Viewbox>
+
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#084469" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#084469" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#ADD8E6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -113,15 +113,16 @@
                                    FontFamily="Imprint MT Shadow">
                             N° Article
                         </TextBlock>
-                        <TextBox Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" 
+                        <TextBox Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                  PreviewTextInput="Comp1NbrFilAccept" Width="50" FontSize="14"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  BorderBrush="Transparent" FontFamily="Imprint MT Shadow" HorizontalAlignment="Stretch"
                                  Text="{Binding NewProd.NumArticle,StringFormat=0;;#}" />
                         <TextBlock PreviewTextInput="Comp1NbrFilAccept" Width="50" FontSize="14"
-                                 VerticalAlignment="Center" Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  FontFamily="Imprint MT Shadow" HorizontalAlignment="Right" TextAlignment="Center"
-                                 Text="{Binding NewProd.NumArticle,StringFormat=0;;#}" />
+                                   VerticalAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   FontFamily="Imprint MT Shadow" HorizontalAlignment="Right" TextAlignment="Center"
+                                   Text="{Binding NewProd.NumArticle,StringFormat=0;;#}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -140,29 +141,33 @@
                     </Grid.RowDefinitions>
                     <TextBlock FontSize="14" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center">Vers</TextBlock>
                     <TextBlock FontSize="14" HorizontalAlignment="Center" Grid.Column="1">:</TextBlock>
-                    <xcd:IntegerUpDown Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" 
-                             IsEnabled="{Binding IsProduction}"
-                             Minimum="{Binding MinVers}"
-                             
-                             FontSize="14" FontFamily="Arial" BorderBrush="Transparent" Grid.Column="2"
-                             Text="{Binding NewProd.Version,StringFormat={}{00:00}}" VerticalContentAlignment="Center"
-                             HorizontalAlignment="Center" />
-                    <ComboBox Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" FontSize="14" FontFamily="Arial"  Grid.Column="2"
-                               SelectedItem="{Binding SelectedVersion}" VerticalAlignment="Center"
-                               ItemsSource="{Binding ListVersion}"
-                               DisplayMemberPath="Version"
-                               HorizontalAlignment="Center" />
+                    <xcd:IntegerUpDown Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                       IsEnabled="{Binding IsProduction}"
+                                       Minimum="{Binding MinVers}"
+
+                                       FontSize="14" FontFamily="Arial" BorderBrush="Transparent" Grid.Column="2"
+                                       Text="{Binding NewProd.Version,StringFormat={}{00:00}}"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                    <ComboBox Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" FontSize="14"
+                              FontFamily="Arial" Grid.Column="2"
+                              SelectedItem="{Binding SelectedVersion}" VerticalAlignment="Center"
+                              ItemsSource="{Binding ListVersion}"
+                              DisplayMemberPath="Version"
+                              HorizontalAlignment="Center" />
                     <TextBlock FontSize="14" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center"
                                Grid.Row="1">
                         Réf
                     </TextBlock>
                     <TextBlock FontSize="14" Grid.Row="1" HorizontalAlignment="Center" Grid.Column="1">:</TextBlock>
                     <TextBox HorizontalAlignment="Stretch" CharacterCasing="Upper" HorizontalContentAlignment="Center"
-                             Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"  VerticalContentAlignment="Center" FontFamily="Arial" BorderBrush="Transparent"
+                             Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                             VerticalContentAlignment="Center" FontFamily="Arial" BorderBrush="Transparent"
                              FontSize="14" Grid.Row="1" Grid.Column="2" Text="{Binding NewProd.Ref}" />
-                    <TextBlock HorizontalAlignment="Center" Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                             VerticalAlignment="Center" FontFamily="Arial" 
-                             FontSize="14" Grid.Row="1" Grid.Column="2" Text="{Binding NewProd.Ref}" />
+                    <TextBlock HorizontalAlignment="Center"
+                               Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                               VerticalAlignment="Center" FontFamily="Arial"
+                               FontSize="14" Grid.Row="1" Grid.Column="2" Text="{Binding NewProd.Ref}" />
                     <TextBlock FontSize="14" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center"
                                Grid.Row="2">
                         Page
@@ -179,31 +184,30 @@
 
         <Grid Grid.Row="1" Height="25" IsEnabled="{Binding EnableEditing}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.8*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="0.8*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
-            <TextBlock 
+            <TextBlock
                 FontSize="16" FontWeight="Bold"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center">Catégorie:</TextBlock>
+                VerticalAlignment="Center">
+                Catégorie:
+            </TextBlock>
             <ComboBox Grid.Column="1"
                       DisplayMemberPath="Designation"
                       Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                       SelectedItem="{Binding SelectedCategorie}"
-                      ItemsSource="{Binding CategorieList}"
-                      >
-                
-            </ComboBox>
+                      ItemsSource="{Binding CategorieList}" />
             <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center"
                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                       Text="{Binding CategorieName}"></TextBlock>
+                       Text="{Binding CategorieName}" />
         </Grid>
-        <Grid ZIndex="1" Grid.Row="2"  >
+        <Grid ZIndex="1" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2.5*" />
-                <RowDefinition  Height="1*" />
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="6*" />
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
@@ -238,16 +242,16 @@
                                      Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                      Text="{Binding NewProd.Name}" />
-                            <TextBlock  Grid.Column="1" FontFamily="Arial"
-                                     FontWeight="Bold" FontSize="14"
-                                     Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                                     Text="{Binding NewProd.Name}" />
+                            <TextBlock Grid.Column="1" FontFamily="Arial"
+                                       FontWeight="Bold" FontSize="14"
+                                       Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Text="{Binding NewProd.Name}" />
                         </Grid>
                     </Border>
 
-                    <Border 
-                        Grid.Column="1" 
+                    <Border
+                        Grid.Column="1"
                         Visibility="{Binding IsFicheNormal,Converter={StaticResource BoolToVis}}"
                         BorderBrush="Black" BorderThickness="0 1 0 1">
                         <Grid>
@@ -258,36 +262,35 @@
 
 
                             <TextBlock Grid.Column="0" FontSize="14" FontFamily="Arial" FontWeight="Bold"
-                                      
+
                                        VerticalAlignment="Center" HorizontalAlignment="Center">
                                 Client :
                             </TextBlock>
-                           
-                            <StackPanel 
+
+                            <StackPanel
                                 Grid.Column="1"
-                                VerticalAlignment="Center"
-                                >
-                                <ComboBox 
+                                VerticalAlignment="Center">
+                                <ComboBox
                                     Cursor="Hand"
-                                    DisplayMemberPath="Name"  BorderBrush="Transparent"
+                                    DisplayMemberPath="Name" BorderBrush="Transparent"
                                     FontWeight="Bold" FontFamily="Arial" FontSize="14"
                                     Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                     SelectedItem="{Binding NewProd.Client}" ItemsSource="{Binding ListClient}" />
-                                <TextBlock Cursor="Hand"  
+                                <TextBlock Cursor="Hand"
                                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                                            FontWeight="Bold" FontFamily="Arial" FontSize="14"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Text="{Binding NewProd.Client.Name}"  />
+                                           Text="{Binding NewProd.Client.Name}" />
                             </StackPanel>
-                           
+
                         </Grid>
 
                     </Border>
-                     <Border
-                         Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis}}"
-                         ClipToBounds="False" Grid.ColumnSpan="2"
-                         Grid.Column="1" BorderBrush="Black" BorderThickness="0 1 0 1">
+                    <Border
+                        Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis}}"
+                        ClipToBounds="False" Grid.ColumnSpan="2"
+                        Grid.Column="1" BorderBrush="Black" BorderThickness="0 1 0 1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*" />
@@ -296,31 +299,31 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <TextBlock  
-                               
-                               
-                                        Grid.Column="0" FontSize="14" FontFamily="Arial" FontWeight="Bold"
-                                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock
+
+
+                                Grid.Column="0" FontSize="14" FontFamily="Arial" FontWeight="Bold"
+                                VerticalAlignment="Center" HorizontalAlignment="Center">
                                 Désignation E.H.C :
                             </TextBlock>
-                            
-                                <TextBox 
-                                    Grid.Column="1" 
-                                    Grid.ColumnSpan="2"
-                                    CharacterCasing="Upper"
-                                     BorderBrush="Transparent"
-                                    FontWeight="Bold" FontFamily="Arial" FontSize="14"
-                                    Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                    Text="{Binding NewProd.Name2}"  />
-                                <TextBlock Cursor="Hand" 
-                                           Grid.Column="1" 
-                                           Grid.ColumnSpan="2"
-                                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                           FontWeight="Bold" FontFamily="Arial" FontSize="14"
-                                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                                           Text="{Binding NewProd.Name2}"  />
-                           
+
+                            <TextBox
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                CharacterCasing="Upper"
+                                BorderBrush="Transparent"
+                                FontWeight="Bold" FontFamily="Arial" FontSize="14"
+                                Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                Text="{Binding NewProd.Name2}" />
+                            <TextBlock Cursor="Hand"
+                                       Grid.Column="1"
+                                       Grid.ColumnSpan="2"
+                                       Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                       FontWeight="Bold" FontFamily="Arial" FontSize="14"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Text="{Binding NewProd.Name2}" />
+
                         </Grid>
 
                     </Border>
@@ -351,7 +354,9 @@
                                      Text="{Binding NewProd.Largeur,StringFormat=0;;#}" />
                             <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
                                        Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                       VerticalAlignment="Center">X</TextBlock>
+                                       VerticalAlignment="Center">
+                                X
+                            </TextBlock>
                             <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                      Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                      BorderBrush="Transparent" Width="30" Foreground="Red" FontSize="16"
@@ -370,20 +375,20 @@
                                        VerticalAlignment="Center">
                                 Duitage :
                             </TextBlock>
-                           <Grid>
-                               <ComboBox Cursor="Hand" FontSize="16" FontFamily="arial"
-                                         IsTextSearchEnabled="True"
-                                         TextSearch.TextPath="Duitage"
-                                         Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                         HorizontalAlignment="Stretch" ItemsSource="{Binding DuitageList}"
-                                         DisplayMemberPath="Duitage" SelectedItem="{Binding NewProd.DuitageID}" />
-                               <TextBlock Cursor="Hand" FontSize="16" FontFamily="arial"
-                                          Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Center" 
-                                          Text="{Binding NewProd.DuitageID.Duitage}" />
-                           </Grid>
+                            <Grid>
+                                <ComboBox Cursor="Hand" FontSize="16" FontFamily="arial"
+                                          IsTextSearchEnabled="True"
+                                          TextSearch.TextPath="Duitage"
+                                          Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                          HorizontalAlignment="Stretch" ItemsSource="{Binding DuitageList}"
+                                          DisplayMemberPath="Duitage" SelectedItem="{Binding NewProd.DuitageID}" />
+                                <TextBlock Cursor="Hand" FontSize="16" FontFamily="arial"
+                                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Text="{Binding NewProd.DuitageID.Duitage}" />
+                            </Grid>
                         </DockPanel>
                     </Border>
                     <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0 0 1 1">
@@ -392,18 +397,18 @@
                                        HorizontalAlignment="Center">
                                 Dent :
                             </TextBlock>
-                           <Grid>
-                               <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                        FontFamily="arial" FontSize="16" HorizontalContentAlignment="Center"
-                                        Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                        VerticalContentAlignment="Center" BorderBrush="Transparent"
-                                        Text="{Binding NewProd.Dent,StringFormat=0;;#}" />
-                               <TextBlock 
-                                        FontFamily="arial" FontSize="16" HorizontalAlignment="Center"
-                                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                        VerticalAlignment="Center" 
-                                        Text="{Binding NewProd.Dent,StringFormat=0;;#}" />
-                           </Grid>
+                            <Grid>
+                                <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                         FontFamily="arial" FontSize="16" HorizontalContentAlignment="Center"
+                                         Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                         VerticalContentAlignment="Center" BorderBrush="Transparent"
+                                         Text="{Binding NewProd.Dent,StringFormat=0;;#}" />
+                                <TextBlock
+                                    FontFamily="arial" FontSize="16" HorizontalAlignment="Center"
+                                    Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding NewProd.Dent,StringFormat=0;;#}" />
+                            </Grid>
                         </DockPanel>
                     </Border>
 
@@ -425,57 +430,58 @@
                     </Border>
 
                     <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0 0 1 1">
-                       <Grid>
+                        <Grid>
                             <DockPanel Visibility="{Binding IsFicheUniDuitage,Converter={StaticResource BoolToVis}}">
-                            <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">
-                                Peigne :
-                            </TextBlock>
-                           <Grid HorizontalAlignment="Center">
-                               <ComboBox PreviewTextInput="CheckForDoubleValue"
-                                        DataObject.Pasting="Pasting_CheckDoubleValue" BorderBrush="Transparent"
-                                        Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                        FontSize="16" Width="50" FontFamily="arial" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        ItemsSource="{Binding ListPeigne}"
-                                        DisplayMemberPath="Nombre"
-                                        SelectedItem="{Binding NewProd.PeigneObj}" />
-                               <TextBlock 
-                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    Peigne :
+                                </TextBlock>
+                                <Grid HorizontalAlignment="Center">
+                                    <ComboBox PreviewTextInput="CheckForDoubleValue"
+                                              DataObject.Pasting="Pasting_CheckDoubleValue" BorderBrush="Transparent"
+                                              Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                              FontSize="16" Width="50" FontFamily="arial"
+                                              HorizontalContentAlignment="Center"
+                                              VerticalContentAlignment="Center"
+                                              ItemsSource="{Binding ListPeigne}"
+                                              DisplayMemberPath="Nombre"
+                                              SelectedItem="{Binding NewProd.PeigneObj}" />
+                                    <TextBlock
+                                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                                         FontSize="16" Width="50" FontFamily="arial" HorizontalAlignment="Right"
-                                   TextAlignment="Center"
-                                        VerticalAlignment="Center" 
+                                        TextAlignment="Center"
+                                        VerticalAlignment="Center"
                                         Text="{Binding NewProd.PeigneObj.Nombre,StringFormat=0.0;;#}" />
-                           </Grid>
-                            <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Left"
-                                       VerticalAlignment="Center">
-                                D/CM
-                            </TextBlock>
-                        </DockPanel>
-                        <DockPanel Visibility="{Binding IsFicheCrochetage,Converter={StaticResource BoolToVis}}">
-                            <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">
-                                Duitage Gomme :
-                            </TextBlock>
-                            <Grid HorizontalAlignment="Stretch">
-         
-                                <ComboBox Cursor="Hand" FontSize="16" FontFamily="arial"
-                                          Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                          
-                                          HorizontalAlignment="Stretch" ItemsSource="{Binding DuitageGoList}"
-                                          DisplayMemberPath="Duitage" SelectedItem="{Binding NewProd.DuitageGomme}" />
-                                <TextBlock 
-                                    Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                    FontSize="16"  FontFamily="arial" HorizontalAlignment="Center"
-                                    TextAlignment="Center"
-                                    VerticalAlignment="Center" 
-                                    Text="{Binding NewProd.DuitageGomme.Duitage,StringFormat=0.0;;#}" />
-                                
-                            </Grid>
-                        </DockPanel> 
-                       </Grid>
-                      
+                                </Grid>
+                                <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Left"
+                                           VerticalAlignment="Center">
+                                    D/CM
+                                </TextBlock>
+                            </DockPanel>
+                            <DockPanel Visibility="{Binding IsFicheCrochetage,Converter={StaticResource BoolToVis}}">
+                                <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    Duitage Gomme :
+                                </TextBlock>
+                                <Grid HorizontalAlignment="Stretch">
+
+                                    <ComboBox Cursor="Hand" FontSize="16" FontFamily="arial"
+                                              Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+
+                                              HorizontalAlignment="Stretch" ItemsSource="{Binding DuitageGoList}"
+                                              DisplayMemberPath="Duitage" SelectedItem="{Binding NewProd.DuitageGomme}" />
+                                    <TextBlock
+                                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                        FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                                        TextAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding NewProd.DuitageGomme.Duitage,StringFormat=0.0;;#}" />
+
+                                </Grid>
+                            </DockPanel>
+                        </Grid>
+
                     </Border>
 
                     <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="0 0 1 1">
@@ -484,23 +490,23 @@
                                        VerticalAlignment="Center">
                                 Machine :
                             </TextBlock>
-                           <Grid>
-                               <ComboBox FontSize="16" IsTextSearchEnabled="True" TextSearch.TextPath="Num"
-                                        
-                                       
-                                         FontFamily="arial" HorizontalContentAlignment="Stretch"
-                                         VerticalContentAlignment="Center" Cursor="Hand" DisplayMemberPath="Name"
-                                         Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                         HorizontalAlignment="Stretch"
-                                         
-                                         ScrollViewer.VerticalScrollBarVisibility="Visible"
-                                         SelectedItem="{Binding SelectedMachine}" ItemsSource="{Binding MachineList}" />
-                               <TextBlock FontSize="16" 
-                                          Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                          FontFamily="arial" HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
-                                          Text="{Binding NewProd.DuitageID.Machine.Name}"  />
-                           </Grid>
+                            <Grid>
+                                <ComboBox FontSize="16" IsTextSearchEnabled="True" TextSearch.TextPath="Num"
+
+
+                                          FontFamily="arial" HorizontalContentAlignment="Stretch"
+                                          VerticalContentAlignment="Center" Cursor="Hand" DisplayMemberPath="Name"
+                                          Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                          HorizontalAlignment="Stretch"
+
+                                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                          SelectedItem="{Binding SelectedMachine}" ItemsSource="{Binding MachineList}" />
+                                <TextBlock FontSize="16"
+                                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                           FontFamily="arial" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding NewProd.DuitageID.Machine.Name}" />
+                            </Grid>
                         </DockPanel>
                     </Border>
 
@@ -508,8 +514,8 @@
                 </Grid>
 
             </Grid>
-           
-            <Grid IsEnabled="{Binding EnableEditing}"  Grid.Row="2" Grid.RowSpan="2">
+
+            <Grid IsEnabled="{Binding EnableEditing}" Grid.Row="2" Grid.RowSpan="2">
 
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -527,10 +533,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.8*" />
+                    <ColumnDefinition Width="0.8*" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="3*" />
@@ -591,41 +597,41 @@
 
                     <Image Source="{Binding ChangeImageBtn9}" Cursor="Hand" />
                 </Button>
-                <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 1">
+                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Composition</TextBlock>
                 </Border>
-                <Border  Grid.Column="2" BorderBrush="Black" BorderThickness="0 1 1 1">
+                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0 1 1 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Run>Matiere 1</Run>
                         <Run Typography.Variants="Superscript">ere</Run>
                     </TextBlock>
                 </Border>
-                <Border  Grid.Column="3" BorderBrush="Black" BorderThickness="0 1 1 1">
+                <Border Grid.Column="3" BorderBrush="Black" BorderThickness="0 1 1 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         Nbr fils
                     </TextBlock>
                 </Border>
-                <Border  Grid.Column="4" BorderBrush="Black" BorderThickness="0 1 1 1">
+                <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0 1 1 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         Torsion
                     </TextBlock>
                 </Border>
-                <Border  Grid.Column="5" BorderBrush="Black" BorderThickness="0 1 1 1">
+                <Border Grid.Column="5" BorderBrush="Black" BorderThickness="0 1 1 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         Enfilage
                     </TextBlock>
                 </Border>
-                <Border  Grid.Column="6" BorderBrush="Black" BorderThickness="0 1 1 1">
+                <Border Grid.Column="6" BorderBrush="Black" BorderThickness="0 1 1 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         Emb%
                     </TextBlock>
                 </Border>
-                <Border  Grid.Column="7" BorderBrush="Black" BorderThickness="0 1 1 1">
+                <Border Grid.Column="7" BorderBrush="Black" BorderThickness="0 1 1 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         KG/1000ml
                     </TextBlock>
                 </Border>
-                <Border  Grid.Column="8" BorderBrush="Black" BorderThickness="0 1 0 1">
+                <Border Grid.Column="8" BorderBrush="Black" BorderThickness="0 1 0 1">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         Observation
                     </TextBlock>
@@ -640,22 +646,22 @@
                                   Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp1.GetComposant}" ItemsSource="{Binding ListComposant}" />
-                        <TextBlock 
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Comp1.GetComposant.Name}"  />
+                        <TextBlock
+                            TextAlignment="Center"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp1.GetComposant.Name}" />
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                 
+
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
                                  BorderThickness="0" HorizontalAlignment="Stretch" Grid.Column="1"
                                  VerticalAlignment="Center" Text="{Binding Comp1.Num,StringFormat=0;;#}" />
                         <TextBlock TextAlignment="Center"
-                                 
-                                 Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                 HorizontalAlignment="Stretch" Grid.Column="1"
-                                 VerticalAlignment="Center" Text="{Binding Comp1.Num,StringFormat=0;;#}" />
+
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   HorizontalAlignment="Stretch" Grid.Column="1"
+                                   VerticalAlignment="Center" Text="{Binding Comp1.Num,StringFormat=0;;#}" />
                     </Grid>
                 </Border>
                 <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1 0 1 1">
@@ -668,22 +674,22 @@
                                   Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp2.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp2.GetComposant.Name}"  />
-                        
+                            Text="{Binding Comp2.GetComposant.Name}" />
+
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
                                  BorderThickness="0" HorizontalAlignment="Stretch" Grid.Column="1"
                                  VerticalAlignment="Center" Text="{Binding Comp2.Num,StringFormat=0;;#}" />
-                        <TextBlock 
-                                 TextAlignment="Center"
-                                 Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                 HorizontalAlignment="Stretch" Grid.Column="1"
-                                 VerticalAlignment="Center" Text="{Binding Comp2.Num,StringFormat=0;;#}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            HorizontalAlignment="Stretch" Grid.Column="1"
+                            VerticalAlignment="Center" Text="{Binding Comp2.Num,StringFormat=0;;#}" />
                     </Grid>
                 </Border>
                 <Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="1 0 1 1">
@@ -696,17 +702,17 @@
                                   Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp3.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp3.GetComposant.Name}"  />
+                            Text="{Binding Comp3.GetComposant.Name}" />
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
                                  BorderThickness="0" HorizontalAlignment="Stretch" Grid.Column="1"
                                  VerticalAlignment="Center" Text="{Binding Comp3.Num,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             HorizontalAlignment="Stretch" Grid.Column="1"
@@ -723,17 +729,17 @@
                                   Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp4.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp4.GetComposant.Name}"  />
+                            Text="{Binding Comp4.GetComposant.Name}" />
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
                                  BorderThickness="0" HorizontalAlignment="Stretch" Grid.Column="1"
                                  VerticalAlignment="Center" Text="{Binding Comp4.Num,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             HorizontalAlignment="Stretch" Grid.Column="1"
@@ -750,17 +756,17 @@
                                   Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp5.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp5.GetComposant.Name}"  />
+                            Text="{Binding Comp5.GetComposant.Name}" />
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
                                  BorderThickness="0" HorizontalAlignment="Stretch" Grid.Column="1"
                                  VerticalAlignment="Center" Text="{Binding Comp5.Num,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             HorizontalAlignment="Stretch" Grid.Column="1"
@@ -777,18 +783,18 @@
                                   Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp6.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp6.GetComposant.Name}"  />
+                            Text="{Binding Comp6.GetComposant.Name}" />
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  BorderThickness="0"
                                  Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
                                  HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Center"
                                  Text="{Binding Comp6.Num,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             HorizontalAlignment="Stretch" Grid.Column="1"
@@ -805,18 +811,18 @@
                                   Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp7.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp7.GetComposant.Name}"  />
+                            Text="{Binding Comp7.GetComposant.Name}" />
                         <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  BorderThickness="0"
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
                                  HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Center"
                                  Text="{Binding Comp7.Num,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             HorizontalAlignment="Stretch" Grid.Column="1"
@@ -833,18 +839,18 @@
                                   Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp8.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp8.GetComposant.Name}"  />
+                            Text="{Binding Comp8.GetComposant.Name}" />
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  BorderThickness="0"
                                  Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
                                  HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Center"
                                  Text="{Binding Comp8.Num,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             HorizontalAlignment="Stretch" Grid.Column="1"
@@ -861,18 +867,18 @@
                                   Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   SelectedItem="{Binding Comp9.GetComposant}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp9.GetComposant.Name}"  />
+                            Text="{Binding Comp9.GetComposant.Name}" />
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
                                  BorderThickness="0"
                                  Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
                                  HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Center"
                                  Text="{Binding Comp9.Num,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             HorizontalAlignment="Stretch" Grid.Column="1"
@@ -883,42 +889,42 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox VerticalAlignment="Center"
                                   Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere1}"
                                   DisplayMemberPath="MatiereNom" ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock     TextAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                   Text="{Binding Comp1.GetMatiere.Titrage.TypeMatiere.MatiereNom}" VerticalAlignment="Center"
-                                  />
+                        <TextBlock TextAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp1.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
+                                   VerticalAlignment="Center" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage1}"
                                   ItemsSource="{Binding ListTitrage1}" />
-                        <TextBlock 
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                                   Text="{Binding Comp1.GetMatiere.Titrage.Designation}" TextAlignment="Center" VerticalAlignment="Center"
-                                  />
+                        <TextBlock
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
+                             HorizontalAlignment="Center"
+                            Text="{Binding Comp1.GetMatiere.Titrage.Designation}" TextAlignment="Center"
+                            VerticalAlignment="Center" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor1}"
                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                   ItemsSource="{Binding ListCouleur1}" />
-                        <TextBlock 
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
-                                  Text="{Binding Comp1.GetMatiere.GetCouleur.Name}"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   />
+                        <TextBlock
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
+                            Text="{Binding Comp1.GetMatiere.GetCouleur.Name}"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
@@ -927,286 +933,272 @@
                                   ItemsSource="{Binding ListTypeMatiere}" />
                         <TextBlock
                             HorizontalAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                   Text="{Binding Comp2.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                                   />
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp2.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage2}"
                                   ItemsSource="{Binding ListTitrage2}" />
-                        <TextBlock  TextAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                                 Text="{Binding Comp2.GetMatiere.Titrage.Designation}"
-                                  />
+                        <TextBlock TextAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                    HorizontalAlignment="Center"
+                                   Grid.Column="1"
+                                   Text="{Binding Comp2.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor2}"
                                   ItemsSource="{Binding ListCouleur2}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp2.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="3">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
                                   Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere3}"
                                   ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp3.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                        />
+                            Text="{Binding Comp3.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage3}"
                                   ItemsSource="{Binding ListTitrage3}" />
-                        <TextBlock 
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                                  Text="{Binding Comp3.GetMatiere.Titrage.Designation}"
-                                   />
+                        <TextBlock
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
+                             HorizontalAlignment="Center"
+                            Text="{Binding Comp3.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor3}"
                                   ItemsSource="{Binding ListCouleur3}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp3.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="4">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
                                   Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere4}"
                                   ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp4.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                        />
+                            Text="{Binding Comp4.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage4}"
                                   ItemsSource="{Binding ListTitrage4}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                            Text="{Binding Comp4.GetMatiere.Titrage.Designation}"
-                        />
+                             HorizontalAlignment="Center"
+                            Text="{Binding Comp4.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor4}"
                                   ItemsSource="{Binding ListCouleur4}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp4.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
                                   Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere5}"
                                   ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp5.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                        />
+                            Text="{Binding Comp5.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage5}"
                                   ItemsSource="{Binding ListTitrage5}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                            Text="{Binding Comp5.GetMatiere.Titrage.Designation}"
-                        />
+                             HorizontalAlignment="Center"
+                            Text="{Binding Comp5.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor5}"
                                   ItemsSource="{Binding ListCouleur5}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp5.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="6">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
                                   Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere6}"
                                   ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp6.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                        />
+                            Text="{Binding Comp6.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage6}"
                                   ItemsSource="{Binding ListTitrage6}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                            Text="{Binding Comp6.GetMatiere.Titrage.Designation}"
-                        />
+                             HorizontalAlignment="Center"
+                            Text="{Binding Comp6.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor6}"
                                   ItemsSource="{Binding ListCouleur6}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp6.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="7">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
                                   Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere7}"
                                   ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp7.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                        />
+                            Text="{Binding Comp7.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage7}"
                                   ItemsSource="{Binding ListTitrage7}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                            Text="{Binding Comp7.GetMatiere.Titrage.Designation}"
-                        />
+                             HorizontalAlignment="Center"
+                            Text="{Binding Comp7.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor7}"
                                   ItemsSource="{Binding ListCouleur7}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp7.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="8">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
                                   Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere8}"
                                   ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp8.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                        />
+                            Text="{Binding Comp8.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage8}"
                                   ItemsSource="{Binding ListTitrage8}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                            Text="{Binding Comp8.GetMatiere.Titrage.Designation}"
-                        />
+                             HorizontalAlignment="Center"
+                            Text="{Binding Comp8.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor8}"
                                   ItemsSource="{Binding ListCouleur8}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp8.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="2" Grid.Row="9">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox DisplayMemberPath="MatiereNom"
                                   Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="0" SelectedItem="{Binding SelectedTypeMatiere9}"
                                   ItemsSource="{Binding ListTypeMatiere}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                            Text="{Binding Comp9.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
-                        />
+                            Text="{Binding Comp9.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
                         <ComboBox DisplayMemberPath="Designation"
                                   Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage9}"
                                   ItemsSource="{Binding ListTitrage9}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center" VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                            Text="{Binding Comp9.GetMatiere.Titrage.Designation}"
-                        />
+                            Text="{Binding Comp9.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor9}"
                                   ItemsSource="{Binding ListCouleur9}" />
-                        <TextBlock 
+                        <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
+                            
                             Text="{Binding Comp9.GetMatiere.GetCouleur.Name}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                        />
+                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="1">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp1.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                       <TextBlock 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                                Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp1.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                   </Grid>
-                    
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp1.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp1.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                    </Grid>
+
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="2">
                     <Grid>
@@ -1214,24 +1206,24 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp2.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp2.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
                     </Grid>
-                    
+
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="3">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp3.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                       <TextBlock 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp3.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp3.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp3.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="4">
                     <Grid>
@@ -1239,7 +1231,7 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp4.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp4.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
@@ -1251,23 +1243,23 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp5.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp5.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="6">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp6.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                       <TextBlock 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp6.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp6.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp6.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="7">
                     <Grid>
@@ -1275,35 +1267,35 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp7.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp7.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="8">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp8.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                       <TextBlock 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp8.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp8.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp8.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="3" Grid.Row="9">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp9.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                       <TextBlock 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp9.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp9.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp9.NbrFil,StringFormat=0;;#,Mode=TwoWay}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="4" Grid.Row="1">
                     <Grid>
@@ -1311,29 +1303,29 @@
                                  Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp1.Torsion}" />
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                 Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                 Text="{Binding Comp1.Torsion}" />
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp1.Torsion}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="4" Grid.Row="2">
-                   <Grid>
-                       <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp2.Torsion}" />
-                       <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Comp2.Torsion}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp2.Torsion}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp2.Torsion}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="4" Grid.Row="3">
-                   <Grid>
-                       <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp3.Torsion}" />
-                       <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Comp3.Torsion}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp3.Torsion}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp3.Torsion}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="4" Grid.Row="4">
                     <Grid>
@@ -1346,14 +1338,14 @@
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="4" Grid.Row="5">
-                   <Grid>
-                       <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp5.Torsion}" />
-                       <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Comp5.Torsion}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp5.Torsion}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp5.Torsion}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="4" Grid.Row="6">
                     <Grid>
@@ -1401,10 +1393,10 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp1.Enfilage,StringFormat=0;;#}" />
-                        <TextBlock 
-                                 HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                                 Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                 Text="{Binding Comp1.Enfilage,StringFormat=0;;#}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp1.Enfilage,StringFormat=0;;#}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="5" Grid.Row="2">
@@ -1413,23 +1405,23 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp2.Enfilage,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp2.Enfilage,StringFormat=0;;#}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="5" Grid.Row="3">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp3.Enfilage,StringFormat=0;;#}" />
-                       <TextBlock 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp3.Enfilage,StringFormat=0;;#}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp3.Enfilage,StringFormat=0;;#}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp3.Enfilage,StringFormat=0;;#}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="5" Grid.Row="4">
                     <Grid>
@@ -1437,7 +1429,7 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp4.Enfilage,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp4.Enfilage,StringFormat=0;;#}" />
@@ -1449,35 +1441,35 @@
                                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp5.Enfilage,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp5.Enfilage,StringFormat=0;;#}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="5" Grid.Row="6">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp6.Enfilage,StringFormat=0;;#}" />
-                       <TextBlock 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp6.Enfilage,StringFormat=0;;#}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp6.Enfilage,StringFormat=0;;#}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp6.Enfilage,StringFormat=0;;#}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="5" Grid.Row="7">
-                   <Grid>
-                       <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp7.Enfilage,StringFormat=0;;#}" />
-                       <TextBlock 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp7.Enfilage,StringFormat=0;;#}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp7.Enfilage,StringFormat=0;;#}" />
+                        <TextBlock
+                            HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp7.Enfilage,StringFormat=0;;#}" />
+                    </Grid>
                 </Border>
                 <Border PreviewTextInput="Comp1NbrFilAccept" DataObject.Pasting="TextBox_Pasting" BorderBrush="Black"
                         BorderThickness="0 0 1 1" Grid.Column="5" Grid.Row="8">
@@ -1485,7 +1477,7 @@
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp8.Enfilage,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp8.Enfilage,StringFormat=0;;#}" />
@@ -1497,7 +1489,7 @@
                         <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                  Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp9.Enfilage,StringFormat=0;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp9.Enfilage,StringFormat=0;;#}" />
@@ -1510,20 +1502,20 @@
                                  Text="{Binding Comp1.Emb}" />
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                    TextAlignment="Center"
-                                 Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                 Text="{Binding Comp1.Emb}" />
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp1.Emb}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="6" Grid.Row="2">
-                   <Grid>
-                       <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp2.Emb}" />
-                       <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  TextAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Comp2.Emb}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp2.Emb}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp2.Emb}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="6" Grid.Row="3">
                     <Grid>
@@ -1537,15 +1529,15 @@
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="6" Grid.Row="4">
-                   <Grid>
-                       <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp4.Emb}" />
-                       <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  TextAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Comp4.Emb}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp4.Emb}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp4.Emb}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="6" Grid.Row="5">
                     <Grid>
@@ -1570,15 +1562,15 @@
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="6" Grid.Row="7">
-                 <Grid>
-                     <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                              Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
-                              Text="{Binding Comp7.Emb}" />
-                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                TextAlignment="Center"
-                                Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp7.Emb}" />
-                 </Grid>
+                    <Grid>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp7.Emb}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp7.Emb}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="6" Grid.Row="8">
                     <Grid>
@@ -1590,30 +1582,30 @@
                                    Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                                    Text="{Binding Comp8.Emb}" />
                     </Grid>
-                    
+
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="6" Grid.Row="9">
-                   <Grid>
-                       <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp9.Emb}" />
-                       <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  TextAlignment="Center"
-                                  Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Comp9.Emb}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp9.Emb}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                   Text="{Binding Comp9.Emb}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="1">
-                   <Grid>
-                       <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
-                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                                Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp1.Poids,StringFormat=0.000;;#}" />
-                       <TextBlock 
-                                VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
-                                Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp1.Poids,StringFormat=0.000;;#}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                                 Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp1.Poids,StringFormat=0.000;;#}" />
+                        <TextBlock
+                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp1.Poids,StringFormat=0.000;;#}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="2">
                     <Grid>
@@ -1621,23 +1613,23 @@
                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                  Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp2.Poids,StringFormat=0.000;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp2.Poids,StringFormat=0.000;;#}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="3">
-                   <Grid>
-                       <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
-                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                                Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp3.Poids,StringFormat=0.000;;#}" />
-                       <TextBlock 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp3.Poids,StringFormat=0.000;;#}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                                 Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp3.Poids,StringFormat=0.000;;#}" />
+                        <TextBlock
+                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp3.Poids,StringFormat=0.000;;#}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="4">
                     <Grid>
@@ -1645,7 +1637,7 @@
                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                  Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp4.Poids,StringFormat=0.000;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp4.Poids,StringFormat=0.000;;#}" />
@@ -1657,23 +1649,23 @@
                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                  Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp5.Poids,StringFormat=0.000;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp5.Poids,StringFormat=0.000;;#}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="6">
-                   <Grid>
-                       <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
-                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                                Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp6.Poids,StringFormat=0.000;;#}" />
-                       <TextBlock 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp6.Poids,StringFormat=0.000;;#}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                                 Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp6.Poids,StringFormat=0.000;;#}" />
+                        <TextBlock
+                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp6.Poids,StringFormat=0.000;;#}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="7">
                     <Grid>
@@ -1681,23 +1673,23 @@
                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                  Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp7.Poids,StringFormat=0.000;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp7.Poids,StringFormat=0.000;;#}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="8">
-                   <Grid>
-                       <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
-                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                                Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp8.Poids,StringFormat=0.000;;#}" />
-                       <TextBlock 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp8.Poids,StringFormat=0.000;;#}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox PreviewTextInput="CheckForDoubleValue" DataObject.Pasting="Pasting_CheckDoubleValue"
+                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                                 Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp8.Poids,StringFormat=0.000;;#}" />
+                        <TextBlock
+                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp8.Poids,StringFormat=0.000;;#}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 1 1" Grid.Column="7" Grid.Row="9">
                     <Grid>
@@ -1705,7 +1697,7 @@
                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                  Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp9.Poids,StringFormat=0.000;;#}" />
-                        <TextBlock 
+                        <TextBlock
                             VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp9.Poids,StringFormat=0.000;;#}" />
@@ -1716,60 +1708,60 @@
                                Text="{Binding TotalPoids,StringFormat=0.000;;#}" />
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="1">
-                 <Grid>
-                     <TextBox Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
-                              Text="{Binding Comp1.Observation}" />
-                     <TextBlock 
-                         TextAlignment="Center"
-                         Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                              Text="{Binding Comp1.Observation}" />
-                 </Grid>
+                    <Grid>
+                        <TextBox Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp1.Observation}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp1.Observation}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="2">
                     <Grid>
                         <TextBox Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp2Observation}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp2.Observation}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="3">
-                   <Grid>
-                       <TextBox Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp3.Observation}" />
-                       <TextBlock 
-                           TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp3.Observation}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp3.Observation}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp3.Observation}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="4">
-                   <Grid>
-                       <TextBox Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp4.Observation}" />
-                       <TextBlock 
-                           TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp4.Observation}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp4.Observation}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp4.Observation}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="5">
-                   <Grid>
-                       <TextBox Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
-                                Text="{Binding Comp5.Observation}" />
-                       <TextBlock 
-                           TextAlignment="Center"
-                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                           Text="{Binding Comp5.Observation}" />
-                   </Grid>
+                    <Grid>
+                        <TextBox Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp5.Observation}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp5.Observation}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="6">
                     <Grid>
                         <TextBox Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp6.Observation}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp6.Observation}" />
@@ -1779,27 +1771,27 @@
                     <Grid>
                         <TextBox Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp7.Observation}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp7.Observation}" />
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="8">
-                  <Grid>
-                      <TextBox Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
-                               Text="{Binding Comp8.Observation}" />
-                      <TextBlock 
-                          TextAlignment="Center"
-                          Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                          Text="{Binding Comp8.Observation}" />
-                  </Grid>
+                    <Grid>
+                        <TextBox Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}"
+                                 Text="{Binding Comp8.Observation}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                            Text="{Binding Comp8.Observation}" />
+                    </Grid>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="0 0 0 1" Grid.Column="8" Grid.Row="9">
                     <Grid>
                         <TextBox Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}"
                                  Text="{Binding Comp9.Observation}" />
-                        <TextBlock 
+                        <TextBlock
                             TextAlignment="Center"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                             Text="{Binding Comp9.Observation}" />
@@ -1811,10 +1803,10 @@
 
             </Grid>
 
- <Border 
-                
+            <Border
+
                 Visibility="{Binding IsFicheNormal,Converter={StaticResource BoolToVis}}"
-                Grid.Row="0" Grid.Column="1"   Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black">
+                Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black">
                 <Grid ZIndex="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.6*" />
@@ -1831,8 +1823,8 @@
 
                     </Border>
                     <DockPanel ZIndex="8" Grid.Row="1" LastChildFill="False">
-                        <Image DockPanel.Dock="Top"  
-                               
+                        <Image DockPanel.Dock="Top"
+
                                Source="{Binding ImageProd}">
                             <Image.Triggers>
                                 <EventTrigger RoutedEvent="Image.MouseEnter">
@@ -1843,19 +1835,18 @@
                                 </EventTrigger>
                             </Image.Triggers>
                             <Image.RenderTransform>
-                                <ScaleTransform  CenterX="150" CenterY="0" ScaleX="1" ScaleY="1"/>
+                                <ScaleTransform CenterX="150" CenterY="0" ScaleX="1" ScaleY="1" />
                             </Image.RenderTransform>
                         </Image>
-                        <CustClass:GitHubButton DockPanel.Dock="Bottom" Height="25" Width="25" FontSize="10"  Cursor="Hand" 
-                                                Style="{StaticResource ImageLBtn}" 
+                        <CustClass:GitHubButton DockPanel.Dock="Bottom" Width="25" FontSize="10" Cursor="Hand"
+                                                Style="{StaticResource ImageLBtn}"
                                                 Command="{Binding CmdSelectImage}"
-                                                Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" 
-                        ></CustClass:GitHubButton>
+                                                Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" />
                     </DockPanel>
                 </Grid>
             </Border>
             <Border
-                
+
                 Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis}}"
                 Margin="0 30 0 0" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black">
                 <Grid ZIndex="8">
@@ -1874,17 +1865,16 @@
 
                     </Border>
                     <DockPanel Grid.Row="1" LastChildFill="False">
-                        <Image DockPanel.Dock="Top"   
+                        <Image DockPanel.Dock="Top"
                                Source="{Binding ImageProd}">
-                        <Image.RenderTransform>
-                            <ScaleTransform ScaleX="5" ScaleY="5"></ScaleTransform>
-                        </Image.RenderTransform>
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="5" ScaleY="5" />
+                            </Image.RenderTransform>
                         </Image>
-                        <CustClass:GitHubButton DockPanel.Dock="Bottom" Height="25" Width="25" FontSize="10"  Cursor="Hand" 
-                                                Style="{StaticResource ImageLBtn}" 
+                        <CustClass:GitHubButton DockPanel.Dock="Bottom" Width="25" FontSize="10" Cursor="Hand"
+                                                Style="{StaticResource ImageLBtn}"
                                                 Command="{Binding CmdSelectImage}"
-                                                Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                        ></CustClass:GitHubButton>
+                                                Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" />
                     </DockPanel>
                 </Grid>
             </Border>
@@ -1938,13 +1928,16 @@
                     <Grid Grid.Column="1">
                         <ComboBox FontFamily="arial" Cursor="Hand" FontSize="16" BorderBrush="Transparent"
                                   Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
-                                  SelectedItem="{Binding Path=NewProd.Concepteur}" ItemsSource="{Binding ListConcepteur}"
+                                  HorizontalContentAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  SelectedItem="{Binding Path=NewProd.Concepteur}"
+                                  ItemsSource="{Binding ListConcepteur}"
                                   DisplayMemberPath="Name" />
-                        <TextBlock FontFamily="arial" Cursor="Hand" FontSize="16"  Grid.Column="1" HorizontalAlignment="Center"
+                        <TextBlock FontFamily="arial" Cursor="Hand" FontSize="16" Grid.Column="1"
+                                   HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                  Text="{Binding Path=NewProd.Concepteur.Name}"
-                                />
+                                   Text="{Binding Path=NewProd.Concepteur.Name}" />
                     </Grid>
                 </Grid>
 
@@ -1957,16 +1950,17 @@
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="16" Margin="5 0 0 0" FontFamily="Times New Roman" VerticalAlignment="Center">Nom:</TextBlock>
-                    <Grid Grid.Column="1" >
+                    <Grid Grid.Column="1">
                         <ComboBox FontFamily="arial" Cursor="Hand" FontSize="16" DisplayMemberPath="Name"
                                   Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                  HorizontalContentAlignment="Center"
+                                  VerticalContentAlignment="Center"
                                   BorderBrush="Transparent" SelectedItem="{Binding Path=NewProd.Verificateur}"
                                   ItemsSource="{Binding ListVerificateur}" />
                         <TextBlock FontFamily="arial" Cursor="Hand" FontSize="16" HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                   Text="{Binding Path=NewProd.Verificateur.Name}"
-                                   />
+                                   Text="{Binding Path=NewProd.Verificateur.Name}" />
                     </Grid>
                 </Grid>
 
@@ -1983,11 +1977,12 @@
                                FontSize="16" FontFamily="Times New Roman" VerticalAlignment="Center"
                                Text="{Binding NewProd.DateCreation, StringFormat={}{0:dd MMMM yyyy}}" />
 
-                    <DatePicker  Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" FontFamily="arial"
+                    <DatePicker Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" FontFamily="arial"
                                 FontSize="14" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
                                 DisplayDateEnd="{Binding DateEndLimit}"
                                 IsEnabled="{Binding IsDateCr}"
-                                BorderBrush="Transparent" Grid.Column="1" SelectedDate="{Binding NewProd.DateCreation}" DisplayDate="{Binding CreationDisplayDate}">
+                                BorderBrush="Transparent" Grid.Column="1" SelectedDate="{Binding NewProd.DateCreation}"
+                                DisplayDate="{Binding CreationDisplayDate}">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="Control.Template">
@@ -2016,7 +2011,8 @@
                                FontSize="16" FontFamily="Times New Roman" VerticalAlignment="Center"
                                Text="{Binding NewProd.MiseAJour, StringFormat={}{0:dd MMMM yyyy}}" />
 
-                    <DatePicker IsEnabled="{Binding IsUpdate}" Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" FontFamily="arial"
+                    <DatePicker IsEnabled="{Binding IsUpdate}"
+                                Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" FontFamily="arial"
                                 VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="14"
                                 DisplayDateEnd="{Binding DateEndLimit}"
                                 BorderBrush="Transparent" Grid.Column="1" SelectedDate="{Binding NewProd.MiseAJour}">
@@ -2030,7 +2026,7 @@
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
-                                
+
                             </Style>
                         </DatePicker.Resources>
 
@@ -2049,28 +2045,27 @@
                                VerticalAlignment="Center">
                         Nom:
                     </TextBlock>
-                    <ComboBox 
-                        Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" 
-                              Grid.Column="1"
-                               FontSize="14" FontFamily="arial" 
-                               ItemsSource="{Binding ListRedacteur}"
-                               VerticalContentAlignment="Center"
-                               BorderBrush="Transparent" 
-                               SelectedItem="{Binding NewProd.RedacteurObj}" 
-                               DisplayMemberPath="Name"
-                               />
-                    <TextBlock Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" 
-                                FontSize="16"  VerticalAlignment="Center"
-                                FontFamily="Times New Roman"
-                                Grid.Column="1" Text="{Binding NewProd.RedacteurObj.Name}">
-                       
-                    </TextBlock>
+                    <ComboBox
+                        Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                        Grid.Column="1"
+                        FontSize="14" FontFamily="arial"
+                        ItemsSource="{Binding ListRedacteur}"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="Transparent"
+                        SelectedItem="{Binding NewProd.RedacteurObj}"
+                        DisplayMemberPath="Name" />
+                    <TextBlock Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                               FontSize="16" VerticalAlignment="Center"
+                               FontFamily="Times New Roman"
+                               Grid.Column="1" Text="{Binding NewProd.RedacteurObj.Name}" />
                 </Grid>
 
             </Border>
         </Grid>
-        <Border  Grid.Row="5" Margin="10" Background="Gray"  Height="40" Width="50" HorizontalAlignment="Left" >
-         <TextBlock FontFamily="Times New Roman" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Text="{Binding Ordre}"></TextBlock>   
+        <Border Grid.Row="5" Margin="10" Background="Gray" Height="40" Width="50" HorizontalAlignment="Left">
+            <TextBlock FontFamily="Times New Roman" Foreground="White" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Text="{Binding Ordre}" />
         </Border>
 
     </Grid>

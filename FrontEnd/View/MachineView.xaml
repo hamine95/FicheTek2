@@ -14,102 +14,157 @@
     <TabControl>
         <TabItem Header="Machine">
             <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="4*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2.2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2.2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
 
-        <GroupBox Grid.Row="0" VerticalContentAlignment="Stretch" BorderBrush="CadetBlue" BorderThickness="2"
-                  Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
-                  Header="Ajouter Nouvelle Model Machine">
+                <GroupBox Grid.Row="0" VerticalContentAlignment="Stretch" BorderBrush="CadetBlue" BorderThickness="2"
+                          Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
+                          Header="Ajouter Nouvelle Model Machine">
 
-            <TabControl>
-                <TabItem FontSize="14" Header="Tissage">
+                    <TabControl>
+                        <TabItem FontSize="14" Header="Tissage">
+                            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="0.5*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Nom Model:
+                                </TextBlock>
+                                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black"
+                                         MaxHeight="30"
+                                         VerticalContentAlignment="Center"
+                                         FontSize="12" 
+                                         Text="{Binding NomModel}" />
+
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Nombre Bande:
+                                </TextBlock>
+                                <TextBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30" 
+                                         VerticalContentAlignment="Center"
+                                         FontSize="12" 
+                                         Text="{Binding NbrBande}" />
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Largeur Maximale:
+                                </TextBlock>
+                                <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="30" 
+                                         VerticalContentAlignment="Center"
+                                         FontSize="12" 
+                                         Text="{Binding MaxWidth}" />
+
+
+                                <Button Command="{Binding AjouterNovModelMachine}" Grid.Row="4" Grid.Column="3"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="30">
+                                    Ajouter
+                                </Button>
+                            </Grid>
+                        </TabItem>
+                        <TabItem FontSize="14" Header="Crochetage">
+                            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*" />
+                                    <RowDefinition Height="4*" />
+
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="0.5*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Nom Model:
+                                </TextBlock>
+                                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black"
+                                         MaxHeight="25"
+                                         FontSize="16" Text="{Binding CrochetNomModel}" />
+
+
+                                <Button Command="{Binding AjouterCrochetNovModelMachine}" Grid.Row="2" Grid.Column="3"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Ajouter
+                                </Button>
+                            </Grid>
+                        </TabItem>
+                        <TabItem FontSize="14" Header="Tressage">
+                            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*" />
+                                    <RowDefinition Height="4*" />
+
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="0.5*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Nom Model:
+                                </TextBlock>
+                                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black"
+                                         MaxHeight="25"
+                                         FontSize="16" Text="{Binding TresseNomModel}" />
+
+
+                                <Button Command="{Binding AjouterTresseNovModelMachine}" Grid.Row="2" Grid.Column="3"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Ajouter
+                                </Button>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </GroupBox>
+
+                <GroupBox Grid.Row="2" VerticalContentAlignment="Stretch"
+                          IsEnabled="{Binding IsEditModelEnabled}"
+                          BorderBrush="CadetBlue" BorderThickness="2"
+                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                          Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
+                          Header="Modifier Model Machine">
+
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
-                           FontWeight="Bold">
-                    Nom Model:
-                </TextBlock>
-                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30"
-                         FontSize="14" Text="{Binding NomModel}" />
-
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2" FontSize="12"
-                           FontWeight="Bold">
-                    Nombre Bande:
-                </TextBlock>
-                <TextBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="14"
-                         Text="{Binding NbrBande}" />
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="12"
-                           FontWeight="Bold">
-                    Largeur Maximale:
-                </TextBlock>
-                <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="14"
-                         Text="{Binding MaxWidth}" />
-                
-               
-                <Button Command="{Binding AjouterNovModelMachine}" Grid.Row="4" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="14" MaxHeight="30">
-                    Ajouter
-                </Button>
-            </Grid>
-                </TabItem>
-                 <TabItem   FontSize="14" Header="Crochetage">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="4*" />
-                   
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
-                           FontWeight="Bold">
-                    Nom Model:
-                </TextBlock>
-                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25"
-                         FontSize="16" Text="{Binding CrochetNomModel}" />
-
-               
-               
-                <Button Command="{Binding AjouterCrochetNovModelMachine}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="14" MaxHeight="25">
-                    Ajouter
-                </Button>
-            </Grid>
-                </TabItem>
-                <TabItem  FontSize="14" Header="Tressage">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="7*" />
@@ -120,692 +175,716 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.5*" />
                             <RowDefinition Height="4*" />
-                   
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
                             <RowDefinition Height="4*" />
                             <RowDefinition Height="0.5*" />
                         </Grid.RowDefinitions>
-                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="12"
                                    FontWeight="Bold">
                             Nom Model:
                         </TextBlock>
                         <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25"
-                                 FontSize="16" Text="{Binding TresseNomModel}" />
+                                 FontSize="14" Text="{Binding NovNomModel}" />
 
-               
-               
-                        <Button Command="{Binding AjouterTresseNovModelMachine}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
+
+                        <TextBlock Grid.Row="2"
+                                   VerticalAlignment="Center" Foreground="Black" FontSize="12"
+                                   Grid.Column="1">
+                            Méthode:
+                        </TextBlock>
+                        <ComboBox ItemsSource="{Binding MethodList}" SelectedItem="{Binding SelectedMethod}"
+                                  Grid.Column="3" Grid.Row="2" FontSize="12" MaxHeight="25" />
+                        <TextBlock VerticalAlignment="Center" Foreground="Black"
+                                   Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
+                                   Grid.Column="1" Grid.Row="3" FontSize="12"
+                                   FontWeight="Bold">
+                            Nombre Bande:
+                        </TextBlock>
+                        <TextBox Grid.Row="3"
+                                 Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
+                                 Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                 Text="{Binding NovNbrBande}" />
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1"
+                                   Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
+                                   Grid.Row="4" FontSize="12"
+                                   FontWeight="Bold">
+                            Largeur Maximale:
+                        </TextBlock>
+                        <TextBox Grid.Row="4" Grid.Column="3" Foreground="Black"
+                                 Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
+                                 MaxHeight="25" FontSize="14"
+                                 Text="{Binding NovMaxWidth}" />
+                        <Button Command="{Binding CancelModelCmd}" Grid.Row="5" Grid.Column="1" Foreground="SteelBlue"
+                                FontSize="16"
+                                MaxHeight="25">
+                            Annuler
+                        </Button>
+
+                        <Button Command="{Binding SaveModelChange}" Grid.Row="5" Grid.Column="3" Foreground="SteelBlue"
                                 FontSize="14" MaxHeight="25">
                             Ajouter
                         </Button>
                     </Grid>
-                </TabItem>
-            </TabControl>
-        </GroupBox>
-        
-<GroupBox Grid.Row="2" VerticalContentAlignment="Stretch" 
-          IsEnabled="{Binding IsEditModelEnabled}"
-          BorderBrush="CadetBlue" BorderThickness="2"
-          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                  Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
-                  Header="Modifier Model Machine">
+                </GroupBox>
+                <GroupBox Grid.Row="1" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="2" FontSize="16"
+                          FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouveau Machine">
 
-            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
-                           FontWeight="Bold">
-                    Nom Model:
-                </TextBlock>
-                <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25"
-                         FontSize="14" Text="{Binding NovNomModel}" />
-                
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="0.5*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Numéro:
+                        </TextBlock>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Designation:
+                        </TextBlock>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Modèle:
+                        </TextBlock>
 
-                <TextBlock  Grid.Row="2" 
-                            VerticalAlignment="Center" Foreground="Black" FontSize="12"
-                            Grid.Column="1" >Méthode:</TextBlock>
-                <ComboBox ItemsSource="{Binding MethodList}" SelectedItem="{Binding SelectedMethod}"  Grid.Column="3" Grid.Row="2" FontSize="12" MaxHeight="25">
-                    
-                </ComboBox>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" 
-                           Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
-                           Grid.Column="1" Grid.Row="3" FontSize="12"
-                           FontWeight="Bold">
-                    Nombre Bande:
-                </TextBlock>
-                <TextBox Grid.Row="3" 
-                         Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
-                         Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                         Text="{Binding NovNbrBande}" />
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" 
-                           Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
-                           Grid.Row="4" FontSize="12"
-                           FontWeight="Bold">
-                    Largeur Maximale:
-                </TextBlock>
-                <TextBox Grid.Row="4" Grid.Column="3" Foreground="Black" 
-                         Visibility="{Binding IsTissage,Converter={StaticResource BoolToVis}}"
-                         MaxHeight="25" FontSize="14"
-                         Text="{Binding NovMaxWidth}" />
-                <Button Command="{Binding CancelModelCmd}" Grid.Row="5" Grid.Column="1" Foreground="SteelBlue" FontSize="16"
-                        MaxHeight="25">
-                    Annuler
-                </Button>
-               
-                <Button Command="{Binding SaveModelChange}" Grid.Row="5" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="14" MaxHeight="25">
-                    Ajouter
-                </Button>
-            </Grid>
-        </GroupBox>
-        <GroupBox  Grid.Row="1" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="2" FontSize="16"
-                  FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouveau Machine">
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="16"
+                                 Text="{Binding Num}" />
+                        <TextBox IsEnabled="False" Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30"
+                                 FontSize="16"
+                                 Text="{Binding Designation}" />
 
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="16"
-                           FontWeight="Bold">
-                    Numéro:
-                </TextBlock>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2" FontSize="16"
-                           FontWeight="Bold">
-                    Designation:
-                </TextBlock>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="16"
-                           FontWeight="Bold">
-                    Modèle:
-                </TextBlock>
+                        <ComboBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="12"
+                                  DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineModel}"
+                                  ItemsSource="{Binding ListMachineModel}" />
 
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="16"
-                         Text="{Binding Num}" />
-                <TextBox IsEnabled="False" Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="16"
-                         Text="{Binding Designation}" />
+                        <!-- <CheckBox FontSize="12" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" IsChecked="{Binding DoubleDuitage}">Deux duitage</CheckBox> -->
+                        <Button Command="{Binding AjouterNovMachine}" Grid.Row="5" Grid.Column="3"
+                                Foreground="SteelBlue"
+                                FontSize="14" MaxHeight="30">
+                            Ajouter
+                        </Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox
+                    IsEnabled="{Binding IsEditEnabled}"
+                    Margin="5" BorderBrush="CadetBlue" BorderThickness="2"
+                    Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                    Grid.Row="3" Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
+                    Header="Modifier Machine">
 
-                <ComboBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="12"
-                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineModel}"
-                          ItemsSource="{Binding ListMachineModel}" />
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="0.5*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Numéro:
+                        </TextBlock>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Désignation:
+                        </TextBlock>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Modèle:
+                        </TextBlock>
 
-                <!-- <CheckBox FontSize="12" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" IsChecked="{Binding DoubleDuitage}">Deux duitage</CheckBox> -->
-                <Button Command="{Binding AjouterNovMachine}" Grid.Row="5" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="14" MaxHeight="30">
-                    Ajouter
-                </Button>
-            </Grid>
-        </GroupBox>
-        <GroupBox 
-            IsEnabled="{Binding IsEditEnabled}"
-            Margin="5" BorderBrush="CadetBlue" BorderThickness="2"
-                  Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                  Grid.Row="3" Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
-                  Header="Modifier Machine">
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="16"
+                                 Text="{Binding EditNum}" />
+                        <TextBox IsEnabled="False" Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30"
+                                 FontSize="14"
+                                 Text="{Binding EditDesignation}" />
 
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="16"
-                           FontWeight="Bold">
-                    Numéro:
-                </TextBlock>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2" FontSize="16"
-                           FontWeight="Bold">
-                    Désignation:
-                </TextBlock>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="16"
-                           FontWeight="Bold">
-                    Modèle:
-                </TextBlock>
+                        <ComboBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="12"
+                                  SelectedItem="{Binding SelectedModelEdit}" DisplayMemberPath="Name"
+                                  ItemsSource="{Binding ListMachineModel}" />
 
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="16"
-                         Text="{Binding EditNum}" />
-                <TextBox IsEnabled="False" Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="14"
-                         Text="{Binding EditDesignation}" />
+                        <Button Command="{Binding CancelCmd}" Grid.Row="5" Grid.Column="1" Foreground="SteelBlue"
+                                FontSize="12"
+                                MaxHeight="30">
+                            Annuler
+                        </Button>
+                        <Button Command="{Binding SaveChange}" Grid.Row="5" Grid.Column="3" Foreground="SteelBlue"
+                                FontSize="12" MaxHeight="30">
+                            Enregistrer
+                        </Button>
+                    </Grid>
+                </GroupBox>
 
-                <ComboBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="12"
-                          SelectedItem="{Binding SelectedModelEdit}" DisplayMemberPath="Name"
-                          ItemsSource="{Binding ListMachineModel}" />
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="4" Grid.Row="0"
+                          Grid.Column="1"
+                          FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Machine">
+                    <ListView SizeChanged="ListView_SizeChanged" HorizontalContentAlignment="Center"
+                              ItemsSource="{Binding ListMachine}" SelectedItem="{Binding SelectedMachine}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
+                                <GridViewColumn Header="N°" Width="Auto" DisplayMemberBinding="{Binding Num}" />
+                                <GridViewColumn Header="Model" Width="Auto" DisplayMemberBinding="{Binding Model.Name}" />
+                                <GridViewColumn Header="Designation" Width="Auto" DisplayMemberBinding="{Binding Name}" />
 
-                <Button Command="{Binding CancelCmd}" Grid.Row="5" Grid.Column="1" Foreground="SteelBlue" FontSize="12"
-                        MaxHeight="30">
-                    Annuler
-                </Button>
-                <Button Command="{Binding SaveChange}" Grid.Row="5" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="12" MaxHeight="30">
-                    Enregistrer
-                </Button>
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="4" Grid.Row="0" Grid.Column="1"
-                  FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Machine">
-            <ListView SizeChanged="ListView_SizeChanged" HorizontalContentAlignment="Center"
-                      ItemsSource="{Binding ListMachine}" SelectedItem="{Binding SelectedMachine}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
-                        <GridViewColumn Header="N°" Width="Auto" DisplayMemberBinding="{Binding Num}" />
-                        <GridViewColumn Header="Model" Width="Auto" DisplayMemberBinding="{Binding Model.Name}" />
-                        <GridViewColumn Header="Designation" Width="Auto" DisplayMemberBinding="{Binding Name}" />
-
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </GroupBox>
-        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="4" Grid.Row="0" Grid.Column="0"
-                  FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Model Machine">
-            <ListView SizeChanged="ListView_SizeChanged_2" HorizontalContentAlignment="Center"
-                      SelectedItem="{Binding SelectedModelMachine}"
-                      ItemsSource="{Binding ListMachineModel}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
-                        <GridViewColumn Header="Model" Width="Auto" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Méthode" Width="Auto" DisplayMemberBinding="{Binding method}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </GroupBox>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="4" Grid.Row="0"
+                          Grid.Column="0"
+                          FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Model Machine">
+                    <ListView SizeChanged="ListView_SizeChanged_2" HorizontalContentAlignment="Center"
+                              SelectedItem="{Binding SelectedModelMachine}"
+                              ItemsSource="{Binding ListMachineModel}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
+                                <GridViewColumn Header="Model" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="Méthode" Width="Auto" DisplayMemberBinding="{Binding method}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
 
                 <UniformGrid Grid.Row="5" Grid.Column="0" Columns="2">
 
-                    <Button Foreground="SteelBlue" FontSize="14" 
+                    <Button Foreground="SteelBlue" FontSize="14"
                             Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                            FontWeight="Bold" Margin="5" Command="{Binding ModifierModel}">Modifier</Button>
-                    <Button Foreground="SteelBlue" FontSize="14" 
+                            FontWeight="Bold" Margin="5" Command="{Binding ModifierModel}">
+                        Modifier
+                    </Button>
+                    <Button Foreground="SteelBlue" FontSize="14"
                             Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
-                            FontWeight="Bold" Margin="5" Command="{Binding SupprimerModel}">Supprimer</Button>
+                            FontWeight="Bold" Margin="5" Command="{Binding SupprimerModel}">
+                        Supprimer
+                    </Button>
                 </UniformGrid>
-        <UniformGrid Grid.Row="5" Grid.Column="1" Columns="2">
+                <UniformGrid Grid.Row="5" Grid.Column="1" Columns="2">
 
-            <Button Foreground="SteelBlue" FontSize="14" 
-                    Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                    FontWeight="Bold" Margin="5" Command="{Binding Modifier}">Modifier</Button>
-            <Button Foreground="SteelBlue" FontSize="14" 
-                    Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
-                    FontWeight="Bold" Margin="5" Command="{Binding Supprimer}">Supprimer</Button>
-        </UniformGrid>
-    </Grid>
+                    <Button Foreground="SteelBlue" FontSize="14"
+                            Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                            FontWeight="Bold" Margin="5" Command="{Binding Modifier}">
+                        Modifier
+                    </Button>
+                    <Button Foreground="SteelBlue" FontSize="14"
+                            Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                            FontWeight="Bold" Margin="5" Command="{Binding Supprimer}">
+                        Supprimer
+                    </Button>
+                </UniformGrid>
+            </Grid>
         </TabItem>
-        <TabItem  Header="Duitage">
+        <TabItem Header="Duitage">
             <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="4*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2.2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-
-               <GroupBox Grid.RowSpan="4" 
-                         FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Machine"
-                         >
-                   <ListView  SizeChanged="ListView_SizeChanged" HorizontalContentAlignment="Center"
-                             ItemsSource="{Binding ListMachineDuit}" SelectedItem="{Binding SelectedMachine2}">
-                       <ListView.ItemContainerStyle>
-                           <Style TargetType="ListViewItem">
-                               <Setter Property="HorizontalContentAlignment" Value="Center" />
-                           </Style>
-                       </ListView.ItemContainerStyle>
-                       <ListView.View>
-                           <GridView>
-                               <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
-                               <GridViewColumn Header="N°" Width="Auto" DisplayMemberBinding="{Binding Num}" />
-                               <GridViewColumn Header="Model" Width="Auto" DisplayMemberBinding="{Binding Model.Name}" />
-                               <GridViewColumn Header="Designation" Width="Auto" DisplayMemberBinding="{Binding Name}" />
-
-                           </GridView>
-                       </ListView.View>
-                   </ListView>
-               </GroupBox>
-        
-
-        <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="2"
-                  FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Duitage">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="3" FontSize="16" FontWeight="Bold"
-                          Foreground="SteelBlue" Header="Ajouter Duitage">
-
-                    <Grid Margin="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="7*" />
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="9*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.5*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="0.5*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
-                                   FontWeight="Bold">
-                            Numéro Duitage:
-                        </TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                                 Text="{Binding NumDuitage}" />
-                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2" FontSize="12"
-                                   FontWeight="Bold">
-                            Machine:
-                        </TextBlock>
-                        <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                                  DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuit}"
-                                  ItemsSource="{Binding ListMachineDuit}" />
-                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="12"
-                                   FontWeight="Bold">
-                            Vitesse (ML/Min):
-                        </TextBlock>
-                        <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                                 Text="{Binding Vitesse}" />
-                        <Button Command="{Binding AjouterDuitageMachine}" Grid.Row="4" Grid.Column="3" Foreground="SteelBlue"
-                                FontSize="14" MaxHeight="25">
-                            Ajouter
-                        </Button>
-                    </Grid>
-                </GroupBox>
-                <GroupBox 
-                    IsEnabled="{Binding IsEditEnabledDuitage}"
-                          Margin="3" BorderBrush="CadetBlue"
-                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                          BorderThickness="2" Grid.Row="1" Grid.Column="3" FontSize="16" FontWeight="Bold"
-                          Foreground="SteelBlue" Header="Modifier Duitage">
-
-                   <Grid Margin="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="7*" />
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="9*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.5*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="4*" />
-                            <RowDefinition Height="0.5*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
-                                   FontWeight="Bold">
-                            Numéro Duitage:
-                        </TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                                 Text="{Binding NovNumDuitage}" />
-                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2" FontSize="12"
-                                   FontWeight="Bold">
-                            Machine:
-                        </TextBlock>
-                        <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                                  DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuitEdit}"
-                                  ItemsSource="{Binding ListMachineDuit}" />
-                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="12"
-                                   FontWeight="Bold">
-                            Vitesse (ML/Min):
-                        </TextBlock>
-                        <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                                 Text="{Binding NovVitesse}" />
-                        <Button Command="{Binding CancelEditDuitageCmd}" Grid.Row="4" Grid.Column="1" Foreground="SteelBlue"
-                                FontSize="14" MaxHeight="25">
-                            Annuler
-                        </Button>
-                        <Button Command="{Binding SaveDuitageChange}" Grid.Row="4" Grid.Column="3" Foreground="SteelBlue"
-                                FontSize="14" MaxHeight="25">
-                            Ajouter
-                        </Button>
-                    </Grid>
-                </GroupBox>
-
-            </Grid>
-        </GroupBox>
-<GroupBox BorderBrush="CadetBlue" BorderThickness="2"  Grid.Column="1" Grid.Row="2" FontSize="16" Grid.RowSpan="2"
-                  FontWeight="Bold" Foreground="SteelBlue" Header="Duitage Gomme">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="2" FontSize="16" FontWeight="Bold"
-                          Foreground="SteelBlue" Header="Ajouter Duitage">
-
-                    <Grid Margin="3">
-                      <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <!-- <RowDefinition Height="4*" /> -->
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2.2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
-                           FontWeight="Bold">
-                    Numéro Duitage:
-                </TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                         Text="{Binding NumDuitageGo}" />
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2" FontSize="12"
-                           FontWeight="Bold">
-                    Machine:
-                </TextBlock>
-                <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuitGo}"
-                          ItemsSource="{Binding ListMachineDD}" />
-                <!-- <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="12" -->
-                <!--            FontWeight="Bold"> -->
-                <!--     Vitesse (ML/Min): -->
-                <!-- </TextBlock> -->
-                <!-- <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14" -->
-                <!--          Text="{Binding VitesseGo}" /> -->
-                <Button Command="{Binding AjouterDuitageGoMachine}" Grid.Row="3" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="14" MaxHeight="25">
-                    Ajouter
-                </Button>
-                    </Grid>
-                </GroupBox>
-                <GroupBox IsEnabled="{Binding IsEditEnabledDuitageGo}" 
-                          BorderBrush="CadetBlue" 
-                          BorderThickness="2"
-                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                          Grid.Row="1" Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
-                          Header="Modifier Duitage">
+                <GroupBox Grid.RowSpan="4"
+                          FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Machine">
+                    <ListView SizeChanged="ListView_SizeChanged" HorizontalContentAlignment="Center"
+                              ItemsSource="{Binding ListMachineDuit}" SelectedItem="{Binding SelectedMachine2}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
+                                <GridViewColumn Header="N°" Width="Auto" DisplayMemberBinding="{Binding Num}" />
+                                <GridViewColumn Header="Model" Width="Auto" DisplayMemberBinding="{Binding Model.Name}" />
+                                <GridViewColumn Header="Designation" Width="Auto" DisplayMemberBinding="{Binding Name}" />
 
-                    <Grid Margin="3">
-                      <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <!-- <RowDefinition Height="4*" /> -->
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="12"
-                           FontWeight="Bold">
-                    Numéro Duitage:
-                </TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                         Text="{Binding NumDuitageGoEdit}" />
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2" FontSize="12"
-                           FontWeight="Bold">
-                    Machine:
-                </TextBlock>
-                <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
-                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuitGoEdit}"
-                          ItemsSource="{Binding ListMachineDD}" />
-                <!-- <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="12" -->
-                <!--            FontWeight="Bold"> -->
-                <!--     Vitesse (ML/Min): -->
-                <!-- </TextBlock> -->
-                <!-- <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14" -->
-                <!--          Text="{Binding VitesseGoEdit}" /> -->
-                <Button Command="{Binding CancelEditDuitageGoCmd}" Grid.Row="3" Grid.Column="1" Foreground="SteelBlue"
-                        FontSize="14" MaxHeight="25">
-                    Annuler
-                </Button>
-                <Button Command="{Binding SaveDuitageGoChange}" Grid.Row="3" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="14" MaxHeight="25">
-                    Ajouter
-                </Button>
-                    </Grid>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </GroupBox>
 
-            </Grid>
-        </GroupBox>
-        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="4" Grid.Row="0" Grid.Column="2"
-                  FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Duitage">
-            <ListView SizeChanged="ListView_SizeChanged1" HorizontalContentAlignment="Center"
-                      ItemsSource="{Binding ListDuitage}" SelectedItem="{Binding SelectedDuitage}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Duitage" Width="Auto" DisplayMemberBinding="{Binding Duitage}" />
-                        <GridViewColumn Header="Vitesse" Width="Auto"
-                                        DisplayMemberBinding="{Binding Vitesse,StringFormat=0.000;;#}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </GroupBox>
-        <GroupBox Margin="5"
-                  
-                  BorderBrush="CadetBlue" 
-                  Visibility="{Binding IsDoubleDuitage,Converter={StaticResource BoolToVis}}"
-                  BorderThickness="2" Grid.RowSpan="4" Grid.Row="0" Grid.Column="3"
-                  FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Duitage Gomme">
-            <ListView SizeChanged="ListView_SizeChanged_1" HorizontalContentAlignment="Center"
-                      SelectedItem="{Binding SelectedDuitageGo}"
-                      ItemsSource="{Binding ListDuitageGo}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
-                        <GridViewColumn Header="Duitage" Width="Auto"
-                                        DisplayMemberBinding="{Binding Duitage}" />
 
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </GroupBox>
+                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                          FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Duitage">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="3" FontSize="16"
+                                  FontWeight="Bold"
+                                  Foreground="SteelBlue" Header="Ajouter Duitage">
 
-        <UniformGrid Grid.Row="5" Grid.Column="2" Columns="2">
+                            <Grid Margin="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="0.5*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Numéro Duitage:
+                                </TextBlock>
+                                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                         Text="{Binding NumDuitage}" />
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Machine:
+                                </TextBlock>
+                                <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuit}"
+                                          ItemsSource="{Binding ListMachineDuit}" />
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Vitesse (ML/Min):
+                                </TextBlock>
+                                <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                         Text="{Binding Vitesse}" />
+                                <Button Command="{Binding AjouterDuitageMachine}" Grid.Row="4" Grid.Column="3"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Ajouter
+                                </Button>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox
+                            IsEnabled="{Binding IsEditEnabledDuitage}"
+                            Margin="3" BorderBrush="CadetBlue"
+                            Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                            BorderThickness="2" Grid.Row="1" Grid.Column="3" FontSize="16" FontWeight="Bold"
+                            Foreground="SteelBlue" Header="Modifier Duitage">
 
-            <Button Foreground="SteelBlue" FontSize="14" 
-                    Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                    FontWeight="Bold" Margin="5" Command="{Binding ModifierDuitage}">Modifier</Button>
-            <Button Foreground="SteelBlue" FontSize="14" 
-                    Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
-                    FontWeight="Bold" Margin="5" Command="{Binding SupprimerDuitage}">Supprimer</Button>
-        </UniformGrid>
-                <UniformGrid Grid.Row="5" Grid.Column="3" 
+                            <Grid Margin="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="0.5*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Numéro Duitage:
+                                </TextBlock>
+                                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                         Text="{Binding NovNumDuitage}" />
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Machine:
+                                </TextBlock>
+                                <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuitEdit}"
+                                          ItemsSource="{Binding ListMachineDuit}" />
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Vitesse (ML/Min):
+                                </TextBlock>
+                                <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                         Text="{Binding NovVitesse}" />
+                                <Button Command="{Binding CancelEditDuitageCmd}" Grid.Row="4" Grid.Column="1"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Annuler
+                                </Button>
+                                <Button Command="{Binding SaveDuitageChange}" Grid.Row="4" Grid.Column="3"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Ajouter
+                                </Button>
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </GroupBox>
+                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" Grid.Row="2" FontSize="16"
+                          Grid.RowSpan="2"
+                          FontWeight="Bold" Foreground="SteelBlue" Header="Duitage Gomme">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="2" FontSize="16"
+                                  FontWeight="Bold"
+                                  Foreground="SteelBlue" Header="Ajouter Duitage">
+
+                            <Grid Margin="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <!-- <RowDefinition Height="4*" /> -->
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="0.5*" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Numéro Duitage:
+                                </TextBlock>
+                                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                         Text="{Binding NumDuitageGo}" />
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Machine:
+                                </TextBlock>
+                                <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuitGo}"
+                                          ItemsSource="{Binding ListMachineDD}" />
+                                <!-- <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="12" -->
+                                <!--            FontWeight="Bold"> -->
+                                <!--     Vitesse (ML/Min): -->
+                                <!-- </TextBlock> -->
+                                <!-- <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14" -->
+                                <!--          Text="{Binding VitesseGo}" /> -->
+                                <Button Command="{Binding AjouterDuitageGoMachine}" Grid.Row="3" Grid.Column="3"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Ajouter
+                                </Button>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox IsEnabled="{Binding IsEditEnabledDuitageGo}"
+                                  BorderBrush="CadetBlue"
+                                  BorderThickness="2"
+                                  Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                                  Grid.Row="1" Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
+                                  Header="Modifier Duitage">
+
+                            <Grid Margin="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
+                                    <!-- <RowDefinition Height="4*" /> -->
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="0.5*" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Numéro Duitage:
+                                </TextBlock>
+                                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                         Text="{Binding NumDuitageGoEdit}" />
+                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                           FontSize="12"
+                                           FontWeight="Bold">
+                                    Machine:
+                                </TextBlock>
+                                <ComboBox Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14"
+                                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedMachineDuitGoEdit}"
+                                          ItemsSource="{Binding ListMachineDD}" />
+                                <!-- <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" FontSize="12" -->
+                                <!--            FontWeight="Bold"> -->
+                                <!--     Vitesse (ML/Min): -->
+                                <!-- </TextBlock> -->
+                                <!-- <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="25" FontSize="14" -->
+                                <!--          Text="{Binding VitesseGoEdit}" /> -->
+                                <Button Command="{Binding CancelEditDuitageGoCmd}" Grid.Row="3" Grid.Column="1"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Annuler
+                                </Button>
+                                <Button Command="{Binding SaveDuitageGoChange}" Grid.Row="3" Grid.Column="3"
+                                        Foreground="SteelBlue"
+                                        FontSize="14" MaxHeight="25">
+                                    Ajouter
+                                </Button>
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </GroupBox>
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="4" Grid.Row="0"
+                          Grid.Column="2"
+                          FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Duitage">
+                    <ListView SizeChanged="ListView_SizeChanged1" HorizontalContentAlignment="Center"
+                              ItemsSource="{Binding ListDuitage}" SelectedItem="{Binding SelectedDuitage}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Duitage" Width="Auto" DisplayMemberBinding="{Binding Duitage}" />
+                                <GridViewColumn Header="Vitesse" Width="Auto"
+                                                DisplayMemberBinding="{Binding Vitesse,StringFormat=0.000;;#}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+                <GroupBox Margin="5"
+
+                          BorderBrush="CadetBlue"
+                          Visibility="{Binding IsDoubleDuitage,Converter={StaticResource BoolToVis}}"
+                          BorderThickness="2" Grid.RowSpan="4" Grid.Row="0" Grid.Column="3"
+                          FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Duitage Gomme">
+                    <ListView SizeChanged="ListView_SizeChanged_1" HorizontalContentAlignment="Center"
+                              SelectedItem="{Binding SelectedDuitageGo}"
+                              ItemsSource="{Binding ListDuitageGo}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
+                                <GridViewColumn Header="Duitage" Width="Auto"
+                                                DisplayMemberBinding="{Binding Duitage}" />
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+
+                <UniformGrid Grid.Row="5" Grid.Column="2" Columns="2">
+
+                    <Button Foreground="SteelBlue" FontSize="14"
+                            Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                            FontWeight="Bold" Margin="5" Command="{Binding ModifierDuitage}">
+                        Modifier
+                    </Button>
+                    <Button Foreground="SteelBlue" FontSize="14"
+                            Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                            FontWeight="Bold" Margin="5" Command="{Binding SupprimerDuitage}">
+                        Supprimer
+                    </Button>
+                </UniformGrid>
+                <UniformGrid Grid.Row="5" Grid.Column="3"
                              Visibility="{Binding IsDoubleDuitage,Converter={StaticResource BoolToVis}}"
                              Columns="2">
 
-                    <Button Foreground="SteelBlue" FontSize="14" 
+                    <Button Foreground="SteelBlue" FontSize="14"
                             Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                            FontWeight="Bold" Margin="5" Command="{Binding ModifierDuitageGo}">Modifier</Button>
-                    <Button Foreground="SteelBlue" FontSize="14" 
+                            FontWeight="Bold" Margin="5" Command="{Binding ModifierDuitageGo}">
+                        Modifier
+                    </Button>
+                    <Button Foreground="SteelBlue" FontSize="14"
                             Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
-                            FontWeight="Bold" Margin="5" Command="{Binding SupprimerDuitageGo}">Supprimer</Button>
+                            FontWeight="Bold" Margin="5" Command="{Binding SupprimerDuitageGo}">
+                        Supprimer
+                    </Button>
                 </UniformGrid>
-    </Grid>
+            </Grid>
         </TabItem>
-        <TabItem  Header="Peigne">
+        <TabItem Header="Peigne">
             <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" FontSize="18"
-                  FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouveau Peigne">
-
-            <Grid Margin="20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="1*" />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="16"
-                           FontWeight="Bold">
-                    Numero:
-                </TextBlock>
-              
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" FontSize="18"
+                          FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouveau Peigne">
 
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="18" CharacterCasing="Upper"
-                         Text="{Binding Numero}" DataObject.Pasting="DataObject_OnPasting" PreviewTextInput="UIElement_OnPreviewTextInput" />
-               
-                <Button Command="{Binding AjouterNovPeigne}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="16" Height="30">
-                    Ajouter
-                </Button>
+                    <Grid Margin="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Numero:
+                        </TextBlock>
+
+
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
+                                 CharacterCasing="Upper"
+                                 Text="{Binding Numero}" DataObject.Pasting="DataObject_OnPasting"
+                                 PreviewTextInput="UIElement_OnPreviewTextInput" />
+
+                        <Button Command="{Binding AjouterNovPeigne}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue"
+                                FontSize="16" Height="30">
+                            Ajouter
+                        </Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox IsEnabled="{Binding IsEditPeigneEnabled}" Margin="5" BorderBrush="CadetBlue"
+                          BorderThickness="2"
+                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                          Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="SteelBlue"
+                          Header="Modifier Peigne">
+
+                    <Grid Margin="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Numero:
+                        </TextBlock>
+
+
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="16"
+                                 DataObject.Pasting="DataObject_OnPasting"
+                                 PreviewTextInput="UIElement_OnPreviewTextInput"
+                                 Text="{Binding NovNumero}" />
+
+                        <Button Command="{Binding CancelPeigneCmd}" Grid.Row="2" Grid.Column="1" Foreground="SteelBlue"
+                                FontSize="16"
+                                Height="30">
+                            Annuler
+                        </Button>
+                        <Button Command="{Binding SavePeigneChange}" Grid.Row="2" Grid.Column="3"
+                                Foreground="SteelBlue"
+                                FontSize="16" Height="30">
+                            Enregistrer
+                        </Button>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="2" Grid.Row="0"
+                          Grid.Column="0"
+                          FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Peignes">
+                    <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChangedPeigne"
+                              ItemsSource="{Binding ListPeigne}" SelectedItem="{Binding SelectedPeigne}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="Auto"
+                                                DisplayMemberBinding="{Binding ID,StringFormat={}{00:00}}" />
+                                <GridViewColumn Header="Nombre" Width="Auto" DisplayMemberBinding="{Binding Nombre}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+                <UniformGrid Grid.Row="2" Columns="2">
+
+                    <Button Foreground="SteelBlue"
+                            Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                            FontSize="14" FontWeight="Bold" Margin="5" Command="{Binding ModifierPeigne}">
+                        Modifier
+                    </Button>
+                    <Button Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5"
+                            Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                            Command="{Binding SupprimerPeigne}">
+                        Supprimer
+                    </Button>
+                </UniformGrid>
             </Grid>
-        </GroupBox>
-        <GroupBox IsEnabled="{Binding IsEditPeigneEnabled}" Margin="5" BorderBrush="CadetBlue" BorderThickness="2"
-                  Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                  Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="SteelBlue"
-                  Header="Modifier Peigne">
-
-            <Grid Margin="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="16"
-                           FontWeight="Bold">
-                    Numero:
-                </TextBlock>
-               
-
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="16"
-                         DataObject.Pasting="DataObject_OnPasting" PreviewTextInput="UIElement_OnPreviewTextInput"
-                         Text="{Binding NovNumero}" />
-           
-                <Button Command="{Binding CancelPeigneCmd}" Grid.Row="2" Grid.Column="1" Foreground="SteelBlue" FontSize="16"
-                        Height="30">
-                    Annuler
-                </Button>
-                <Button Command="{Binding SavePeigneChange}" Grid.Row="2" Grid.Column="3" Foreground="SteelBlue"
-                        FontSize="16" Height="30">
-                    Enregistrer
-                </Button>
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0"
-                  FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Peignes">
-            <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChangedPeigne"
-                      ItemsSource="{Binding ListPeigne}" SelectedItem="{Binding SelectedPeigne}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="Auto"
-                                        DisplayMemberBinding="{Binding ID,StringFormat={}{00:00}}" />
-                        <GridViewColumn Header="Nombre" Width="Auto" DisplayMemberBinding="{Binding Nombre}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </GroupBox>
-        <UniformGrid Grid.Row="2" Columns="2">
-
-            <Button Foreground="SteelBlue" 
-                    Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                    FontSize="14" FontWeight="Bold" Margin="5" Command="{Binding ModifierPeigne}">Modifier</Button>
-            <Button Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5"
-                    Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
-                    Command="{Binding SupprimerPeigne}">Supprimer</Button>
-        </UniformGrid>
-    </Grid>
         </TabItem>
     </TabControl>
 </view:MvxWpfView>

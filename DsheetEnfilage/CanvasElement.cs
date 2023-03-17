@@ -3,8 +3,13 @@ using System.Runtime.CompilerServices;
 
 namespace DSheetEnfilage
 {
-    public class CanvasElement: INotifyPropertyChanged
+    public class CanvasElement : INotifyPropertyChanged
     {
+        private int _Left;
+
+        private string _Text;
+        private int _Top;
+
         public string Text
         {
             get => _Text;
@@ -35,11 +40,6 @@ namespace DSheetEnfilage
             }
         }
 
-        private string _Text;
-
-        private int _Left;
-        private int _Top;
-        
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

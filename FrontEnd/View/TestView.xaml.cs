@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using BackEnd2.ViewModel;
+﻿using BackEnd2.ViewModel;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.ViewModels;

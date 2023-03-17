@@ -1,0 +1,74 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:DSheetEnfilage.Converter"
+                    xmlns:dSheetEnfilage="clr-namespace:DSheetEnfilage"
+                    x:Class="DSheetEnfilage.TrameSymbolStyle"
+                    x:Name="TrameRes"
+                    xmlns:behiavor="http://schemas.microsoft.com/xaml/behaviors">
+    <converter:BooleanToVisibilityValueConverter x:Key="BoolToVis"></converter:BooleanToVisibilityValueConverter>
+    <ControlTemplate x:Key="TrameSymbolTemplate" x:Name="TrameTemp"  TargetType="{x:Type dSheetEnfilage:TrameSymbol}">
+
+        <StackPanel  AllowDrop="True" 
+                         Panel.ZIndex="1" 
+                        x:Name="TrameS"
+                        Width="60" Height="80">
+            <StackPanel.RenderTransform>
+
+                <TranslateTransform  
+                        X="{TemplateBinding TrameXposition}"
+                        Y="{TemplateBinding TrameYposition}" />
+
+            </StackPanel.RenderTransform>
+            <behiavor:Interaction.Behaviors >
+                <behiavor:MouseDragElementBehavior  
+                         x:Name="TrameDragger" 
+                         DragFinished="TrameDragger_DragFinished" />
+            </behiavor:Interaction.Behaviors>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" 
+                        Background="WhiteSmoke" 
+                        BorderThickness="1">
+                    <TextBlock FontSize="14" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            Trame
+                    </TextBlock>
+
+                </Border>
+                <Border VerticalAlignment="Stretch" 
+                        Height="40" 
+                        HorizontalAlignment="Center" 
+                        Width="25"
+                            Grid.Row="1" 
+                        BorderBrush="Black" 
+                        Background="WhiteSmoke" 
+                        BorderThickness="1">
+                    <TextBlock FontSize="28" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" 
+                               FontFamily="Jokerman">
+                            )
+                    </TextBlock>
+
+                </Border>
+            </Grid>
+
+
+        </StackPanel>
+    </ControlTemplate>
+
+
+    <Style x:Key="TrameSymbolSteez" TargetType="{x:Type dSheetEnfilage:TrameSymbol}">
+        <Setter Property="Template" Value="{StaticResource TrameSymbolTemplate}"/>
+    </Style>
+
+    <Style TargetType="{x:Type dSheetEnfilage:TrameSymbol}" x:Key="TrameSteez" BasedOn="{StaticResource TrameSymbolSteez}"></Style>
+
+    <Style  TargetType="{x:Type dSheetEnfilage:TrameSymbol}" BasedOn="{StaticResource TrameSteez}"></Style>
+</ResourceDictionary>

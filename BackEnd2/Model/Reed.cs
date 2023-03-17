@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class Reed :INotifyPropertyChanged
+    public class Reed : INotifyPropertyChanged
     {
         private int _ID;
 
 
         private double _Nombre;
 
+        private List<Produit> _Products;
 
-        [Key]
+
         public int ID
         {
             get => _ID;
@@ -34,21 +34,16 @@ namespace BackEnd2.Model
             }
         }
 
-        private List<Produit> _Products;
-
         public List<Produit> Products
         {
-            get
-            {
-                return _Products;
-            }
+            get => _Products;
             set
             {
                 _Products = value;
                 NotifyPropertyChanged();
             }
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -57,5 +52,4 @@ namespace BackEnd2.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    
 }

@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using BackEnd2.ViewModel;
@@ -17,31 +15,31 @@ namespace FrontEnd.View
     [MvxViewFor(typeof(HomepageViewModel))]
     public partial class HomepageView : MvxWindow
     {
+        private bool expanded;
+
         public HomepageView()
         {
             InitializeComponent();
         }
 
-        private bool expanded;
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //Handle single leftbutton mouse clicks
             if (e.ClickCount < 2 && e.LeftButton == MouseButtonState.Pressed)
             {
-                
-                    if (expanded == false)
-                        ((StackPanel)Template.FindName("SidePanel",HomeP)).BeginStoryboard((Storyboard)this.Resources["expandStoryBoard"]);
-                    else
-                        ((StackPanel)Template.FindName("SidePanel",HomeP)).BeginStoryboard((Storyboard)this.Resources["collapseStoryBoard"]);
- 
-                    expanded = !expanded;
-               
+                if (expanded == false)
+                    ((StackPanel)Template.FindName("SidePanel", HomeP)).BeginStoryboard(
+                        (Storyboard)Resources["expandStoryBoard"]);
+                else
+                    ((StackPanel)Template.FindName("SidePanel", HomeP)).BeginStoryboard(
+                        (Storyboard)Resources["collapseStoryBoard"]);
+
+                expanded = !expanded;
             }
         }
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
-         
         }
     }
 }

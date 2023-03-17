@@ -1,15 +1,12 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
     public class Composant : INotifyPropertyChanged
     {
-        
-     
-        [Key] private int _ID;
-
+        private int _ID;
+        private int _parent;
 
         private string _Name;
 
@@ -33,7 +30,15 @@ namespace BackEnd2.Model
             }
         }
 
-
+        public int parent
+        {
+            get => _parent;
+            set
+            {
+                _parent = value;
+                NotifyPropertyChanged();
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

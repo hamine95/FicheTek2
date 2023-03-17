@@ -6,6 +6,6 @@ namespace BackEnd2.CustomClass
     {
         public Action<bool> IsConfirm { get; set; }
 
-        public Action<string,string,bool> UploadCallback { get; set; }
+        public Action<string, string, bool> UploadCallback { get; set; }
     }
 }

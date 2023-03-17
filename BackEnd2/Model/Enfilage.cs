@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class Enfilage:INotifyPropertyChanged
+    public class Enfilage : INotifyPropertyChanged
     {
-        [Key] public int ID { get; set; }
+        private int _NbrDent;
+
+        private string _TrXposition;
+
+        private string _TrYposition;
+        public int ID { get; set; }
 
         public chaine GetChaine { get; set; }
 
         public List<EnfilageMatrix> GetMatrix { get; set; }
-
-        private string _TrXposition;
 
         public string TrXposition
         {
@@ -36,9 +37,6 @@ namespace BackEnd2.Model
             }
         }
 
-        private string _TrYposition;
-
-        private int _NbrDent;
         public int Column { get; set; }
 
         public int Row { get; set; }

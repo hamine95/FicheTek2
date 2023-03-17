@@ -1,18 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Development\\backup VS project\\Repos\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj": {}
+    "D:\\Project\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj": {}
   },
   "projects": {
-    "F:\\Development\\backup VS project\\Repos\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj": {
+    "D:\\Project\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Development\\backup VS project\\Repos\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj",
+        "projectUniqueName": "D:\\Project\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj",
         "projectName": "BackEnd2",
-        "projectPath": "F:\\Development\\backup VS project\\Repos\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj",
+        "projectPath": "D:\\Project\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj",
         "packagesPath": "C:\\Users\\Calmbatman\\.nuget\\packages\\",
-        "outputPath": "F:\\Development\\backup VS project\\Repos\\DataSheetDesign\\BackEnd2\\obj\\",
+        "outputPath": "D:\\Project\\DataSheetDesign\\BackEnd2\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\Calmbatman\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
@@ -36,14 +39,6 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[3.1.6, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[3.1.6, )"
-            },
             "MvvmCross": {
               "target": "Package",
               "version": "[8.0.2, )"
@@ -62,13 +57,9 @@
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
-            "SQLitePCLRaw.bundle_e_sqlcipher": {
-              "target": "Package",
-              "version": "[2.0.7, )"
-            },
             "System.Data.SQLite.Core": {
               "target": "Package",
-              "version": "[1.0.116, )"
+              "version": "[1.0.117, )"
             },
             "System.Threading": {
               "target": "Package",
@@ -85,7 +76,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.424\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.426\\RuntimeIdentifierGraph.json"
         }
       }
     }

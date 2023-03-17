@@ -1,0 +1,142 @@
+﻿<view:MvxWindow x:Class="FrontEnd.View.AddMonthReportView"
+                xmlns:view="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:local="clr-namespace:FrontEnd.View"
+                mc:Ignorable="d"
+                Title="AddMonthReportView" Height="450" Width="800">
+    <view:MvxWindow.Resources>
+        <Style x:Key="BtnStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="25"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+            <Setter Property="UseLayoutRounding" Value="True"></Setter>
+            <Setter Property="Background" Value="CadetBlue"></Setter>
+            <Setter Property="Foreground" Value="WhiteSmoke"></Setter>
+            <Setter Property="FontFamily" Value="cambria"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+        </Style>
+        <Style x:Key="TextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="cambria"></Setter>
+            <Setter Property="MaxHeight" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            
+        </Style>
+    </view:MvxWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListView 
+            Margin="5"
+            FontSize="10" 
+            FontWeight="Bold" FontFamily="arial" 
+            SizeChanged="ListView_SizeChanged"
+                Grid.RowSpan="7"
+                 Grid.Column="1"
+                   ItemsSource="{Binding FicheTechniqueList}"
+                  SelectedItem="{Binding SelectedFicheTechnique}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Réf" DisplayMemberBinding="{Binding Produits[0].Ref}" />
+                    <GridViewColumn Header="Désignation" DisplayMemberBinding="{Binding Produits[0].Name}" />
+
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="1"
+            Grid.Column="2">Date:</TextBlock>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="1"
+            Grid.Column="3" 
+            Text="{Binding DateProd}"></TextBlock>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="2"
+            Grid.Column="2">Réference:</TextBlock>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="2"
+            Grid.Column="3" 
+            Text="{Binding RefProd}"></TextBlock>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="3"
+            Grid.Column="2">Désignation:</TextBlock>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="3"
+            Grid.Column="3" 
+            Text="{Binding Designation}"></TextBlock>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="4"
+            Grid.Column="2">Version:</TextBlock>
+        <ComboBox
+            Height="25"
+            Width="80"
+            HorizontalAlignment="Left"
+            FontFamily="cambria"
+            FontSize="14"
+            Grid.Row="4"
+            Grid.Column="3" 
+            ItemsSource="{Binding VerList}"
+            SelectedItem="{Binding Version}"></ComboBox>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="5"
+            Grid.Column="2">Etat:</TextBlock>
+        <CheckBox
+            Grid.Row="5"
+            Grid.Column="3" 
+            Height="25"
+            VerticalContentAlignment="Center"
+            FontFamily="cambria"
+            FontSize="16"
+            IsChecked="{Binding Etat}">Non Conforme</CheckBox>
+        <TextBlock
+            Style="{StaticResource TextStyle}"
+            Grid.Row="6"
+            Grid.Column="2">Remarque:</TextBlock>
+        <TextBox
+            Grid.Row="6"
+            Grid.Column="3" 
+            Height="25"
+            FontFamily="cambria"
+            FontSize="16"
+            Text="{Binding Remarque}"></TextBox>
+        <Button
+            Style="{StaticResource BtnStyle}"
+            Grid.Row="7"
+            Grid.Column="2"
+            Command="{Binding CancelCmd}"
+            >Annuler</Button>
+        <Button
+            Style="{StaticResource BtnStyle}"
+            Grid.Row="7"
+            Grid.Column="3"
+            Command="{Binding SaveCmd}"
+            >Valider</Button>
+    </Grid>
+</view:MvxWindow>

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
@@ -11,7 +11,7 @@ namespace BackEnd2.Model
 
         private Couleur _GetCouleur;
 
-        [Key] private int _ID;
+        private int _ID;
 
 
         private string _Ref;
@@ -66,8 +66,12 @@ namespace BackEnd2.Model
             set
             {
                 _GetCouleur = value;
-                NotifyPropertyChanged();
-                GetCouleur.PropertyChanged += Child_PropertyChanged;
+                if (value != null)
+                {
+                    NotifyPropertyChanged();
+                    GetCouleur.PropertyChanged += Child_PropertyChanged;
+                }
+                
             }
         }
 

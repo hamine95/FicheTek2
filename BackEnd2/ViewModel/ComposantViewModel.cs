@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BackEnd2.CustomClass;
+using BackEnd2.Data;
 using BackEnd2.Database;
 using BackEnd2.Model;
 using MvvmCross;
@@ -13,29 +14,49 @@ namespace BackEnd2.ViewModel
 {
     public class ComposantViewModel : MvxViewModel<user>
     {
-        private string _CompDesignation;
+        private IMvxCommand _AjouterNovComposant;
 
-        private user UserSession;
+        private IMvxCommand _CancelCmd;
+        private string _CompDesignation;
         private int _EditComposantId;
         private bool _IsEditMatiereEnabled;
         private MvxObservableCollection<Composant> _ListComposant;
 
+        private IMvxCommand _Modifier;
+
+        private Composant _CompParent;
+
+        public Composant CompParent
+        {
+            get
+            {
+                return _CompParent;
+            }
+            set
+            {
+                _CompParent = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         private string _NovCompDesignation;
 
+        private IMvxCommand _SaveChange;
+
         private Composant _SelectedComposant;
-        private  MyDBContext db;
+
+        private IMvxCommand _Supprimer;
+        private SqliteData db;
+
+        private user UserSession;
 
         public ComposantViewModel(IMvxNavigationService _navServ)
         {
             _navigationService = _navServ;
-           
-            
         }
 
-      
 
-      
 
         public int EditComposantId
         {
@@ -57,18 +78,15 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _Modifier;
         public IMvxCommand Modifier
         {
-           
             get
             {
                 _Modifier = new MvxCommand(ModifierComposant);
                 return _Modifier;
             }
-      }
+        }
 
-        private IMvxCommand _Supprimer;
         public IMvxCommand Supprimer
         {
             get
@@ -78,7 +96,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _AjouterNovComposant;
         public IMvxCommand AjouterNovComposant
         {
             get
@@ -88,8 +105,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _CancelCmd;
-
         public IMvxCommand CancelCmd
         {
             get
@@ -98,8 +113,6 @@ namespace BackEnd2.ViewModel
                 return _CancelCmd;
             }
         }
-
-        private IMvxCommand _SaveChange;
 
         public IMvxCommand SaveChange
         {
@@ -180,7 +193,6 @@ namespace BackEnd2.ViewModel
                     ListComposant = new MvxObservableCollection<Composant>(listCompo);
                 }
             );
-
         }
 
         public void CancelEdit()
@@ -233,6 +245,15 @@ namespace BackEnd2.ViewModel
             {
                 var NewComposant = new Composant();
                 NewComposant.Name = CompDesignation;
+                if (CompParent == null)
+                {
+                    NewComposant.parent = -1;
+                }
+                else
+                {
+                    
+                    NewComposant.parent = CompParent.ID;
+                }
                 db.AddNewComposant(NewComposant);
                 UpdateComposantList();
                 CompDesignation = "";
@@ -260,31 +281,23 @@ namespace BackEnd2.ViewModel
 
         public override void Prepare(user parameter)
         {
-            db = Mvx.IoCProvider.Resolve<MyDBContext>();
+            db = Mvx.IoCProvider.Resolve<SqliteData>();
             UserSession = parameter;
             if (UserSession.type == user.UserType.verificateur)
-            {
                 IsVerificateur = true;
-                
-            }
             else
-            {
                 IsVerificateur = false;
-            }
-
         }
 
 
         #region Matiere
 
-        
-private bool _AllColor = true;
+        private bool _AllColor = true;
         private string _CodificationTypM;
 
         private string _Designation;
         private string _EditDesignation;
 
-        private MvxObservableCollection<Couleur> _EditListeCouleur;
         private Matiere _EditMatiere = new Matiere();
         private string _EditRef;
 
@@ -296,7 +309,6 @@ private bool _AllColor = true;
 
         private bool _IsRetordu;
 
-        private MvxObservableCollection<Couleur> _ListeCouleur;
 
 
         private MvxObservableCollection<Matiere> _ListMatiere;
@@ -330,13 +342,11 @@ private bool _AllColor = true;
         private MvxObservableCollection<TypeMatiere> _TypeMatiereList;
         private int SelectedMatiereEdit;
 
-       
 
         public override Task Initialize()
         {
-       
-            LoadLists=MvxNotifyTask.Create( RefreshLists);
-        
+            LoadLists = MvxNotifyTask.Create(RefreshLists);
+
             return base.Initialize();
         }
 
@@ -344,21 +354,19 @@ private bool _AllColor = true;
         {
             await UpdateListeMatiere();
             await UpdateTypeMatiereList();
-            await UpdateCouleur();
             await UpdateColorList();
             await UpdateComposantList();
         }
 
-       
-        
+
         private MvxNotifyTask _LoadLists;
 
         public MvxNotifyTask LoadLists
         {
             get => _LoadLists;
             set => SetProperty(ref _LoadLists, value);
-
         }
+
         public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
         public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
@@ -442,13 +450,12 @@ private bool _AllColor = true;
             {
                 _SelectedTypeMatiereEdit = value;
                 RaisePropertyChanged();
-                
+
                 if (value != null)
                 {
                     OnEditChangeNovFields();
                     UpdateTitrageEdit(SelectedTypeMatiereEdit);
                 }
-                
             }
         }
 
@@ -540,13 +547,12 @@ private bool _AllColor = true;
             {
                 _SelectedTypeMatiere = value;
                 RaisePropertyChanged();
-                
+
                 if (value != null)
                 {
                     OnChangeNovFields();
                     UpdateTitrage(SelectedTypeMatiere);
                 }
-                
             }
         }
 
@@ -612,15 +618,7 @@ private bool _AllColor = true;
             }
         }
 
-        public MvxObservableCollection<Couleur> EditListeCouleur
-        {
-            get => _EditListeCouleur;
-            set
-            {
-                _EditListeCouleur = value;
-                RaisePropertyChanged();
-            }
-        }
+        
 
         public bool AllColor
         {
@@ -641,15 +639,7 @@ private bool _AllColor = true;
             }
         }
 
-        public MvxObservableCollection<Couleur> ListeCouleur
-        {
-            get => _ListeCouleur;
-            set
-            {
-                _ListeCouleur = value;
-                RaisePropertyChanged();
-            }
-        }
+       
 
         public string NomMatiere
         {
@@ -775,20 +765,18 @@ private bool _AllColor = true;
                     int NTwist;
                     if (int.TryParse(NumTwist, out NTwist))
                     {
-                       
-                            NewTitrage.NumTwist = NTwist;
-                            NewTitrage.NumMetric = NumMetric;
-                            NewTitrage.TypeMatiere = SelectedTypeMatiereT;
-                            NewTitrage.Designation = NumTwist + "/" + NumMetric;
-                            db.AddNewTitrage(NewTitrage);
-                            UpdateTypeMatiereList();
-                            SelectedTypeMatiere = null;
-                            SelectedTypeMatiereEdit = null;
-                            
-                            SelectedTypeMatiereT = null;
-                            NumMetric = "";
-                            NumTwist = "";
+                        NewTitrage.NumTwist = NTwist;
+                        NewTitrage.NumMetric = NumMetric;
+                        NewTitrage.TypeMatiere = SelectedTypeMatiereT;
+                        NewTitrage.Designation = NumTwist + "/" + NumMetric;
+                        db.AddNewTitrage(NewTitrage);
+                        UpdateTypeMatiereList();
+                        SelectedTypeMatiere = null;
+                        SelectedTypeMatiereEdit = null;
 
+                        SelectedTypeMatiereT = null;
+                        NumMetric = "";
+                        NumTwist = "";
                     }
                     else
                     {
@@ -800,18 +788,17 @@ private bool _AllColor = true;
             {
                 var NewTitrage = new Titrage();
                 int NMetric;
-                
-                    NewTitrage.NumTwist = 0;
-                    NewTitrage.NumMetric = NumMetric;
-                    NewTitrage.TypeMatiere = SelectedTypeMatiereT;
-                    NewTitrage.Designation = NumMetric;
-                    db.AddNewTitrage(NewTitrage);
-                    UpdateTypeMatiereList();
-                    SelectedTypeMatiere = null;
-                    SelectedTypeMatiereEdit = null;
-                    SelectedTypeMatiereT = null;
-                    NumMetric = "";
-                
+
+                NewTitrage.NumTwist = 0;
+                NewTitrage.NumMetric = NumMetric;
+                NewTitrage.TypeMatiere = SelectedTypeMatiereT;
+                NewTitrage.Designation = NumMetric;
+                db.AddNewTitrage(NewTitrage);
+                UpdateTypeMatiereList();
+                SelectedTypeMatiere = null;
+                SelectedTypeMatiereEdit = null;
+                SelectedTypeMatiereT = null;
+                NumMetric = "";
             }
         }
 
@@ -889,7 +876,7 @@ private bool _AllColor = true;
 
                 EditDesignation = SelectedMatiere.Designation;
                 EnableColorSelectionEdit = true;
-                SelectedCouleurEdit = ListeCouleur.First(co => co.ID == SelectedMatiere.GetCouleur.ID);
+                SelectedCouleurEdit = ListCouleur.First(co => co.ID == SelectedMatiere.GetCouleur.ID);
                 SelectedMatiereEdit = SelectedMatiere.ID;
             }
             else
@@ -900,48 +887,64 @@ private bool _AllColor = true;
 
         public void UpdateTitrage(TypeMatiere tm)
         {
-            ListTitrage = new MvxObservableCollection<Titrage>(db.GetTitrageByTypMat(tm));
+            try
+            {
+                ListTitrage = new MvxObservableCollection<Titrage>(db.GetTitrageByTypMat(tm));
+            }catch(Exception ex)
+            {
+                SendNotification.Raise(ex.ToString());
+            }
+            
         }
 
         public void UpdateTitrageEdit(TypeMatiere tm)
         {
-            ListTitrageEdit = new MvxObservableCollection<Titrage>(db.GetTitrageByTypMat(tm));
-        }
+            try
+            {
+                ListTitrageEdit = new MvxObservableCollection<Titrage>(db.GetTitrageByTypMat(tm));
+            }catch(Exception ex)
+            {
+                SendNotification.Raise(ex.ToString());
+            }
+}
 
         public void AjouterNoveauTypeMatiere()
         {
-            if (NomMatiere != null && !string.IsNullOrWhiteSpace(NomMatiere) && CodificationTypM != null &&
-                !string.IsNullOrWhiteSpace(CodificationTypM))
+            try
             {
-                if (db.GetTypeMatiereNom(NomMatiere) == null)
+                if (NomMatiere != null && !string.IsNullOrWhiteSpace(NomMatiere) && CodificationTypM != null &&
+                !string.IsNullOrWhiteSpace(CodificationTypM))
                 {
-                    var typeM = new TypeMatiere();
-                    typeM.MatiereNom = NomMatiere;
-                    typeM.Codification = CodificationTypM;
-                    db.AddNewTypeMatiere(typeM);
-                    UpdateTypeMatiereList();
-                    NomMatiere = "";
-                    CodificationTypM = "";
+                    if (db.GetTypeMatiereNom(NomMatiere) == null)
+                    {
+                        var typeM = new TypeMatiere();
+                        typeM.MatiereNom = NomMatiere;
+                        typeM.Codification = CodificationTypM;
+                        db.AddNewTypeMatiere(typeM);
+                        UpdateTypeMatiereList();
+                        NomMatiere = "";
+                        CodificationTypM = "";
+                    }
+                    else
+                    {
+                        SendNotification.Raise("Type Matière existe déja");
+                    }
                 }
                 else
                 {
-                    SendNotification.Raise("Type Matière existe déja");
+                    SendNotification.Raise("S.V.P remplit le champ");
                 }
-               
             }
-            else
+            catch(Exception ex)
             {
-                SendNotification.Raise("S.V.P remplit le champ");
+                SendNotification.Raise(ex.ToString());
             }
+            
         }
 
         public async Task UpdateTypeMatiereList()
         {
-          await  Task.Run(() =>
-            {
-                TypeMatiereList = new MvxObservableCollection<TypeMatiere>(db.GetTypeMatieres());
-            });
-
+            await Task.Run(() => { TypeMatiereList = new MvxObservableCollection<TypeMatiere>(db.GetTypeMatieres()); });
         }
 
 
@@ -967,66 +970,80 @@ private bool _AllColor = true;
 
         public void AjouterNouveauMatiere()
         {
-            if (!IsMatiereEditFieldsEmpty())
+            try
             {
-                if (AllColor == false)
+                if (!IsMatiereEditFieldsEmpty())
                 {
-                    if (db.GetMatiere(Ref) == null)
+                    if (AllColor == false)
                     {
-                        var mMatiere = new Matiere();
-                        mMatiere.Ref = Ref;
-                        mMatiere.Designation = Designation;
-                        mMatiere.Titrage = SelectedTitrage;
-                        mMatiere.GetCouleur = SelectedCouleur;
-                        db.AddNewMatiere(mMatiere);
-                        UpdateListeMatiere();
+                        if (db.GetMatiere(Ref) == null)
+                        {
+                            var mMatiere = new Matiere();
+                            mMatiere.Ref = Ref;
+                            mMatiere.Designation = Designation;
+                            mMatiere.Titrage = SelectedTitrage;
+                            mMatiere.GetCouleur = SelectedCouleur;
+                            db.AddNewMatiere(mMatiere);
+                            UpdateListeMatiere();
 
-                        Ref = "";
-                        Designation = "";
-                        
-                        SelectedTitrage = null;
-                        SelectedCouleur = null;
-                        SelectedCouleur = null;
+                            Ref = "";
+                            Designation = "";
+                            SelectedCouleur = null;
+                            SelectedTitrage = null;
+                            Ref = null;
+                            SelectedTypeMatiere = null;
+                            Designation = null;
+
+                        }
+                        else
+                        {
+                            SendNotification.Raise("Cette matière Première existe déja");
+                        }
                     }
                     else
                     {
-                        SendNotification.Raise("Cette matière Première existe déja");
+                        if (ListCouleur.Count == 0)
+                        {
+                            SendNotification.Raise("Aucune couleur existe");
+                        }
+                        else
+                        {
+                            var AddedNewMatiere = false;
+                            foreach (var colr in ListCouleur)
+                            {
+                                var mMatiere = new Matiere();
+                                mMatiere.Ref = Ref + colr.Nbr.ToString("00");
+                                if (db.GetMatiere(mMatiere.Ref) == null)
+                                {
+                                    AddedNewMatiere = true;
+                                    mMatiere.Designation = Designation + " " + colr.Name;
+                                    mMatiere.Titrage = SelectedTitrage;
+                                    mMatiere.GetCouleur = colr;
+                                    db.AddNewMatiere(mMatiere);
+                                    
+                                 
+                                }
+                            }
+
+                            SelectedTitrage = null;
+                            Ref = null;
+                            SelectedTypeMatiere = null;
+                            Designation = null;
+                            if (AddedNewMatiere == false) SendNotification.Raise("Tous les matières existe déja");
+                            UpdateListeMatiere();
+                        }
                     }
                 }
                 else
                 {
-                    if (ListeCouleur.Count == 0)
-                    {
-                        SendNotification.Raise("Aucune couleur existe");
-                    }
-                    else
-                    {
-                        var AddedNewMatiere = false;
-                        foreach (var colr in ListeCouleur)
-                        {
-                            var mMatiere = new Matiere();
-                            mMatiere.Ref = Ref + colr.Nbr.ToString("00");
-                            if (db.GetMatiere(mMatiere.Ref) == null)
-                            {
-                                AddedNewMatiere = true;
-                                mMatiere.Designation = Designation + " " + colr.Name;
-                                mMatiere.Titrage = SelectedTitrage;
-                                mMatiere.GetCouleur = colr;
-                                db.AddNewMatiere(mMatiere);
-                            }
-                        }
-
-                        SelectedTitrage = null;
-                        SelectedCouleur = null;
-                        if (AddedNewMatiere == false) SendNotification.Raise("Tous les matières existe déja");
-                        UpdateListeMatiere();
-                    }
+                    SendNotification.Raise("S.V.P remplit tous les champs");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                SendNotification.Raise("S.V.P remplit tous les champs");
+                SendNotification.Raise(ex.ToString());
             }
+            
         }
 
         public void OnEditChangeNovFields()
@@ -1035,7 +1052,7 @@ private bool _AllColor = true;
             {
                 if (SelectedTitrage.NumTwist > 0)
                 {
-                    EditRef = SelectedTypeMatiereEdit.Codification.ToUpper() + selectedEditTitrage.NumTwist + "/" +
+                    EditRef = SelectedTypeMatiereEdit.Codification.ToUpper() + selectedEditTitrage.NumTwist +
                               selectedEditTitrage.NumMetric + SelectedCouleurEdit.Nbr.ToString("00");
                     EditDesignation = SelectedTypeMatiereEdit.MatiereNom.ToUpper() + " " +
                                       selectedEditTitrage.NumTwist + "/" + selectedEditTitrage.NumMetric + " " +
@@ -1059,7 +1076,7 @@ private bool _AllColor = true;
                 {
                     if (SelectedTitrage.NumTwist > 0)
                     {
-                        Ref = SelectedTypeMatiere.Codification.ToUpper() + SelectedTitrage.NumTwist + "/" +
+                        Ref = SelectedTypeMatiere.Codification.ToUpper() + SelectedTitrage.NumTwist+
                               SelectedTitrage.NumMetric + SelectedCouleur.Nbr.ToString("00");
                         Designation = SelectedTypeMatiere.MatiereNom.ToUpper() + " " + SelectedTitrage.NumTwist + "/" +
                                       SelectedTitrage.NumMetric + " " + SelectedCouleur.Name.ToUpper();
@@ -1076,7 +1093,7 @@ private bool _AllColor = true;
                 {
                     if (SelectedTitrage.NumTwist > 0)
                     {
-                        Ref = SelectedTypeMatiere.Codification.ToUpper() + SelectedTitrage.NumTwist + "/" +
+                        Ref = SelectedTypeMatiere.Codification.ToUpper() + SelectedTitrage.NumTwist+
                               SelectedTitrage.NumMetric;
                         Designation = SelectedTypeMatiere.MatiereNom.ToUpper() + " " + SelectedTitrage.NumTwist + "/" +
                                       SelectedTitrage.NumMetric + " ";
@@ -1090,359 +1107,330 @@ private bool _AllColor = true;
             }
         }
 
-        public async Task UpdateCouleur()
-        {
-            await Task.Run(async() =>
-                {
-                   var collist= await db.GetCouleurs();
-                    ListeCouleur = new MvxObservableCollection<Couleur>(collist );
-                }
-            );
-          
-        }
+        
+
         public async Task UpdateListeMatiere()
         {
-            await Task.Run(() =>
-                {
-                    ListMatiere = new MvxObservableCollection<Matiere>(db.GetMatieres());
-                }
+            await Task.Run(() => { ListMatiere = new MvxObservableCollection<Matiere>(db.GetMatieres()); }
             );
-          
         }
+
         #endregion
 
         #region Couleur
 
-          private string _CouleurNom;
+        private string _CouleurNom;
 
-    private int _EditColorId;
-    private bool _IsCouleurEditEnabled;
-    private MvxObservableCollection<Couleur> _ListCouleur;
-
-
-
-    private string _NovCouleurNom;
-    private string _NovNumero;
-    private string _Numero;
-
-    private Couleur _SelectedColor;
+        private int _EditColorId;
+        private bool _IsCouleurEditEnabled;
+        private MvxObservableCollection<Couleur> _ListCouleur;
 
 
+        private string _NovCouleurNom;
+        private string _NovNumero;
+        private string _Numero;
+
+        private Couleur _SelectedColor;
 
 
-   
-    
-   
-
-
-
-    public int EditColorId
-    {
-        get => _EditColorId;
-        set
+        public int EditColorId
         {
-            _EditColorId = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    public bool IsCouleurEditEnabled
-    {
-        get => _IsCouleurEditEnabled;
-        set
-        {
-            _IsCouleurEditEnabled = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    private IMvxCommand _ModifierCouleurCmd;
-
-    public IMvxCommand ModifierCouleurCmd
-    {
-        get
-        {
-            _ModifierCouleurCmd = new MvxCommand(ModifierColor);
-            return _ModifierCouleurCmd;
-        }
-
-    }
-
-    private IMvxCommand _SupprimerCouleurCmd;
-
-    public IMvxCommand SupprimerCouleurCmd
-    {
-        get
-        {
-            _SupprimerCouleurCmd = new MvxCommand(SupprimerColor);
-            return _SupprimerCouleurCmd;
-        }
-    }
-
-    private IMvxCommand _AjouterNovCol;
-
-    public IMvxCommand AjouterNovCol
-    {
-        get
-        {
-            _AjouterNovCol = new MvxAsyncCommand(async() =>
+            get => _EditColorId;
+            set
             {
-                await AjouterNovColor();
-            });
-       
-            return _AjouterNovCol;
+                _EditColorId = value;
+                RaisePropertyChanged();
+            }
         }
-    }
 
-    private IMvxCommand _CancelCouleurCmd;
-
-    public IMvxCommand CancelCouleurCmd
-    {
-        get
+        public bool IsCouleurEditEnabled
         {
-            _CancelCouleurCmd = new MvxCommand(CancelCouleurEdit);
-            return _CancelCouleurCmd;
-        }
-    }
-
-    private bool _IsSuperUser;
-
-    public bool IsSuperUser
-    {
-        get
-        {
-            return _IsSuperUser;
-        }
-        set
-        {
-            _IsSuperUser = value;
-            RaisePropertyChanged();
-        }
-    }
-    private bool _IsVerificateur;
-
-    public bool IsVerificateur
-    {
-        get
-        {
-            return _IsVerificateur;
-        }
-        set
-        {
-            _IsVerificateur = value;
-            RaisePropertyChanged();
-        }
-    }
-    private IMvxCommand _SaveCouleurChange;
-
-    public IMvxCommand SaveCouleurChange
-    {
-        get
-        {
-            _SaveCouleurChange = new MvxCommand(SaveCouleurEditChange);
-            return _SaveCouleurChange;
-        }
-    }
-
-    public MvxObservableCollection<Couleur> ListCouleur
-    {
-        get => _ListCouleur;
-        set
-        {
-            _ListCouleur = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    public Couleur SelectedColor
-    {
-        get => _SelectedColor;
-        set
-        {
-            _SelectedColor = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    public string Numero
-    {
-        get => _Numero;
-        set
-        {
-            _Numero = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    public string CouleurNom
-    {
-        get => _CouleurNom;
-        set
-        {
-            _CouleurNom = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    public string NovNumero
-    {
-        get => _NovNumero;
-        set
-        {
-            _NovNumero = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    public string NovCouleurNom
-    {
-        get => _NovCouleurNom;
-        set
-        {
-            _NovCouleurNom = value;
-            RaisePropertyChanged();
-        }
-    }
-
-    public void SaveCouleurEditChange()
-    {
-        if (!IsCouleurEditFieldsEmpty() && IsNumero(NovNumero) &&
-            db.CheckUniqueColor(EditColorId,Convert.ToInt32(NovNumero), NovCouleurNom) == null)
-        {
-            var NewColour = new Couleur();
-            NewColour.ID = EditColorId;
-            NewColour.Nbr = Convert.ToInt32(NovNumero);
-            NewColour.Name = NovCouleurNom;
-            db.EditColor(NewColour);
-            UpdateColorList();
-            CancelCouleurEdit();
-        }
-        else if (IsCouleurEditFieldsEmpty())
-        {
-            SendNotification.Raise("Remplit tout les champs");
-        }
-        else if (!IsNumero(NovNumero))
-        {
-            SendNotification.Raise("Choisir un numero correct");
-        }
-        else
-        {
-            SendNotification.Raise("Couleur existe déja");
-        }
-    }
-
-    public async Task UpdateColorList()
-    {
-     
-        var listColor =await db.GetCouleurs();
-        foreach (var col in listColor) col.Name = col.Name.ToUpper();
-     
-       
-        ListCouleur = new MvxObservableCollection<Couleur>(listColor.ToList());
-    }
-
-    public void CancelCouleurEdit()
-    {
-        IsCouleurEditEnabled = false;
-        NovCouleurNom = "";
-        NovNumero = "";
-    }
-
-    public void ModifierColor()
-    {
-        if (SelectedColor != null)
-        {
-            IsCouleurEditEnabled = true;
-            NovCouleurNom = SelectedColor.Name;
-            NovNumero = SelectedColor.Nbr.ToString();
-            EditColorId = SelectedColor.ID;
-        }
-        else
-        {
-            SendNotification.Raise("S.V.P Séléctionnez une couleur");
-        }
-    }
-
-    public void SupprimerColor()
-    {
-        if (SelectedColor != null)
-        {
-            var req = new YesNoQuestion
+            get => _IsCouleurEditEnabled;
+            set
             {
-                Question = "êtes-vous sûr de vouloir supprimer cette Couleur séléctionnée ?",
-                UploadCallback = ok =>
+                _IsCouleurEditEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IMvxCommand _ModifierCouleurCmd;
+
+        public IMvxCommand ModifierCouleurCmd
+        {
+            get
+            {
+                _ModifierCouleurCmd = new MvxCommand(ModifierColor);
+                return _ModifierCouleurCmd;
+            }
+        }
+
+        private IMvxCommand _SupprimerCouleurCmd;
+
+        public IMvxCommand SupprimerCouleurCmd
+        {
+            get
+            {
+                _SupprimerCouleurCmd = new MvxCommand(SupprimerColor);
+                return _SupprimerCouleurCmd;
+            }
+        }
+
+        private IMvxCommand _AjouterNovCol;
+
+        public IMvxCommand AjouterNovCol
+        {
+            get
+            {
+                _AjouterNovCol = new MvxAsyncCommand(async () => { await AjouterNovColor(); });
+
+                return _AjouterNovCol;
+            }
+        }
+
+        private IMvxCommand _CancelCouleurCmd;
+
+        public IMvxCommand CancelCouleurCmd
+        {
+            get
+            {
+                _CancelCouleurCmd = new MvxCommand(CancelCouleurEdit);
+                return _CancelCouleurCmd;
+            }
+        }
+
+        private bool _IsSuperUser;
+
+        public bool IsSuperUser
+        {
+            get => _IsSuperUser;
+            set
+            {
+                _IsSuperUser = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsVerificateur;
+
+        public bool IsVerificateur
+        {
+            get => _IsVerificateur;
+            set
+            {
+                _IsVerificateur = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IMvxCommand _SaveCouleurChange;
+
+        public IMvxCommand SaveCouleurChange
+        {
+            get
+            {
+                _SaveCouleurChange = new MvxCommand(SaveCouleurEditChange);
+                return _SaveCouleurChange;
+            }
+        }
+
+        public MvxObservableCollection<Couleur> ListCouleur
+        {
+            get => _ListCouleur;
+            set
+            {
+                _ListCouleur = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Couleur SelectedColor
+        {
+            get => _SelectedColor;
+            set
+            {
+                _SelectedColor = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Numero
+        {
+            get => _Numero;
+            set
+            {
+                _Numero = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string CouleurNom
+        {
+            get => _CouleurNom;
+            set
+            {
+                _CouleurNom = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string NovNumero
+        {
+            get => _NovNumero;
+            set
+            {
+                _NovNumero = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string NovCouleurNom
+        {
+            get => _NovCouleurNom;
+            set
+            {
+                _NovCouleurNom = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public void SaveCouleurEditChange()
+        {
+            if (!IsCouleurEditFieldsEmpty() && IsNumero(NovNumero) &&
+                db.CheckCouleurUniqueEdit(EditColorId, Convert.ToInt32(NovNumero), NovCouleurNom) == true)
+            {
+                var NewColour = new Couleur();
+                NewColour.ID = EditColorId;
+                NewColour.Nbr = Convert.ToInt32(NovNumero);
+                NewColour.Name = NovCouleurNom;
+                db.EditColor(NewColour);
+                UpdateColorList();
+                CancelCouleurEdit();
+            }
+            else if (IsCouleurEditFieldsEmpty())
+            {
+                SendNotification.Raise("Remplit tout les champs");
+            }
+            else if (!IsNumero(NovNumero))
+            {
+                SendNotification.Raise("Choisir un numero correct");
+            }
+            else
+            {
+                SendNotification.Raise("Couleur existe déja");
+            }
+        }
+
+        public async Task UpdateColorList()
+        {
+            var listColor =  db.GetCouleurs(); 
+            foreach (var col in listColor) col.Name = col.Name.ToUpper();
+
+            ListCouleur = new MvxObservableCollection<Couleur>(listColor.ToList());
+            ListCouleur.OrderBy(co => co.Nbr);
+        }
+
+        public void CancelCouleurEdit()
+        {
+            IsCouleurEditEnabled = false;
+            NovCouleurNom = "";
+            NovNumero = "";
+        }
+
+        public void ModifierColor()
+        {
+            if (SelectedColor != null)
+            {
+                IsCouleurEditEnabled = true;
+                NovCouleurNom = SelectedColor.Name;
+                NovNumero = SelectedColor.Nbr.ToString();
+                EditColorId = SelectedColor.ID;
+            }
+            else
+            {
+                SendNotification.Raise("S.V.P Séléctionnez une couleur");
+            }
+        }
+
+        public void SupprimerColor()
+        {
+            if (SelectedColor != null)
+            {
+                var req = new YesNoQuestion
                 {
-                    if (ok)
+                    Question = "êtes-vous sûr de vouloir supprimer cette Couleur séléctionnée ?",
+                    UploadCallback = ok =>
                     {
-                        db.DeleteColor(SelectedColor);
-                        UpdateColorList();
+                        if (ok)
+                        {
+                            db.DeleteColor(SelectedColor);
+                            UpdateColorList();
+                        }
+                    }
+                };
+                ConfirmAction.Raise(req);
+            }
+            else
+            {
+                SendNotification.Raise("S.V.P Séléctionnez une couleur");
+            }
+        }
+
+        public async Task AjouterNovColor()
+        {
+            await Task.Run(async () =>
+                {
+                 
+                    if (!IsCouleurAddFieldsEmpty() && IsNumero(Numero) &&
+                        db.CheckCouleurUnique(Convert.ToInt32(Numero), CouleurNom) == true)
+                    {
+                        var NewColour = new Couleur();
+                        NewColour.Nbr = Convert.ToInt32(Numero);
+                        NewColour.Name = CouleurNom;
+                        db.AddNewColor(NewColour);
+                        await UpdateColorList();
+                        Numero = "";
+                        CouleurNom = "";
+                    }
+                    else if (IsCouleurAddFieldsEmpty())
+                    {
+                        SendNotification.Raise("Remplit tout les champs");
+                    }
+                    else if (!IsNumero(Numero))
+                    {
+                        SendNotification.Raise("Choisir un numero correct");
+                    }
+                    else
+                    {
+                        SendNotification.Raise("Couleur existe déja");
                     }
                 }
-            };
-            ConfirmAction.Raise(req);
+            );
         }
-        else
-        {
-            SendNotification.Raise("S.V.P Séléctionnez une couleur");
-        }
-    }
 
-    public async Task AjouterNovColor()
-    {
-        await Task.Run(async() =>
+        public bool IsNumero(string Num)
+        {
+            try
             {
-                var test = db.GetColor(Convert.ToInt32(Numero), CouleurNom);
-                if (!IsCouleurAddFieldsEmpty() && IsNumero(Numero) && db.GetColor(Convert.ToInt32(Numero), CouleurNom) == null)
-                {
-                    var NewColour = new Couleur();
-                    NewColour.Nbr = Convert.ToInt32(Numero);
-                    NewColour.Name = CouleurNom;
-                    db.AddNewColor(NewColour);
-                    await UpdateColorList();
-                    Numero = "";
-                    CouleurNom = "";
-                }
-                else if (IsCouleurAddFieldsEmpty())
-                {
-                    SendNotification.Raise("Remplit tout les champs");
-                }
-                else if (!IsNumero(Numero))
-                {
-                    SendNotification.Raise("Choisir un numero correct");
-                }
-                else
-                {
-                    SendNotification.Raise("Couleur existe déja");
-                }
+                Convert.ToInt32(Num);
+                return true;
             }
-        );
-      
-    }
-
-    public bool IsNumero(string Num)
-    {
-        try
-        {
-            Convert.ToInt32(Num);
-            return true;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
-        catch (Exception ex)
+
+        public bool IsCouleurAddFieldsEmpty()
         {
-            return false;
+            return Numero == null || CouleurNom == null || string.IsNullOrWhiteSpace(Numero) ||
+                   string.IsNullOrWhiteSpace(CouleurNom);
         }
-    }
 
-    public bool IsCouleurAddFieldsEmpty()
-    {
-        return Numero == null || CouleurNom == null || string.IsNullOrWhiteSpace(Numero) ||
-               string.IsNullOrWhiteSpace(CouleurNom);
-    }
-
-    public bool IsCouleurEditFieldsEmpty()
-    {
-        return NovNumero == null || NovCouleurNom == null || string.IsNullOrWhiteSpace(NovNumero) ||
-               string.IsNullOrWhiteSpace(NovCouleurNom);
-    }
+        public bool IsCouleurEditFieldsEmpty()
+        {
+            return NovNumero == null || NovCouleurNom == null || string.IsNullOrWhiteSpace(NovNumero) ||
+                   string.IsNullOrWhiteSpace(NovCouleurNom);
+        }
 
         #endregion
     }

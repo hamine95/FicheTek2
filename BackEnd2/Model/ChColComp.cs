@@ -3,12 +3,14 @@ using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class ChColComp:INotifyPropertyChanged
+    public class ChColComp : INotifyPropertyChanged
     {
-        private int _ID;
         private int _ChaineID;
         private int _ColNum;
+
+        private Composant _Comp;
         private int _ComposantID;
+        private int _ID;
 
         public int ID
         {
@@ -50,25 +52,19 @@ namespace BackEnd2.Model
             }
         }
 
-        private Composant _Comp;
-
         public Composant Comp
         {
-            get
-            {
-                return _Comp;
-                
-            }
+            get => _Comp;
             set
             {
                 _Comp = value;
                 NotifyPropertyChanged();
             }
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-  
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)

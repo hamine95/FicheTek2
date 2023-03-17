@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
     public class Catalogue : INotifyPropertyChanged
     {
+        private List<Catalogue> _Children;
         private string _Designation;
+        private int _ID;
 
         private int _parent;
 
         public int parent
         {
-            get
-            {
-                return _parent;
-            }
+            get => _parent;
 
             set
             {
@@ -24,9 +23,8 @@ namespace BackEnd2.Model
                 NotifyPropertyChanged();
             }
         }
-        private int _ID;
 
-        [Key]
+     
         public int ID
         {
             get => _ID;
@@ -47,14 +45,9 @@ namespace BackEnd2.Model
             }
         }
 
-        private List<Catalogue> _Children;
-
         public List<Catalogue> Children
         {
-            get
-            {
-                return _Children;
-            }
+            get => _Children;
             set
             {
                 _Children = value;

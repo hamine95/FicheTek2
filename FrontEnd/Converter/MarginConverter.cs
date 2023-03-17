@@ -4,15 +4,11 @@ using System.Windows.Data;
 
 namespace FrontEnd.Converter
 {
-    public class MarginConverter: IValueConverter
+    public class MarginConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
-            if (value != null)
-            {
-                return -(int)value;
-            }
+            if (value != null) return -(int)value;
             return 0;
         }
 

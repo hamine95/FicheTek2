@@ -3,13 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class UpDownCompo: INotifyPropertyChanged
+    public class UpDownCompo : INotifyPropertyChanged
     {
+        private string _BKBorderComposant;
 
 
         private string _BKComposant;
-
-        private string _BKBorderComposant;
 
         public string BKComposant
         {
@@ -32,7 +31,7 @@ namespace BackEnd2.Model
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)

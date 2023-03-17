@@ -5,79 +5,77 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:behiavor="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
-             SizeChanged="EnfilageSchemas_OnSizeChanged"
-             >
+             SizeChanged="EnfilageSchemas_OnSizeChanged">
     <UserControl.Resources>
 
-        <DataTemplate x:Key="Empty" >
-             <Border Background="{Binding Path=color}" 
-                                BorderThickness="1 0 0 0"
-                                
-                                
-
-                                Height="15"
-                                Width="17"
+        <DataTemplate x:Key="Empty">
+            <Border Background="{Binding Path=color}"
+                    BorderThickness="1 0 0 0"
 
 
-                                Focusable="True"
+                    Height="15"
+                    Width="17"
 
 
-                                GotFocus="Border_GotFocus"
-                                LostFocus="Border_LostFocus"
-                                MouseDown="Border_MouseDown"
-                                Tag="{Binding}">
-                           
-                            <Border.BorderBrush>
+                    Focusable="True"
 
-                                 <!-- <LinearGradientBrush StartPoint="0,0" EndPoint="0,3" MappingMode="Absolute"  -->
-                                 <!--                    SpreadMethod="Repeat">  -->
-                                 <!--   <GradientStop Offset="0" Color="Black" />  -->
-                                 <!--    <GradientStop Offset="0.25" Color="Black" />  -->
-                                 <!--    <GradientStop Offset="0.5" Color="Black" />  -->
-                                 <!--    <GradientStop Offset="0.5" Color="Transparent" />  -->
-                                 <!--    <GradientStop Offset="0.75" Color="Transparent" />  -->
-                                 <!--   <GradientStop Offset="1" Color="Transparent" /> -->
-                                 <!-- </LinearGradientBrush>  -->
 
- 
-                                 
-                                <VisualBrush >
-                                    <VisualBrush.Visual>
-                                        <Rectangle StrokeDashArray="{Binding Dash,TargetNullValue=''}" Stroke="{Binding BorderCO}" StrokeThickness="1"
-                  Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
-                  Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
-                                    </VisualBrush.Visual>
-                                </VisualBrush>
+                    GotFocus="Border_GotFocus"
+                    LostFocus="Border_LostFocus"
+                    MouseDown="Border_MouseDown"
+                    Tag="{Binding}">
 
-                            </Border.BorderBrush>
-                            <Border BorderThickness="0 0 0 1"
+                <Border.BorderBrush>
 
-                                    Height="11.5"
-                                    Width="13">
+                    <!-- <LinearGradientBrush StartPoint="0,0" EndPoint="0,3" MappingMode="Absolute"  -->
+                    <!--                    SpreadMethod="Repeat">  -->
+                    <!--   <GradientStop Offset="0" Color="Black" />  -->
+                    <!--    <GradientStop Offset="0.25" Color="Black" />  -->
+                    <!--    <GradientStop Offset="0.5" Color="Black" />  -->
+                    <!--    <GradientStop Offset="0.5" Color="Transparent" />  -->
+                    <!--    <GradientStop Offset="0.75" Color="Transparent" />  -->
+                    <!--   <GradientStop Offset="1" Color="Transparent" /> -->
+                    <!-- </LinearGradientBrush>  -->
 
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="3,0" MappingMode="Absolute"
-                                                         SpreadMethod="Repeat">
-                                        <GradientStop Offset="0" Color="Black" />
-                                        <GradientStop Offset="0.25" Color="Black" />
-                                        <GradientStop Offset="0.5" Color="Black" />
-                                        <GradientStop Offset="0.5" Color="Transparent" />
-                                        <GradientStop Offset="0.75" Color="Transparent" />
-                                        <GradientStop Offset="1" Color="Transparent" />
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
-                                <TextBlock TextAlignment="Center" VerticalAlignment="Center" 
-                                           HorizontalAlignment="Center" Foreground="{Binding TextBK}"
-                                           Text="{Binding Num}" />
-                            </Border>
 
-                        </Border>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Rectangle StrokeDashArray="{Binding Dash,TargetNullValue=''}" Stroke="{Binding BorderCO}"
+                                       StrokeThickness="1"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                       Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
 
-        </DataTemplate> 
+                </Border.BorderBrush>
+                <Border BorderThickness="0 0 0 1"
 
-        <DataTemplate x:Key="Content" >
+                        Height="11.5"
+                        Width="13">
+
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="3,0" MappingMode="Absolute"
+                                             SpreadMethod="Repeat">
+                            <GradientStop Offset="0" Color="Black" />
+                            <GradientStop Offset="0.25" Color="Black" />
+                            <GradientStop Offset="0.5" Color="Black" />
+                            <GradientStop Offset="0.5" Color="Transparent" />
+                            <GradientStop Offset="0.75" Color="Transparent" />
+                            <GradientStop Offset="1" Color="Transparent" />
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <TextBlock TextAlignment="Center" VerticalAlignment="Center"
+                               HorizontalAlignment="Center" Foreground="{Binding TextBK}"
+                               Text="{Binding Num}" />
+                </Border>
+
+            </Border>
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="Content">
             <Border
-                
+
                 Focusable="True"
 
 
@@ -85,8 +83,9 @@
                 LostFocus="Border_LostFocus"
                 MouseDown="Border_MouseDown"
                 Tag="{Binding}"
-                BorderThickness="1" Background="{Binding color}" BorderBrush="{Binding BorderCO}" Height="11.5" Width="13">
-                <TextBlock TextAlignment="Center" VerticalAlignment="Center" 
+                BorderThickness="1" Background="{Binding color}" BorderBrush="{Binding BorderCO}" Height="11.5"
+                Width="13">
+                <TextBlock TextAlignment="Center" VerticalAlignment="Center"
                            HorizontalAlignment="Center" Foreground="{Binding TextBK}"
                            Text="{Binding Num}" />
             </Border>
@@ -168,7 +167,7 @@
 
                 </ListView>
             </GroupBox>
-            <GroupBox Header="Dent" >
+            <GroupBox Header="Dent">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -206,8 +205,9 @@
             </Grid.RowDefinitions>
 
 
-            <ListBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
-                     ItemsSource="{Binding ListComposant,RelativeSource={RelativeSource AncestorType=UserControl}}" SelectedItem="{Binding SelectedComposant,RelativeSource={RelativeSource AncestorType=UserControl}}"
+            <ListBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                     ItemsSource="{Binding ListComposant,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                     SelectedItem="{Binding SelectedComposant,RelativeSource={RelativeSource AncestorType=UserControl}}"
                      KeyboardNavigation.DirectionalNavigation="None" Cursor="Hand" Panel.ZIndex="1">
 
                 <ListBox.ItemContainerStyle>
@@ -237,14 +237,12 @@
                                 </Border>
 
                                 <TextBlock Width="70" Margin="2 0 2 0" Foreground="Black" FontSize="12"
-                                           FontWeight="Bold"  TextAlignment="Center"
+                                           FontWeight="Bold" TextAlignment="Center"
                                            HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    
+
                                     <DockPanel>
-                                        <TextBlock Text="{Binding GetComposant.Name}" Margin="0 0 1 0">
-                                            
-                                        </TextBlock>
-                                        <TextBlock Text="{Binding Num,StringFormat=0;;#}"></TextBlock>
+                                        <TextBlock Text="{Binding GetComposant.Name}" Margin="0 0 1 0" />
+                                        <TextBlock Text="{Binding Num,StringFormat=0;;#}" />
                                     </DockPanel>
                                 </TextBlock>
 
@@ -289,8 +287,8 @@
 
             <ItemsControl BorderBrush="Black" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="0"
                           VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Board"
-                           ItemsSource="{Binding BoardItems,RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                          KeyboardNavigation.TabNavigation="None" 
+                          ItemsSource="{Binding BoardItems,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          KeyboardNavigation.TabNavigation="None"
                           ClipToBounds="True"
                           KeyboardNavigation.DirectionalNavigation="None">
 
@@ -301,27 +299,27 @@
 
                         <UniformGrid FlowDirection="RightToLeft" HorizontalAlignment="Center"
                                      VerticalAlignment="Center" Columns="83" Rows="59"
-                                    Cursor="Hand"
+                                     Cursor="Hand"
                                      Background="AliceBlue" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                      
-                        <ContentControl Content="{Binding }"> 
-                            <ContentControl.Style> 
-                               <Style TargetType="{x:Type ContentControl}">
-                                 <Setter Property="ContentTemplate" Value="{StaticResource Empty}" />
-                                    <Style.Triggers> 
-                                        <DataTrigger Binding="{Binding IsContent}" Value="True"> 
-                                             <Setter Property="ContentTemplate" Value="{StaticResource Content}" />
-                                        </DataTrigger> 
-                                    </Style.Triggers> 
-                                 </Style> 
+
+                        <ContentControl Content="{Binding }">
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource Empty}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsContent}" Value="True">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource Content}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
                             </ContentControl.Style>
-                        </ContentControl> 
-                      
+                        </ContentControl>
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -340,7 +338,8 @@
                 </Grid.RowDefinitions>
 
                 <ItemsControl HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Grid.Row="0"
-                              Background="Beige" Name="ChaineBoard" ItemsSource="{Binding ChaineList,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              Background="Beige" Name="ChaineBoard"
+                              ItemsSource="{Binding ChaineList,RelativeSource={RelativeSource AncestorType=UserControl}}"
                               KeyboardNavigation.TabNavigation="None" KeyboardNavigation.DirectionalNavigation="None">
 
                     <ItemsControl.ItemsPanel>
@@ -350,7 +349,9 @@
 
 
                             <UniformGrid Height="auto" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                         Columns="{Binding ChaineColumns,RelativeSource={RelativeSource AncestorType=UserControl}}" Rows="{Binding ChaineRows,RelativeSource={RelativeSource AncestorType=UserControl}}" x:Name="UniGrid"
+                                         Columns="{Binding ChaineColumns,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         Rows="{Binding ChaineRows,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                         x:Name="UniGrid"
                                          Cursor="Hand" Background="AliceBlue" />
 
 

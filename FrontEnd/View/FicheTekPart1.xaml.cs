@@ -18,7 +18,7 @@ namespace FrontEnd.View
         public FicheTekPart1()
         {
             InitializeComponent();
-            this.Language = XmlLanguage.GetLanguage("fr-FR");
+            Language = XmlLanguage.GetLanguage("fr-FR");
         }
 
         private static bool IsDouble(string text)
@@ -70,7 +70,5 @@ namespace FrontEnd.View
         private void TextBox_TextInput(object sender, TextCompositionEventArgs e)
         {
         }
-
-       
     }
 }

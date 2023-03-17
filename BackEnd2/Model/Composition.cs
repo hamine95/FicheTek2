@@ -1,48 +1,56 @@
 ﻿using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
     public class Composition : INotifyPropertyChanged, ICloneable
     {
-        private string _BKBorderComposant;
 
-        private string _BKComposant;
 
         private string _DebutFil;
 
-        private string _FGComposant;
+
+        private string _Emb;
+
+
+        private int _Enfilage;
+
+
+        private int _EnfNbrFil;
+
+
+
+         private Composant _GetComposant;
+
+
+        private Matiere _GetMatiere;
+
+         private int _ID;
+
 
         private bool _Intermittent;
 
+        private int _NbrFil;
 
-        private string _ImagePath;
-        private string _ImageReedPath;
-        
+        private int _Num;
+
         private int _NumComposant;
 
 
-        public string BKBorderComposant
-        {
-            get => _BKBorderComposant;
-            set
-            {
-                _BKBorderComposant = value;
-                NotifyPropertyChanged();
-            }
-        }
+        private string _Observation;
 
-        public string BKComposant
-        {
-            get => _BKComposant;
-            set
-            {
-                _BKComposant = value;
-                NotifyPropertyChanged();
-            }
-        }
+
+        private double _Poids;
+
+
+        private Produit _ProdID;
+
+
+        private string _Torsion;
+
+
+
 
         public int NumComposant
         {
@@ -54,17 +62,7 @@ namespace BackEnd2.Model
             }
         }
 
-        public string FGComposant
-        {
-            get => _FGComposant;
-            set
-            {
-                _FGComposant = value;
-                NotifyPropertyChanged();
-            }
-        }
 
-      
 
         public string DebutFil
         {
@@ -85,42 +83,6 @@ namespace BackEnd2.Model
                 NotifyPropertyChanged();
             }
         }
-
-     
-
-        
-        
-        private string _Emb;
-
-
-        private int _Enfilage;
-
-
-        [Key] private Composant _GetComposant;
-
-
-        private Matiere _GetMatiere;
-
-        [Key] private int _ID;
-
-        private int _NbrFil;
-
-
-        private int _EnfNbrFil;
-        
-        private int _Num;
-
-
-        private string _Observation;
-
-
-        private double _Poids;
-
-
-        private Produit _ProdID;
-
-
-        private string _Torsion;
 
         public int ID
         {
@@ -233,25 +195,8 @@ namespace BackEnd2.Model
             }
         }
 
-        public string ImagePath
-        {
-            get => _ImagePath;
-            set
-            {
-                _ImagePath = value;
-                NotifyPropertyChanged();
-            }
-        }
 
-        public string ImageReedPath
-        {
-            get => _ImageReedPath;
-            set
-            {
-                _ImageReedPath = value;
-                NotifyPropertyChanged();
-            }
-        }
+
         public int EnfNbrFil
         {
             get => _EnfNbrFil;
@@ -260,6 +205,43 @@ namespace BackEnd2.Model
                 _EnfNbrFil = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        private bool _Highlight;
+
+        public bool Highlight
+        {
+            get
+            {
+                return _Highlight;
+            }
+            set
+            {
+                _Highlight = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public object Clone()
+        {
+            return new Composition
+            {
+                DebutFil = DebutFil,
+                Intermittent = Intermittent,
+                Emb = Emb,
+                Enfilage = Enfilage,
+                GetComposant = GetComposant,
+                GetMatiere = GetMatiere,
+                NbrFil = NbrFil,
+                Num = Num,
+                NumComposant = NumComposant,
+                EnfNbrFil = EnfNbrFil,
+                Observation = Observation,
+                Poids = Poids,
+                Torsion = Torsion,
+                ProdID = ProdID,
+                ID = ID
+            };
         }
 
 
@@ -275,38 +257,6 @@ namespace BackEnd2.Model
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public object Clone()
-        {
-            return new Composition()
-            {
-                BKBorderComposant = this.BKBorderComposant,
-                BKComposant = this.BKComposant,
-                DebutFil = this.DebutFil,
-                FGComposant = this.FGComposant,
-                Intermittent = this.Intermittent,
-                ImagePath = this.ImagePath,
-                ImageReedPath = this.ImageReedPath,
-                Emb = this.Emb,
-                Enfilage = this.Enfilage,
-                GetComposant = this.GetComposant,
-                GetMatiere = this.GetMatiere,
-                NbrFil = this.NbrFil,
-                Num = this.Num,
-                NumComposant = this.NumComposant,
-                EnfNbrFil = this.EnfNbrFil,
-                Observation = this.Observation,
-                Poids = this.Poids,
-                Torsion = this.Torsion, 
-              
-                ProdID =this.ProdID,
-                ID = this.ID,
-                
-
-
-
-            }; 
         }
     }
 }

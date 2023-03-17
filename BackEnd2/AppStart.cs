@@ -11,7 +11,6 @@ namespace BackEnd2
     public class AppStart : MvxAppStart
     {
         private readonly IMvxNavigationService _navigationService;
-        private MyDBContext db;
 
         public AppStart(IMvxApplication application, IMvxNavigationService navigationService) : base(application,
             navigationService)
@@ -21,9 +20,7 @@ namespace BackEnd2
 
         protected override async Task NavigateToFirstViewModel(object hint = null)
         {
-            db = Mvx.IoCProvider.Resolve<MyDBContext>();
             
-            var DBExist = !db.Database.EnsureCreated();
             await _navigationService.Navigate<SplashScreenViewModel>();
         }
     }

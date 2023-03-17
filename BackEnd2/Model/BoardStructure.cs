@@ -13,29 +13,18 @@ namespace BackEnd2.Model
         {
             Board = new List<MatrixElement>();
             for (var r = 0; r < rows; r++)
-            {
-                for (var c = 0; c < columns; c++)
-                {
-                   
-                        Board.Add(new MatrixElement(c, r)
-                            {Num="/Asset/squareLine2.png",TextBK = "Black",BorderCO = "Black",color = "White"});
-                   
-                        
-                    
-                  
-                }  
-            }
-       
-           
+            for (var c = 0; c < columns; c++)
+                Board.Add(new MatrixElement(c, r)
+                    { Num =new ComponentDepiction("/Asset/squareLine2.png", "/Asset/squareLine2.png") });
+
+
             ;
             ;
         }
 
         public List<MatrixElement> Board
         {
-            get
-            {return _board;
-            } 
+            get => _board;
             set
             {
                 _board = value;

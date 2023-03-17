@@ -7,6 +7,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.ViewModels;
+using Mvx.Wpf.ItemsPresenter;
 
 namespace FrontEnd.View
 {
@@ -14,6 +15,7 @@ namespace FrontEnd.View
     ///     Interaction logic for PersonnelView.xaml
     /// </summary>
     [MvxContentPresentation]
+    [MvxWpfPresenter("MainViewWindow",mvxViewPosition.NewOrExsist)]
     [MvxViewFor(typeof(PersonnelViewModel))]
     public partial class PersonnelView : MvxWpfView
     {
@@ -24,8 +26,11 @@ namespace FrontEnd.View
         public PersonnelView()
         {
             InitializeComponent();
+         
         }
+       
 
+       
         public IMvxInteraction<YesNoQuestion> ConfirmBox
         {
             get => _ConfirmBox;

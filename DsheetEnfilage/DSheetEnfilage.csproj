@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.15.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetZip.1.15.0\lib\net40\DotNetZip.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.0.1\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -47,7 +44,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -67,13 +63,57 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Chaine.cs" />
+    <Compile Include="ChaineStyle.xaml.cs" />
+    <Compile Include="ComponentImage.cs" />
+    <Compile Include="Converter\BiggerEqualThanConverter.cs" />
+    <Compile Include="Converter\MultipleRadioButtonConverter.cs" />
+    <Compile Include="Converter\NumImageConverter.cs" />
+    <Compile Include="DecaOctogenTile.xaml.cs">
+      <DependentUpon>DecaOctogenTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DecaTile.xaml.cs">
+      <DependentUpon>DecaTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EnfilageBoard.xaml.cs">
+      <DependentUpon>EnfilageBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="legend.cs" />
+    <Compile Include="legendElement.cs" />
+    <Compile Include="legendstyle.xaml.cs" />
+    <Compile Include="SpaceFreeGrid.cs" />
+    <Compile Include="OctogenTile.xaml.cs">
+      <DependentUpon>OctogenTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SpaceFreeGridStyle.xaml.cs" />
+    <Compile Include="TestNewControl.xaml.cs">
+      <DependentUpon>TestNewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tile10.xaml.cs">
+      <DependentUpon>Tile10.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrameSymbol.cs" />
+    <Compile Include="TrameSymbolStyle.xaml.cs">
+      <DependentUpon>TrameSymbolStyle.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CanvasControl2.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CanvasControl.xaml" />
+    <Page Include="ChaineStyle.xaml" />
+    <Page Include="DecaOctogenTile.xaml" />
+    <Page Include="DecaTile.xaml" />
+    <Page Include="EnfilageBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EnfilageSchemas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EnfilageSchV2.xaml" />
     <Page Include="GeoGrid.xaml" />
+    <Page Include="legendStyle.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,12 +123,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Block.cs" />
+    <Compile Include="CanvasControl2.xaml.cs">
+      <DependentUpon>CanvasControl2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CanvasControl.xaml.cs">
       <DependentUpon>CanvasControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CanvasElement.cs" />
     <Compile Include="Converter\BooleanToVisibilityValueConverter.cs" />
     <Compile Include="Converter\EqualityConverter.cs" />
+    <Compile Include="Converter\HeightConverter.cs" />
     <Compile Include="CustomClass\GitHubButton.cs" />
     <Compile Include="CustomTextBlock.cs" />
     <Compile Include="EnfilageSchemas.xaml.cs">
@@ -105,6 +149,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OctogenTile.xaml" />
+    <Page Include="SpaceFreeGridStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestNewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tile10.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrameSymbolStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -140,10 +200,65 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\ChainSquare.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp1light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\Comp2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp2light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp3light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp4light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp5light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp6light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\comp7light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\dent1.png" />
+    <Content Include="Asset\dent2.png" />
+    <Content Include="Asset\dent3.png" />
+    <Content Include="Asset\dent4.png" />
+    <Content Include="Asset\dent5.png" />
+    <Content Include="Asset\dent6.png" />
+    <Content Include="Asset\dent7.png" />
     <Content Include="Asset\dotGris.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\dottedCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\empty.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\fil.png">
@@ -155,12 +270,27 @@
     <Content Include="Asset\square.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Asset\square12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\square2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\square64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\squareDent.png" />
     <Content Include="Asset\squareHighlight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Asset\squareLine2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\squareLisse.png" />
     <Content Include="Asset\squareOne.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Asset\squareRect.png" />
     <Content Include="Asset\stop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

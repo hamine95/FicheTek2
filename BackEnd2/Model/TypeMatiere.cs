@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
@@ -9,7 +8,7 @@ namespace BackEnd2.Model
     {
         private string _Codification;
 
-        [Key] private int _ID;
+        private int _ID;
 
 
         private string _MatiereNom;

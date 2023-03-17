@@ -44,9 +44,12 @@
                     Nom Couleur:
                 </TextBlock>
 
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="18" CharacterCasing="Upper"
-                         Text="{Binding Numero}" DataObject.Pasting="DataObject_OnPasting" PreviewTextInput="UIElement_OnPreviewTextInput" />
-                <TextBox Grid.Row="2" Grid.Column="3" Foreground="Black" Height="30" FontSize="18" CharacterCasing="Upper"
+                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
+                         CharacterCasing="Upper"
+                         Text="{Binding Numero}" DataObject.Pasting="DataObject_OnPasting"
+                         PreviewTextInput="UIElement_OnPreviewTextInput" />
+                <TextBox Grid.Row="2" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
+                         CharacterCasing="Upper"
                          Text="{Binding CouleurNom}" />
                 <Button Command="{Binding AjouterNovCol}" Grid.Row="3" Grid.Column="3" Foreground="SteelBlue"
                         FontSize="16" Height="30">
@@ -99,7 +102,7 @@
 
         <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0"
                   FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Couleurs">
-            <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged"
+            <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged" 
                       ItemsSource="{Binding ListCouleur}" SelectedItem="{Binding SelectedColor}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms ;
 using BackEnd2.CustomClass;
 using BackEnd2.ViewModel;
 using MvvmCross.Base;
@@ -24,8 +25,10 @@ namespace FrontEnd.View
         public ClientView()
         {
             InitializeComponent();
-        }
+          
 
+        }
+        
         public IMvxInteraction<YesNoQuestion> ConfirmBox
         {
             get => _ConfirmBox;
@@ -52,7 +55,7 @@ namespace FrontEnd.View
 
         public void ConfirmMsg(object sender, MvxValueEventArgs<YesNoQuestion> args)
         {
-            var result = MessageBox.Show(args.Value.Question, "Confirmation", MessageBoxButton.YesNo);
+            var result = System.Windows.MessageBox.Show(args.Value.Question, "Confirmation", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 args.Value.UploadCallback(true);
             else
@@ -61,7 +64,7 @@ namespace FrontEnd.View
 
         public void DisplayMsg(object sender, MvxValueEventArgs<string> args)
         {
-            MessageBox.Show(args.Value);
+            System.Windows.MessageBox.Show(args.Value);
         }
 
         private void MvxWpfView_Loaded(object sender, RoutedEventArgs e)
@@ -74,7 +77,7 @@ namespace FrontEnd.View
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var listView = sender as ListView;
+            var listView = sender as System.Windows.Controls.ListView;
             var gView = listView.View as GridView;
 
             var workingWidth =

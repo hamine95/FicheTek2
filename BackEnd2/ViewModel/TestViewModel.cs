@@ -2,11 +2,7 @@
 
 namespace BackEnd2.ViewModel
 {
-    public class TestViewModel:MvxViewModel
+    public class TestViewModel : MvxViewModel
     {
-        public TestViewModel()
-        {
-                
-        }
     }
 }

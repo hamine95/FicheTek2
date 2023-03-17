@@ -7,12 +7,15 @@
                  mc:Ignorable="d"
 
                  Background="Black"
-                 Height="250" Width="380">
+                 Height="250" 
+                 Width="380"
+                 >
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <Image Source="../Asset/settings.png" Height="100" Width="100" />
-        <TextBlock HorizontalAlignment="Center" TextAlignment="Center" FontSize="44" Foreground="WhiteSmoke" FontFamily="Bodoni MT Condensed">
-          Gestionnaire Fiche Technique
-            
+        <TextBlock HorizontalAlignment="Center" TextAlignment="Center" FontSize="44" Foreground="WhiteSmoke"
+                   FontFamily="Bodoni MT Condensed">
+            Gestionnaire Fiche Technique
+
         </TextBlock>
     </StackPanel>
 </view:MvxWpfView>

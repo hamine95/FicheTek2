@@ -1,59 +1,56 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+
 using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class Redacteur :INotifyPropertyChanged
+    public class Redacteur : INotifyPropertyChanged
     {
-    private int _ID;
+        private int _ID;
 
 
-    private string _Name;
+        private string _Name;
+
+        private List<Produit> _Products;
 
 
-    [Key]
-    public int ID
-    {
-        get => _ID;
-        set
+        public int ID
         {
-            _ID = value;
-            NotifyPropertyChanged();
+            get => _ID;
+            set
+            {
+                _ID = value;
+                NotifyPropertyChanged();
+            }
         }
-    }
 
-    public string Name
-    {
-        get => _Name;
-        set
+        public string Name
         {
-            _Name = value;
-            NotifyPropertyChanged();
+            get => _Name;
+            set
+            {
+                _Name = value;
+                NotifyPropertyChanged();
+            }
         }
-    }
 
-    private List<Produit> _Products;
-
-    public List<Produit> Products
-    {
-        get
+        public List<Produit> Products
         {
-            return _Products;
+            get => _Products;
+            set
+            {
+                _Products = value;
+                NotifyPropertyChanged();
+            }
         }
-        set
-        {
-            _Products = value;
-            NotifyPropertyChanged();
-        }
-    }
-    public event PropertyChangedEventHandler PropertyChanged;
 
-    private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        if (PropertyChanged != null)
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-    }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

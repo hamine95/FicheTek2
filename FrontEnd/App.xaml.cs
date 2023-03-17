@@ -7,5 +7,10 @@ namespace FrontEnd
     /// </summary>
     public partial class App : MvxApplication
     {
+
+        public App()
+        {
+            InitializeComponent();
+        }
     }
 }

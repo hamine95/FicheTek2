@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
 
 namespace BackEnd2.Model
 {
@@ -6,12 +6,13 @@ namespace BackEnd2.Model
     {
         public enum Method
         {
-            Tissage=0,
-            Crochetage=1,
-            Tressage=2,
+            Tissage = 0,
+            Crochetage = 1,
+            Tressage = 2
         }
+
         public Method method { get; set; }
-        [Key] public int ID { get; set; }
+        public int ID { get; set; }
 
         public string Name { get; set; }
 

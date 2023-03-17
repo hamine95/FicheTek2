@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using BackEnd2.CustomClass;
-using BackEnd2.Model;
 using BackEnd2.ViewModel;
 using MvvmCross.Base;
 using MvvmCross.Binding.BindingContext;
@@ -12,10 +11,16 @@ namespace FrontEnd.View
 {
     [MvxWindowPresentation(Modal = true)]
     [MvxViewFor(typeof(ModelFicheTekViewModel))]
-    
     public partial class ModelFicheTekView : MvxWindow
     {
+        private IMvxInteraction<YesNoQuestion> _ConfirmBox;
         private IMvxInteraction<string> _SentNote;
+
+        public ModelFicheTekView()
+        {
+            InitializeComponent();
+        }
+
         public IMvxInteraction<string> SentNotification
         {
             get => _SentNote;
@@ -28,14 +33,9 @@ namespace FrontEnd.View
                     _SentNote = value;
                     _SentNote.Requested += DisplayMsg;
                 }
-              
             }
         }
-        public void DisplayMsg(object sender, MvxValueEventArgs<string> args)
-        {
-            MessageBox.Show(args.Value);
-        }
-        private IMvxInteraction<YesNoQuestion> _ConfirmBox;
+
         public IMvxInteraction<YesNoQuestion> ConfirmBox
         {
             get => _ConfirmBox;
@@ -48,9 +48,14 @@ namespace FrontEnd.View
                     _ConfirmBox = value;
                     _ConfirmBox.Requested += ConfirmMsg;
                 }
-             
             }
         }
+
+        public void DisplayMsg(object sender, MvxValueEventArgs<string> args)
+        {
+            MessageBox.Show(args.Value);
+        }
+
         public void ConfirmMsg(object sender, MvxValueEventArgs<YesNoQuestion> args)
         {
             var result = MessageBox.Show(args.Value.Question, "Confirmation", MessageBoxButton.YesNo);
@@ -58,10 +63,6 @@ namespace FrontEnd.View
                 args.Value.UploadCallback(true);
             else
                 args.Value.UploadCallback(false);
-        }
-        public ModelFicheTekView()
-        {
-            InitializeComponent();
         }
 
         private void ModelFicheTekView_OnLoaded(object sender, RoutedEventArgs e)

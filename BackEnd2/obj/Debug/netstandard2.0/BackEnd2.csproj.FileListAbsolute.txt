@@ -54,3 +54,35 @@ F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd2\bin\Debug\netsta
 F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csproj.CopyComplete
 F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\DLL\Dapper.dll
 F:\Development\backup VS project\Repos\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\Dapper.dll
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\DLL\Dapper.dll
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\BackEnd2.deps.json
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\BackEnd2.dll
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\BackEnd2.pdb
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\Dapper.dll
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\PresentationCore.dll
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\PresentationFramework.dll
+E:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\WindowsBase.dll
+E:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csproj.AssemblyReference.cache
+E:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.AssemblyInfoInputs.cache
+E:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.AssemblyInfo.cs
+E:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csproj.CoreCompileInputs.cache
+E:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csproj.CopyComplete
+E:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.dll
+E:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.pdb
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\DLL\Dapper.dll
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\BackEnd2.deps.json
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\BackEnd2.dll
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\BackEnd2.pdb
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\Dapper.dll
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\PresentationCore.dll
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\PresentationFramework.dll
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\WindowsBase.dll
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csproj.CoreCompileInputs.cache
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.AssemblyInfoInputs.cache
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.AssemblyInfo.cs
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csproj.CopyComplete
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.dll
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.pdb
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\System.Printing.dll
+D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\ReachFramework.dll
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csprojAssemblyReference.cache

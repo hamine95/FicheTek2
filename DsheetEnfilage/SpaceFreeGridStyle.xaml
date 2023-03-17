@@ -1,0 +1,317 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:locals="clr-namespace:DSheetEnfilage"
+                    x:Class="DSheetEnfilage.SpaceFreeGridStyle"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+  
+    <Style x:Key="img"  TargetType="{x:Type locals:ComponentImage}" >
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Source" Value="../Asset/squareLine2.png"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPrintView" Value="True">
+                <Setter Property="Source" Value="../Asset/square12.png"></Setter>
+            </Trigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="0"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source"  Value="../Asset/squareLisse.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="ComponentStage" Value="StageSeperator"></Condition>
+                    <Condition Property="NumComposant" Value="9"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source"  Value="../Asset/empty.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="0"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source"  Value="../Asset/squareDent.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Vacant"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/squareHighlight.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="NumComposant" Value="1"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/Comp1light.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="1"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source"  Value="../Asset/Comp1.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="1"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source"  Value="../Asset/dent1.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="NumComposant" Value="2"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp2light.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="2"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/Comp2.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="2"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/dent2.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="NumComposant" Value="3"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp3light.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="3"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp3.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="3"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/dent3.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="NumComposant" Value="4"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp4light.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="4"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp4.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="4"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/dent4.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="NumComposant" Value="5"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp5light.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="5"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp5.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="5"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/dent5.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="NumComposant" Value="6"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp6light.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="6"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp6.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="6"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/dent6.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="True"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="NumComposant" Value="7"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp7light.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Lisse"></Condition>
+                    <Condition Property="NumComposant" Value="7"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/comp7.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger >
+                <MultiTrigger.Conditions>
+                    <Condition Property="Highlight" Value="False"></Condition>
+                    <Condition Property="CellState" Value="Occupied"></Condition>
+                    <Condition Property="ComponentStage" Value="Dent"></Condition>
+                    <Condition Property="NumComposant" Value="7"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Source" Value="../Asset/dent7.png"></Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style  TargetType="{x:Type locals:ComponentImage}"  BasedOn="{StaticResource img}" >
+    </Style>
+    <locals:SpaceFreeGrid x:Key="SpaceFreeGridTemplate" FirstContainer="False">
+        <locals:SpaceFreeGrid.Resources>
+            <Style  TargetType="{x:Type locals:ComponentImage}" BasedOn="{StaticResource img}" >
+                
+            </Style>
+        </locals:SpaceFreeGrid.Resources>
+        <locals:ComponentImage  ></locals:ComponentImage>
+            <locals:ComponentImage   ></locals:ComponentImage>
+            <locals:ComponentImage   ></locals:ComponentImage>
+            <locals:ComponentImage  ></locals:ComponentImage>
+            <locals:ComponentImage  ></locals:ComponentImage>
+            <locals:ComponentImage   ></locals:ComponentImage>
+            <locals:ComponentImage   ></locals:ComponentImage>
+            <locals:ComponentImage  ></locals:ComponentImage>
+            <locals:ComponentImage  ></locals:ComponentImage>
+            <locals:ComponentImage  ></locals:ComponentImage>
+        
+    </locals:SpaceFreeGrid>
+    
+    <locals:SpaceFreeGrid x:Key="SpaceFreeGridTemplatePrint" FirstContainer="False">
+        <locals:SpaceFreeGrid.Resources>
+            <Style  TargetType="{x:Type locals:ComponentImage}" BasedOn="{StaticResource img}" >
+                
+            </Style>
+        </locals:SpaceFreeGrid.Resources>
+        <locals:ComponentImage  IsPrintView="True"></locals:ComponentImage>
+        <locals:ComponentImage   IsPrintView="True" ></locals:ComponentImage>
+        <locals:ComponentImage  IsPrintView="True"  ></locals:ComponentImage>
+        <locals:ComponentImage  IsPrintView="True" ></locals:ComponentImage>
+        <locals:ComponentImage  IsPrintView="True" ></locals:ComponentImage>
+        <locals:ComponentImage   IsPrintView="True" ></locals:ComponentImage>
+        <locals:ComponentImage   IsPrintView="True" ></locals:ComponentImage>
+        <locals:ComponentImage  IsPrintView="True" ></locals:ComponentImage>
+        <locals:ComponentImage  IsPrintView="True" ></locals:ComponentImage>
+        <locals:ComponentImage  IsPrintView="True" ></locals:ComponentImage>
+        
+    </locals:SpaceFreeGrid>
+    
+  
+</ResourceDictionary>

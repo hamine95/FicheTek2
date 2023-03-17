@@ -3,19 +3,25 @@ using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class ChaineMatrixElement: INotifyPropertyChanged
+    public class ChaineMatrixElement : INotifyPropertyChanged
     {
+        public enum ComponentState
+        {
+            Vacant,
+            Occupied,
+            Inaccessibe,
+        }
+        private bool _IsContent;
 
 
         private bool _IsSelected;
-
-        private bool _IsContent;
 
 
         public ChaineMatrixElement(int x, int y)
         {
             X = x;
             Y = y;
+            
         }
 
         public bool IsSelected
@@ -25,7 +31,6 @@ namespace BackEnd2.Model
             {
                 _IsSelected = value;
                 NotifyPropertyChanged();
-               
             }
         }
 
@@ -39,38 +44,45 @@ namespace BackEnd2.Model
             {
                 _IsContent = value;
 
-                SetContent();
                 NotifyPropertyChanged();
             }
         }
 
-        public string ImagePath
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+       
+
+        private ComponentState _CellState;
+
+        public ComponentState CellState
         {
-            get => _ImagePath;
+            get
+            {
+                return _CellState;
+            }
             set
             {
-                _ImagePath = value;
+                _CellState = value;
                 NotifyPropertyChanged();
             }
         }
 
+        private int _NumComposant=1;
 
-        private string _ImagePath;
-        
-        public void SetContent()
+        public int NumComposant
         {
-            
-            if (IsContent==false)
+            get
             {
-                ImagePath = "/Asset/squareLine2.png";
+                return _NumComposant;
             }
-            else
+            set
             {
-                ImagePath = "/Asset/ChainSquare.png";
+                _NumComposant = value;
+                NotifyPropertyChanged();
             }
         }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)

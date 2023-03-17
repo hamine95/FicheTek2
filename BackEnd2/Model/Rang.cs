@@ -3,8 +3,11 @@ using System.Runtime.CompilerServices;
 
 namespace BackEnd2.Model
 {
-    public class Rang: INotifyPropertyChanged
+    public class Rang : INotifyPropertyChanged
     {
+        private int y1;
+
+        private int y2;
 
 
         public Rang()
@@ -12,10 +15,6 @@ namespace BackEnd2.Model
             y1 = -1;
             y2 = -1;
         }
-
-        private int y1;
-
-        private int y2;
 
         public int Y1
         {
@@ -38,6 +37,7 @@ namespace BackEnd2.Model
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)
