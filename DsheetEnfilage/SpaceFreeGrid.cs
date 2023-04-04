@@ -183,6 +183,7 @@ namespace DSheetEnfilage
                             }
                         }
                         cell.ComponentStage = ComponentImage.RepresentationStage.OutRange;
+                        cell.NumComposant =0;
                         cell.Focusable = false;
                         
 
@@ -233,8 +234,10 @@ namespace DSheetEnfilage
                     {
                         if (SecondRect != null)
                         {
-                            if (((SecondRect.StartHeight / WorkspaceSpec.PartHeight) + 1) <=
-                                ((h / WorkspaceSpec.PartHeight) + 1))
+                            double TestDb = ((double)SecondRect.StartHeight / WorkspaceSpec.PartHeight);
+                            int ChainePart = (int)Math.Ceiling(TestDb);
+                            if (ChainePart <=
+                                (int)Math.Ceiling((double)(h- WorkspaceSpec.PartsHeightStart) / WorkspaceSpec.PartHeight) )
                             {
                                 if (SecondRect.StartWidth > l
                                     ||SecondRect.EndWidth < l
@@ -271,6 +274,9 @@ namespace DSheetEnfilage
 
             public ComponentImage GetGridCell(int x, int y)
             {
+            if (this.Children[y + 2].GetType() != typeof(SpaceFreeGrid))
+                return null;
+
                 var TargetRow =(SpaceFreeGrid) this.Children[y + 2];
                 int TargetElementNum = 0;
                 int TargetContainerNum = Math.DivRem(x,10,out TargetElementNum) ;
@@ -797,7 +803,12 @@ namespace DSheetEnfilage
                    NbrDent = NbrDent +1;
                    return;
                }
-               NbrDent = NbrDent + Math.Max(LeftTeeth,RightTeeth);
+                else if ((LeftTeeth == -1 && RightTeeth == 1) ||
+                               (RightTeeth == -1 && LeftTeeth == 1))
+                {
+                    return;
+                }
+                NbrDent = NbrDent + Math.Max(LeftTeeth,RightTeeth);
               
             }
             else if(img.ComponentStage == ComponentImage.RepresentationStage.Lisse)
@@ -996,7 +1007,15 @@ namespace DSheetEnfilage
                         }else if ((LeftTeeth == -1 || RightTeeth == -1)
                                   && (LeftTeeth == 2 || RightTeeth == 2))
                         {
-                            NbrDent = NbrDent -1;
+                            
+                                NbrDent = NbrDent - 1;
+                         
+                            
+                        }
+                        else if ((LeftTeeth == -1 && RightTeeth == 1) ||
+                               (RightTeeth == -1 && LeftTeeth == 1))
+                        {
+
                         }
                         else
                         {

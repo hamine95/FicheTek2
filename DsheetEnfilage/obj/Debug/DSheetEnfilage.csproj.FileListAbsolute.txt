@@ -195,3 +195,7 @@ D:\Project\DataSheetDesign\DSheetEnfilage\obj\Debug\TrameSymbolStyle.baml
 D:\Project\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\empty.png
 D:\Project\DataSheetDesign\DSheetEnfilage\obj\Debug\DSheetEnfilage.csprojAssemblyReference.cache
 D:\Project\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\square12.png
+D:\Project\DataSheetDesign\DSheetEnfilage\obj\Debug\ChaineStyle2.g.cs
+D:\Project\DataSheetDesign\DSheetEnfilage\obj\Debug\ChaineStyle2.baml
+D:\Project\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\squareDent.png
+D:\Project\DataSheetDesign\DSheetEnfilage\bin\Debug\Asset\squareLisse.png

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using BackEnd2.CustomClass;
@@ -34,8 +36,335 @@ namespace BackEnd2.ViewModel
             get => _LoadList;
             set => SetProperty(ref _LoadList, value);
         }
+        public ChaineBoardStructure ChaineBoard { get; set; }
+        public ChaineBoardStructure ChaineBoard2 { get; set; }
+
+        private bool _Btn9Vis;
+
+        public bool Btn9Vis
+        {
+            get { return _Btn9Vis; }
+            set { _Btn9Vis = value; RaisePropertyChanged(); }
+        }
+        private bool _SecChainVis=false;
+
+        public bool SecChainVis
+        {
+            get { return _SecChainVis; }
+            set { _SecChainVis = value; RaisePropertyChanged(); }
+        }
 
 
+        private bool _Btn10Vis;
+
+        public bool Btn10Vis
+        {
+            get { return _Btn10Vis; }
+            set { _Btn10Vis = value; RaisePropertyChanged(); }
+        }
+
+        private bool _Btn11Vis;
+
+        public bool Btn11Vis
+        {
+            get { return _Btn11Vis; }
+            set { _Btn11Vis = value;
+                RaisePropertyChanged();
+            }
+        }
+        private bool _Btn12Vis;
+
+        public bool Btn12Vis
+        {
+            get { return _Btn12Vis; }
+            set { _Btn12Vis = value; RaisePropertyChanged(); }
+        }
+       
+
+
+        private ObservableCollection<ChaineMatrixElement> _ChaineList;
+        public ObservableCollection<ChaineMatrixElement> ChaineList
+        {
+            get
+            {
+                return _ChaineList;
+            }
+            set
+            {
+                _ChaineList = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableCollection<ChaineMatrixElement> _ChaineList2;
+        public ObservableCollection<ChaineMatrixElement> ChaineList2
+        {
+            get
+            {
+                return _ChaineList2;
+            }
+            set
+            {
+                _ChaineList2 = value;
+                RaisePropertyChanged();
+            }
+        }
+        public void UpdateChaineControl()
+        {
+            ChaineBoard = new ChaineBoardStructure(ChaineRows, ChaineColumns);
+            ChaineBoard2 = new ChaineBoardStructure(ChaineRows2, ChaineColumns);
+            ChaineList = new ObservableCollection<ChaineMatrixElement>(ChaineBoard.Board);
+            ChaineList2 = new ObservableCollection<ChaineMatrixElement>(ChaineBoard2.Board);
+            ChRowSum = ChaineRows + ChaineRows2;
+        }
+       
+        private int _ChaineRows=8;
+
+        public int ChaineRows
+        {
+            get { return _ChaineRows; }
+            set { _ChaineRows = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _ChRowSum;
+
+        public int ChRowSum
+        {
+            get { return _ChRowSum; }
+            set { _ChRowSum = value; RaisePropertyChanged(); }
+        }
+
+        private int _ChaineRows2;
+
+        public int ChaineRows2
+        {
+            get { return _ChaineRows2; }
+            set { _ChaineRows2 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        private int _ChCol=4;
+
+        public int ChaineColumns
+        {
+            get { return _ChCol; }
+            set { _ChCol = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private chaine _SelectedChaine;
+
+        public chaine SelectedChaine
+        {
+            get { return _SelectedChaine; }
+            set { _SelectedChaine = value;
+                if (value != null)
+                    SetSelectedChaine();
+                RaisePropertyChanged(); }
+        }
+        public void SetSelectedChaine()
+        {
+            RefreshChaine(SelectedChaine.Colonne, SelectedChaine.Ligne);
+            DesignChain(SelectedChaine.ChMatrix);
+        }
+        private int _AngleChain;
+
+        public int AngleChain
+        {
+            get => _AngleChain;
+            set
+            {
+                _AngleChain = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IMvxCommand _ModifierChaine;
+
+        public IMvxCommand ModifierChaine
+        {
+            get {
+                _ModifierChaine = new MvxCommand(SetEditChaine);
+                return _ModifierChaine; }
+            
+        }
+        private int EditChaineID;
+        public void SetEditChaine()
+        {
+            if(SelectedChaine!=null)
+            {
+
+                EditChaineNom = SelectedChaine.Nom;
+                EditChaineColumn = SelectedChaine.Colonne ;
+                EditChaineLigne = SelectedChaine.Ligne;
+                EditChaineID = SelectedChaine.ID;
+            }
+            else
+            {
+                SendNotification.Raise("Séléctionnez une chaine");
+            }
+        }
+        private IMvxCommand _ValiderChaineEdit;
+
+        public IMvxCommand ValiderChaineEdit
+        {
+            get {
+                _ValiderChaineEdit = new MvxCommand(SetEditChaineValues);
+                return _ValiderChaineEdit; }
+            
+        }
+
+        public void SetEditChaineValues()
+        { 
+            if(!CheckEditChainFields())
+            {
+                var mchaine = new chaine();
+                mchaine.ID = EditChaineID;
+                mchaine.Nom = EditChaineNom;
+                mchaine.Colonne = EditChaineColumn;
+                mchaine.Ligne = EditChaineLigne;
+                db2.UpdateChaine(mchaine);
+                UpdateChaineList();
+                EditChaineNom = "";
+                EditChaineColumn = 0;
+                EditChaineLigne = 0;
+            }
+            else
+            {
+                SendNotification.Raise("Tous Les champs sont obligatoire");
+            }
+        }   
+        public bool CheckEditChainFields()
+        {
+            return EditChaineNom == null ||
+                string.IsNullOrEmpty(EditChaineNom);
+        }
+        private string _EditChaineNom;
+
+        public string EditChaineNom
+        {
+            get { return _EditChaineNom; }
+            set { _EditChaineNom = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private int _EditChaineColumn;
+
+        public int EditChaineColumn
+        {
+            get { return _EditChaineColumn; }
+            set { _EditChaineColumn = value; RaisePropertyChanged(); }
+        }
+
+        private int _EditChaineLigne;
+
+        public int EditChaineLigne
+        {
+            get { return _EditChaineLigne; }
+            set { _EditChaineLigne = value; RaisePropertyChanged(); }
+        }
+
+
+        private int _CellWidth=13;
+
+        public int CellWidth
+        {
+            get { return _CellWidth; }
+            set { _CellWidth = value; }
+        }
+
+        public void RefreshChaine(int ChCol, int ChRow)
+        {
+            ChaineColumns = ChCol;
+            if (ChCol < 9)
+            {
+                Btn9Vis = false;
+                Btn10Vis = false;
+                Btn11Vis = false;
+                Btn12Vis = false;
+            }
+            else if (ChCol == 9)
+            {
+                Btn9Vis = true;
+                Btn10Vis = false;
+                Btn11Vis = false;
+                Btn12Vis = false;
+            }
+            else if (ChCol == 10)
+            {
+                Btn9Vis = true;
+                Btn10Vis = true;
+                Btn11Vis = false;
+                Btn12Vis = false;
+            }
+            else if (ChCol == 11)
+            {
+                Btn9Vis = true;
+                Btn10Vis = true;
+                Btn11Vis = true;
+                Btn12Vis = false;
+            }
+            else if (ChCol == 12)
+            {
+                Btn9Vis = true;
+                Btn10Vis = true;
+                Btn11Vis = true;
+                Btn12Vis = true;
+            }
+
+
+            if (ChRow > 78)
+            {
+                SecChainVis = true;
+                ChaineBoard = new ChaineBoardStructure(78, ChCol);
+                ChaineList = new ObservableCollection<ChaineMatrixElement>(ChaineBoard.Board);
+                ChaineBoard2 = new ChaineBoardStructure(ChRow - 78, ChCol);
+                ChaineList2 = new ObservableCollection<ChaineMatrixElement>(ChaineBoard2.Board);
+                ChaineRows2 = ChRow - 78;
+                ChaineRows = 78;
+            }
+            else
+            {
+                SecChainVis = false;
+                ChaineBoard = new ChaineBoardStructure(ChRow, ChCol);
+                ChaineList = new ObservableCollection<ChaineMatrixElement>(ChaineBoard.Board);
+
+                ChaineRows = ChRow;
+            }
+        }
+
+        public void DesignChain(List<ChaineMatrix> chmat)
+        {
+            foreach (var ch in ChaineList)
+            {
+                var exist = chmat.SingleOrDefault(chi => chi.x == ch.X && chi.y == ch.Y);
+                if (exist != null)
+                {
+                    if (ch.CellState != ChaineMatrixElement.ComponentState.Occupied) ch.CellState = ChaineMatrixElement.ComponentState.Occupied;
+                }
+                else
+                {
+                    ch.CellState = ChaineMatrixElement.ComponentState.Vacant;
+                }
+            }
+
+            foreach (var ch in ChaineList2)
+            {
+                var exist = chmat.SingleOrDefault(chi => chi.x == ch.X && chi.y == ch.Y + 78);
+                if (exist != null)
+                {
+                    if (ch.IsContent == false) ch.IsContent = true;
+                }
+                else
+                {
+                    ch.IsContent = false;
+                }
+            }
+        }
         public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
         public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
@@ -62,7 +391,7 @@ namespace BackEnd2.ViewModel
         public override Task Initialize()
         {
             RefreshLists();
-            UpdateReedList();
+            
             return base.Initialize();
         }
 
@@ -70,6 +399,9 @@ namespace BackEnd2.ViewModel
         {
              UpdateMachineModelList();
              UpdateMachineList();
+            UpdateReedList();
+            UpdateChaineList();
+            UpdateChaineControl();
         }
 
         public void SupprimerSelectedPeigne()
@@ -116,8 +448,11 @@ namespace BackEnd2.ViewModel
             db2 = Mvx.IoCProvider.Resolve<SqliteData>();
             if (UserSession.type == user.UserType.verificateur)
                 IsVerificateur = true;
-            else
-                IsVerificateur = false;
+            else if(UserSession.type == user.UserType.superuser)
+            {
+                IsVerificateur = true;
+                IsSuperUser = true;
+            }
         }
 
 
@@ -479,7 +814,17 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+        private MvxObservableCollection<chaine> _ListChaine;
 
+        public MvxObservableCollection<chaine> ListChaine
+        {
+            get => _ListChaine;
+            set
+            {
+                _ListChaine = value;
+                RaisePropertyChanged();
+            }
+        }
         private Reed _SelectedPeigne;
 
         public Reed SelectedPeigne
@@ -599,7 +944,10 @@ namespace BackEnd2.ViewModel
                 return _AjouterNovPeigne;
             }
         }
-
+        public void UpdateChaineList()
+        {
+            ListChaine = new MvxObservableCollection<chaine>(db2.GetChaines());
+        }
         public void UpdateReedList()
         {
             ListPeigne = new MvxObservableCollection<Reed>(db2.GetPeigneList());
@@ -1118,7 +1466,6 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("aucun duitage séléctionné");
             }
         }
-
         private IMvxCommand _ModifierModel;
 
         public IMvxCommand ModifierModel
@@ -1129,7 +1476,35 @@ namespace BackEnd2.ViewModel
                 return _ModifierModel;
             }
         }
+        private IMvxCommand _SupprimerModel;
 
+        public IMvxCommand SupprimerModel
+        {
+            get
+            {
+                _SupprimerModel = new MvxCommand(SupprimerModelMachine);
+                return _SupprimerModel;
+            }
+        }
+        public void SupprimerModelMachine()
+        {
+            if (SelectedModelMachine != null)
+            {
+                if(db2.IsModelMachineUsed(SelectedModelMachine).Count>0)
+                {
+                    SendNotification.Raise("ce model de machine est utilisé");
+                }
+                else
+                {
+                    db2.DeleteModelMachine(SelectedModelMachine);
+                }
+                
+            }
+            else
+            {
+                SendNotification.Raise("S.V.P séléctionnez un model de machine");
+            }
+        }
         private IMvxCommand _Supprimer;
 
         public IMvxCommand Supprimer

@@ -12,7 +12,7 @@
     </view:MvxWpfView.Resources>
     <TabControl>
         <TabItem Header="Composant">
-            <Grid>
+            <Grid Background="WhiteSmoke">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -146,8 +146,8 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="Matière Première">
-            <Grid>
+        <TabItem Header="Matière Première" >
+            <Grid Background="WhiteSmoke">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="4*" />
@@ -462,7 +462,7 @@
             </Grid>
         </TabItem>
         <TabItem Header="Couleur">
-            <Grid>
+            <Grid Background="WhiteSmoke">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

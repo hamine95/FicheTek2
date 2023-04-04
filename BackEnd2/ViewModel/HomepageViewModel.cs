@@ -265,6 +265,7 @@ namespace BackEnd2.ViewModel
         public override void Prepare(user parameter)
         {
             UserSession = parameter;
+            PrevType = UserSession.type;
             if (UserSession.type == user.UserType.redacteur)
             {
                 TipText = "Rédacteur";
@@ -294,21 +295,30 @@ namespace BackEnd2.ViewModel
 
         public void ActivatingSuperUser()
         {
-            CountClick++;
-            if (CountClick > 5)
+          
+            if (CountClick > 3)
             {
-                if (UserSession.type == user.UserType.superuser)
+               if(PrevType==user.UserType.redacteur)
                 {
-                    UserSession.type = PrevType;
+                    ImageSrc = "/Asset/editor.png";
                 }
                 else
                 {
-                    PrevType = UserSession.type;
-                    UserSession.type = user.UserType.superuser;
+                    ImageSrc = "/Asset/checkerB.png";
                 }
-
+               
+                UserSession.type = PrevType;
                 CountClick = 0;
             }
+            else if (CountClick == 3)
+            {
+                PrevType = UserSession.type;
+                UserSession.type = user.UserType.superuser;
+                ImageSrc = "/Asset/administrator.png";
+               
+            }
+            CountClick++;
+
         }
 
         public void LogOut()
@@ -321,7 +331,6 @@ namespace BackEnd2.ViewModel
         }
         public void NavigateToParam()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;
@@ -340,7 +349,6 @@ namespace BackEnd2.ViewModel
         }
         public void NavigateToClient()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;
@@ -360,7 +368,6 @@ namespace BackEnd2.ViewModel
 
         public void NavigateToPersonnel()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;
@@ -380,7 +387,6 @@ namespace BackEnd2.ViewModel
 
         public void NavigateToCategorieView()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;
@@ -400,7 +406,6 @@ namespace BackEnd2.ViewModel
 
         public void NavigateToComposantView()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;
@@ -420,7 +425,6 @@ namespace BackEnd2.ViewModel
 
         public void NavigateToMachineView()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;
@@ -440,7 +444,6 @@ namespace BackEnd2.ViewModel
 
         public void NavigateToMatiereView()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;
@@ -460,7 +463,6 @@ namespace BackEnd2.ViewModel
 
         public void NavigateToCouleurView()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = false;
@@ -479,7 +481,6 @@ namespace BackEnd2.ViewModel
         }
         public void NavigateToRapportView()
         {
-            CountClick = 0;
             if (IsSafePassage)
             {
                 IsCouleur = true;

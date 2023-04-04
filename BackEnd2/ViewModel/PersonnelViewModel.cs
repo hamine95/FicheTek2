@@ -320,6 +320,7 @@ namespace BackEnd2.ViewModel
             if (!IsEditFieldsConcepteurEmpty() && db2.GetConcepteur(NovNameConcepteur) == null)
             {
                 var NewConcepteur = new Concepteur();
+                NewConcepteur.ID = EditConcepteurId;
                 NewConcepteur.Name = NovNameConcepteur.ToUpper();
                 db2.EditConcepteur(NewConcepteur);
                 UpdateConcepteurList();
@@ -342,6 +343,7 @@ namespace BackEnd2.ViewModel
             if (!IsEditFieldsVerificateurrEmpty() && db2.GetVerificateur(NovNameVerificateur) == null)
             {
                 var NewVerificateur = new Verificateur();
+                NewVerificateur.ID= EditVerificateurId;
                 NewVerificateur.Name = NovNameVerificateur.ToUpper();
                 db2.EditVerificateur(NewVerificateur);
                 UpdateVerificateurList();
@@ -545,8 +547,11 @@ namespace BackEnd2.ViewModel
             db2 = Mvx.IoCProvider.Resolve<SqliteData>();
             if (UserSession.type == user.UserType.verificateur)
                 IsVerificateur = true;
-            else
-                IsVerificateur = false;
+            else if(UserSession.type == user.UserType.superuser)
+            {
+                IsVerificateur = true;
+                IsSuperUser = true;
+            }
         }
 
         #region Client
@@ -832,7 +837,7 @@ namespace BackEnd2.ViewModel
 
         public bool IsEditFieldsRedacteurEmpty()
         {
-            return NovNameConcepteur == null || string.IsNullOrWhiteSpace(NovNameConcepteur);
+            return NovNameRedacteur == null || string.IsNullOrWhiteSpace(NovNameRedacteur);
         }
 
         public void SaveEditRedacteurChange()

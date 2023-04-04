@@ -19,6 +19,37 @@ namespace BackEnd2.Model
         private int _PartsWidth_Start;
         private int _SecEmptyLen;
 
+        private int _ChaineRow;
+
+        public int ChaineRow
+        {
+            get { return _ChaineRow; }
+            set { _ChaineRow = value; NotifyPropertyChanged(); }
+        }
+
+
+        private int _ChaineColumn;
+
+        public int ChaineColumn
+        {
+            get { return _ChaineColumn; }
+            set { _ChaineColumn = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private int _MaxNbrFil;
+
+        public int MaxNbrFil
+        {
+            get { return _MaxNbrFil; }
+            set { _MaxNbrFil = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+
         public int LisseLen
         {
             get => _LisseLen;

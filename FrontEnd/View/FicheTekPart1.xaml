@@ -77,7 +77,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
 
             <RowDefinition Height="2*" />
@@ -238,12 +238,12 @@
                                 Désignation TTBM :
                             </TextBlock>
                             <TextBox CharacterCasing="Upper" Grid.Column="1" FontFamily="Arial"
-                                     BorderBrush="Transparent" FontWeight="Bold" FontSize="14"
+                                     BorderBrush="Transparent" FontWeight="Bold" FontSize="12"
                                      Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                      Text="{Binding NewProd.Name}" />
                             <TextBlock Grid.Column="1" FontFamily="Arial"
-                                       FontWeight="Bold" FontSize="14"
+                                       FontWeight="Bold" FontSize="12"
                                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"
                                        Text="{Binding NewProd.Name}" />
@@ -2014,7 +2014,6 @@
                     <DatePicker IsEnabled="{Binding IsUpdate}"
                                 Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" FontFamily="arial"
                                 VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="14"
-                                DisplayDateEnd="{Binding DateEndLimit}"
                                 BorderBrush="Transparent" Grid.Column="1" SelectedDate="{Binding NewProd.MiseAJour}">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">

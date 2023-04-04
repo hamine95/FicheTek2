@@ -14,6 +14,7 @@
                  Focusable="True"
                  d:DesignHeight="450" d:DesignWidth="800">
    <view:MvxWpfView.Resources>
+        
        <Style x:Key="SaveBtn" TargetType="{x:Type CustClass:GitHubButton}">
             <Setter Property="UseLayoutRounding" Value="True" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -607,11 +608,7 @@
                 <TextBox Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          FontSize="16" HorizontalAlignment="Stretch" DockPanel.Dock="Left"
                          ToolTip="Rechercher Fiche Technique">
-                     <Interactions:Interaction.Triggers> 
-                     <Interactions:EventTrigger EventName="TextChanged" > 
-                       <Interactions:CallMethodAction TargetObject="{Binding}" MethodName="SearchingFicheTechnique"  /> 
-                      </Interactions:EventTrigger> 
-                     </Interactions:Interaction.Triggers> 
+                    
                 </TextBox>
             </DockPanel>
             <StackPanel Margin="0 0 0 10" Grid.Row="2" Orientation="Horizontal">
@@ -637,9 +634,13 @@
             </UniformGrid>
             <ListView IsEnabled="{Binding DisplayDate}" FontSize="10" FontWeight="Bold" FontFamily="arial" Grid.Row="4"
                       SizeChanged="ListView_SizeChanged" ItemsSource="{Binding FicheTechniqueList}"
+                      
                       SelectedItem="{Binding SelectedFicheTechnique}">
+               
                 <ListView.View>
-                    <GridView>
+                    
+                    <GridView >
+                        
                         <GridViewColumn Header="Réf" DisplayMemberBinding="{Binding Produits[0].Ref}" />
                         <GridViewColumn Header="Désignation" DisplayMemberBinding="{Binding Produits[0].Name}" />
 

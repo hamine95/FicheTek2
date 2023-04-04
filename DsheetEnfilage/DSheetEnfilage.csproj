@@ -101,6 +101,10 @@
     </Page>
     <Page Include="CanvasControl.xaml" />
     <Page Include="ChaineStyle.xaml" />
+    <Page Include="ChaineStyle2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DecaOctogenTile.xaml" />
     <Page Include="DecaTile.xaml" />
     <Page Include="EnfilageBoard.xaml">
@@ -279,14 +283,18 @@
     <Content Include="Asset\square64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\squareDent.png" />
+    <Content Include="Asset\squareDent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Asset\squareHighlight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\squareLine2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\squareLisse.png" />
+    <Content Include="Asset\squareLisse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Asset\squareOne.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

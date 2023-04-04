@@ -1932,274 +1932,283 @@ namespace BackEnd2.ViewModel
 
         public void EditFicheTechnique()
         {
-            Editing = true;
-          
-            if (SelectedFicheTechnique != null)
+            try
             {
-                var LastVersion = SelectedFicheTechnique.Produits.Count - 1;
-
-                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                Editing = true;
+                if (SelectedFicheTechnique != null)
                 {
-                    IsEnfilage = true;
-                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
-                        SelectedChaine = ChaineNameList.SingleOrDefault(ch =>
-                            ch.ID == SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine.ID);
-                }
-                else
-                {
-                    IsEnfilage = false;
-                }
+                    var LastVersion = SelectedFicheTechnique.Produits.Count - 1;
 
-                IsDentFilVis = true;
-                if(SelectedChaine!=null)
-                {
-                  
-
-                    SetInaccessibleCompCells();
-
-                    CallWorkspace();
-                }
-                
-
-                EditDate = true;
-                DisplayDate = false;
-                EnableEditing = true;
-                SaveCancelBtn = true;
-                PrintBtn = false;
-                BtnVis = true;
-                IsAddEnabled = false;
-                OldVersion = NewProd.Version;
-                if (SelectedFicheTechnique.Produits[LastVersion].DuitageID != null)
-                    if (SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine != null)
+                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
                     {
-                        SelectedMachine = MachineList.SingleOrDefault(ma =>
-                            ma.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine.ID);
-                        NewProd.DuitageID = DuitageList.SingleOrDefault(duit =>
-                            duit.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageID.ID);
+                        IsEnfilage = true;
+                        if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
+                            SelectedChaine = ChaineNameList.SingleOrDefault(ch =>
+                                ch.ID == SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine.ID);
                     }
-
-                if (SelectedFicheTechnique.Produits[LastVersion].Version == 0)
-                {
-                    IsProduction = false;
-                    MinVers = 0;
-                }
-                else
-                {
-                    IsProduction = true;
-                    MinVers = 1;
-                    if (SelectedFicheTechnique.Produits[LastVersion].Version == 1)
-                        IsUpdate = false;
                     else
-                        IsUpdate = true;
-                }
-
-                if (SelectedFicheTechnique.Produits[LastVersion].Client != null)
-                    NewProd.Client = ListClient.SingleOrDefault(cl =>
-                        cl.ID == SelectedFicheTechnique.Produits[LastVersion].Client.ID);
-                if (SelectedFicheTechnique.Produits[LastVersion].PeigneObj != null)
-                    NewProd.PeigneObj = ListPeigne.SingleOrDefault(rd =>
-                        rd.ID == SelectedFicheTechnique.Produits[LastVersion].PeigneObj.ID);
-                if (SelectedFicheTechnique.Produits[LastVersion].RedacteurObj != null)
-                    NewProd.RedacteurObj = ListRedacteur.SingleOrDefault(red =>
-                        red.ID == SelectedFicheTechnique.Produits[LastVersion].RedacteurObj.ID);
-                if (SelectedFicheTechnique.Produits[LastVersion].Concepteur != null)
-                    NewProd.Concepteur = ListConcepteur.SingleOrDefault(cp =>
-                        cp.ID == SelectedFicheTechnique.Produits[LastVersion].Concepteur.ID);
-                if (SelectedFicheTechnique.Produits[LastVersion].Verificateur != null)
-                    NewProd.Verificateur = ListVerificateur.SingleOrDefault(vr =>
-                        vr.ID == SelectedFicheTechnique.Produits[LastVersion].Verificateur.ID);
-
-                if (NewProd.DuitageID != null) Vitesse = NewProd.DuitageID.Vitesse.ToString();
-
-
-                for (var i = 0; i < NewProd.GetComposition.Count; i++)
-                    if (NewProd.GetComposition[i].GetComposant != null)
                     {
-                        if (NewProd.GetComposition[i].NumComposant == 8)
-                        {
-                            Comp8.GetComposant = ListComposant.SingleOrDefault(
-                                cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                            Comp8Vis = true;
-                            ChangeImageBtn8 = "../Asset/remove64.png";
-                            if (Comp8.GetMatiere != null)
-                            {
-                                SelectedTypeMatiere8 = ListTypeMatiere.SingleOrDefault(ma =>
-                                    ma.ID == Comp8.GetMatiere.Titrage.TypeMatiere.ID);
-                                SelectedTitrage8 =
-                                    ListTitrage8.SingleOrDefault(tit => tit.ID == Comp8.GetMatiere.Titrage.ID);
-                                SelectedColor8 =
-                                    ListCouleur8.SingleOrDefault(co => co.ID == Comp8.GetMatiere.GetCouleur.ID);
-                            }
+                        IsEnfilage = false;
+                    }
 
-                            Comp8.PropertyChanged += Comp8_PropertyChanged;
-                        }
-                        else if (NewProd.GetComposition[i].NumComposant == 9)
-                        {
-                            Comp9.GetComposant = ListComposant.SingleOrDefault(
-                                cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                            Comp9Vis = true;
-                            ChangeImageBtn9 = "../Asset/remove64.png";
-                            if (Comp9.GetMatiere != null)
-                            {
-                                SelectedTypeMatiere9 = ListTypeMatiere.SingleOrDefault(ma =>
-                                    ma.ID == Comp9.GetMatiere.Titrage.TypeMatiere.ID);
-                                SelectedTitrage9 =
-                                    ListTitrage9.SingleOrDefault(tit => tit.ID == Comp9.GetMatiere.Titrage.ID);
-                                SelectedColor9 =
-                                    ListCouleur9.SingleOrDefault(co => co.ID == Comp9.GetMatiere.GetCouleur.ID);
-                            }
+                    IsDentFilVis = true;
+                    if (SelectedChaine != null)
+                    {
 
-                            Comp9.PropertyChanged += Comp9_PropertyChanged;
-                        }
-                        else
-                        {
-                            if (NewProd.GetComposition[i].NumComposant == 1)
-                            {
-                                Comp1.GetComposant = ListComposant.SingleOrDefault(
-                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                                Comp1Vis = true;
-                                ChangeImageBtn1 = "../Asset/remove64.png";
-                                if (Comp1.GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere1 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp1.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage1 =
-                                        ListTitrage1.SingleOrDefault(tit => tit.ID == Comp1.GetMatiere.Titrage.ID);
-                                    SelectedColor1 =
-                                        ListCouleur1.SingleOrDefault(co => co.ID == Comp1.GetMatiere.GetCouleur.ID);
-                                }
 
-                                Comp1.PropertyChanged += Comp1_PropertyChanged;
-                            }
+                        SetInaccessibleCompCells();
 
-                            if (NewProd.GetComposition[i].NumComposant == 2)
-                            {
-                                Comp2.GetComposant = ListComposant.SingleOrDefault(
-                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                                Comp2Vis = true;
-                                ChangeImageBtn2 = "../Asset/remove64.png";
-                                if (Comp2.GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere2 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp2.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage2 =
-                                        ListTitrage2.SingleOrDefault(tit => tit.ID == Comp2.GetMatiere.Titrage.ID);
-                                    SelectedColor2 =
-                                        ListCouleur2.SingleOrDefault(co => co.ID == Comp2.GetMatiere.GetCouleur.ID);
-                                }
-
-                                Comp2.PropertyChanged += Comp2_PropertyChanged;
-                            }
-
-                            if (NewProd.GetComposition[i].NumComposant == 3)
-                            {
-                                Comp3.GetComposant = ListComposant.SingleOrDefault(
-                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                                Comp3Vis = true;
-                                ChangeImageBtn3 = "../Asset/remove64.png";
-                                if (Comp3.GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere3 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp3.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage3 =
-                                        ListTitrage3.SingleOrDefault(tit => tit.ID == Comp3.GetMatiere.Titrage.ID);
-                                    SelectedColor3 =
-                                        ListCouleur3.SingleOrDefault(co => co.ID == Comp3.GetMatiere.GetCouleur.ID);
-                                }
-
-                                Comp3.PropertyChanged += Comp3_PropertyChanged;
-                            }
-
-                            if (NewProd.GetComposition[i].NumComposant == 4)
-                            {
-                                Comp4.GetComposant = ListComposant.SingleOrDefault(
-                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                                Comp4Vis = true;
-                                ChangeImageBtn4 = "../Asset/remove64.png";
-                                if (Comp4.GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere4 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp4.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage4 =
-                                        ListTitrage4.SingleOrDefault(tit => tit.ID == Comp4.GetMatiere.Titrage.ID);
-                                    SelectedColor4 =
-                                        ListCouleur4.SingleOrDefault(co => co.ID == Comp4.GetMatiere.GetCouleur.ID);
-                                }
-
-                                Comp4.PropertyChanged += Comp4_PropertyChanged;
-                            }
-
-                            if (NewProd.GetComposition[i].NumComposant == 5)
-                            {
-                                Comp5.GetComposant = ListComposant.SingleOrDefault(
-                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                                Comp5Vis = true;
-                                ChangeImageBtn5 = "../Asset/remove64.png";
-                                if (Comp5.GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere5 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp5.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage5 =
-                                        ListTitrage5.SingleOrDefault(tit => tit.ID == Comp5.GetMatiere.Titrage.ID);
-                                    SelectedColor5 =
-                                        ListCouleur5.SingleOrDefault(co => co.ID == Comp5.GetMatiere.GetCouleur.ID);
-                                }
-
-                                Comp5.PropertyChanged += Comp5_PropertyChanged;
-                            }
-
-                            if (NewProd.GetComposition[i].NumComposant == 6)
-                            {
-                                Comp6.GetComposant = ListComposant.SingleOrDefault(
-                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                                Comp6Vis = true;
-                                ChangeImageBtn6 = "../Asset/remove64.png";
-                                if (Comp6.GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere6 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp6.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage6 =
-                                        ListTitrage6.SingleOrDefault(tit => tit.ID == Comp6.GetMatiere.Titrage.ID);
-                                    SelectedColor6 =
-                                        ListCouleur6.SingleOrDefault(co => co.ID == Comp6.GetMatiere.GetCouleur.ID);
-                                }
-
-                                Comp6.PropertyChanged += Comp6_PropertyChanged;
-                            }
-
-                            if (NewProd.GetComposition[i].NumComposant == 7)
-                            {
-                                Comp7.GetComposant = ListComposant.SingleOrDefault(
-                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
-                                Comp7Vis = true;
-                                ChangeImageBtn7 = "../Asset/remove64.png";
-                                if (Comp7.GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere7 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp7.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage7 =
-                                        ListTitrage7.SingleOrDefault(tit => tit.ID == Comp7.GetMatiere.Titrage.ID);
-                                    SelectedColor7 =
-                                        ListCouleur7.SingleOrDefault(co => co.ID == Comp7.GetMatiere.GetCouleur.ID);
-                                }
-
-                                Comp7.PropertyChanged += Comp7_PropertyChanged;
-                            }
-                        }
+                        CallWorkspace();
                     }
 
 
-                if (SelectedFicheTechnique.Catalog != null)
-                    SelectedCategorie =
-                        CategorieList.SingleOrDefault(cat => cat.ID == SelectedFicheTechnique.Catalog.ID);
+                    EditDate = true;
+                    DisplayDate = false;
+                    EnableEditing = true;
+                    SaveCancelBtn = true;
+                    PrintBtn = false;
+                    BtnVis = true;
+                    IsAddEnabled = false;
+                    OldVersion = NewProd.Version;
+                    if (SelectedFicheTechnique.Produits[LastVersion].DuitageID != null)
+                        if (SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine != null)
+                        {
+                            SelectedMachine = MachineList.SingleOrDefault(ma =>
+                                ma.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine.ID);
+                            NewProd.DuitageID = DuitageList.SingleOrDefault(duit =>
+                                duit.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageID.ID);
+                        }
+
+                    if (SelectedFicheTechnique.Produits[LastVersion].Version == 0)
+                    {
+                        IsProduction = false;
+                        MinVers = 0;
+                    }
+                    else
+                    {
+                        IsProduction = true;
+                        MinVers = 1;
+                        if (SelectedFicheTechnique.Produits[LastVersion].Version == 1)
+                            IsUpdate = false;
+                        else
+                            IsUpdate = true;
+                    }
+
+                    if (SelectedFicheTechnique.Produits[LastVersion].Client != null)
+                        NewProd.Client = ListClient.SingleOrDefault(cl =>
+                            cl.ID == SelectedFicheTechnique.Produits[LastVersion].Client.ID);
+                    if (SelectedFicheTechnique.Produits[LastVersion].PeigneObj != null)
+                        NewProd.PeigneObj = ListPeigne.SingleOrDefault(rd =>
+                            rd.ID == SelectedFicheTechnique.Produits[LastVersion].PeigneObj.ID);
+                    if (SelectedFicheTechnique.Produits[LastVersion].RedacteurObj != null)
+                        NewProd.RedacteurObj = ListRedacteur.SingleOrDefault(red =>
+                            red.ID == SelectedFicheTechnique.Produits[LastVersion].RedacteurObj.ID);
+                    if (SelectedFicheTechnique.Produits[LastVersion].Concepteur != null)
+                        NewProd.Concepteur = ListConcepteur.SingleOrDefault(cp =>
+                            cp.ID == SelectedFicheTechnique.Produits[LastVersion].Concepteur.ID);
+                    if (SelectedFicheTechnique.Produits[LastVersion].Verificateur != null)
+                        NewProd.Verificateur = ListVerificateur.SingleOrDefault(vr =>
+                            vr.ID == SelectedFicheTechnique.Produits[LastVersion].Verificateur.ID);
+
+                    if (NewProd.DuitageID != null) Vitesse = NewProd.DuitageID.Vitesse.ToString();
 
 
-                NewProd.PropertyChanged += Prod_PropertyChanged;
+                    for (var i = 0; i < NewProd.GetComposition.Count; i++)
+                        if (NewProd.GetComposition[i].GetComposant != null)
+                        {
+                            if (NewProd.GetComposition[i].NumComposant == 8)
+                            {
+                                Comp8.GetComposant = ListComposant.SingleOrDefault(
+                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                Comp8Vis = true;
+                                ChangeImageBtn8 = "../Asset/remove64.png";
+                                if (Comp8.GetMatiere != null)
+                                {
+                                    SelectedTypeMatiere8 = ListTypeMatiere.SingleOrDefault(ma =>
+                                        ma.ID == Comp8.GetMatiere.Titrage.TypeMatiere.ID);
+                                    SelectedTitrage8 =
+                                        ListTitrage8.SingleOrDefault(tit => tit.ID == Comp8.GetMatiere.Titrage.ID);
+                                    SelectedColor8 =
+                                        ListCouleur8.SingleOrDefault(co => co.ID == Comp8.GetMatiere.GetCouleur.ID);
+                                }
+
+                                Comp8.PropertyChanged += Comp8_PropertyChanged;
+                            }
+                            else if (NewProd.GetComposition[i].NumComposant == 9)
+                            {
+                                Comp9.GetComposant = ListComposant.SingleOrDefault(
+                                    cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                Comp9Vis = true;
+                                ChangeImageBtn9 = "../Asset/remove64.png";
+                                if (Comp9.GetMatiere != null)
+                                {
+                                    SelectedTypeMatiere9 = ListTypeMatiere.SingleOrDefault(ma =>
+                                        ma.ID == Comp9.GetMatiere.Titrage.TypeMatiere.ID);
+                                    SelectedTitrage9 =
+                                        ListTitrage9.SingleOrDefault(tit => tit.ID == Comp9.GetMatiere.Titrage.ID);
+                                    SelectedColor9 =
+                                        ListCouleur9.SingleOrDefault(co => co.ID == Comp9.GetMatiere.GetCouleur.ID);
+                                }
+
+                                Comp9.PropertyChanged += Comp9_PropertyChanged;
+                            }
+                            else
+                            {
+                                if (NewProd.GetComposition[i].NumComposant == 1)
+                                {
+                                    Comp1.GetComposant = ListComposant.SingleOrDefault(
+                                        cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                    Comp1Vis = true;
+                                    ChangeImageBtn1 = "../Asset/remove64.png";
+                                    if (Comp1.GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere1 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp1.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage1 =
+                                            ListTitrage1.SingleOrDefault(tit => tit.ID == Comp1.GetMatiere.Titrage.ID);
+                                        SelectedColor1 =
+                                            ListCouleur1.SingleOrDefault(co => co.ID == Comp1.GetMatiere.GetCouleur.ID);
+                                    }
+
+                                    Comp1.PropertyChanged += Comp1_PropertyChanged;
+                                }
+
+                                if (NewProd.GetComposition[i].NumComposant == 2)
+                                {
+                                    Comp2.GetComposant = ListComposant.SingleOrDefault(
+                                        cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                    Comp2Vis = true;
+                                    ChangeImageBtn2 = "../Asset/remove64.png";
+                                    if (Comp2.GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere2 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp2.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage2 =
+                                            ListTitrage2.SingleOrDefault(tit => tit.ID == Comp2.GetMatiere.Titrage.ID);
+                                        SelectedColor2 =
+                                            ListCouleur2.SingleOrDefault(co => co.ID == Comp2.GetMatiere.GetCouleur.ID);
+                                    }
+
+                                    Comp2.PropertyChanged += Comp2_PropertyChanged;
+                                }
+
+                                if (NewProd.GetComposition[i].NumComposant == 3)
+                                {
+                                    Comp3.GetComposant = ListComposant.SingleOrDefault(
+                                        cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                    Comp3Vis = true;
+                                    ChangeImageBtn3 = "../Asset/remove64.png";
+                                    if (Comp3.GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere3 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp3.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage3 =
+                                            ListTitrage3.SingleOrDefault(tit => tit.ID == Comp3.GetMatiere.Titrage.ID);
+                                        SelectedColor3 =
+                                            ListCouleur3.SingleOrDefault(co => co.ID == Comp3.GetMatiere.GetCouleur.ID);
+                                    }
+
+                                    Comp3.PropertyChanged += Comp3_PropertyChanged;
+                                }
+
+                                if (NewProd.GetComposition[i].NumComposant == 4)
+                                {
+                                    Comp4.GetComposant = ListComposant.SingleOrDefault(
+                                        cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                    Comp4Vis = true;
+                                    ChangeImageBtn4 = "../Asset/remove64.png";
+                                    if (Comp4.GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere4 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp4.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage4 =
+                                            ListTitrage4.SingleOrDefault(tit => tit.ID == Comp4.GetMatiere.Titrage.ID);
+                                        SelectedColor4 =
+                                            ListCouleur4.SingleOrDefault(co => co.ID == Comp4.GetMatiere.GetCouleur.ID);
+                                    }
+
+                                    Comp4.PropertyChanged += Comp4_PropertyChanged;
+                                }
+
+                                if (NewProd.GetComposition[i].NumComposant == 5)
+                                {
+                                    Comp5.GetComposant = ListComposant.SingleOrDefault(
+                                        cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                    Comp5Vis = true;
+                                    ChangeImageBtn5 = "../Asset/remove64.png";
+                                    if (Comp5.GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere5 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp5.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage5 =
+                                            ListTitrage5.SingleOrDefault(tit => tit.ID == Comp5.GetMatiere.Titrage.ID);
+                                        SelectedColor5 =
+                                            ListCouleur5.SingleOrDefault(co => co.ID == Comp5.GetMatiere.GetCouleur.ID);
+                                    }
+
+                                    Comp5.PropertyChanged += Comp5_PropertyChanged;
+                                }
+
+                                if (NewProd.GetComposition[i].NumComposant == 6)
+                                {
+                                    Comp6.GetComposant = ListComposant.SingleOrDefault(
+                                        cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                    Comp6Vis = true;
+                                    ChangeImageBtn6 = "../Asset/remove64.png";
+                                    if (Comp6.GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere6 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp6.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage6 =
+                                            ListTitrage6.SingleOrDefault(tit => tit.ID == Comp6.GetMatiere.Titrage.ID);
+                                        SelectedColor6 =
+                                            ListCouleur6.SingleOrDefault(co => co.ID == Comp6.GetMatiere.GetCouleur.ID);
+                                    }
+
+                                    Comp6.PropertyChanged += Comp6_PropertyChanged;
+                                }
+
+                                if (NewProd.GetComposition[i].NumComposant == 7)
+                                {
+                                    Comp7.GetComposant = ListComposant.SingleOrDefault(
+                                        cmp => cmp.ID == NewProd.GetComposition[i].GetComposant.ID);
+                                    Comp7Vis = true;
+                                    ChangeImageBtn7 = "../Asset/remove64.png";
+                                    if (Comp7.GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere7 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp7.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage7 =
+                                            ListTitrage7.SingleOrDefault(tit => tit.ID == Comp7.GetMatiere.Titrage.ID);
+                                        SelectedColor7 =
+                                            ListCouleur7.SingleOrDefault(co => co.ID == Comp7.GetMatiere.GetCouleur.ID);
+                                    }
+
+                                    Comp7.PropertyChanged += Comp7_PropertyChanged;
+                                }
+                            }
+                        }
+
+
+                    if (SelectedFicheTechnique.Catalog != null)
+                        SelectedCategorie =
+                            CategorieList.SingleOrDefault(cat => cat.ID == SelectedFicheTechnique.Catalog.ID);
+
+
+                    NewProd.PropertyChanged += Prod_PropertyChanged;
+                }
+                else
+                {
+                    SendNotification.Raise("Aucune Fiche Technique Séléctionnée");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                SendNotification.Raise("Aucune Fiche Technique Séléctionnée");
+                SendNotification.Raise(ex.ToString());
             }
+           
+          
+            
         }
 
         public void DeleteFicheTechnique()
@@ -2214,14 +2223,22 @@ namespace BackEnd2.ViewModel
                     {
                         if (ok)
                         {
-                            foreach (var prod in SelectedFicheTechnique.Produits)
-                                if (prod.EnfilageID != null)
-                                    _DB2.DeleteFicheTechnique(SelectedFicheTechnique.ID, prod.Id, prod.EnfilageID.ID);
-                                else
-                                    _DB2.DeleteFicheTechnique(SelectedFicheTechnique.ID, prod.Id);
+                            try
+                            {
+                                foreach (var prod in SelectedFicheTechnique.Produits)
+                                    if (prod.EnfilageID != null)
+                                        _DB2.DeleteFicheTechnique(SelectedFicheTechnique.ID, prod.Id, prod.EnfilageID.ID);
+                                    else
+                                        _DB2.DeleteFicheTechnique(SelectedFicheTechnique.ID, prod.Id);
 
-                            AnnulerFicheTechnique();
-                            UpdateFicheTek();
+                                AnnulerFicheTechnique();
+                                UpdateFicheTek();
+                            }
+                            catch(Exception ex)
+                            {
+                                SendNotification.Raise(ex.ToString());
+                            }
+                            
                         }
                     }
                 };
@@ -2369,7 +2386,15 @@ namespace BackEnd2.ViewModel
                     NewProd.EnfilageID.Row = EnfilageRow;
                     NewProd.EnfilageID.TrXposition = LastXposition;
                     NewProd.EnfilageID.TrYposition = LastYposition;
-                    NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                    if(NewProd.EnfilageID.GetChaine!=null)
+                    {
+                        NewProd.EnfilageID.ID = _DB2.AddNewEnfilageWithChaine(NewProd.EnfilageID);
+                    }
+                    else
+                    {
+                        NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                    }
+                    
                 }
                 else
                 {
@@ -2620,8 +2645,16 @@ namespace BackEnd2.ViewModel
                             }
                             else
                             {
-                                rep1.x = (Convert.ToDouble(rep1.x) * ContainerWidth).ToString();
-                                rep1.y = (Convert.ToDouble(rep1.y) * ContainerHeight).ToString();
+                                double nbconv =0;
+
+                                bool IsParsable=Double.TryParse(rep1.x, out nbconv);
+                                if(IsParsable)
+                                {
+                                    var str = (nbconv * ContainerWidth).ToString();
+                                    rep1.x = str;
+                                    rep1.y = (Convert.ToDouble(rep1.y) * ContainerHeight).ToString();
+                                }
+                              
                             }
                         }else if (i == 1)
                         {
@@ -2710,12 +2743,21 @@ namespace BackEnd2.ViewModel
                         EnfMatrix.DentFil = EleMatx.DentFil;
                         TempList.Add(EnfMatrix);
                     }
+                    double TrPos = 0;
+                    bool b=Double.TryParse(SelectedFicheTechnique.Produits[vers].EnfilageID.TrXposition, out TrPos);
+                    if(b)
+                    {
+                        TrameXposition =
+                                               (
+                                                   Convert.ToDouble(SelectedFicheTechnique.Produits[vers].EnfilageID.TrXposition) * ContainerWidth)
+                                               .ToString();
+                        TrameYposition = (Convert.ToDouble(SelectedFicheTechnique.Produits[vers].EnfilageID.TrYposition) * ContainerHeight).ToString();
 
-                    TrameXposition =
-                        (
-                            Convert.ToDouble(SelectedFicheTechnique.Produits[vers].EnfilageID.TrXposition)* ContainerWidth)
-                        .ToString();
-                    TrameYposition = (Convert.ToDouble(SelectedFicheTechnique.Produits[vers].EnfilageID.TrYposition)* ContainerHeight).ToString();
+                    }else
+                    {
+
+                    }
+
                     ContentEnfilageList = new MvxObservableCollection<MatrixElement>(TempList);
                 }
                 else
@@ -2875,475 +2917,484 @@ namespace BackEnd2.ViewModel
 
         public void AddNewVersion()
         {
-            UIServices.SetBusyState();
-            SchCompList = new MvxObservableCollection<Composition>();
-            if (SelectedFicheTechnique != null)
+            try
             {
-                IsProduction = true;
-                IsDateCr = false;
-                IsUpdate = true;
-                MinVers = 1;
-                var LastVersion = SelectedFicheTechnique.Produits.Count - 1;
-
-
-                NewProd.Id = 0;
-                NewProd.Version = NewProd.Version + 1;
-                var prod = (Produit)NewProd.Clone();
-
-                OldVersion = NewProd.Version;
-                NewProd.Id = _DB2.AddNewProductVersion(prod);
-                if (prod.Client != null)
+                UIServices.SetBusyState();
+                SchCompList = new MvxObservableCollection<Composition>();
+                if (SelectedFicheTechnique != null)
                 {
-                    _DB2.UpdateProdClient(prod);
-                    NewProd.Client = ListClient.SingleOrDefault(cl => cl.ID == prod.Client.ID);
-                }
+                    IsProduction = true;
+                    IsDateCr = false;
+                    IsUpdate = true;
+                    MinVers = 1;
+                    var LastVersion = SelectedFicheTechnique.Produits.Count - 1;
 
-                if (prod.Concepteur != null)
-                {
-                    _DB2.UpdateProdConcepteur(prod);
-                    NewProd.Concepteur = ListConcepteur.SingleOrDefault(cl => cl.ID == prod.Concepteur.ID);
-                }
 
-                if (prod.Verificateur != null)
-                {
-                    _DB2.UpdateProdVerificateur(prod);
-                    NewProd.Verificateur = ListVerificateur.SingleOrDefault(cl => cl.ID == prod.Verificateur.ID);
-                }
+                    NewProd.Id = 0;
+                    NewProd.Version = NewProd.Version + 1;
+                    var prod = (Produit)NewProd.Clone();
 
-                if (prod.RedacteurObj != null)
-                {
-                    _DB2.UpdateProdRedacteur(prod);
-                    NewProd.RedacteurObj = ListRedacteur.SingleOrDefault(cl => cl.ID == prod.RedacteurObj.ID);
-                }
-
-                if (prod.PeigneObj != null)
-                {
-                    _DB2.UpdateProdPeigne(prod);
-                    NewProd.PeigneObj = ListPeigne.SingleOrDefault(cl => cl.ID == prod.PeigneObj.ID);
-                }
-
-                if (prod.DuitageID != null)
-                    if (SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine != null)
+                    OldVersion = NewProd.Version;
+                    NewProd.Id = _DB2.AddNewProductVersion(prod);
+                    if (prod.Client != null)
                     {
-                        _DB2.UpdateProdDuitage(prod);
-                        SelectedMachine = MachineList.SingleOrDefault(ma =>
-                            ma.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine.ID);
-                        NewProd.DuitageID = DuitageList.SingleOrDefault(cl => cl.ID == prod.DuitageID.ID);
+                        _DB2.UpdateProdClient(prod);
+                        NewProd.Client = ListClient.SingleOrDefault(cl => cl.ID == prod.Client.ID);
                     }
 
-                if (prod.EnfilageID != null) _DB2.UpdateProdEnfilage(prod);
-
-                if (prod.Epaisseur > 0) _DB2.UpdateProdEpaiseur(prod);
-
-                if (SelectedFicheTechnique.Catalog != null)
-                    SelectedCategorie =
-                        CategorieList.SingleOrDefault(cat => cat.ID == SelectedFicheTechnique.Catalog.ID);
-
-
-                NewProd.PropertyChanged += Prod_PropertyChanged;
-                //NewProd.MiseAJour=DateTime.Now;
-                IsDentFilVis = true;
-                EditDate = true;
-                DisplayDate = false;
-                EnableEditing = true;
-                SaveCancelBtn = true;
-                PrintBtn = false;
-                BtnVis = true;
-                IsAddEnabled = false;
-
-
-                if (NewProd.DuitageID != null) Vitesse = NewProd.DuitageID.Vitesse.ToString();
-
-                var EquivList = new List<EquivalentID>();
-
-                var NewTemp = new List<Composition>(NewProd.GetComposition.Count);
-                NewProd.GetComposition.ForEach(item => { NewTemp.Add((Composition)item.Clone()); });
-                for (var i = 0; i < NewTemp.Count; i++)
-                    if (NewTemp[i].GetComposant != null)
+                    if (prod.Concepteur != null)
                     {
-                        if (NewTemp[i].NumComposant == 8)
+                        _DB2.UpdateProdConcepteur(prod);
+                        NewProd.Concepteur = ListConcepteur.SingleOrDefault(cl => cl.ID == prod.Concepteur.ID);
+                    }
+
+                    if (prod.Verificateur != null)
+                    {
+                        _DB2.UpdateProdVerificateur(prod);
+                        NewProd.Verificateur = ListVerificateur.SingleOrDefault(cl => cl.ID == prod.Verificateur.ID);
+                    }
+
+                    if (prod.RedacteurObj != null)
+                    {
+                        _DB2.UpdateProdRedacteur(prod);
+                        NewProd.RedacteurObj = ListRedacteur.SingleOrDefault(cl => cl.ID == prod.RedacteurObj.ID);
+                    }
+
+                    if (prod.PeigneObj != null)
+                    {
+                        _DB2.UpdateProdPeigne(prod);
+                        NewProd.PeigneObj = ListPeigne.SingleOrDefault(cl => cl.ID == prod.PeigneObj.ID);
+                    }
+
+                    if (prod.DuitageID != null)
+                        if (SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine != null)
                         {
-                            Comp8Vis = true;
-                            ChangeImageBtn8 = "../Asset/remove64.png";
-
-
-                            Comp8 = (Composition)NewTemp[i].Clone();
-                            var eqid = new EquivalentID();
-                            eqid.Id = Comp8.ID;
-
-                            Comp8.ProdID = (Produit)NewProd.Clone();
-                            Comp8.ID = 0;
-                            Comp8.ID = _DB2.AddProdCompo((Composition)Comp8.Clone());
-                            eqid.EquivId = Comp8.ID;
-                            EquivList.Add(eqid);
-                            if (NewTemp[i].GetMatiere != null)
-                            {
-                                _DB2.UpdateCompoMatiere(Comp8);
-                                SelectedTypeMatiere8 = ListTypeMatiere.SingleOrDefault(ma =>
-                                    ma.ID == Comp8.GetMatiere.Titrage.TypeMatiere.ID);
-                                SelectedTitrage8 =
-                                    ListTitrage8.SingleOrDefault(tit => tit.ID == Comp8.GetMatiere.Titrage.ID);
-                                SelectedColor8 =
-                                    ListCouleur8.SingleOrDefault(co => co.ID == Comp8.GetMatiere.GetCouleur.ID);
-                            }
-
-                            if (NewTemp[i].GetComposant != null)
-                            {
-                                _DB2.UpdateCompoComposant(Comp8);
-
-                                Comp8.GetComposant =
-                                    ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                            }
-
-                            Comp8.PropertyChanged += Comp8_PropertyChanged;
+                            _DB2.UpdateProdDuitage(prod);
+                            SelectedMachine = MachineList.SingleOrDefault(ma =>
+                                ma.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageID.Machine.ID);
+                            NewProd.DuitageID = DuitageList.SingleOrDefault(cl => cl.ID == prod.DuitageID.ID);
                         }
-                        else if (NewTemp[i].NumComposant == 9)
+
+
+
+                    if (prod.Epaisseur > 0) _DB2.UpdateProdEpaiseur(prod);
+
+                    if (SelectedFicheTechnique.Catalog != null)
+                        SelectedCategorie =
+                            CategorieList.SingleOrDefault(cat => cat.ID == SelectedFicheTechnique.Catalog.ID);
+
+
+
+                    //NewProd.MiseAJour=DateTime.Now;
+                    IsDentFilVis = true;
+                    EditDate = true;
+                    DisplayDate = false;
+                    EnableEditing = true;
+                    SaveCancelBtn = true;
+                    PrintBtn = false;
+                    BtnVis = true;
+                    IsAddEnabled = false;
+
+
+                    if (NewProd.DuitageID != null) Vitesse = NewProd.DuitageID.Vitesse.ToString();
+
+                    var EquivList = new List<EquivalentID>();
+
+                    var NewTemp = new List<Composition>(NewProd.GetComposition.Count);
+                    NewProd.GetComposition.ForEach(item => { NewTemp.Add((Composition)item.Clone()); });
+                    for (var i = 0; i < NewTemp.Count; i++)
+                        if (NewTemp[i].GetComposant != null)
                         {
-                            Comp9Vis = true;
-                            ChangeImageBtn9 = "../Asset/remove64.png";
-
-
-                            Comp9 = (Composition)NewTemp[i].Clone();
-                            var eqid = new EquivalentID();
-                            eqid.Id = Comp9.ID;
-                            Comp9.ProdID = (Produit)NewProd.Clone();
-                            Comp9.ID = 0;
-                            Comp9.ID = _DB2.AddProdCompo((Composition)Comp9.Clone());
-                            eqid.EquivId = Comp9.ID;
-                            EquivList.Add(eqid);
-                            if (NewTemp[i].GetMatiere != null)
+                            if (NewTemp[i].NumComposant == 8)
                             {
-                                _DB2.UpdateCompoMatiere(Comp9);
-                                SelectedTypeMatiere9 = ListTypeMatiere.SingleOrDefault(ma =>
-                                    ma.ID == Comp9.GetMatiere.Titrage.TypeMatiere.ID);
-                                SelectedTitrage9 =
-                                    ListTitrage9.SingleOrDefault(tit => tit.ID == Comp9.GetMatiere.Titrage.ID);
-                                SelectedColor9 =
-                                    ListCouleur9.SingleOrDefault(co => co.ID == Comp9.GetMatiere.GetCouleur.ID);
-                            }
+                                Comp8Vis = true;
+                                ChangeImageBtn8 = "../Asset/remove64.png";
 
-                            if (NewTemp[i].GetComposant != null)
+
+                                Comp8 = (Composition)NewTemp[i].Clone();
+                                var eqid = new EquivalentID();
+                                eqid.Id = Comp8.ID;
+
+                                Comp8.ProdID = (Produit)NewProd.Clone();
+                                Comp8.ID = 0;
+                                Comp8.ID = _DB2.AddProdCompo((Composition)Comp8.Clone());
+                                eqid.EquivId = Comp8.ID;
+                                EquivList.Add(eqid);
+                                if (NewTemp[i].GetMatiere != null)
+                                {
+                                    _DB2.UpdateCompoMatiere(Comp8);
+                                    SelectedTypeMatiere8 = ListTypeMatiere.SingleOrDefault(ma =>
+                                        ma.ID == Comp8.GetMatiere.Titrage.TypeMatiere.ID);
+                                    SelectedTitrage8 =
+                                        ListTitrage8.SingleOrDefault(tit => tit.ID == Comp8.GetMatiere.Titrage.ID);
+                                    SelectedColor8 =
+                                        ListCouleur8.SingleOrDefault(co => co.ID == Comp8.GetMatiere.GetCouleur.ID);
+                                }
+
+                                if (NewTemp[i].GetComposant != null)
+                                {
+                                    _DB2.UpdateCompoComposant(Comp8);
+
+                                    Comp8.GetComposant =
+                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                }
+
+                                Comp8.PropertyChanged += Comp8_PropertyChanged;
+                            }
+                            else if (NewTemp[i].NumComposant == 9)
                             {
-                                _DB2.UpdateCompoComposant(Comp9);
-                                Comp9.GetComposant =
-                                    ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                            }
+                                Comp9Vis = true;
+                                ChangeImageBtn9 = "../Asset/remove64.png";
 
-                            Comp9.PropertyChanged += Comp9_PropertyChanged;
+
+                                Comp9 = (Composition)NewTemp[i].Clone();
+                                var eqid = new EquivalentID();
+                                eqid.Id = Comp9.ID;
+                                Comp9.ProdID = (Produit)NewProd.Clone();
+                                Comp9.ID = 0;
+                                Comp9.ID = _DB2.AddProdCompo((Composition)Comp9.Clone());
+                                eqid.EquivId = Comp9.ID;
+                                EquivList.Add(eqid);
+                                if (NewTemp[i].GetMatiere != null)
+                                {
+                                    _DB2.UpdateCompoMatiere(Comp9);
+                                    SelectedTypeMatiere9 = ListTypeMatiere.SingleOrDefault(ma =>
+                                        ma.ID == Comp9.GetMatiere.Titrage.TypeMatiere.ID);
+                                    SelectedTitrage9 =
+                                        ListTitrage9.SingleOrDefault(tit => tit.ID == Comp9.GetMatiere.Titrage.ID);
+                                    SelectedColor9 =
+                                        ListCouleur9.SingleOrDefault(co => co.ID == Comp9.GetMatiere.GetCouleur.ID);
+                                }
+
+                                if (NewTemp[i].GetComposant != null)
+                                {
+                                    _DB2.UpdateCompoComposant(Comp9);
+                                    Comp9.GetComposant =
+                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                }
+
+                                Comp9.PropertyChanged += Comp9_PropertyChanged;
+                            }
+                            else
+                            {
+                                if (NewTemp[i].NumComposant == 1)
+                                {
+
+                                    Comp1Vis = true;
+                                    ChangeImageBtn1 = "../Asset/remove64.png";
+
+
+                                    Comp1 = (Composition)NewTemp[i].Clone();
+                                    var eqid = new EquivalentID();
+                                    eqid.Id = Comp1.ID;
+                                    Comp1.ProdID = (Produit)NewProd.Clone();
+                                    Comp1.ID = 0;
+                                    Comp1.ID = _DB2.AddProdCompo((Composition)Comp1.Clone());
+                                    eqid.EquivId = Comp1.ID;
+                                    EquivList.Add(eqid);
+                                    if (NewTemp[i].GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere1 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp1.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage1 =
+                                            ListTitrage1.SingleOrDefault(tit => tit.ID == Comp1.GetMatiere.Titrage.ID);
+                                        SelectedColor1 =
+                                            ListCouleur1.SingleOrDefault(co => co.ID == Comp1.GetMatiere.GetCouleur.ID);
+                                        _DB2.UpdateCompoMatiere(Comp1);
+                                    }
+
+                                    if (NewTemp[i].GetComposant != null)
+                                    {
+                                        _DB2.UpdateCompoComposant(Comp1);
+                                        Comp1.GetComposant =
+                                            ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                    }
+
+                                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                                        SchCompList.Add(Comp1);
+
+
+                                    Comp1.PropertyChanged += Comp1_PropertyChanged;
+                                }
+
+                                if (NewTemp[i].NumComposant == 2)
+                                {
+                                    Comp2Vis = true;
+                                    ChangeImageBtn2 = "../Asset/remove64.png";
+
+
+                                    Comp2 = (Composition)NewTemp[i].Clone();
+                                    var eqid = new EquivalentID();
+                                    eqid.Id = Comp2.ID;
+                                    Comp2.ProdID = (Produit)NewProd.Clone();
+                                    Comp2.ID = 0;
+                                    Comp2.ID = _DB2.AddProdCompo((Composition)Comp2.Clone());
+                                    eqid.EquivId = Comp2.ID;
+                                    EquivList.Add(eqid);
+                                    if (NewTemp[i].GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere2 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp2.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage2 =
+                                            ListTitrage2.SingleOrDefault(tit => tit.ID == Comp2.GetMatiere.Titrage.ID);
+                                        SelectedColor2 =
+                                            ListCouleur2.SingleOrDefault(co => co.ID == Comp2.GetMatiere.GetCouleur.ID);
+                                        _DB2.UpdateCompoMatiere(Comp2);
+                                    }
+
+                                    if (NewTemp[i].GetComposant != null)
+                                    {
+                                        _DB2.UpdateCompoComposant(Comp2);
+                                        Comp2.GetComposant =
+                                            ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                    }
+
+                                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                                        SchCompList.Add(Comp2);
+                                    Comp2.PropertyChanged += Comp2_PropertyChanged;
+                                }
+
+                                if (NewTemp[i].NumComposant == 3)
+                                {
+                                    Comp3Vis = true;
+                                    ChangeImageBtn3 = "../Asset/remove64.png";
+
+
+                                    Comp3 = (Composition)NewTemp[i].Clone();
+                                    var eqid = new EquivalentID();
+                                    eqid.Id = Comp3.ID;
+                                    Comp3.ProdID = (Produit)NewProd.Clone();
+                                    Comp3.ID = 0;
+                                    Comp3.ID = _DB2.AddProdCompo((Composition)Comp3.Clone());
+                                    eqid.Id = Comp3.ID;
+                                    EquivList.Add(eqid);
+                                    if (NewTemp[i].GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere3 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp3.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage3 =
+                                            ListTitrage3.SingleOrDefault(tit => tit.ID == Comp3.GetMatiere.Titrage.ID);
+                                        SelectedColor3 =
+                                            ListCouleur3.SingleOrDefault(co => co.ID == Comp3.GetMatiere.GetCouleur.ID);
+                                        _DB2.UpdateCompoMatiere(Comp3);
+                                    }
+
+                                    if (NewTemp[i].GetComposant != null)
+                                    {
+                                        _DB2.UpdateCompoComposant(Comp3);
+                                        Comp3.GetComposant =
+                                            ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                    }
+
+                                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                                        SchCompList.Add(Comp3);
+                                    Comp3.PropertyChanged += Comp3_PropertyChanged;
+                                }
+
+                                if (NewTemp[i].NumComposant == 4)
+                                {
+                                    Comp4Vis = true;
+                                    ChangeImageBtn4 = "../Asset/remove64.png";
+
+
+                                    Comp4 = (Composition)NewTemp[i].Clone();
+                                    var eqid = new EquivalentID();
+                                    eqid.Id = Comp4.ID;
+                                    Comp4.ProdID = (Produit)NewProd.Clone();
+                                    Comp4.ID = 0;
+                                    Comp4.ID = _DB2.AddProdCompo((Composition)Comp4.Clone());
+                                    eqid.EquivId = Comp4.ID;
+                                    EquivList.Add(eqid);
+                                    if (NewTemp[i].GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere4 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp4.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage4 =
+                                            ListTitrage4.SingleOrDefault(tit => tit.ID == Comp4.GetMatiere.Titrage.ID);
+                                        SelectedColor4 =
+                                            ListCouleur4.SingleOrDefault(co => co.ID == Comp4.GetMatiere.GetCouleur.ID);
+                                        _DB2.UpdateCompoMatiere(Comp4);
+                                    }
+
+                                    if (NewTemp[i].GetComposant != null)
+                                    {
+                                        _DB2.UpdateCompoComposant(Comp4);
+                                        Comp4.GetComposant =
+                                            ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                    }
+
+                                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                                        SchCompList.Add(Comp4);
+                                    Comp4.PropertyChanged += Comp4_PropertyChanged;
+                                }
+
+                                if (NewTemp[i].NumComposant == 5)
+                                {
+                                    Comp5Vis = true;
+                                    ChangeImageBtn5 = "../Asset/remove64.png";
+
+
+                                    Comp5 = (Composition)NewTemp[i].Clone();
+                                    var eqid = new EquivalentID();
+                                    eqid.Id = Comp5.ID;
+                                    Comp5.ProdID = (Produit)NewProd.Clone();
+                                    Comp5.ID = 0;
+                                    Comp5.ID = _DB2.AddProdCompo((Composition)Comp5.Clone());
+                                    eqid.EquivId = Comp5.ID;
+                                    EquivList.Add(eqid);
+                                    if (NewTemp[i].GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere5 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp5.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage5 =
+                                            ListTitrage5.SingleOrDefault(tit => tit.ID == Comp5.GetMatiere.Titrage.ID);
+                                        SelectedColor5 =
+                                            ListCouleur5.SingleOrDefault(co => co.ID == Comp5.GetMatiere.GetCouleur.ID);
+                                        _DB2.UpdateCompoMatiere(Comp5);
+                                    }
+
+                                    if (NewTemp[i].GetComposant != null)
+                                    {
+                                        _DB2.UpdateCompoComposant(Comp5);
+                                        Comp5.GetComposant =
+                                            ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                    }
+
+                                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                                        SchCompList.Add(Comp5);
+                                    Comp5.PropertyChanged += Comp5_PropertyChanged;
+                                }
+
+                                if (NewTemp[i].NumComposant == 6)
+                                {
+                                    Comp6Vis = true;
+                                    ChangeImageBtn6 = "../Asset/remove64.png";
+
+
+                                    Comp6 = (Composition)NewTemp[i].Clone();
+                                    var eqid = new EquivalentID();
+                                    eqid.Id = Comp6.ID;
+                                    Comp6.ProdID = (Produit)NewProd.Clone();
+                                    Comp6.ID = 0;
+                                    Comp6.ID = _DB2.AddProdCompo((Composition)Comp6.Clone());
+                                    eqid.EquivId = Comp6.ID;
+                                    EquivList.Add(eqid);
+                                    if (NewTemp[i].GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere6 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp6.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage6 =
+                                            ListTitrage6.SingleOrDefault(tit => tit.ID == Comp6.GetMatiere.Titrage.ID);
+                                        SelectedColor6 =
+                                            ListCouleur6.SingleOrDefault(co => co.ID == Comp6.GetMatiere.GetCouleur.ID);
+                                        _DB2.UpdateCompoMatiere(Comp6);
+                                    }
+
+                                    if (NewTemp[i].GetComposant != null)
+                                    {
+                                        _DB2.UpdateCompoComposant(Comp6);
+                                        Comp6.GetComposant =
+                                            ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                    }
+
+                                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                                        SchCompList.Add(Comp6);
+                                    Comp6.PropertyChanged += Comp6_PropertyChanged;
+                                }
+
+                                if (NewTemp[i].NumComposant == 7)
+                                {
+                                    Comp7Vis = true;
+                                    ChangeImageBtn7 = "../Asset/remove64.png";
+
+
+                                    Comp7 = (Composition)NewTemp[i].Clone();
+                                    var eqid = new EquivalentID();
+                                    eqid.Id = Comp7.ID;
+                                    Comp7.ProdID = (Produit)NewProd.Clone();
+                                    Comp7.ID = 0;
+                                    Comp7.ID = _DB2.AddProdCompo((Composition)Comp7.Clone());
+                                    eqid.EquivId = Comp7.ID;
+                                    EquivList.Add(eqid);
+                                    if (NewTemp[i].GetMatiere != null)
+                                    {
+                                        SelectedTypeMatiere7 = ListTypeMatiere.SingleOrDefault(ma =>
+                                            ma.ID == Comp7.GetMatiere.Titrage.TypeMatiere.ID);
+                                        SelectedTitrage7 =
+                                            ListTitrage7.SingleOrDefault(tit => tit.ID == Comp7.GetMatiere.Titrage.ID);
+                                        SelectedColor7 =
+                                            ListCouleur7.SingleOrDefault(co => co.ID == Comp7.GetMatiere.GetCouleur.ID);
+                                        _DB2.UpdateCompoMatiere(Comp7);
+                                    }
+
+                                    if (NewTemp[i].GetComposant != null)
+                                    {
+                                        _DB2.UpdateCompoComposant(Comp7);
+                                        Comp7.GetComposant =
+                                            ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
+                                    }
+
+                                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                                        SchCompList.Add(Comp7);
+                                    Comp7.PropertyChanged += Comp7_PropertyChanged;
+                                }
+                            }
+                        }
+
+
+                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                    {
+                        if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
+                            SelectedChaine = ChaineNameList.SingleOrDefault(ch =>
+                                ch.ID == SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine.ID);
+                        if (IsEnfilage)
+                        {
+                            NewProd.IsEnfilage = 1;
+                            NewProd.EnfilageID = new Enfilage();
+                            NewProd.EnfilageID.Column = EnfilageColumns;
+                            NewProd.EnfilageID.Row = EnfilageRow;
+                            NewProd.EnfilageID.TrXposition =
+                                SelectedFicheTechnique.Produits[LastVersion].EnfilageID.TrXposition;
+                            NewProd.EnfilageID.TrYposition =
+                                SelectedFicheTechnique.Produits[LastVersion].EnfilageID.TrYposition;
+                            if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
+                                NewProd.EnfilageID.GetChaine = SelectedChaine;
+
+                            NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                            _DB2.UpdateProdEnfilage(NewProd);
                         }
                         else
                         {
-                            if (NewTemp[i].NumComposant == 1)
-                            {
-                               
-                                Comp1Vis = true;
-                                ChangeImageBtn1 = "../Asset/remove64.png";
+                            NewProd.IsEnfilage = 0;
+                        }
 
 
-                                Comp1 = (Composition)NewTemp[i].Clone();
-                                var eqid = new EquivalentID();
-                                eqid.Id = Comp1.ID;
-                                Comp1.ProdID = (Produit)NewProd.Clone();
-                                Comp1.ID = 0;
-                                Comp1.ID = _DB2.AddProdCompo((Composition)Comp1.Clone());
-                                eqid.EquivId = Comp1.ID;
-                                EquivList.Add(eqid);
-                                if (NewTemp[i].GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere1 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp1.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage1 =
-                                        ListTitrage1.SingleOrDefault(tit => tit.ID == Comp1.GetMatiere.Titrage.ID);
-                                    SelectedColor1 =
-                                        ListCouleur1.SingleOrDefault(co => co.ID == Comp1.GetMatiere.GetCouleur.ID);
-                                    _DB2.UpdateCompoMatiere(Comp1);
-                                }
+                        foreach (var EleMatx in SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetMatrix)
+                        {
+                            var LastMatrixID = _DB2.GetLatestEnfilageMatrixID();
+                            var EnfMatrix = new EnfilageMatrix();
+                            EnfMatrix.ID = LastMatrixID;
+                            EnfMatrix.x = EleMatx.x;
+                            EnfMatrix.y = EleMatx.y;
+                            EnfMatrix.DentFil = EleMatx.DentFil;
+                            var eqObj = EquivList.SingleOrDefault(eq => eq.Id == EleMatx.value.ID);
 
-                                if (NewTemp[i].GetComposant != null)
-                                {
-                                    _DB2.UpdateCompoComposant(Comp1);
-                                    Comp1.GetComposant =
-                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                                }
-
-                                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
-                                    SchCompList.Add(Comp1);
-
-
-                                Comp1.PropertyChanged += Comp1_PropertyChanged;
-                            }
-
-                            if (NewTemp[i].NumComposant == 2)
-                            {
-                                Comp2Vis = true;
-                                ChangeImageBtn2 = "../Asset/remove64.png";
-
-
-                                Comp2 = (Composition)NewTemp[i].Clone();
-                                var eqid = new EquivalentID();
-                                eqid.Id = Comp2.ID;
-                                Comp2.ProdID = (Produit)NewProd.Clone();
-                                Comp2.ID = 0;
-                                Comp2.ID = _DB2.AddProdCompo((Composition)Comp2.Clone());
-                                eqid.EquivId = Comp2.ID;
-                                EquivList.Add(eqid);
-                                if (NewTemp[i].GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere2 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp2.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage2 =
-                                        ListTitrage2.SingleOrDefault(tit => tit.ID == Comp2.GetMatiere.Titrage.ID);
-                                    SelectedColor2 =
-                                        ListCouleur2.SingleOrDefault(co => co.ID == Comp2.GetMatiere.GetCouleur.ID);
-                                    _DB2.UpdateCompoMatiere(Comp2);
-                                }
-
-                                if (NewTemp[i].GetComposant != null)
-                                {
-                                    _DB2.UpdateCompoComposant(Comp2);
-                                    Comp2.GetComposant =
-                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                                }
-
-                                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
-                                    SchCompList.Add(Comp2);
-                                Comp2.PropertyChanged += Comp2_PropertyChanged;
-                            }
-
-                            if (NewTemp[i].NumComposant == 3)
-                            {
-                                Comp3Vis = true;
-                                ChangeImageBtn3 = "../Asset/remove64.png";
-
-
-                                Comp3 = (Composition)NewTemp[i].Clone();
-                                var eqid = new EquivalentID();
-                                eqid.Id = Comp3.ID;
-                                Comp3.ProdID = (Produit)NewProd.Clone();
-                                Comp3.ID = 0;
-                                Comp3.ID = _DB2.AddProdCompo((Composition)Comp3.Clone());
-                                eqid.Id = Comp3.ID;
-                                EquivList.Add(eqid);
-                                if (NewTemp[i].GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere3 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp3.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage3 =
-                                        ListTitrage3.SingleOrDefault(tit => tit.ID == Comp3.GetMatiere.Titrage.ID);
-                                    SelectedColor3 =
-                                        ListCouleur3.SingleOrDefault(co => co.ID == Comp3.GetMatiere.GetCouleur.ID);
-                                    _DB2.UpdateCompoMatiere(Comp3);
-                                }
-
-                                if (NewTemp[i].GetComposant != null)
-                                {
-                                    _DB2.UpdateCompoComposant(Comp3);
-                                    Comp3.GetComposant =
-                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                                }
-
-                                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
-                                    SchCompList.Add(Comp3);
-                                Comp3.PropertyChanged += Comp3_PropertyChanged;
-                            }
-
-                            if (NewTemp[i].NumComposant == 4)
-                            {
-                                Comp4Vis = true;
-                                ChangeImageBtn4 = "../Asset/remove64.png";
-
-
-                                Comp4 = (Composition)NewTemp[i].Clone();
-                                var eqid = new EquivalentID();
-                                eqid.Id = Comp4.ID;
-                                Comp4.ProdID = (Produit)NewProd.Clone();
-                                Comp4.ID = 0;
-                                Comp4.ID = _DB2.AddProdCompo((Composition)Comp4.Clone());
-                                eqid.EquivId = Comp4.ID;
-                                EquivList.Add(eqid);
-                                if (NewTemp[i].GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere4 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp4.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage4 =
-                                        ListTitrage4.SingleOrDefault(tit => tit.ID == Comp4.GetMatiere.Titrage.ID);
-                                    SelectedColor4 =
-                                        ListCouleur4.SingleOrDefault(co => co.ID == Comp4.GetMatiere.GetCouleur.ID);
-                                    _DB2.UpdateCompoMatiere(Comp4);
-                                }
-
-                                if (NewTemp[i].GetComposant != null)
-                                {
-                                    _DB2.UpdateCompoComposant(Comp4);
-                                    Comp4.GetComposant =
-                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                                }
-
-                                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
-                                    SchCompList.Add(Comp4);
-                                Comp4.PropertyChanged += Comp4_PropertyChanged;
-                            }
-
-                            if (NewTemp[i].NumComposant == 5)
-                            {
-                                Comp5Vis = true;
-                                ChangeImageBtn5 = "../Asset/remove64.png";
-
-
-                                Comp5 = (Composition)NewTemp[i].Clone();
-                                var eqid = new EquivalentID();
-                                eqid.Id = Comp5.ID;
-                                Comp5.ProdID = (Produit)NewProd.Clone();
-                                Comp5.ID = 0;
-                                Comp5.ID = _DB2.AddProdCompo((Composition)Comp5.Clone());
-                                eqid.EquivId = Comp5.ID;
-                                EquivList.Add(eqid);
-                                if (NewTemp[i].GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere5 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp5.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage5 =
-                                        ListTitrage5.SingleOrDefault(tit => tit.ID == Comp5.GetMatiere.Titrage.ID);
-                                    SelectedColor5 =
-                                        ListCouleur5.SingleOrDefault(co => co.ID == Comp5.GetMatiere.GetCouleur.ID);
-                                    _DB2.UpdateCompoMatiere(Comp5);
-                                }
-
-                                if (NewTemp[i].GetComposant != null)
-                                {
-                                    _DB2.UpdateCompoComposant(Comp5);
-                                    Comp5.GetComposant =
-                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                                }
-
-                                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
-                                    SchCompList.Add(Comp5);
-                                Comp5.PropertyChanged += Comp5_PropertyChanged;
-                            }
-
-                            if (NewTemp[i].NumComposant == 6)
-                            {
-                                Comp6Vis = true;
-                                ChangeImageBtn6 = "../Asset/remove64.png";
-
-
-                                Comp6 = (Composition)NewTemp[i].Clone();
-                                var eqid = new EquivalentID();
-                                eqid.Id = Comp6.ID;
-                                Comp6.ProdID = (Produit)NewProd.Clone();
-                                Comp6.ID = 0;
-                                Comp6.ID = _DB2.AddProdCompo((Composition)Comp6.Clone());
-                                eqid.EquivId = Comp6.ID;
-                                EquivList.Add(eqid);
-                                if (NewTemp[i].GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere6 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp6.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage6 =
-                                        ListTitrage6.SingleOrDefault(tit => tit.ID == Comp6.GetMatiere.Titrage.ID);
-                                    SelectedColor6 =
-                                        ListCouleur6.SingleOrDefault(co => co.ID == Comp6.GetMatiere.GetCouleur.ID);
-                                    _DB2.UpdateCompoMatiere(Comp6);
-                                }
-
-                                if (NewTemp[i].GetComposant != null)
-                                {
-                                    _DB2.UpdateCompoComposant(Comp6);
-                                    Comp6.GetComposant =
-                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                                }
-
-                                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
-                                    SchCompList.Add(Comp6);
-                                Comp6.PropertyChanged += Comp6_PropertyChanged;
-                            }
-
-                            if (NewTemp[i].NumComposant == 7)
-                            {
-                                Comp7Vis = true;
-                                ChangeImageBtn7 = "../Asset/remove64.png";
-
-
-                                Comp7 = (Composition)NewTemp[i].Clone();
-                                var eqid = new EquivalentID();
-                                eqid.Id = Comp7.ID;
-                                Comp7.ProdID = (Produit)NewProd.Clone();
-                                Comp7.ID = 0;
-                                Comp7.ID = _DB2.AddProdCompo((Composition)Comp7.Clone());
-                                eqid.EquivId = Comp7.ID;
-                                EquivList.Add(eqid);
-                                if (NewTemp[i].GetMatiere != null)
-                                {
-                                    SelectedTypeMatiere7 = ListTypeMatiere.SingleOrDefault(ma =>
-                                        ma.ID == Comp7.GetMatiere.Titrage.TypeMatiere.ID);
-                                    SelectedTitrage7 =
-                                        ListTitrage7.SingleOrDefault(tit => tit.ID == Comp7.GetMatiere.Titrage.ID);
-                                    SelectedColor7 =
-                                        ListCouleur7.SingleOrDefault(co => co.ID == Comp7.GetMatiere.GetCouleur.ID);
-                                    _DB2.UpdateCompoMatiere(Comp7);
-                                }
-
-                                if (NewTemp[i].GetComposant != null)
-                                {
-                                    _DB2.UpdateCompoComposant(Comp7);
-                                    Comp7.GetComposant =
-                                        ListComposant.SingleOrDefault(comp => comp.ID == NewTemp[i].GetComposant.ID);
-                                }
-
-                                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
-                                    SchCompList.Add(Comp7);
-                                Comp7.PropertyChanged += Comp7_PropertyChanged;
-                            }
+                            EnfMatrix.value = EleMatx.value;
+                            EnfMatrix.value.ID = eqObj.EquivId;
+                            EnfMatrix.Enf = NewProd.EnfilageID;
+                            _DB2.AddNewEnfilageMatrix(EnfMatrix);
                         }
                     }
-
-
-                if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
+                    NewProd.PropertyChanged += Prod_PropertyChanged;
+                }
+                else
                 {
-                    if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
-                        SelectedChaine = ChaineNameList.SingleOrDefault(ch =>
-                            ch.ID == SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine.ID);
-                    if (IsEnfilage)
-                    {
-                        NewProd.IsEnfilage = 1;
-                        NewProd.EnfilageID = new Enfilage();
-                        NewProd.EnfilageID.Column = EnfilageColumns;
-                        NewProd.EnfilageID.Row = EnfilageRow;
-                        NewProd.EnfilageID.TrXposition =
-                            SelectedFicheTechnique.Produits[LastVersion].EnfilageID.TrXposition;
-                        NewProd.EnfilageID.TrYposition =
-                            SelectedFicheTechnique.Produits[LastVersion].EnfilageID.TrYposition;
-                        if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
-                            NewProd.EnfilageID.GetChaine = SelectedChaine;
-
-                        NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
-                    }
-                    else
-                    {
-                        NewProd.IsEnfilage = 0;
-                    }
-
-
-                    foreach (var EleMatx in SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetMatrix)
-                    {
-                        var LastMatrixID = _DB2.GetLatestEnfilageMatrixID();
-                        var EnfMatrix = new EnfilageMatrix();
-                        EnfMatrix.ID = LastMatrixID;
-                        EnfMatrix.x = EleMatx.x;
-                        EnfMatrix.y = EleMatx.y;
-                        EnfMatrix.DentFil = EleMatx.DentFil;
-                        var eqObj = EquivList.SingleOrDefault(eq => eq.Id == EleMatx.value.ID);
-
-                        EnfMatrix.value = EleMatx.value;
-                        EnfMatrix.value.ID = eqObj.EquivId;
-                        EnfMatrix.Enf = NewProd.EnfilageID;
-                        _DB2.AddNewEnfilageMatrix(EnfMatrix);
-                    }
+                    SendNotification.Raise("Aucune Fiche Technique Séléctionnée");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                SendNotification.Raise("Aucune Fiche Technique Séléctionnée");
+                SendNotification.Raise(ex.ToString());
             }
         }
 
@@ -3591,8 +3642,15 @@ namespace BackEnd2.ViewModel
                             SelectedFicheTechnique.Produits[LastVersion].EnfilageID.TrYposition;
                         if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
                             NewProd.EnfilageID.GetChaine = SelectedChaine;
-
-                        NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                        if(NewProd.EnfilageID.GetChaine!=null)
+                        {
+                            NewProd.EnfilageID.ID = _DB2.AddNewEnfilageWithChaine(NewProd.EnfilageID);
+                        }
+                        else
+                        {
+                            NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                        }
+                        
                     }
                     else
                     {
@@ -3732,95 +3790,102 @@ namespace BackEnd2.ViewModel
 
         public void AjouterFicheTechnique(ModelFiche mf)
         {
-            
-            Ordre = "";
-            CreationDisplayDate = DateTime.Now;
-            IsDentFilVis = true;
-            EditDate = true;
-            DisplayDate = false;
-            EnableEditing = true;
-            SaveCancelBtn = true;
-            PrintBtn = false;
-            BtnVis = true;
-            IsAddEnabled = false;
-            TotalPoids = 0;
-            if (mf.model == ModelFiche.ModelFicheTek.FicheTekCrochetage)
+            try
             {
-                IsFicheCrochetage = true;
-                IsFicheUniDuitage = false;
-                IsFicheEHC = false;
-                IsFicheNormal = true;
-                MachineList = new MvxObservableCollection<Machine>(_DB2.GetCrochtageMachines());
+                Ordre = "";
+                CreationDisplayDate = DateTime.Now;
+                IsDentFilVis = true;
+                EditDate = true;
+                DisplayDate = false;
+                EnableEditing = true;
+                SaveCancelBtn = true;
+                PrintBtn = false;
+                BtnVis = true;
+                IsAddEnabled = false;
+                TotalPoids = 0;
+                if (mf.model == ModelFiche.ModelFicheTek.FicheTekCrochetage)
+                {
+                    IsFicheCrochetage = true;
+                    IsFicheUniDuitage = false;
+                    IsFicheEHC = false;
+                    IsFicheNormal = true;
+                    MachineList = new MvxObservableCollection<Machine>(_DB2.GetCrochtageMachines());
+                }
+                else if (mf.model == ModelFiche.ModelFicheTek.FicheTekEHC)
+                {
+                    IsFicheCrochetage = false;
+                    IsFicheUniDuitage = true;
+                    IsFicheEHC = true;
+                    IsFicheNormal = false;
+                }
+                else
+                {
+                    IsFicheCrochetage = false;
+                    IsFicheUniDuitage = true;
+                    IsFicheEHC = false;
+                    IsFicheNormal = true;
+                }
+
+                ResetCompo();
+                NewProd = new Produit();
+
+                foreach (var CellContent in ContentEnfilageList)
+                    EnfilageList.First(en => en.X == CellContent.X && en.Y == CellContent.Y).Content = null;
+
+                ContentEnfilageList = new MvxObservableCollection<MatrixElement>();
+
+                SchCompList = new MvxObservableCollection<Composition>();
+                ChaineNameList = new MvxObservableCollection<chaine>(_DB2.GetChaines());
+                var NewFicheTek = new FicheTechnique();
+                if (IsFicheCrochetage)
+                    NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekCrochetage;
+                else if (IsFicheNormal)
+                    NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekNormal;
+                else
+                    NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekEHC;
+
+                var GivenFiche = _DB2.AddNewFicheTechnique(NewFicheTek);
+                if (IsProduction)
+                    NewProd.Version = 1;
+                else
+                    NewProd.Version = 0;
+
+                NewProd.FicheTekID = GivenFiche;
+                NewProd.FicheId = GivenFiche.ID;
+                NewProd.Id = _DB2.GetLastProductID() + 1;
+                NewProd.Definite = 0;
+                //NewProd.DateCreation=DateTime.Now;
+                NewProd.Ref = "FT" + (FicheTechniqueList.Count() + 1);
+                OldRef = NewProd.Ref;
+                OldVersion = NewProd.Version;
+                OldNumArticle = NewProd.NumArticle;
+                NewProd.Name = "Fiche Technique " + (FicheTechniqueList.Count() + 1);
+                if (IsEnfilage)
+                {
+                    NewProd.IsEnfilage = 1;
+                    NewProd.EnfilageID = new Enfilage();
+                    NewProd.EnfilageID.Column = EnfilageColumns;
+                    NewProd.EnfilageID.Row = EnfilageRow;
+                    NewProd.EnfilageID.TrXposition = "0";
+                    NewProd.EnfilageID.TrYposition = "0";
+                    NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                    NewProd.PropertyChanged += Prod_PropertyChanged;
+                    NewProd.Id = _DB2.AddNewProductWithEnfilage((Produit)NewProd.Clone());
+                }
+                else
+                {
+                    NewProd.IsEnfilage = 0;
+                    NewProd.PropertyChanged += Prod_PropertyChanged;
+                    NewProd.Id = _DB2.AddNewProduct((Produit)NewProd.Clone());
+                }
+
+                FicheTechniqueList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniques());
             }
-            else if (mf.model == ModelFiche.ModelFicheTek.FicheTekEHC)
+            catch(Exception ex)
             {
-                IsFicheCrochetage = false;
-                IsFicheUniDuitage = true;
-                IsFicheEHC = true;
-                IsFicheNormal = false;
+                SendNotification.Raise(ex.ToString());
             }
-            else
-            {
-                IsFicheCrochetage = false;
-                IsFicheUniDuitage = true;
-                IsFicheEHC = false;
-                IsFicheNormal = true;
-            }
-
-            ResetCompo();
-            NewProd = new Produit();
-
-            foreach (var CellContent in ContentEnfilageList)
-                EnfilageList.First(en => en.X == CellContent.X && en.Y == CellContent.Y).Content = null;
-
-            ContentEnfilageList = new MvxObservableCollection<MatrixElement>();
-
-            SchCompList = new MvxObservableCollection<Composition>();
-            ChaineNameList = new MvxObservableCollection<chaine>(_DB2.GetChaines());
-            var NewFicheTek = new FicheTechnique();
-            if (IsFicheCrochetage)
-                NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekCrochetage;
-            else if (IsFicheNormal)
-                NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekNormal;
-            else
-                NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekEHC;
-
-            var GivenFiche = _DB2.AddNewFicheTechnique(NewFicheTek);
-            if (IsProduction)
-                NewProd.Version = 1;
-            else
-                NewProd.Version = 0;
-
-            NewProd.FicheTekID = GivenFiche;
-            NewProd.FicheId = GivenFiche.ID;
-            NewProd.Id = _DB2.GetLastProductID() + 1;
-            NewProd.Definite = 0;
-            //NewProd.DateCreation=DateTime.Now;
-            NewProd.Ref = "FT" + (FicheTechniqueList.Count() + 1);
-            OldRef = NewProd.Ref;
-            OldVersion = NewProd.Version;
-            OldNumArticle = NewProd.NumArticle;
-            NewProd.Name = "Fiche Technique " + (FicheTechniqueList.Count() + 1);
-            if (IsEnfilage)
-            {
-                NewProd.IsEnfilage = 1;
-                NewProd.EnfilageID = new Enfilage();
-                NewProd.EnfilageID.Column = EnfilageColumns;
-                NewProd.EnfilageID.Row = EnfilageRow;
-                NewProd.EnfilageID.TrXposition = "0";
-                NewProd.EnfilageID.TrYposition = "0";
-                NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
-                NewProd.PropertyChanged += Prod_PropertyChanged;
-                NewProd.Id = _DB2.AddNewProductWithEnfilage((Produit)NewProd.Clone());
-            }
-            else
-            {
-                NewProd.IsEnfilage = 0;
-                NewProd.PropertyChanged += Prod_PropertyChanged;
-                NewProd.Id = _DB2.AddNewProduct((Produit)NewProd.Clone());
-            }
-
-            FicheTechniqueList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniques());
+           
         }
 
         public void SaveFicheTechnique()
@@ -3842,7 +3907,7 @@ namespace BackEnd2.ViewModel
             rep3 = new Repitition();
             rep4 = new Repitition();
             rep5 = new Repitition();
-            
+            ImageProd = null;
             IsCreateChaine = false;
             WorkRectan = null;
             ProhibitArea = null;
@@ -4123,8 +4188,21 @@ namespace BackEnd2.ViewModel
                             b = false;
                         else
                             sumNbrFil = sumNbrFil + sch.NbrFil;
-                    if (WorkRectan != null && (SelectedChaine.Colonne != WorkRectan.PartHeight - 4)) b = false;
-                     if (b) SetupEnfilageWorkspace(sumNbrFil);
+
+                    if(WorkRectan != null)
+                    {
+                        var pn = decimal.Divide(sumNbrFil, EnfilageColumns - 2);
+                        var NbrPart = Convert.ToInt32(Math.Ceiling(pn));
+
+                        if (SelectedChaine.Colonne == WorkRectan.ChaineColumn
+                            && WorkRectan.NbrPart== NbrPart
+
+                       )
+                            b = false;
+                    }
+                       
+                     if (b)
+                        SetupEnfilageWorkspace(sumNbrFil);
                 }
         }
 
@@ -6275,6 +6353,7 @@ namespace BackEnd2.ViewModel
             if (SelectedChaine != null && (NewProd.EnfilageID.GetChaine == null || NewProd.EnfilageID.GetChaine.ID != SelectedChaine.ID))
             {
                 NewProd.EnfilageID.GetChaine = SelectedChaine;
+                ChcolList = new ObservableCollection<ChColComp>(SelectedChaine.ChaineCompos);
                 _DB2.UpdateEnfilageChaine(NewProd.EnfilageID);
             }
         }
@@ -6322,12 +6401,13 @@ namespace BackEnd2.ViewModel
                 
 
                 var PartHeight = 4 + SelectedChaine.Colonne;
-
+                workRect.ChaineRow = SelectedChaine.Ligne;
+                workRect.ChaineColumn= SelectedChaine.Colonne;
 
                 workRect.SecEmptyLen = 1;
                 int AcceptablePartNum = 0;
               
-                if (SecondRect.StartHeight / PartHeight <= NbrPart)
+                if (SecondRect.StartHeight / PartHeight < NbrPart)
                 {
                     pn = decimal.Divide(sumNbrFil, EnfilageColumns);
                     NbrPart = Convert.ToInt32(Math.Ceiling(pn));
@@ -6389,6 +6469,8 @@ namespace BackEnd2.ViewModel
                 }
 
                 workRect.PartHeight = PartHeight;
+
+                workRect.MaxNbrFil = workRect.PartsWidth * workRect.NbrPart;
 
                 WorkRectan = workRect;
             }

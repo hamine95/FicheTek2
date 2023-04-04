@@ -285,8 +285,13 @@ namespace BackEnd2.ViewModel
             UserSession = parameter;
             if (UserSession.type == user.UserType.verificateur)
                 IsVerificateur = true;
-            else
+            else if(UserSession.type == user.UserType.redacteur)
                 IsVerificateur = false;
+            else
+            {
+                IsVerificateur = true;
+                IsSuperUser = true;
+            }
         }
 
 
@@ -727,6 +732,7 @@ namespace BackEnd2.ViewModel
                 return _Supprimer;
             }
         }
+      
 
         public Matiere SelectedMatiere
         {

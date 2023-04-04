@@ -7,13 +7,13 @@
                  Loaded="MvxWpfView_Loaded"
                  mc:Ignorable="d"
                  xmlns:Converter="clr-namespace:FrontEnd.Converter"
-                 d:DesignHeight="550" d:DesignWidth="800">
+                 d:DesignHeight="768" d:DesignWidth="1366">
     <view:MvxWpfView.Resources>
         <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
     </view:MvxWpfView.Resources>
     <TabControl>
         <TabItem Header="Personnel">
-            <Grid>
+            <Grid Background="WhiteSmoke">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -37,7 +37,7 @@
                                   FontWeight="Bold"
                                   Foreground="SteelBlue" Header="Ajouter Concepteur">
 
-                            <Grid Margin="5">
+                            <Grid >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="5*" />
@@ -73,7 +73,7 @@
                                   Grid.Row="1" Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
                                   Header="Modifier Concepteur">
 
-                            <Grid Margin="5">
+                            <Grid >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="5*" />
@@ -110,8 +110,14 @@
                     </Grid>
                 </GroupBox>
 
-                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Row="1" Grid.Column="3"
-                          FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Vérificateur">
+                <GroupBox BorderBrush="CadetBlue" 
+                          BorderThickness="2" 
+                          Grid.Row="1" 
+                          Grid.Column="3"
+                          FontSize="16" 
+                          FontWeight="Bold" 
+                          Foreground="SteelBlue" 
+                          Header="Vérificateur">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -121,7 +127,7 @@
                                   FontWeight="Bold"
                                   Foreground="SteelBlue" Header="Ajouter Vérificateur">
 
-                            <Grid Margin="5">
+                            <Grid >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="5*" />
@@ -150,12 +156,12 @@
                             </Grid>
                         </GroupBox>
                         <GroupBox IsEnabled="{Binding IsEditEnabledVerificateur}"
-                                  Margin="5" BorderBrush="CadetBlue"
+                                   BorderBrush="CadetBlue"
                                   Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="2" Grid.Row="1" Grid.Column="3" FontSize="16" FontWeight="Bold"
                                   Foreground="SteelBlue" Header="Modifier Vérificateur">
 
-                            <Grid Margin="5">
+                            <Grid >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="5*" />
@@ -191,18 +197,27 @@
 
                     </Grid>
                 </GroupBox>
-                <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Row="2" Grid.Column="3"
-                          FontSize="16" FontWeight="Bold" Foreground="SteelBlue" Header="Rédacteur">
+                <GroupBox BorderBrush="CadetBlue" 
+                          BorderThickness="2" 
+                          Grid.Row="2" Grid.Column="3"
+                          FontSize="16" 
+                          FontWeight="Bold" 
+                          Foreground="SteelBlue" 
+                          Header="Rédacteur">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <GroupBox BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="3" FontSize="16"
+                        <GroupBox BorderBrush="CadetBlue" 
+                                  BorderThickness="2" 
+                                  Grid.Column="3"
+                                  FontSize="16"
                                   FontWeight="Bold"
-                                  Foreground="SteelBlue" Header="Ajouter Rédacteur">
+                                  Foreground="SteelBlue" 
+                                  Header="Ajouter Rédacteur">
 
-                            <Grid Margin="5">
+                            <Grid >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="5*" />
@@ -231,12 +246,12 @@
                             </Grid>
                         </GroupBox>
                         <GroupBox IsEnabled="{Binding IsEditEnabledRedacteur}"
-                                  Margin="5" BorderBrush="CadetBlue"
+                                   BorderBrush="CadetBlue"
                                   Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
                                   BorderThickness="2" Grid.Row="1" Grid.Column="3" FontSize="16" FontWeight="Bold"
                                   Foreground="SteelBlue" Header="Modifier Rédacteur">
 
-                            <Grid Margin="5">
+                            <Grid >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="5*" />
@@ -378,7 +393,7 @@
             </Grid>
         </TabItem>
         <TabItem Header="Client">
-            <Grid>
+            <Grid Background="WhiteSmoke">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

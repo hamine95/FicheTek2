@@ -28,13 +28,28 @@ namespace BackEnd2.Data
         {
             db.SaveData<dynamic>("delete from FicheTechnique where ID=@id", new { id = Ficheid }, connectionStringName);
             db.SaveData<dynamic>("delete from Product where Id=@id", new { id = Prodid }, connectionStringName);
+            db.SaveData<dynamic>("delete from Composition where ProdIDId=@id", new { id = Prodid }, connectionStringName);
+
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM FicheTechnique) WHERE name = 'FicheTechnique'; ", null, connectionStringName);
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM Product) WHERE name = 'Product'; ", null, connectionStringName);
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM Composition) WHERE name = 'Composition'; ", null, connectionStringName);
+
         }
 
         public void DeleteFicheTechnique(int Ficheid, int Prodid, int Enfid)
         {
             db.SaveData<dynamic>("delete from Enfilage where ID=@id", new { id = Enfid }, connectionStringName);
+            db.SaveData<dynamic>("delete from EnfilageMatrix where EnfID=@id", new { id = Enfid }, connectionStringName);
             db.SaveData<dynamic>("delete from FicheTechnique where ID=@id", new { id = Ficheid }, connectionStringName);
             db.SaveData<dynamic>("delete from Product where Id=@id", new { id = Prodid }, connectionStringName);
+            db.SaveData<dynamic>("delete from Composition where ProdIDId=@id", new { id = Prodid }, connectionStringName);
+
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM Enfilage) WHERE name = 'Enfilage'; ", null, connectionStringName);
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM EnfilageMatrix) WHERE name = 'EnfilageMatrix'; ", null, connectionStringName);
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM FicheTechnique) WHERE name = 'FicheTechnique'; ", null, connectionStringName);
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM Product) WHERE name = 'Product'; ", null, connectionStringName);
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM Composition) WHERE name = 'Composition'; ", null, connectionStringName);
+
         }
 
         public List<user> GetUsers()
@@ -455,8 +470,25 @@ namespace BackEnd2.Data
                 "insert into Enfilage(TrXposition,TrYposition,Column,Row,NbrDent) values(@Trx,@Try,@col,@row,@Dent)",
                 new
                 {
-                    Trx = NewEnfliage.TrXposition, Try = NewEnfliage.TrYposition, col = NewEnfliage.Column,
-                    row = NewEnfliage.Row, Dent = NewEnfliage.NbrDent
+                    Trx = NewEnfliage.TrXposition,
+                    Try = NewEnfliage.TrYposition,
+                    col = NewEnfliage.Column,
+                    row = NewEnfliage.Row,
+                    Dent = NewEnfliage.NbrDent
+                }, connectionStringName));
+        }
+        public int AddNewEnfilageWithChaine(Enfilage NewEnfliage)
+        {
+            return Convert.ToInt32(db.SaveData<dynamic>(
+                "insert into Enfilage(TrXposition,TrYposition,Column,Row,NbrDent,GetChaineID) values(@Trx,@Try,@col,@row,@Dent,@ch)",
+                new
+                {
+                    Trx = NewEnfliage.TrXposition,
+                    Try = NewEnfliage.TrYposition,
+                    col = NewEnfliage.Column,
+                    row = NewEnfliage.Row,
+                    Dent = NewEnfliage.NbrDent,
+                    ch = NewEnfliage.GetChaine.ID
                 }, connectionStringName));
         }
 
@@ -885,6 +917,13 @@ namespace BackEnd2.Data
                 },
                 connectionStringName));
         }
+        public void UpdateChaine(chaine ch)
+        {
+           
+                var stm2 = "Update Chaine set Nom=@nom,Colonne=@col,Ligne=@row where ID=@id";
+                db.SaveData(stm2, new { nom=ch.Nom,col=ch.Colonne,row=ch.Ligne,id=ch.ID }, connectionStringName);
+          
+        }
         public int AddNewChaine(chaine ch)
         {
            return Convert.ToInt32( db.SaveData<dynamic>("Insert into Chaine(Nom,Colonne,Ligne) values(@Nom,@Colonne,@Ligne)", 
@@ -1098,7 +1137,16 @@ namespace BackEnd2.Data
                 return true;
             return false;
         }
+        public void DeleteModelMachine(ModelMachine model)
+        {
+            db.SaveData<dynamic>("Delete from ModelMachine where ID=@id", new { id = model.ID }, connectionStringName);
 
+        }
+        public List<Machine> IsModelMachineUsed(ModelMachine model)
+        {
+          return db.LoadData<Machine,dynamic>("select * from mMachine where ModelID=@id", new { id = model.ID }, connectionStringName);
+
+        }
         public List<Redacteur> GetRedacteurs()
         {
             return db.LoadData<Redacteur, dynamic>("Select * from Redacteur", null, connectionStringName);
@@ -1128,6 +1176,7 @@ namespace BackEnd2.Data
             db.SaveData<dynamic>("Delete from mMachine where ID=@id", new { id = mach.ID }, connectionStringName);
 
         }
+       
         public void AddNewConcepteur(Concepteur concept)
        {
             var stm = "Insert into Concepteur(Name) values(@name)";

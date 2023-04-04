@@ -4,16 +4,23 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:enfilageSch="clr-namespace:DSheetEnfilage;assembly=DSheetEnfilage"
+                  xmlns:xcd="http://schemas.xceed.com/wpf/xaml/toolkit"
                  Loaded="MvxWpfView_Loaded"
                  mc:Ignorable="d"
                  xmlns:Converter="clr-namespace:FrontEnd.Converter"
                  d:DesignHeight="750" d:DesignWidth="800">
     <view:MvxWpfView.Resources>
         <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+        <ResourceDictionary x:Key="dic1">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DSheetEnfilage;component/ChaineStyle2.xaml" ></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </view:MvxWpfView.Resources>
     <TabControl>
         <TabItem Header="Machine">
-            <Grid>
+            <Grid Background="WhiteSmoke">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*" />
                     <ColumnDefinition Width="4*" />
@@ -285,12 +292,12 @@
                 </GroupBox>
                 <GroupBox
                     IsEnabled="{Binding IsEditEnabled}"
-                    Margin="5" BorderBrush="CadetBlue" BorderThickness="2"
+                     BorderBrush="CadetBlue" BorderThickness="2"
                     Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
                     Grid.Row="3" Grid.Column="2" FontSize="16" FontWeight="Bold" Foreground="SteelBlue"
                     Header="Modifier Machine">
 
-                    <Grid Margin="5">
+                    <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="5*" />
@@ -323,7 +330,7 @@
                             Modèle:
                         </TextBlock>
 
-                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="16"
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="14"
                                  Text="{Binding EditNum}" />
                         <TextBox IsEnabled="False" Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30"
                                  FontSize="14"
@@ -349,6 +356,7 @@
                           Grid.Column="1"
                           FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Machine">
                     <ListView SizeChanged="ListView_SizeChanged" HorizontalContentAlignment="Center"
+                              Background="WhiteSmoke"
                               ItemsSource="{Binding ListMachine}" SelectedItem="{Binding SelectedMachine}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -370,6 +378,7 @@
                           Grid.Column="0"
                           FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Model Machine">
                     <ListView SizeChanged="ListView_SizeChanged_2" HorizontalContentAlignment="Center"
+                              Background="WhiteSmoke"
                               SelectedItem="{Binding SelectedModelMachine}"
                               ItemsSource="{Binding ListMachineModel}">
                         <ListView.ItemContainerStyle>
@@ -881,6 +890,172 @@
                     <Button Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5"
                             Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
                             Command="{Binding SupprimerPeigne}">
+                        Supprimer
+                    </Button>
+                </UniformGrid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Chaine">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="2" FontSize="18"
+                          FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouveau Chaine">
+
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Designation:
+                        </TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
+                                 CharacterCasing="Upper"
+                                 Text="{Binding ChaineNom}"  />
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Colonne:
+                        </TextBlock>
+                        <TextBox Grid.Row="2" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
+                                 CharacterCasing="Upper"
+                                 Text="{Binding ChaineColumn}"  />
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Ligne:
+                        </TextBlock>
+                        <TextBox Grid.Row="3" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
+                                 CharacterCasing="Upper"
+                                 Text="{Binding ChaineLigne}"  />
+                        <Button Command="{Binding AjouterNovPeigne}" Grid.Row="4" Grid.Column="3"
+                                Foreground="SteelBlue"
+                                FontSize="16" Height="30">
+                            Ajouter
+                        </Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox 
+                    IsEnabled="{Binding IsEditChaineEnabled}" Margin="5" BorderBrush="CadetBlue"
+                          BorderThickness="2"
+                          Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                          Grid.Row="1" Grid.Column="2" FontSize="18" FontWeight="Bold" Foreground="SteelBlue"
+                          Header="Modifier Chaine">
+
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Designation:
+                        </TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
+                                 CharacterCasing="Upper"
+                                 Text="{Binding EditChaineNom}"  />
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="2"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Colonne:
+                        </TextBlock>
+                        
+                        <xcd:IntegerUpDown  Width="60" Minimum="1" 
+                                            Maximum="12" Grid.Row="2" Grid.Column="3" 
+                                             Height="25" FontSize="18" Foreground="Black"
+                                           Text="{Binding EditChaineColumn,UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                            Ligne:
+                        </TextBlock>
+
+                        <xcd:IntegerUpDown  Width="60"  Minimum="4" Maximum="96" Grid.Row="3" Grid.Column="3" Height="25" FontSize="18"
+                                                       Text="{Binding EditChaineLigne,UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Command="{Binding ValiderChaineEdit}" Grid.Row="4" Grid.Column="3"
+                                Foreground="SteelBlue"
+                                FontSize="16" Height="30">
+                            Valider
+                        </Button>
+                    </Grid>
+                </GroupBox>
+
+                <Grid   Grid.RowSpan="2">
+                    <enfilageSch:Chaine 
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Panel.ZIndex="8"
+                        CellWidth="{Binding CellWidth,Mode=TwoWay}"
+                        ChList="{Binding ChaineList,Mode=TwoWay}" 
+                        ChList2="{Binding ChaineList2,Mode=TwoWay}"
+                        
+                                        Resources="{StaticResource dic1}"
+                        >
+                        
+                    </enfilageSch:Chaine>
+                </Grid>
+                <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="2" Grid.Row="0"
+                          Grid.Column="1"
+                          FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Chaines">
+                    <DataGrid HorizontalContentAlignment="Center" 
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              IsReadOnly="True"
+                              ItemsSource="{Binding ListChaine}" SelectedItem="{Binding SelectedChaine}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Designation" Width="2*" Binding="{Binding Nom}" />
+                            <DataGridTextColumn Header="Colonne" Width="1*" Binding="{Binding Colonne}" />
+                            <DataGridTextColumn Header="Ligne" Width="1*" Binding="{Binding Ligne}" />
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </GroupBox>
+                <UniformGrid Grid.Row="2"
+                             Grid.Column="1"
+                             Columns="2">
+
+                    <Button Foreground="SteelBlue"
+                            Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
+                            FontSize="14" FontWeight="Bold" Margin="5" Command="{Binding ModifierChaine}">
+                        Modifier
+                    </Button>
+                    <Button Foreground="SteelBlue" FontSize="14" FontWeight="Bold" Margin="5"
+                            Visibility="{Binding IsSuperUser,Converter={StaticResource BoolToVis}}"
+                            Command="{Binding SupprimerChaine}">
                         Supprimer
                     </Button>
                 </UniformGrid>

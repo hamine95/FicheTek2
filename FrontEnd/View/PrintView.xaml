@@ -333,7 +333,7 @@
                                                 </TextBlock>
 
                                                 <TextBlock Grid.Column="1" FontFamily="Arial"
-                                                           FontWeight="Bold" FontSize="14"
+                                                           FontWeight="Bold" FontSize="12"
 
                                                            VerticalAlignment="Center" HorizontalAlignment="Center"
                                                            Text="{Binding NewProd.Name}" />
@@ -467,7 +467,7 @@
                                                         HorizontalAlignment="Right"
                                                         TextAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Text="{Binding NewProd.Peigne,StringFormat=0.0;;#}" />
+                                                        Text="{Binding NewProd.PeigneObj.Nombre,StringFormat=0.0;;#}" />
                                                 </Grid>
                                                 <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Left"
                                                            VerticalAlignment="Center">

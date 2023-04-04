@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converter="clr-namespace:DSheetEnfilage.Converter"
                     x:Class="DSheetEnfilage.ChaineStyle"
-                    xmlns:dSheetEnfilage="clr-namespace:DSheetEnfilage">
+                    xmlns:dSheetEnfilage="clr-namespace:DSheetEnfilage"
+                    >
     <converter:BooleanToVisibilityValueConverter x:Key="BoolToVis"></converter:BooleanToVisibilityValueConverter>
     <converter:BiggerEqualThanConverter x:Key="EqOrGreat"></converter:BiggerEqualThanConverter>
     <converter:MultipleRadioButtonConverter x:Key="MultRadioBtn"></converter:MultipleRadioButtonConverter>
@@ -35,7 +36,7 @@
     </Style>
     
     <ControlTemplate x:Key="ChaineTemplate"  TargetType="{x:Type dSheetEnfilage:Chaine}">
-         <Grid  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+         <Grid  HorizontalAlignment="Right"  VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -375,7 +376,8 @@
                                   IsEnabled="{TemplateBinding EnableChaineEdit}"
                                   HorizontalAlignment="Left" BorderThickness="0.7" BorderBrush="Black"
                                   Grid.Row="0"
-                                  Background="Beige" x:Name="ChaineBoard"
+                                  Background="Beige" 
+                                  x:Name="ChaineBoard"
                                   ItemsSource="{TemplateBinding ChList}"
                                   KeyboardNavigation.TabNavigation="None"
                                   KeyboardNavigation.DirectionalNavigation="None">
