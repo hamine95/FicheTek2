@@ -39,6 +39,16 @@ namespace BackEnd2.Model
         private int _Version;
 
 
+
+        private ModelFiche.ModelFicheTek _modelFiche;
+
+        public ModelFiche.ModelFicheTek modelFiche
+        {
+            get { return _modelFiche; }
+            set { _modelFiche = value; }
+        }
+
+
         private int FicheID;
         private int ID;
 

@@ -42,6 +42,31 @@ namespace BackEnd2.ViewModel
             Vertical, // |
             Horizontal // ——
         }
+        private bool _IsFicheNormal=true;
+
+        public bool IsFicheNormal
+        {
+            get { return _IsFicheNormal; }
+            set { _IsFicheNormal = value; RaisePropertyChanged(); }
+        }
+        private bool _IsFicheEHC;
+
+        public bool IsFicheEHC
+        {
+            get { return _IsFicheEHC; }
+            set { _IsFicheEHC = value;
+                RaisePropertyChanged(); }
+        }
+
+
+        private bool _IsFicheCrochetage;
+
+        public bool IsFicheCrochetage
+        {
+            get { return _IsFicheCrochetage; }
+            set { _IsFicheCrochetage = value; RaisePropertyChanged(); }
+        }
+
 
         private ObservableCollection<ChaineMatrixElement> _ChaineList;
         private ObservableCollection<ChaineMatrixElement> _ChaineList2;
@@ -483,14 +508,14 @@ namespace BackEnd2.ViewModel
                         EnfMatrix.Content = EleMatx.value;
                         TempList.Add(EnfMatrix);
                     }
-                    
-                    
 
+
+                    ContentEnfilageList = new MvxObservableCollection<MatrixElement>(TempList);
+                    SetInitContents();
                     TrameXposition = ((Convert.ToDouble(NewProd.EnfilageID.TrXposition)) * double.Parse("1052.44", CultureInfo.InvariantCulture) + double.Parse("21.78", CultureInfo.InvariantCulture))
                                 .ToString();
                     TrameYposition = (Convert.ToDouble(NewProd.EnfilageID.TrYposition)* double.Parse("748.34", CultureInfo.InvariantCulture)).ToString();
-                    ContentEnfilageList = new MvxObservableCollection<MatrixElement>(TempList);
-                    SetInitContents();
+                   
                 }
             }
             catch(Exception ex)
@@ -588,19 +613,32 @@ namespace BackEnd2.ViewModel
             try
             {
                 NewProd = parameter;
+                if(NewProd.modelFiche==ModelFiche.ModelFicheTek.FicheTekEHC)
+                {
+                    IsFicheEHC = true;
+                    IsFicheNormal = false;
+                    IsFicheCrochetage = false;
+                }else if(NewProd.modelFiche == ModelFiche.ModelFicheTek.FicheTekCrochetage)
+                {
+
+                }
                 if (NewProd != null && NewProd.GetComposition != null)
                 {
                     SchCompList = new MvxObservableCollection<Composition>();
                     ContentEnfilageList = new MvxObservableCollection<MatrixElement>();
-                    if(NewProd.EnfilageID==null 
-                       || NewProd.EnfilageID.GetChaine==null)
+                    if(NewProd.IsEnfilage==1 && (NewProd.EnfilageID==null 
+                       || NewProd.EnfilageID.GetChaine==null))
                         return;
-                    ChaineBoard = new ChaineBoardStructure(NewProd.EnfilageID.GetChaine.Ligne, NewProd.EnfilageID.GetChaine.Colonne);
-                    EnfilageBoard = new BoardStructure(EnfilageRow, EnfilageColumns);
-                    EnfilageList = new ObservableCollection<MatrixElement>(EnfilageBoard.Board);
-                    ChaineColumns = NewProd.EnfilageID.GetChaine.Colonne;
-                    ChaineList = new ObservableCollection<ChaineMatrixElement>(ChaineBoard.Board);
-                    for (var i = 0; i < NewProd.GetComposition.Count; i++)
+                    if (NewProd.IsEnfilage == 1)
+                    {
+                        ChaineBoard = new ChaineBoardStructure(NewProd.EnfilageID.GetChaine.Ligne, NewProd.EnfilageID.GetChaine.Colonne);
+                        EnfilageBoard = new BoardStructure(EnfilageRow, EnfilageColumns);
+                        EnfilageList = new ObservableCollection<MatrixElement>(EnfilageBoard.Board);
+                        ChaineColumns = NewProd.EnfilageID.GetChaine.Colonne;
+                        ChaineList = new ObservableCollection<ChaineMatrixElement>(ChaineBoard.Board);
+                    }
+
+                        for (var i = 0; i < NewProd.GetComposition.Count; i++)
                     {
                         if(NewProd.GetComposition[i].GetComposant != null)
                         {
@@ -660,7 +698,12 @@ namespace BackEnd2.ViewModel
                     }
                     
                     CalculateTotalWeight();
-                    DisplayEnfilage();
+
+                    if (NewProd.IsEnfilage == 1)
+                    {
+                     
+                        DisplayEnfilage();
+                    }
                 }
                 
             }

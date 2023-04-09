@@ -2912,7 +2912,27 @@ namespace BackEnd2.ViewModel
         public void DisplayPrintView()
         {
             UIServices.SetBusyState();
-            _NavigationService.Navigate<PrintViewModel, Produit>(NewProd);
+            if(SelectedFicheTechnique!=null)
+            {
+                if(IsFicheEHC)
+                {
+                    NewProd.modelFiche = ModelFiche.ModelFicheTek.FicheTekEHC;
+                }
+                else if(IsFicheCrochetage)
+                {
+                    NewProd.modelFiche = ModelFiche.ModelFicheTek.FicheTekCrochetage;
+                }
+                else
+                {
+                    NewProd.modelFiche = ModelFiche.ModelFicheTek.FicheTekNormal;
+                }
+               
+                _NavigationService.Navigate<PrintViewModel, Produit>(NewProd);
+            }else
+            {
+                SendNotification.Raise("Séléctionnez une fiche technique");
+            }
+            
         }
 
         public void AddNewVersion()
@@ -6233,14 +6253,18 @@ namespace BackEnd2.ViewModel
             {
                 _IsEnfilage = value;
                 RaisePropertyChanged();
-                if (Editing == false)
+                if (Editing == true)
                 {
                     if (IsEnfilage == false)
                     {
+                        if(NewProd!=null)
+                            NewProd.IsEnfilage = 0;
                         SchCompList = new MvxObservableCollection<Composition>();
                     }
                     else
                     {
+                        if (NewProd != null)
+                            NewProd.IsEnfilage = 1;
                         if (Comp1 != null) AddLegend(1);
                         if (Comp2 != null) AddLegend(2);
                         if (Comp3 != null) AddLegend(3);

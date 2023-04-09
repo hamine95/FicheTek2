@@ -406,13 +406,13 @@
                 <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" FontSize="18"
                           FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouvelle Client">
 
-                    <Grid Margin="20">
+                    <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="0.5*" />
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="9*" />
-                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="12*" />
+                            <ColumnDefinition Width="0.5*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
@@ -426,8 +426,8 @@
                             Nom Prénom:
                         </TextBlock>
 
-                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30"
-                                 FontSize="18" Text="{Binding ClientNom}" VerticalAlignment="Center" />
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="14" Text="{Binding ClientNom}" VerticalAlignment="Center" />
                         <Button Cursor="Hand" Command="{Binding AjouterNovClient}" Grid.Row="2" Grid.Column="3"
                                 Foreground="SteelBlue"
                                 FontSize="16" Height="30">
@@ -441,13 +441,13 @@
                           Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="SteelBlue"
                           Header="Modifier Client">
 
-                    <Grid Margin="20">
+                    <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="0.5*" />
                             <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="9*" />
-                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="12*" />
+                            <ColumnDefinition Width="0.5*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
@@ -461,8 +461,8 @@
                             Nom Prénom:
                         </TextBlock>
 
-                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30"
-                                 FontSize="16" Text="{Binding NovClientNom}" />
+                        <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25"
+                                 FontSize="14" Text="{Binding NovClientNom}" />
                         <Button Cursor="Hand" Command="{Binding CancelCmd}" Grid.Row="2" Grid.Column="1"
                                 Foreground="SteelBlue" FontSize="16"
                                 Height="30">
@@ -480,7 +480,9 @@
                           Grid.Column="0"
                           FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Client">
                     <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged"
-                              ItemsSource="{Binding ListClient}" SelectedItem="{Binding SelectedClient}">
+                              ItemsSource="{Binding ListClient}" 
+                              FontSize="14"
+                              SelectedItem="{Binding SelectedClient}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />

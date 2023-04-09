@@ -20,13 +20,13 @@
         <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.Column="1" FontSize="18"
                   FontWeight="Bold" Foreground="SteelBlue" Header="Ajouter Nouvelle Client">
 
-            <Grid Margin="20">
+            <Grid Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="12*" />
+                    <ColumnDefinition Width="0.5*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
@@ -40,7 +40,7 @@
                 </TextBlock>
 
                 <TextBox CharacterCasing="Upper" Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30"
-                         FontSize="18" Text="{Binding ClientNom}" VerticalAlignment="Center" />
+                         FontSize="14" Text="{Binding ClientNom}" VerticalAlignment="Center" />
                 <Button Cursor="Hand" Command="{Binding AjouterNovClient}" Grid.Row="2" Grid.Column="3"
                         Foreground="SteelBlue"
                         FontSize="16" Height="30">
@@ -52,13 +52,13 @@
                   Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="SteelBlue"
                   Header="Modifier Client">
 
-            <Grid Margin="20">
+            <Grid Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="12*" />
+                    <ColumnDefinition Width="0.5*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
@@ -89,6 +89,7 @@
         <GroupBox Margin="5" BorderBrush="CadetBlue" BorderThickness="2" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0"
                   FontSize="18" FontWeight="Bold" Foreground="SteelBlue" Header="Liste Client">
             <ListView HorizontalContentAlignment="Center" SizeChanged="ListView_SizeChanged"
+                      FontSize="16"
                       ItemsSource="{Binding ListClient}" SelectedItem="{Binding SelectedClient}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -99,7 +100,7 @@
                     <GridView>
                         <GridViewColumn Header="ID" Width="Auto"
                                         DisplayMemberBinding="{Binding ID,StringFormat={}{00:00}}" />
-                        <GridViewColumn Header="Nom Prénom" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Nom Prénom" Width="Auto"  DisplayMemberBinding="{Binding Name}" />
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -257,7 +257,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
                             </Grid.ColumnDefinitions>
 
 
@@ -273,13 +273,13 @@
                                 <ComboBox
                                     Cursor="Hand"
                                     DisplayMemberPath="Name" BorderBrush="Transparent"
-                                    FontWeight="Bold" FontFamily="Arial" FontSize="14"
+                                    FontWeight="Bold" FontFamily="Arial" FontSize="12"
                                     Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                     SelectedItem="{Binding NewProd.Client}" ItemsSource="{Binding ListClient}" />
                                 <TextBlock Cursor="Hand"
                                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
-                                           FontWeight="Bold" FontFamily="Arial" FontSize="14"
+                                           FontWeight="Bold" FontFamily="Arial" FontSize="12"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"
                                            Text="{Binding NewProd.Client.Name}" />
                             </StackPanel>
@@ -290,7 +290,7 @@
                     <Border
                         Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis}}"
                         ClipToBounds="False" Grid.ColumnSpan="2"
-                        Grid.Column="1" BorderBrush="Black" BorderThickness="0 1 0 1">
+                        Grid.Column="1" BorderBrush="Black" BorderThickness="0 1 1 1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*" />
@@ -312,7 +312,7 @@
                                 Grid.ColumnSpan="2"
                                 CharacterCasing="Upper"
                                 BorderBrush="Transparent"
-                                FontWeight="Bold" FontFamily="Arial" FontSize="14"
+                                FontWeight="Bold" FontFamily="Arial" FontSize="12"
                                 Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                 Text="{Binding NewProd.Name2}" />

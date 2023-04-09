@@ -607,6 +607,9 @@
                                         Style="{StaticResource SearchBtn}" DockPanel.Dock="Right" />
                 <TextBox Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          FontSize="16" HorizontalAlignment="Stretch" DockPanel.Dock="Left"
+                         Height="25"
+                         Margin="5 0 5 0"
+                         BorderBrush="Black"
                          ToolTip="Rechercher Fiche Technique">
                     
                 </TextBox>
