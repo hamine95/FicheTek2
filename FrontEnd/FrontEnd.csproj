@@ -251,21 +251,14 @@
     <Compile Include="View\AddMonthReportView.xaml.cs">
       <DependentUpon>AddMonthReportView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AdminConfigViewModel.cs" />
     <Compile Include="View\AnnualReportPrintView.xaml.cs">
       <DependentUpon>AnnualReportPrintView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CategorieView.xaml.cs">
       <DependentUpon>CategorieView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ClientView.xaml.cs">
-      <DependentUpon>ClientView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ComposantView.xaml.cs">
       <DependentUpon>ComposantView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CouleurView.xaml.cs">
-      <DependentUpon>CouleurView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditMonthReportView.xaml.cs">
       <DependentUpon>EditMonthReportView.xaml</DependentUpon>
@@ -288,9 +281,6 @@
     <Compile Include="View\MachineView.xaml.cs">
       <DependentUpon>MachineView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MatiereView.xaml.cs">
-      <DependentUpon>MatiereView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ModelFicheTekView.xaml.cs">
       <DependentUpon>ModelFicheTekView.xaml</DependentUpon>
     </Compile>
@@ -312,12 +302,6 @@
     <Compile Include="View\SplashScreenView.xaml.cs">
       <DependentUpon>SplashScreenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TestView.xaml.cs">
-      <DependentUpon>TestView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -333,15 +317,7 @@
     <Page Include="View\AddMonthReportView.xaml" />
     <Page Include="View\AnnualReportPrintView.xaml" />
     <Page Include="View\CategorieView.xaml" />
-    <Page Include="View\ClientView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ComposantView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CouleurView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -367,10 +343,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MatiereView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ModelFicheTekView.xaml" />
     <Page Include="View\MonthlyReportPrintView.xaml" />
     <Page Include="View\ParamView.xaml">
@@ -384,11 +356,6 @@
     <Page Include="View\PrintView.xaml" />
     <Page Include="View\RapportView.xaml" />
     <Page Include="View\SplashScreenView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TestView.xaml" />
-    <Page Include="View\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -700,9 +667,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ImgProd\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

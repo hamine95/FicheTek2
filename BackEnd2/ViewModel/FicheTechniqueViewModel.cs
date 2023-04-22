@@ -295,7 +295,6 @@ namespace BackEnd2.ViewModel
             InitComposantBtnsCommand();
         }
 
-        public bool Editing { get; set; }
 
         public string TrameXposition
         {
@@ -1929,12 +1928,13 @@ namespace BackEnd2.ViewModel
             
            
         }
+        private bool IsNewDatasheet=true;
 
         public void EditFicheTechnique()
         {
             try
             {
-                Editing = true;
+                IsNewDatasheet = false;
                 if (SelectedFicheTechnique != null)
                 {
                     var LastVersion = SelectedFicheTechnique.Produits.Count - 1;
@@ -2381,6 +2381,14 @@ namespace BackEnd2.ViewModel
                 _DB2.UpdateProdIsEnfilage(NewProd);
                 if (IsEnfilage)
                 {
+                     if (Comp1 != null) AddLegend(1);
+                    if (Comp2 != null) AddLegend(2);
+                    if (Comp3 != null) AddLegend(3);
+                    if (Comp4 != null)
+                        AddLegend(4);
+                    else if (Comp5 != null) AddLegend(5);
+                    if (Comp6 != null) AddLegend(6);
+                    if (Comp7 != null) AddLegend(7);
                     NewProd.EnfilageID = new Enfilage();
                     NewProd.EnfilageID.Column = EnfilageColumns;
                     NewProd.EnfilageID.Row = EnfilageRow;
@@ -2394,13 +2402,21 @@ namespace BackEnd2.ViewModel
                     {
                         NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
                     }
-                    
+
+                    _DB2.UpdateProdEnfilage(NewProd);
+
+
                 }
                 else
                 {
+                    SchCompList = new MvxObservableCollection<Composition>();
                     _DB2.RemoveEnfilage(NewProd.EnfilageID);
                     NewProd.EnfilageID = null;
+                    _DB2.UpdateProdRemoveEnfilage(NewProd);
                 }
+                
+                   
+                
             }
             else if (e.PropertyName.Equals("Concepteur"))
             {
@@ -2891,17 +2907,14 @@ namespace BackEnd2.ViewModel
         public void DeleteBeforeCancel()
         {
             IsCreateChaine = false;
-            if (Editing == false)
+            if (IsNewDatasheet)
             {
                 if (NewProd.IsEnfilage == 1)
                     _DB2.DeleteFicheTechnique(NewProd.FicheId, NewProd.Id, NewProd.EnfilageID.ID);
                 else
                     _DB2.DeleteFicheTechnique(NewProd.FicheId, NewProd.Id);
             }
-            else
-            {
-                Editing = true;
-            }
+            
 
 
             AnnulerFicheTechnique();
@@ -3378,9 +3391,17 @@ namespace BackEnd2.ViewModel
                             NewProd.EnfilageID.TrYposition =
                                 SelectedFicheTechnique.Produits[LastVersion].EnfilageID.TrYposition;
                             if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID.GetChaine != null)
+                            {
                                 NewProd.EnfilageID.GetChaine = SelectedChaine;
+                                NewProd.EnfilageID.ID = _DB2.AddNewEnfilageWithChaine(NewProd.EnfilageID);
+                            }
+                            else
+                            {
+                                NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                            }
+                               
 
-                            NewProd.EnfilageID.ID = _DB2.AddNewEnfilage(NewProd.EnfilageID);
+                            
                             _DB2.UpdateProdEnfilage(NewProd);
                         }
                         else
@@ -3776,6 +3797,7 @@ namespace BackEnd2.ViewModel
             mf = await _NavigationService.Navigate<ModelFicheTekViewModel, ModelFiche, ModelFiche>(new ModelFiche());
             if (mf != null)
             {
+                IsEnfilage = true;
                 if (mf.model == ModelFiche.ModelFicheTek.FicheTekCrochetage) IsEnfilage = false;
 
                 if (mf != null && mf.IsEchantillon)
@@ -3812,6 +3834,7 @@ namespace BackEnd2.ViewModel
         {
             try
             {
+                IsNewDatasheet = true;
                 Ordre = "";
                 CreationDisplayDate = DateTime.Now;
                 IsDentFilVis = true;
@@ -5050,7 +5073,7 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private bool _IsEnfilage = true;
+       
 
         private bool _IsDentFilVis;
         private bool _BtnVis;
@@ -6246,6 +6269,7 @@ namespace BackEnd2.ViewModel
             }
         }
 
+        private bool _IsEnfilage = true;
         public bool IsEnfilage
         {
             get => _IsEnfilage;
@@ -6253,28 +6277,20 @@ namespace BackEnd2.ViewModel
             {
                 _IsEnfilage = value;
                 RaisePropertyChanged();
-                if (Editing == true)
+                if (EnableEditing && NewProd != null)
                 {
-                    if (IsEnfilage == false)
+                    if (IsEnfilage)
                     {
-                        if(NewProd!=null)
-                            NewProd.IsEnfilage = 0;
-                        SchCompList = new MvxObservableCollection<Composition>();
+                        NewProd.IsEnfilage = 1;
                     }
                     else
                     {
-                        if (NewProd != null)
-                            NewProd.IsEnfilage = 1;
-                        if (Comp1 != null) AddLegend(1);
-                        if (Comp2 != null) AddLegend(2);
-                        if (Comp3 != null) AddLegend(3);
-                        if (Comp4 != null)
-                            AddLegend(4);
-                        else if (Comp5 != null) AddLegend(5);
-                        if (Comp6 != null) AddLegend(6);
-                        if (Comp7 != null) AddLegend(7);
+                        NewProd.IsEnfilage = 0;
                     }
                 }
+                   
+                   
+               
             }
         }
 

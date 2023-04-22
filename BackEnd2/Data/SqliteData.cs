@@ -138,12 +138,12 @@ namespace BackEnd2.Data
         public int AddNewProductVersion(Produit NewProd)
         {
             var sqlStm =
-                "insert into Product(Ref,Version,NumArticle,DateCreation,Dent,Largeur,FicheId,Definite,Name,IsEnfilage,Redaction) values(@Ref,@Version,@numAr,@datecr,@dent,@larg,@FicheId,@Definite,@Name,@IsEnf,CURRENT_TIMESTAMP)";
+                "insert into Product(Ref,Version,NumArticle,DateCreation,Dent,Largeur,FicheId,Definite,Name,IsEnfilage,Redaction,EnfDent) values(@Ref,@Version,@numAr,@datecr,@dent,@larg,@FicheId,@Definite,@Name,@IsEnf,CURRENT_TIMESTAMP,@EnfDent)";
             NewProd.Id = Convert.ToInt32(db.SaveData(sqlStm, new
             {
                 id = NewProd.Id, NewProd.Ref, NewProd.Version, Definite = 0,
                 datecr = NewProd.DateCreation, dent = NewProd.Dent, larg = NewProd.Largeur, numAr = NewProd.NumArticle,
-                NewProd.FicheId, NewProd.Name, IsEnf = NewProd.IsEnfilage
+                NewProd.FicheId, NewProd.Name, IsEnf = NewProd.IsEnfilage,NewProd.EnfDent
             }, connectionStringName));
             return NewProd.Id;
         }
@@ -166,11 +166,7 @@ namespace BackEnd2.Data
             db.SaveData(stm, new { duit = NewProd.DuitageID.ID, id = NewProd.Id }, connectionStringName);
         }
 
-        public void UpdateProdEnfilage(Produit NewProd)
-        {
-            var stm = "Update Product set EnfilageIDID=@enf where Id=@id";
-            db.SaveData(stm, new { enf = NewProd.EnfilageID.ID, id = NewProd.Id }, connectionStringName);
-        }
+       
 
         public void UpdateProdDent(Produit NewProd)
         {
@@ -420,7 +416,18 @@ namespace BackEnd2.Data
             var stm = "Update Product set IsEnfilage=@IsEnf where Id=@id";
             db.SaveData(stm, new { IsEnf = NewProd.IsEnfilage, id = NewProd.Id }, connectionStringName);
         }
+        
 
+        public void UpdateProdEnfilage(Produit NewProd)
+        {
+            var stm = "Update Product set EnfilageIDID=@enf where Id=@id";
+            db.SaveData(stm, new { enf = NewProd.EnfilageID.ID, id = NewProd.Id }, connectionStringName);
+        }
+        public void UpdateProdRemoveEnfilage(Produit NewProd)
+        {
+            var stm = "Update Product set EnfilageIDID=null where Id=@id";
+            db.SaveData(stm, new {  id = NewProd.Id }, connectionStringName);
+        }
         public int AddNewProductWithEnfilage(Produit NewProd)
         {
             var sqlStm =
@@ -462,6 +469,7 @@ namespace BackEnd2.Data
         {
             var stm = "Delete from Enfilage where ID=@id";
             db.SaveData(stm, new { id = mEnfilage.ID }, connectionStringName);
+            db.SaveData<dynamic>("update sqlite_sequence SET seq = (SELECT MAX(id) FROM Enfilage) WHERE name = 'Enfilage'; ", null, connectionStringName);
         }
 
         public int AddNewEnfilage(Enfilage NewEnfliage)
@@ -1131,8 +1139,8 @@ namespace BackEnd2.Data
         public bool CheckModelDuplicate(ModelMachine model)
         {
             var modellist = db.LoadData<ModelMachine, dynamic>(
-                "select * from ModelMachine where NbrBande=@nbr and MaxWidth=@width",
-                new { nbr = model.NbrBande, width = model.MaxWidth }, connectionStringName);
+                "select * from ModelMachine where NbrBande=@nbr and MaxWidth=@width and NomModel=@NomModel",
+                new { nbr = model.NbrBande, width = model.MaxWidth,model.NomModel }, connectionStringName);
             if (modellist.Count > 0)
                 return true;
             return false;

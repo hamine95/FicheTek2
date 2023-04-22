@@ -14,7 +14,7 @@
         <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
         <ResourceDictionary x:Key="dic1">
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/DSheetEnfilage;component/ChaineStyle2.xaml" ></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/DSheetEnfilage;component/ChaineEditStyle.xaml" ></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </view:MvxWpfView.Resources>
@@ -272,10 +272,10 @@
                             Modèle:
                         </TextBlock>
 
-                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="16"
+                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="12"
                                  Text="{Binding Num}" />
                         <TextBox IsEnabled="False" Grid.Row="2" Grid.Column="3" Foreground="Black" MaxHeight="30"
-                                 FontSize="16"
+                                 FontSize="12"
                                  Text="{Binding Designation}" />
 
                         <ComboBox Grid.Row="3" Grid.Column="3" Foreground="Black" MaxHeight="30" FontSize="12"

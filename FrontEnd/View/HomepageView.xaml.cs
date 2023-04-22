@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Reflection;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using BackEnd2.ViewModel;
@@ -20,6 +21,7 @@ namespace FrontEnd.View
         public HomepageView()
         {
             InitializeComponent();
+           
         }
 
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)

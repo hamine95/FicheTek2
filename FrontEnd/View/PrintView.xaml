@@ -334,7 +334,7 @@
                                                 </TextBlock>
 
                                                 <TextBlock Grid.Column="1" FontFamily="Arial"
-                                                           FontWeight="Bold" FontSize="12"
+                                                           FontWeight="Bold" FontSize="10"
 
                                                            VerticalAlignment="Center" HorizontalAlignment="Center"
                                                            Text="{Binding NewProd.Name}" />

@@ -238,12 +238,12 @@
                                 Désignation TTBM :
                             </TextBlock>
                             <TextBox CharacterCasing="Upper" Grid.Column="1" FontFamily="Arial"
-                                     BorderBrush="Transparent" FontWeight="Bold" FontSize="12"
+                                     BorderBrush="Transparent" FontWeight="Bold" FontSize="10"
                                      Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                      Text="{Binding NewProd.Name}" />
                             <TextBlock Grid.Column="1" FontFamily="Arial"
-                                       FontWeight="Bold" FontSize="12"
+                                       FontWeight="Bold" FontSize="10"
                                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"
                                        Text="{Binding NewProd.Name}" />

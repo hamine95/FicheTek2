@@ -11,7 +11,7 @@
                 Focusable="False"
                 WindowState="Maximized"
                 WindowStyle="ThreeDBorderWindow"
-                Title="Gestionnaire Fiche Technique"
+                Title="{Binding BarTitle}"
                 xmlns:region="clr-namespace:Mvx.Wpf.ItemsPresenter;assembly=Mvx.Wpf.ItemsPresenter"
                 KeyboardNavigation.DirectionalNavigation="None"
                 KeyboardNavigation.TabNavigation="None"

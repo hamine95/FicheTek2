@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 using BackEnd2.Database;
@@ -43,6 +44,15 @@ namespace BackEnd2.ViewModel
         private int CountClick;
         private readonly MyDBContext db;
 
+        private string _BarTitle =  "Gestionnaire Fiche Technique " + Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().LastIndexOf("."));
+
+        public string BarTitle
+        {
+            get { return _BarTitle; }
+            set { _BarTitle = value; RaisePropertyChanged(); }
+        }
+
+
         private DispatcherTimer dispatcherTimer;
 
         public bool IsSafePassage = true;
@@ -54,11 +64,10 @@ namespace BackEnd2.ViewModel
         public HomepageViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
+            db = Mvx.IoCProvider.Resolve<MyDBContext>();
+
             FicheTechniqueBtn = new MvxCommand(StartFicheTechniquePanel);
             RapportBtn = new MvxCommand(NavigateToRapportView);
-            db = Mvx.IoCProvider.Resolve<MyDBContext>();
-            Nav2Color = new MvxCommand(NavigateToCouleurView);
-            CmdMatiere = new MvxCommand(NavigateToMatiereView);
             CmdMachine = new MvxCommand(NavigateToMachineView);
             CmdComposant = new MvxCommand(NavigateToComposantView);
             CmdCategorie = new MvxCommand(NavigateToCategorieView);
@@ -97,8 +106,6 @@ namespace BackEnd2.ViewModel
         public IMvxCommand CmdCategorie { get; set; }
         public IMvxCommand CmdComposant { get; set; }
         public IMvxCommand CmdMachine { get; set; }
-        public IMvxCommand CmdMatiere { get; set; }
-        public IMvxCommand Nav2Color { get; set; }
         public IMvxCommand FicheTechniqueBtn { get; set; }
         public IMvxCommand RapportBtn { get; set; }
 
@@ -442,43 +449,7 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public void NavigateToMatiereView()
-        {
-            if (IsSafePassage)
-            {
-                IsCouleur = true;
-                IsClient = true;
-                IsFicheTechnique = true;
-                IsProduit = true;
-                IsComposant = true;
-                IsPersonnel = true;
-                IsMatiere = false;
-                IsMachine = true;
-                IsCategorie = true;
-                IsParam = true;
-                IsRapport = true;
-                _navigationService.Navigate<MatiereViewModel, user>(UserSession);
-            }
-        }
 
-        public void NavigateToCouleurView()
-        {
-            if (IsSafePassage)
-            {
-                IsCouleur = false;
-                IsClient = true;
-                IsFicheTechnique = true;
-                IsProduit = true;
-                IsComposant = true;
-                IsPersonnel = true;
-                IsMatiere = true;
-                IsMachine = true;
-                IsCategorie = true;
-                IsParam = true;
-                IsRapport = true;
-                _navigationService.Navigate<CouleurViewModel, user>(UserSession);
-            }
-        }
         public void NavigateToRapportView()
         {
             if (IsSafePassage)

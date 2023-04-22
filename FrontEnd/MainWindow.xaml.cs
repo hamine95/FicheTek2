@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Platforms.Wpf.Views;
+using System.Reflection;
 
 namespace FrontEnd
 {

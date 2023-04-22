@@ -69,54 +69,15 @@
     <Compile Include="Converter\BiggerEqualThanConverter.cs" />
     <Compile Include="Converter\MultipleRadioButtonConverter.cs" />
     <Compile Include="Converter\NumImageConverter.cs" />
-    <Compile Include="DecaOctogenTile.xaml.cs">
-      <DependentUpon>DecaOctogenTile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DecaTile.xaml.cs">
-      <DependentUpon>DecaTile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EnfilageBoard.xaml.cs">
-      <DependentUpon>EnfilageBoard.xaml</DependentUpon>
-    </Compile>
     <Compile Include="legend.cs" />
-    <Compile Include="legendElement.cs" />
     <Compile Include="legendstyle.xaml.cs" />
     <Compile Include="SpaceFreeGrid.cs" />
-    <Compile Include="OctogenTile.xaml.cs">
-      <DependentUpon>OctogenTile.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SpaceFreeGridStyle.xaml.cs" />
-    <Compile Include="TestNewControl.xaml.cs">
-      <DependentUpon>TestNewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tile10.xaml.cs">
-      <DependentUpon>Tile10.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TrameSymbol.cs" />
-    <Compile Include="TrameSymbolStyle.xaml.cs">
-      <DependentUpon>TrameSymbolStyle.xaml</DependentUpon>
-    </Compile>
-    <Page Include="CanvasControl2.xaml">
+    <Page Include="ChaineEditStyle.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CanvasControl.xaml" />
     <Page Include="ChaineStyle.xaml" />
-    <Page Include="ChaineStyle2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DecaOctogenTile.xaml" />
-    <Page Include="DecaTile.xaml" />
-    <Page Include="EnfilageBoard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EnfilageSchemas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EnfilageSchV2.xaml" />
-    <Page Include="GeoGrid.xaml" />
     <Page Include="legendStyle.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -126,47 +87,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Block.cs" />
-    <Compile Include="CanvasControl2.xaml.cs">
-      <DependentUpon>CanvasControl2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CanvasControl.xaml.cs">
-      <DependentUpon>CanvasControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CanvasElement.cs" />
     <Compile Include="Converter\BooleanToVisibilityValueConverter.cs" />
     <Compile Include="Converter\EqualityConverter.cs" />
     <Compile Include="Converter\HeightConverter.cs" />
     <Compile Include="CustomClass\GitHubButton.cs" />
-    <Compile Include="CustomTextBlock.cs" />
-    <Compile Include="EnfilageSchemas.xaml.cs">
-      <DependentUpon>EnfilageSchemas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EnfilageSchV2.xaml.cs">
-      <DependentUpon>EnfilageSchV2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GameBoard.cs" />
-    <Compile Include="GeoGrid.xaml.cs">
-      <DependentUpon>GeoGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="OctogenTile.xaml" />
     <Page Include="SpaceFreeGridStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestNewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tile10.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TrameSymbolStyle.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

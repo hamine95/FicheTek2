@@ -1153,10 +1153,8 @@ namespace DSheetEnfilage
             
            
         }
-        private Grid mGrid;
 
         private Border mBorder;
-        private TrameSymbol mtrameSymbol;
 
 
         public SpaceFreeGrid ConstructHorizontalLine(SpaceFreeGrid root )
@@ -1306,8 +1304,7 @@ namespace DSheetEnfilage
                          
                      }
                      if (child.GetType() == typeof(legend)
-                         || child.GetType() == typeof(Chaine)
-                         || child.GetType() == typeof(TrameSymbol))
+                         || child.GetType() == typeof(Chaine))
                      {
                          if (child.GetType() == typeof(Chaine))
                              ((Chaine)child).CellWidth = Math.Min(constraint.Height/Rows,constraint.Width/Columns);
@@ -1360,13 +1357,7 @@ namespace DSheetEnfilage
 
                     continue;
                 }
-                if (InternalChildren[i].GetType() == typeof(TrameSymbol)
-                  )
-                {
-                    InternalChildren[i].Arrange(new Rect(new Point(horizontalFreeSpace + 1, VerticalFreeSpace+1), InternalChildren[i].DesiredSize));
-
-                    continue;
-                }
+                
 
                 if (InternalChildren[i].GetType() == typeof(legend)
                    )

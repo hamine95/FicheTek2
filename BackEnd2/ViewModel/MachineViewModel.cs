@@ -679,7 +679,7 @@ namespace BackEnd2.ViewModel
                 modelM.NomModel = NomModel.ToUpper();
                 modelM.Name = NomModel + " " + NbrBande + "/" + MaxWidth;
 
-                if (db2.GetModelMachine(modelM) == null)
+                if (!db2.CheckModelDuplicate(modelM))
                 {
                     db2.AddModelMachine(modelM);
                     UpdateMachineModelList();
