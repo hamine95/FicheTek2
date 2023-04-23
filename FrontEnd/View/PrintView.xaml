@@ -886,7 +886,7 @@
 
                                             <TextBlock 
                                                        Grid.Column="1"
-                                                       Text="{Binding Comp2.GetMatiere.Titrage.TypeMatiere.Designation}"
+                                                       Text="{Binding Comp2.GetMatiere.Titrage.Designation}"
                                                        FontSize="16" />
 
                                             <TextBlock

@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "BackEnd2/1.0.36": {
+      "BackEnd2/1.0.37": {
         "dependencies": {
           "MvvmCross": "8.0.2",
           "MvvmCross.Plugin.Messenger": "8.0.2",
@@ -163,7 +163,7 @@
     }
   },
   "libraries": {
-    "BackEnd2/1.0.36": {
+    "BackEnd2/1.0.37": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
