@@ -652,43 +652,43 @@ namespace BackEnd2.ViewModel
                             }
                             else
                             {
-                                if (i == 0)
+                                if (NewProd.GetComposition[i].NumComposant==1)
                                 {
                                     Comp1 = NewProd.GetComposition[i];
                                     SchCompList.Add(Comp1);
                                 }
 
-                                if (i == 1)
+                                if (NewProd.GetComposition[i].NumComposant == 2)
                                 {
                                     Comp2 = NewProd.GetComposition[i];
                                     SchCompList.Add(Comp2);
                                 }
 
-                                if (i == 2)
+                                if (NewProd.GetComposition[i].NumComposant ==3)
                                 {
                                     Comp3 = NewProd.GetComposition[i];
                                     SchCompList.Add(Comp3);
                                 }
 
-                                if (i == 3)
+                                if (NewProd.GetComposition[i].NumComposant == 4)
                                 {
                                     Comp4 = NewProd.GetComposition[i];
                                     SchCompList.Add(Comp4);
                                 }
 
-                                if (i == 4)
+                                if (NewProd.GetComposition[i].NumComposant == 5)
                                 {
                                     Comp5 = NewProd.GetComposition[i];
                                     SchCompList.Add(Comp5);
                                 }
 
-                                if (i == 5)
+                                if (NewProd.GetComposition[i].NumComposant == 6)
                                 {
                                     Comp6 = NewProd.GetComposition[i];
                                     SchCompList.Add(Comp6);
                                 }
 
-                                if (i == 6)
+                                if (NewProd.GetComposition[i].NumComposant == 7)
                                 {
                                     Comp7 = NewProd.GetComposition[i];
                                     SchCompList.Add(Comp7);

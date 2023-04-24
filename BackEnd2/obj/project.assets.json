@@ -711,7 +711,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.37",
+    "version": "1.0.38",
     "restore": {
       "projectUniqueName": "D:\\Project\\DataSheetDesign\\BackEnd2\\BackEnd2.csproj",
       "projectName": "BackEnd2",
