@@ -525,6 +525,13 @@ namespace BackEnd2.Data
                 connectionStringName);
             return ft[0];
         }
+        public void ChangeModelFicheTechnique(FicheTechnique NewFiche)
+        {
+            var SqlStm = "update FicheTechnique set ModelFiche=@num where ID=@ID";
+            db.SaveData<dynamic>(SqlStm,
+                new { num = NewFiche.ModelFiche, NewFiche.ID }, connectionStringName);
+
+        }
 
         public void UpdateProdPeigne(Produit pr)
         {

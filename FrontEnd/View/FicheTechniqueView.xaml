@@ -885,6 +885,21 @@
                     IsChecked="{Binding IsEnfilage}">
                     Enfilage
                 </CheckBox>
+                <Grid Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock>Model</TextBlock>
+                    <ComboBox Grid.Column="1" FontSize="10" ItemsSource="{Binding FTModels}" DisplayMemberPath="name" SelectedItem="{Binding ModelFicheTechnique}">
+                        
+                    </ComboBox>
+                    <Button Grid.Column="1" Grid.Row="1" Command="{Binding ChangeFTModel}">Appliquer</Button>
+                </Grid>
                 <GroupBox IsEnabled="{Binding IsEnfilage}" Header="Nbr Fils">
                     <StackPanel Orientation="Vertical">
                         <Grid>

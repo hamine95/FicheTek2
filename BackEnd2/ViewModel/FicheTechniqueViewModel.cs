@@ -293,6 +293,39 @@ namespace BackEnd2.ViewModel
             _DB2 = new SqliteData();
             InitBtnImage();
             InitComposantBtnsCommand();
+            FTModels = new MvxObservableCollection<ModelFiche>();
+            ModelFiche ftM = new ModelFiche();
+            ftM.num = 0;
+            ftM.name = "Fiche Technique Normale";
+            FTModels.Add(ftM);
+            ftM = new ModelFiche();
+            ftM.num = 1;
+            ftM.name = "Fiche Technique E.H.C";
+            FTModels.Add(ftM);
+            ftM = new ModelFiche();
+            ftM.num = 2;
+            ftM.name = "Fiche Technique Elastique";
+            FTModels.Add(ftM);
+        }
+
+        private IMvxCommand _ChangeFTModel;
+
+        public IMvxCommand ChangeFTModel
+        {
+            get {
+                _ChangeFTModel = new MvxCommand(ChangeFicheTechniqueModel);
+                return _ChangeFTModel; }
+        }
+
+        public void ChangeFicheTechniqueModel()
+        {
+            var FT = new FicheTechnique();
+            if (NewProd == null)
+                return;
+
+            FT.ID = NewProd.FicheId;
+            FT.ModelFiche = ModelFicheTechnique.num;
+            _DB2.ChangeModelFicheTechnique(FT);
         }
 
 
@@ -2548,6 +2581,25 @@ namespace BackEnd2.ViewModel
                         }
                     }
         }
+        private MvxObservableCollection<ModelFiche> _FTModels;
+
+        public MvxObservableCollection<ModelFiche> FTModels
+        {
+            get { return _FTModels; }
+            set { _FTModels = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ModelFiche _ModelFicheTechnique;
+
+        public ModelFiche ModelFicheTechnique
+        {
+            get { return _ModelFicheTechnique; }
+            set { _ModelFicheTechnique = value;
+                RaisePropertyChanged(); }
+        }
+
 
         public void DisplaySelectedFicheTek(int vers)
         {
@@ -2561,6 +2613,7 @@ namespace BackEnd2.ViewModel
                     IsFicheUniDuitage = false;
                     IsFicheEHC = false;
                     IsFicheNormal = true;
+                    ModelFicheTechnique = FTModels.First(ftM => ftM.num == 2);
                 }
                 else if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.FicheTekEHC)
                 {
@@ -2568,6 +2621,7 @@ namespace BackEnd2.ViewModel
                     IsFicheUniDuitage = true;
                     IsFicheEHC = true;
                     IsFicheNormal = false;
+                    ModelFicheTechnique = FTModels.First(ftM => ftM.num == 1);
                 }
                 else
                 {
@@ -2575,6 +2629,7 @@ namespace BackEnd2.ViewModel
                     IsFicheUniDuitage = true;
                     IsFicheEHC = false;
                     IsFicheNormal = true;
+                    ModelFicheTechnique = FTModels.First(ftM => ftM.num == 0);
                 }
 
                 NbrDent = SelectedFicheTechnique.Produits[vers].EnfDent;
