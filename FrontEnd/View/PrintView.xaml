@@ -866,7 +866,7 @@
 
                                             <TextBlock
                                                 Grid.Column="2"
-                                                FontSize="16"
+                                                FontSize="12"
                                                 Text="{Binding Comp1.GetMatiere.GetCouleur.Name}"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
@@ -892,7 +892,7 @@
                                             <TextBlock
                                                 Grid.Column="2"
                                                 Text="{Binding Comp2.GetMatiere.GetCouleur.Name}"
-                                                FontSize="16"
+                                                FontSize="12"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
                                     </Border>
@@ -914,7 +914,7 @@
                                                 Text="{Binding Comp3.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock
-                                                Grid.Column="2" FontSize="16"
+                                                Grid.Column="2" FontSize="12"
                                                 Text="{Binding Comp3.GetMatiere.GetCouleur.Name}"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
@@ -941,7 +941,7 @@
                                             <TextBlock
                                                 Grid.Column="2"
                                                 Text="{Binding Comp4.GetMatiere.GetCouleur.Name}"
-                                                FontSize="16"
+                                                FontSize="12"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
                                     </Border>
@@ -963,7 +963,7 @@
                                                 Text="{Binding Comp5.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock
-                                                Grid.Column="2" FontSize="16"
+                                                Grid.Column="2" FontSize="12"
                                                 Text="{Binding Comp5.GetMatiere.GetCouleur.Name}"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
@@ -990,7 +990,7 @@
                                             <TextBlock
                                                 Grid.Column="2"
                                                 Text="{Binding Comp6.GetMatiere.GetCouleur.Name}"
-                                                FontSize="16"
+                                                FontSize="12"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
                                     </Border>
@@ -1012,7 +1012,7 @@
                                                 Text="{Binding Comp7.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock
-                                                Grid.Column="2" FontSize="16"
+                                                Grid.Column="2" FontSize="12"
                                                 Text="{Binding Comp7.GetMatiere.GetCouleur.Name}"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
@@ -1037,7 +1037,7 @@
 
                                             <TextBlock
                                                 Grid.Column="2"
-                                                Text="{Binding Comp8.GetMatiere.GetCouleur.Name}" FontSize="16"
+                                                Text="{Binding Comp8.GetMatiere.GetCouleur.Name}" FontSize="12"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>
                                     </Border>
@@ -1059,7 +1059,7 @@
                                                 Text="{Binding Comp9.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock
-                                                Grid.Column="2" FontSize="16"
+                                                Grid.Column="2" FontSize="12"
                                                 Text="{Binding Comp9.GetMatiere.GetCouleur.Name}"
                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </Grid>

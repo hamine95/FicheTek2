@@ -912,11 +912,12 @@
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor1}"
+                                  FontSize="10"
                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                   ItemsSource="{Binding ListCouleur1}" />
                         <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
-                            Text="{Binding Comp1.GetMatiere.GetCouleur.Name}"
+                            Text="{Binding Comp1.GetMatiere.GetCouleur.Name}" FontSize="10"
                             VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
@@ -945,10 +946,12 @@
                                    Grid.Column="1"
                                    Text="{Binding Comp2.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
+                                  FontSize="10"
                                   Visibility="{Binding Comp2Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor2}"
                                   ItemsSource="{Binding ListCouleur2}" />
                         <TextBlock
+                            FontSize="10"
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp2.GetMatiere.GetCouleur.Name}"
                             VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -978,6 +981,7 @@
                              HorizontalAlignment="Center"
                             Text="{Binding Comp3.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
+                                  FontSize="10"
                                   Visibility="{Binding Comp3Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor3}"
                                   ItemsSource="{Binding ListCouleur3}" />
@@ -1011,6 +1015,7 @@
                              HorizontalAlignment="Center"
                             Text="{Binding Comp4.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
+                                  FontSize="10"
                                   Visibility="{Binding Comp4Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor4}"
                                   ItemsSource="{Binding ListCouleur4}" />
@@ -1044,12 +1049,14 @@
                              HorizontalAlignment="Center"
                             Text="{Binding Comp5.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
+                                  FontSize="10"
                                   Visibility="{Binding Comp5Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor5}"
                                   ItemsSource="{Binding ListCouleur5}" />
                         <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp5.GetMatiere.GetCouleur.Name}"
+                            FontSize="10"
                             VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
@@ -1077,12 +1084,14 @@
                              HorizontalAlignment="Center"
                             Text="{Binding Comp6.GetMatiere.Titrage.Designation}" />
                         <ComboBox DisplayMemberPath="Name"
+                                  FontSize="10"
                                   Visibility="{Binding Comp6Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor6}"
                                   ItemsSource="{Binding ListCouleur6}" />
                         <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp6.GetMatiere.GetCouleur.Name}"
+                            FontSize="10"
                             VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
@@ -1112,10 +1121,12 @@
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp7Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor7}"
+                                  FontSize="10"
                                   ItemsSource="{Binding ListCouleur7}" />
                         <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp7.GetMatiere.GetCouleur.Name}"
+                            FontSize="10"
                             VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
@@ -1145,10 +1156,12 @@
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp8Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor8}"
+                                  FontSize="10"
                                   ItemsSource="{Binding ListCouleur8}" />
                         <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                             Text="{Binding Comp8.GetMatiere.GetCouleur.Name}"
+                            FontSize="10"
                             VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
@@ -1179,10 +1192,11 @@
                         <ComboBox DisplayMemberPath="Name"
                                   Visibility="{Binding Comp9Vis,Converter={StaticResource BoolToVis}}" Grid.Column="2"
                                   BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedColor9}"
+                                  FontSize="10"
                                   ItemsSource="{Binding ListCouleur9}" />
                         <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="2"
-                            
+                            FontSize="10"
                             Text="{Binding Comp9.GetMatiere.GetCouleur.Name}"
                             VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
