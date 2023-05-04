@@ -1638,10 +1638,9 @@
                                 </Border>
 
                                 <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0 1 1 1">
-                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                               FontWeight="Bold" FontSize="16"
-                                               FontFamily="Times New Roman">
-                                        Rédaction
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"
+                           FontFamily="Times New Roman">
+                    Rédacteur
                                     </TextBlock>
 
                                 </Border>
@@ -1737,16 +1736,14 @@
                                             <ColumnDefinition Width="1*" />
                                             <ColumnDefinition Width="3*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock FontSize="16" FontFamily="Times New Roman"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center">
-                                            DATE:
+                                        <TextBlock FontSize="16" FontFamily="Times New Roman" HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        Nom:
                                         </TextBlock>
-                                        <TextBlock Grid.Column="1"
-                                                   FontSize="16" FontFamily="Times New Roman"
-                                                   VerticalAlignment="Center"
-                                                   Text="{Binding NewProd.Redaction, Converter={x:Static Converter:StringFormatConverter.Instance}, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}, ConverterParameter={}{0:d}}" />
-
+                                        <TextBlock Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                               FontSize="16" VerticalAlignment="Center"
+                               FontFamily="Times New Roman"
+                               Grid.Column="1" Text="{Binding NewProd.RedacteurObj.Name}" />
                                     </Grid>
 
                                 </Border>

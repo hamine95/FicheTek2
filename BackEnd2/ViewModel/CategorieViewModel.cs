@@ -13,62 +13,57 @@ namespace BackEnd2.ViewModel
 {
     public class CategorieViewModel : MvxViewModel<user>
     {
-        private IMvxCommand _AjouterNovCategorie;
-
-        private IMvxCommand _CancelCmd;
-
-        private SqliteData _db2;
-
-        private string _Designation;
-        private int _EditCatId;
-
-        private bool _IsEditEnabled;
-
-        private bool _IsSous;
-        private bool _IsSousEdit;
-
-        private bool _IsSuperUser;
-
-        private bool _IsVerificateur;
-        private MvxObservableCollection<Catalogue> _ListCategorie;
-
-        private MvxNotifyTask _LoadTask;
-
-        private IMvxCommand _Modifier;
-
-
-        private IMvxNavigationService _navigationService;
-
-        private string _NovDesignation;
-
-        private IMvxCommand _SaveChange;
-
-        private Catalogue _SelectedCategorie;
-
-
-        private Catalogue _SelectedParent;
-        private Catalogue _SelectedParentEdit;
-
-        private IMvxCommand _Supprimer;
-
-        private user UserSession;
-
         public CategorieViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
         }
 
-        public MvxNotifyTask LoadTask
+        public override void Prepare(user parameter)
         {
-            get => _LoadTask;
-            private set => SetProperty(ref _LoadTask, value);
+
+            _db2 = Mvx.IoCProvider.Resolve<SqliteData>();
+            UserSession = parameter;
+
+            if (UserSession.type == user.UserType.verificateur)
+                IsVerificateur = true;
+            else
+                IsVerificateur = false;
         }
 
-        public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
 
-        public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
+        public override Task Initialize()
+        {
+            LoadTask = MvxNotifyTask.Create(UpdateCategorieList);
+            return base.Initialize();
+        }
 
+        #region Properties
+        private IMvxNavigationService _navigationService;
+        private SqliteData _db2;
 
+        private string _Designation;
+        public string Designation
+        {
+            get => _Designation;
+            set
+            {
+                _Designation = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private int _EditCatId;
+        public int EditCatId
+        {
+            get => _EditCatId;
+            set
+            {
+                _EditCatId = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsEditEnabled;
         public bool IsEditEnabled
         {
             get => _IsEditEnabled;
@@ -78,6 +73,123 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged();
             }
         }
+
+        private bool _IsSous;
+        public bool IsSous
+        {
+            get => _IsSous;
+            set
+            {
+                _IsSous = value;
+                if (value == false) SelectedParent = null;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsSousEdit;
+        public bool IsSousEdit
+        {
+            get => _IsSousEdit;
+            set
+            {
+                _IsSousEdit = value;
+                if (value == false) SelectedParentEdit = null;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsSuperUser;
+        public bool IsSuperUser
+        {
+            get => _IsSuperUser;
+            set
+            {
+                _IsSuperUser = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsVerificateur;
+        public bool IsVerificateur
+        {
+            get => _IsVerificateur;
+            set
+            {
+                _IsVerificateur = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private MvxObservableCollection<Catalogue> _ListCategorie;
+        public MvxObservableCollection<Catalogue> ListCategorie
+        {
+            get => _ListCategorie;
+            set
+            {
+                _ListCategorie = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _NovDesignation;
+        public string NovDesignation
+        {
+            get => _NovDesignation;
+            set
+            {
+                _NovDesignation = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        private Catalogue _SelectedCategorie;
+        public Catalogue SelectedCategorie
+        {
+            get => _SelectedCategorie;
+            set
+            {
+                _SelectedCategorie = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Catalogue _SelectedParent;
+        public Catalogue SelectedParent
+        {
+            get => _SelectedParent;
+            set
+            {
+                _SelectedParent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Catalogue _SelectedParentEdit;
+        public Catalogue SelectedParentEdit
+        {
+            get => _SelectedParentEdit;
+            set
+            {
+                _SelectedParentEdit = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private user UserSession;
+        
+        #endregion
+
+        #region Commands
+
+        private IMvxCommand _SaveChange;
+        private IMvxCommand _Supprimer;
+        private IMvxCommand _AjouterNovCategorie;
+
+        private IMvxCommand _CancelCmd;
+
+
+        private IMvxCommand _Modifier;
 
         public IMvxCommand Modifier
         {
@@ -125,139 +237,9 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public MvxObservableCollection<Catalogue> ListCategorie
-        {
-            get => _ListCategorie;
-            set
-            {
-                _ListCategorie = value;
-                RaisePropertyChanged();
-            }
-        }
+        #endregion
 
-        public Catalogue SelectedCategorie
-        {
-            get => _SelectedCategorie;
-            set
-            {
-                _SelectedCategorie = value;
-                RaisePropertyChanged();
-            }
-        }
-
-
-        public string Designation
-        {
-            get => _Designation;
-            set
-            {
-                _Designation = value;
-                RaisePropertyChanged();
-            }
-        }
-
-
-        public string NovDesignation
-        {
-            get => _NovDesignation;
-            set
-            {
-                _NovDesignation = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public int EditCatId
-        {
-            get => _EditCatId;
-            set
-            {
-                _EditCatId = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Catalogue SelectedParent
-        {
-            get => _SelectedParent;
-            set
-            {
-                _SelectedParent = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Catalogue SelectedParentEdit
-        {
-            get => _SelectedParentEdit;
-            set
-            {
-                _SelectedParentEdit = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsSousEdit
-        {
-            get => _IsSousEdit;
-            set
-            {
-                _IsSousEdit = value;
-                if (value == false) SelectedParentEdit = null;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsSous
-        {
-            get => _IsSous;
-            set
-            {
-                _IsSous = value;
-                if (value == false) SelectedParent = null;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsVerificateur
-        {
-            get => _IsVerificateur;
-            set
-            {
-                _IsVerificateur = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsSuperUser
-        {
-            get => _IsSuperUser;
-            set
-            {
-                _IsSuperUser = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public override void Prepare(user parameter)
-        {
-            
-            _db2 = Mvx.IoCProvider.Resolve<SqliteData>();
-            UserSession = parameter;
-
-            if (UserSession.type == user.UserType.verificateur)
-                IsVerificateur = true;
-            else
-                IsVerificateur = false;
-        }
-
-
-        public override Task Initialize()
-        {
-            LoadTask = MvxNotifyTask.Create(UpdateCategorieList);
-            return base.Initialize();
-        }
-
+        #region Methods
         public void SaveEditChange()
         {
             if (!IsEditFieldsEmpty() &&
@@ -346,29 +328,29 @@ namespace BackEnd2.ViewModel
         public async Task AjouterNoveauCategorie()
         {
             await Task.Run(async () =>
+            {
+                if (!IsAddFieldsEmpty() && _db2.GetCategorie(Designation) == null)
                 {
-                    if (!IsAddFieldsEmpty() && _db2.GetCategorie(Designation) == null)
-                    {
-                        var NewCat = new Catalogue();
-                        NewCat.Designation = Designation;
-                        if (SelectedParent != null)
-                            NewCat.parent = SelectedParent.ID;
-                        else
-                            NewCat.parent = -1;
-                        _db2.AddNewCategorie(NewCat);
-                        await UpdateCategorieList();
-                        Designation = "";
-                    }
-                    else if (IsAddFieldsEmpty())
-                    {
-                        SendNotification.Raise("Remplit tout les champs");
-                    }
-
+                    var NewCat = new Catalogue();
+                    NewCat.Designation = Designation;
+                    if (SelectedParent != null)
+                        NewCat.parent = SelectedParent.ID;
                     else
-                    {
-                        SendNotification.Raise("Categorie existe déja");
-                    }
+                        NewCat.parent = -1;
+                    _db2.AddNewCategorie(NewCat);
+                    await UpdateCategorieList();
+                    Designation = "";
                 }
+                else if (IsAddFieldsEmpty())
+                {
+                    SendNotification.Raise("Remplit tout les champs");
+                }
+
+                else
+                {
+                    SendNotification.Raise("Categorie existe déja");
+                }
+            }
             );
         }
 
@@ -384,5 +366,21 @@ namespace BackEnd2.ViewModel
             return NovDesignation == null ||
                    string.IsNullOrWhiteSpace(NovDesignation);
         }
+        #endregion
+
+        #region events
+        private MvxNotifyTask _LoadTask;
+
+        public MvxNotifyTask LoadTask
+        {
+            get => _LoadTask;
+            private set => SetProperty(ref _LoadTask, value);
+        }
+
+        public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
+
+        public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
+        #endregion
+
     }
 }

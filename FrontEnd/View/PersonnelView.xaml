@@ -9,7 +9,13 @@
                  xmlns:Converter="clr-namespace:FrontEnd.Converter"
                  d:DesignHeight="768" d:DesignWidth="1366">
     <view:MvxWpfView.Resources>
-        <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../styles/ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+        </ResourceDictionary>
+        
     </view:MvxWpfView.Resources>
     <TabControl>
         <TabItem Header="Personnel">
@@ -52,7 +58,7 @@
                                     <RowDefinition Height="1*" />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
+                                <TextBlock  VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1"
                                            FontSize="14" FontWeight="Bold">
                                     Nom Prénom:
                                 </TextBlock>

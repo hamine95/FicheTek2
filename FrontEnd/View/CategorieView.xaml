@@ -8,68 +8,75 @@
                  xmlns:Converter="clr-namespace:FrontEnd.Converter"
                  mc:Ignorable="d">
     <view:MvxWpfView.Resources>
-        <HierarchicalDataTemplate x:Key="normal" ItemsSource="{Binding Children}">
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../styles/ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+            <HierarchicalDataTemplate x:Key="normal" ItemsSource="{Binding Children}">
 
-            <StackPanel Orientation="Horizontal">
-
-
-                <TextBlock Text="{Binding Designation}" FontSize="20">
-
-                    <TextBlock.Style>
-
-                        <Style TargetType="TextBlock">
-
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
-
-                                    <Setter Property="Foreground" Value="White" />
-
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsTargetItem}" Value="True">
-
-                                    <Setter Property="Foreground" Value="White" />
-                                </DataTrigger>
-
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
+                <StackPanel Orientation="Horizontal">
 
 
-                </TextBlock>
-            </StackPanel>
+                    <TextBlock Text="{Binding Designation}" FontSize="20">
 
-        </HierarchicalDataTemplate>
-        <HierarchicalDataTemplate x:Key="SelectedIt" ItemsSource="{Binding Children}">
+                        <TextBlock.Style>
 
-            <StackPanel Orientation="Horizontal">
+                            <Style TargetType="TextBlock">
 
-                <TextBlock Text="{Binding Designation}" FontSize="20" Foreground="White">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
 
-                    <TextBlock.Style>
+                                        <Setter Property="Foreground" Value="White" />
 
-                        <Style TargetType="TextBlock">
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsTargetItem}" Value="True">
 
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="Foreground" Value="White" />
+                                    </DataTrigger>
 
-                                    <Setter Property="Foreground" Value="White" />
-
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsTargetItem}" Value="True">
-
-                                    <Setter Property="Foreground" Value="White" />
-                                </DataTrigger>
-
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
 
 
-                </TextBlock>
-            </StackPanel>
+                    </TextBlock>
+                </StackPanel>
 
-        </HierarchicalDataTemplate>
-        <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
+            </HierarchicalDataTemplate>
+            <HierarchicalDataTemplate x:Key="SelectedIt" ItemsSource="{Binding Children}">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Text="{Binding Designation}" FontSize="20" Foreground="White">
+
+                        <TextBlock.Style>
+
+                            <Style TargetType="TextBlock">
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+
+                                        <Setter Property="Foreground" Value="White" />
+
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsTargetItem}" Value="True">
+
+                                        <Setter Property="Foreground" Value="White" />
+                                    </DataTrigger>
+
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+
+
+                    </TextBlock>
+                </StackPanel>
+
+            </HierarchicalDataTemplate>
+
+        </ResourceDictionary>
+       
     </view:MvxWpfView.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -102,13 +109,15 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="1" FontSize="16"
-                           FontWeight="Bold">
+                <TextBlock  Grid.Column="1" Grid.Row="1"
+                            Style="{StaticResource TBlockStyle}"
+                           >
                     Designation:
                 </TextBlock>
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSous}" Foreground="Black" Grid.Column="1"
-                          Grid.Row="3" FontSize="12"
-                          FontWeight="Bold">
+                <CheckBox IsChecked="{Binding IsSous}" Grid.Column="1"
+                          Grid.Row="3" 
+                           
+                          >
                     Sous Catégorie:
                 </CheckBox>
                 <ComboBox Grid.Row="3" Grid.Column="3" Foreground="Black" Height="25" FontSize="18"
@@ -117,7 +126,7 @@
                           ItemsSource="{Binding ListCategorie}"
                           DisplayMemberPath="Designation" />
 
-                <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="25" FontSize="18"
+                <TextBox Grid.Row="1"  Grid.Column="3" Foreground="Black" Height="25" FontSize="18"
                          CharacterCasing="Upper"
                          Text="{Binding Designation}" />
 

@@ -6,10 +6,8 @@
     xmlns:dSheetEnfilage="clr-namespace:DSheetEnfilage;assembly=DSheetEnfilage"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-
-        
-        
         <ResourceDictionary >
+            
             <ResourceDictionary x:Key="spaceX2" Source="pack://application:,,,/DSheetEnfilage;component/SpaceFreeGridStyle.xaml"></ResourceDictionary>
         </ResourceDictionary>
     </Application.Resources>

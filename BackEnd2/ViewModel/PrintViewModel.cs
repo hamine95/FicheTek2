@@ -642,11 +642,11 @@ namespace BackEnd2.ViewModel
                     {
                         if(NewProd.GetComposition[i].GetComposant != null)
                         {
-                            if (NewProd.GetComposition[i].GetComposant.Name.ToLower().Equals("trame"))
+                            if (NewProd.GetComposition[i].NumComposant == 8)
                             {
                                 Comp8 = NewProd.GetComposition[i];
                             }
-                            else if (NewProd.GetComposition[i].GetComposant.Name.ToLower().Equals("apport"))
+                            else if (NewProd.GetComposition[i].NumComposant == 9)
                             {
                                 Comp9 = NewProd.GetComposition[i];
                             }
