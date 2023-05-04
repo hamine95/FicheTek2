@@ -1637,7 +1637,50 @@ namespace BackEnd2.Data
 
             return ftlist;
         }
+        public List<FicheTechnique> GetFicheTechniquesNonValid()
+        {
+            var stm2 =
+                "Select Max(pr.Version) as Version,ft.ID,ft.Ordre,ft.ModelFiche,ft.CatalogID,ft.IsArchive from FicheTechnique as ft,Product as pr where pr.FicheId=ft.ID and pr.Definite=0 GROUP by pr.FicheId ORDER by pr.Version";
+            var ftlist = db.LoadData<FicheTechnique, dynamic>(stm2, null, connectionStringName);
 
+
+            if (ftlist.Count > 0)
+                foreach (var fiche in ftlist)
+                {
+                    var stm =
+                        "Select cat.ID,cat.Designation from Catalogue as cat, FicheTechnique as ft where ft.CatalogID=cat.ID and ft.ID=@id";
+                    var catlist =
+                        db.LoadData<Catalogue, dynamic>(stm, new { id = fiche.ID }, connectionStringName);
+                    if (catlist.Count > 0) fiche.Catalog = catlist[0];
+                    stm2 = "Select * from Product as pr where pr.FicheId=@id";
+                    var prlist = db.LoadData<Produit, dynamic>(stm2, new { id = fiche.ID }, connectionStringName);
+
+                    fiche.Produits = prlist;
+                    if (prlist.Count > 0)
+                        foreach (var pr in prlist)
+                        {
+                            var stm3 = "Select * from Composition as comp where comp.ProdIDId=@id";
+                            var complist =
+                                db.LoadData<Composition, dynamic>(stm3, new { id = pr.Id }, connectionStringName);
+
+                            pr.GetComposition = complist;
+
+                            if (complist.Count > 0)
+                                foreach (var compo in complist)
+                                {
+                                    var stm4 =
+                                        "Select * from Composition as compo,Composant as comp where compo.ID=@id and compo.GetComposantID=comp.ID";
+                                    var composantList = db.LoadData<Composant, dynamic>(stm4, new { id = compo.ID },
+                                        connectionStringName);
+
+                                    if (composantList.Count > 0) compo.GetComposant = composantList[0];
+                                }
+                        }
+                }
+
+
+            return ftlist;
+        }
         public List<FicheTechnique> GetFicheTechniquesProd()
         {
             var stm2 =

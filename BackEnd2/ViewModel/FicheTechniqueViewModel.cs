@@ -2494,6 +2494,12 @@ namespace BackEnd2.ViewModel
                     FullFTByCatList = FullFTList;
                     FicheTechniqueList = FullFTList;
                 }
+                else if (IsNonValidFT)
+                {
+                    FullFTList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniquesNonValid());
+                    FullFTByCatList = FullFTList;
+                    FicheTechniqueList = FullFTList;
+                }
                 else
                 {
                     FullFTList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniquesEch());
@@ -5381,7 +5387,24 @@ namespace BackEnd2.ViewModel
                 return _ProdFTCmd;
             }
         }
+        private IMvxCommand _NonValidFTCmd;
 
+        public IMvxCommand NonValidFTCmd
+        {
+            get
+            {
+                _NonValidFTCmd = new MvxCommand(GetNonValidFT);
+                return _NonValidFTCmd;
+            }
+        }
+        public void GetNonValidFT()
+        {
+            IsAllFT = false;
+            IsEchFT = false;
+            IsProdFT = false;
+            IsNonValidFT = true;
+            SelectedCatSearch = null;
+        }
         private IMvxCommand _EchFTCmd;
 
         public IMvxCommand EchFTCmd
@@ -5396,6 +5419,7 @@ namespace BackEnd2.ViewModel
         public void GetEchFT()
         {
             IsAllFT = false;
+            IsNonValidFT = false;
             IsEchFT = true;
             IsProdFT = false;
             SelectedCatSearch = null;
@@ -5406,11 +5430,13 @@ namespace BackEnd2.ViewModel
             IsAllFT = false;
             IsEchFT = false;
             IsProdFT = true;
+            IsNonValidFT = false;
             SelectedCatSearch = null;
         }
 
         private bool IsAllFT = true;
         private bool IsEchFT;
+        private bool IsNonValidFT;
         private bool IsProdFT;
 
         public void GetAllFT()
@@ -5418,6 +5444,7 @@ namespace BackEnd2.ViewModel
             IsAllFT = true;
             IsEchFT = false;
             IsProdFT = false;
+            IsNonValidFT = false;
             SelectedCatSearch = null;
         }
 

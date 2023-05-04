@@ -859,7 +859,7 @@
 
                                             <TextBlock
                                                 Grid.Column="1"
-                                                FontSize="16"
+                                                FontSize="14"
 
                                                 Text="{Binding Comp1.GetMatiere.Titrage.Designation}"
                                                  VerticalAlignment="Center" />
@@ -887,7 +887,7 @@
                                             <TextBlock 
                                                        Grid.Column="1"
                                                        Text="{Binding Comp2.GetMatiere.Titrage.Designation}"
-                                                       FontSize="16" />
+                                                       FontSize="14" />
 
                                             <TextBlock
                                                 Grid.Column="2"
@@ -910,7 +910,7 @@
                                                 Text="{Binding Comp3.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
 
                                             <TextBlock
-                                                Grid.Column="1" FontSize="16"
+                                                Grid.Column="1" FontSize="14"
                                                 Text="{Binding Comp3.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock
@@ -936,7 +936,7 @@
                                             <TextBlock
                                                 Grid.Column="1"
                                                 Text="{Binding Comp4.GetMatiere.Titrage.Designation}"
-                                                FontSize="16" />
+                                                FontSize="14" />
 
                                             <TextBlock
                                                 Grid.Column="2"
@@ -959,7 +959,7 @@
                                                 Text="{Binding Comp5.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
 
                                             <TextBlock
-                                                Grid.Column="1" FontSize="16"
+                                                Grid.Column="1" FontSize="14"
                                                 Text="{Binding Comp5.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock
@@ -985,7 +985,7 @@
                                             <TextBlock
                                                 Grid.Column="1"
                                                 Text="{Binding Comp6.GetMatiere.Titrage.Designation}"
-                                                FontSize="16" />
+                                                FontSize="14" />
 
                                             <TextBlock
                                                 Grid.Column="2"
@@ -1008,7 +1008,7 @@
                                                 Text="{Binding Comp7.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
 
                                             <TextBlock
-                                                Grid.Column="1" FontSize="16"
+                                                Grid.Column="1" FontSize="14"
                                                 Text="{Binding Comp7.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock
@@ -1033,7 +1033,7 @@
 
                                             <TextBlock
                                                 Grid.Column="1"
-                                                Text="{Binding Comp8.GetMatiere.Titrage.Designation}" FontSize="16" />
+                                                Text="{Binding Comp8.GetMatiere.Titrage.Designation}" FontSize="14" />
 
                                             <TextBlock
                                                 Grid.Column="2"
@@ -1055,7 +1055,7 @@
                                                 Text="{Binding Comp9.GetMatiere.Titrage.TypeMatiere.MatiereNom}" />
 
                                             <TextBlock
-                                                Grid.Column="1" FontSize="16"
+                                                Grid.Column="1" FontSize="14"
                                                 Text="{Binding Comp9.GetMatiere.Titrage.Designation}" />
 
                                             <TextBlock

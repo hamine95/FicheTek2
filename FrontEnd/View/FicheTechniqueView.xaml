@@ -624,15 +624,18 @@
                           Height="20" />
 
             </StackPanel>
-            <UniformGrid Grid.Row="3" Margin="5" Columns="3">
+            <UniformGrid Grid.Row="3" Margin="2" Rows="1">
 
-                <RadioButton Width="80" IsChecked="True" Cursor="Hand" Command="{Binding TousFTCmd}" Height="20"
+                <RadioButton Width="70" IsChecked="True" Cursor="Hand" Command="{Binding TousFTCmd}" Height="20"
                              Content="Tous" Style="{StaticResource {x:Type ToggleButton}}" />
 
-                <RadioButton Width="80" Cursor="Hand" Command="{Binding ProdFTCmd}" Height="20" Content="Production"
+                <RadioButton Width="70" Cursor="Hand" Command="{Binding ProdFTCmd}" Height="20" Content="Production"
                              Style="{StaticResource {x:Type ToggleButton}}" />
 
-                <RadioButton Width="80" Cursor="Hand" Command="{Binding EchFTCmd}" Height="20" Content="Échantillon"
+                <RadioButton Width="70" Cursor="Hand" Command="{Binding EchFTCmd}" Height="20" Content="Échantillon"
+                             Style="{StaticResource {x:Type ToggleButton}}" />
+                <RadioButton Width="70" Cursor="Hand" Command="{Binding NonValidFTCmd}" Height="20" Content="Non validé"
+                             Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
                              Style="{StaticResource {x:Type ToggleButton}}" />
             </UniformGrid>
             <ListView IsEnabled="{Binding DisplayDate}" FontSize="10" FontWeight="Bold" FontFamily="arial" Grid.Row="4"
