@@ -89,7 +89,6 @@ namespace BackEnd2.ViewModel
             {
                 IsEditEnabled = true;
                 NovUsername = SelectedUser.username;
-                NovPassword = SelectedUser.password;
                 EditUserId = SelectedUser.ID;
             }
             else
