@@ -167,7 +167,6 @@ namespace BackEnd2.ViewModel
         private bool _IsDateCr = true;
 
 
-        private bool _IsEchantillon;
         private bool _IsNextPage = true;
 
         private bool _IsPrevPage;
@@ -1591,15 +1590,7 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public bool IsEchantillon
-        {
-            get => _IsEchantillon;
-            set
-            {
-                _IsEchantillon = value;
-                RaisePropertyChanged();
-            }
-        }
+        
 
         public string OldRef
         {
@@ -3007,6 +2998,21 @@ namespace BackEnd2.ViewModel
                 SendNotification.Raise("Séléctionnez une fiche technique");
             }
             
+        }
+        public void ChangeDatasheetState()
+        {
+            if (!IsProduction)
+            {
+                MinVers = 0;
+                NewProd.Version = 0;
+            }
+               
+           else
+            {
+                MinVers = 1;
+                NewProd.Version = 1;
+            }
+                
         }
 
         public void AddNewVersion()

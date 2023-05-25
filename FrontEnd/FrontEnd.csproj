@@ -156,6 +156,9 @@
     <Reference Include="MvvmCross.Platforms.Wpf, Version=8.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Platforms.Wpf.8.0.2\lib\net461\MvvmCross.Platforms.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmCross.Plugin.MethodBinding, Version=8.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.MethodBinding.8.0.2\lib\netstandard2.0\MvvmCross.Plugin.MethodBinding.dll</HintPath>
+    </Reference>
     <Reference Include="Mvx.Wpf.ItemsPresenter, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvx.Wpf.ItemsPresenter.2.0.1\lib\net472\Mvx.Wpf.ItemsPresenter.dll</HintPath>
     </Reference>
@@ -242,9 +245,11 @@
     <Compile Include="Converter\BooleanToVisibilityValueConverter.cs" />
     <Compile Include="Converter\EqualityConverter.cs" />
     <Compile Include="Converter\HeightConverter.cs" />
+    <Compile Include="Converter\InverseBooleanConverter.cs" />
     <Compile Include="Converter\MarginConverter.cs" />
     <Compile Include="Converter\StringFormatConverter.cs" />
     <Compile Include="Converter\TrameSizeConverter.cs" />
+    <Compile Include="CustomClass\BindableSelectedItemBehavior.cs" />
     <Compile Include="CustomClass\GitHubButton.cs" />
     <Compile Include="CustomClass\perSizeBindingHelper.cs" />
     <Compile Include="Setup.cs" />

@@ -206,3 +206,6 @@ D:\Project\DataSheetDesign\FrontEnd\obj\x86\Debug\FrontEnd.csprojAssemblyReferen
 D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\square12.png
 D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\Asset\administrator.png
 D:\Project\DataSheetDesign\FrontEnd\obj\x86\Debug\styles\ControlStyles.baml
+D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Plugin.MethodBinding.dll
+D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Plugin.MethodBinding.pdb
+D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Plugin.MethodBinding.xml

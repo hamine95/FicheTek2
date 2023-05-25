@@ -199,7 +199,7 @@
                     <DataGridTextColumn  HeaderStyle="{StaticResource Headerz}" Header="Date" Width="1.2*" Binding="{Binding DateProd,StringFormat={}{0:dd/MM/yyyy}}">
                       
                     </DataGridTextColumn>
-                    <DataGridTextColumn SortDirection="Ascending"  HeaderStyle="{StaticResource Headerz}" Header="Code" Width="0.8*" Binding="{Binding Ref}">
+                    <DataGridTextColumn SortDirection="Ascending"  HeaderStyle="{StaticResource Headerz}" FontSize="12" Header="Code" Width="0.8*" Binding="{Binding Ref}">
                         
                     </DataGridTextColumn>
                     <DataGridTextColumn HeaderStyle="{StaticResource Headerz}" Header="Désignation" Width="5*" Binding="{Binding Designation}"></DataGridTextColumn>
