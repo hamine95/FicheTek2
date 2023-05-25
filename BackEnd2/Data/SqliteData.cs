@@ -59,8 +59,14 @@ namespace BackEnd2.Data
         }
         public List<user> GetUserList()
         {
-            return db.LoadData<user, dynamic>("select * from user", null,
+            var users= db.LoadData<user, dynamic>("select * from user", null,
                 connectionStringName);
+            foreach(user mUser in users)
+            {
+                mUser.password =new string('*', mUser.password.Length);
+            }
+            return users;
+
         }
         public void EditUser(user EditUser)
         {
@@ -1430,8 +1436,8 @@ namespace BackEnd2.Data
         }
         public void EditCategorie(Catalogue NovCat)
         {
-            string stm = "Update Catalogue set Designation=@Designation where ID=@id";
-            db.SaveData<dynamic>(stm, new { name = NovCat.Designation, id = NovCat.ID }, connectionStringName);
+            string stm = "Update Catalogue set Designation=@Designation,parent=@parent where ID=@id";
+            db.SaveData<dynamic>(stm, new { NovCat.Designation, id = NovCat.ID, NovCat.parent }, connectionStringName);
 
         }
         public void EditVerificateur(Verificateur NovVerificateur)
@@ -1684,7 +1690,7 @@ namespace BackEnd2.Data
         public List<FicheTechnique> GetFicheTechniquesProd()
         {
             var stm2 =
-                "Select Max(pr.Version) as Version,ft.ID,ft.Ordre,ft.ModelFiche,ft.CatalogID,ft.IsArchive from FicheTechnique as ft,Product as pr where pr.FicheId=ft.ID and pr.Version!=0 GROUP by pr.FicheId ORDER by pr.Version";
+                "Select Max(pr.Version) as Version,ft.ID,ft.Ordre,ft.ModelFiche,ft.CatalogID,ft.IsArchive from FicheTechnique as ft,Product as pr where pr.FicheId=ft.ID and pr.Version!=0 GROUP by pr.FicheId";
             var ftlist = db.LoadData<FicheTechnique, dynamic>(stm2, null, connectionStringName);
 
 
@@ -1696,7 +1702,7 @@ namespace BackEnd2.Data
                     var catlist =
                         db.LoadData<Catalogue, dynamic>(stm, new { id = fiche.ID }, connectionStringName);
                     if (catlist.Count > 0) fiche.Catalog = catlist[0];
-                    stm2 = "Select * from Product as pr where pr.FicheId=@id";
+                    stm2 = "Select * from Product as pr where pr.FicheId=@id order by Version";
                     var prlist = db.LoadData<Produit, dynamic>(stm2, new { id = fiche.ID }, connectionStringName);
 
                     fiche.Produits = prlist;
@@ -1750,11 +1756,10 @@ namespace BackEnd2.Data
                              ",cat.ID,cat.Designation,cat.parent" +
                               ",pr.* "+
                              "from FicheTechnique as ft" +
-                             " inner join Product as pr on pr.FicheId=ft.ID"+
+                             " inner join Product as pr on pr.FicheId=ft.ID " +
                              " left join Catalogue as cat  on cat.ID=ft.CatalogID  ";
 
-
-               var result2= conn.Query<FicheTechnique, Catalogue,Produit, FicheTechnique>(stm, (ft, cat,prod) =>
+                var result2= conn.Query<FicheTechnique, Catalogue,Produit, FicheTechnique>(stm, (ft, cat,prod) =>
                {
 
                    ft.Catalog = cat;
@@ -1766,7 +1771,7 @@ namespace BackEnd2.Data
                {
 
                    var GroupedFt = ftek.First();
-                   GroupedFt.Produits = ftek.Select(ft =>ft.Produits.Single()).ToList();
+                   GroupedFt.Produits = ftek.Select(ft =>ft.Produits.Single()).OrderBy(pr => pr.Version).ToList();
                    return GroupedFt;
                }).ToList();
                return ftlist;
