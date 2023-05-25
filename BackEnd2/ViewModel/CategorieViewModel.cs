@@ -26,8 +26,11 @@ namespace BackEnd2.ViewModel
 
             if (UserSession.type == user.UserType.verificateur)
                 IsVerificateur = true;
-            else
-                IsVerificateur = false;
+            else if (UserSession.type == user.UserType.superuser)
+            {
+                IsVerificateur = true;
+                IsSuperUser = true;
+            }
         }
 
 
@@ -240,14 +243,63 @@ namespace BackEnd2.ViewModel
         #endregion
 
         #region Methods
+        public async Task AjouterNoveauCategorie()
+        {
+            await Task.Run(async () =>
+            {
+                if (!IsAddFieldsEmpty() && _db2.GetCategorie(Designation) == null)
+                {
+                    var NewCat = new Catalogue();
+                    NewCat.Designation = Designation;
+                    if (SelectedParent != null)
+                        NewCat.parent = SelectedParent.ID;
+                    else
+                        NewCat.parent = -1;
+                    _db2.AddNewCategorie(NewCat);
+                    await UpdateCategorieList();
+                    Designation = "";
+                }
+                else if (IsAddFieldsEmpty())
+                {
+                    SendNotification.Raise("Remplit tout les champs");
+                }
+
+                else
+                {
+                    SendNotification.Raise("Categorie existe déja");
+                }
+            }
+            );
+        }
+        public void ModifierCategorie()
+        {
+            if (SelectedCategorie != null)
+            {
+                IsEditEnabled = true;
+                NovDesignation = SelectedCategorie.Designation;
+                EditCatId = SelectedCategorie.ID;
+                if (SelectedCategorie.parent != -1)
+                {
+                    IsSousEdit = true;
+                    SelectedParentEdit = ListCategorie.SingleOrDefault(cat => cat.ID == SelectedCategorie.parent);
+                }
+            }
+            else
+            {
+                SendNotification.Raise("Aucune Categorie séléctionnée");
+            }
+        }
         public void SaveEditChange()
         {
-            if (!IsEditFieldsEmpty() &&
-                _db2.GetCategorie(NovDesignation) == null)
+            if (!IsEditFieldsEmpty())
             {
                 var NewCategorie = new Catalogue();
                 NewCategorie.ID = EditCatId;
                 NewCategorie.Designation = NovDesignation;
+                if (SelectedParentEdit != null && SelectedParentEdit.ID!= NewCategorie.ID)
+                    NewCategorie.parent = SelectedParentEdit.ID;
+                else
+                    NewCategorie.parent = -1;
                 _db2.EditCategorie(NewCategorie);
                 UpdateCategorieList();
                 CancelEdit();
@@ -282,24 +334,7 @@ namespace BackEnd2.ViewModel
             NovDesignation = "";
         }
 
-        public void ModifierCategorie()
-        {
-            if (SelectedCategorie != null)
-            {
-                IsEditEnabled = true;
-                NovDesignation = SelectedCategorie.Designation;
-                EditCatId = SelectedCategorie.ID;
-                if (SelectedCategorie.parent != -1)
-                {
-                    IsSousEdit = true;
-                    SelectedParentEdit = ListCategorie.SingleOrDefault(cat => cat.ID == SelectedCategorie.parent);
-                }
-            }
-            else
-            {
-                SendNotification.Raise("Aucune Categorie séléctionnée");
-            }
-        }
+       
 
         public void SupprimerCategorie()
         {
@@ -325,34 +360,7 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public async Task AjouterNoveauCategorie()
-        {
-            await Task.Run(async () =>
-            {
-                if (!IsAddFieldsEmpty() && _db2.GetCategorie(Designation) == null)
-                {
-                    var NewCat = new Catalogue();
-                    NewCat.Designation = Designation;
-                    if (SelectedParent != null)
-                        NewCat.parent = SelectedParent.ID;
-                    else
-                        NewCat.parent = -1;
-                    _db2.AddNewCategorie(NewCat);
-                    await UpdateCategorieList();
-                    Designation = "";
-                }
-                else if (IsAddFieldsEmpty())
-                {
-                    SendNotification.Raise("Remplit tout les champs");
-                }
-
-                else
-                {
-                    SendNotification.Raise("Categorie existe déja");
-                }
-            }
-            );
-        }
+      
 
 
         public bool IsAddFieldsEmpty()
