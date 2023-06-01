@@ -77,5 +77,10 @@ namespace FrontEnd.View
             Window parentWindow = Window.GetWindow(this);
             parentWindow.WindowStyle = WindowStyle.SingleBorderWindow;
         }
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

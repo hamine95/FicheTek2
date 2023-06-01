@@ -13,9 +13,11 @@
                  xmlns:converter="clr-namespace:FrontEnd.Converter"
                  xmlns:dSheetEnfilage="clr-namespace:DSheetEnfilage;assembly=DSheetEnfilage"
                  WindowState="Maximized"
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
                 Loaded="PrintView_OnLoaded"
                 Title="PrintView" Height="450" Width="800">
     <view:MvxWindow.Resources>
+        <sys:Boolean x:Key="BoolParam">true</sys:Boolean>
         <converter:TrameSizeConverter x:Key="TrameSizeConverter" />
         <Style x:Key="PrintBtn" TargetType="{x:Type CustClass:GitHubButton}">
             <Setter Property="UseLayoutRounding" Value="True" />
@@ -75,7 +77,8 @@
         </Style>
         <converter:HeightConverter x:Key="HeightConvert" />
         <converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
-        
+        <converter:InverseBooleanConverter x:Key="InverseBool" />
+
         <ResourceDictionary x:Key="dict1">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/DSheetEnfilage;component/legendStyle.xaml" ></ResourceDictionary>
@@ -343,7 +346,7 @@
 
                                         <Border
                         Grid.Column="1"
-                        Visibility="{Binding IsFicheNormal,Converter={StaticResource BoolToVis}}"
+                        Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}"
                         BorderBrush="Black" BorderThickness="0 1 0 1">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -437,21 +440,39 @@
                                             </StackPanel>
                                         </Border>
                                         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0 0 1 1">
-                                            <DockPanel>
-                                                <TextBlock FontSize="16" Margin="5 0 0 0 " FontFamily="arial"
+                                            <Grid>
+                                                <DockPanel Visibility="{Binding IsFicheTressage,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}">
+                                                    <TextBlock FontSize="16" Margin="5 0 0 0 " FontFamily="arial"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center">
                                                     Duitage :
-                                                </TextBlock>
-                                                <Grid>
+                                                    </TextBlock>
+                                                    <Grid>
 
-                                                    <TextBlock Cursor="Hand" FontSize="16" FontFamily="arial"
+                                                        <TextBlock Cursor="Hand" FontSize="16" FontFamily="arial"
 
                                                                VerticalAlignment="Center"
                                                                HorizontalAlignment="Center"
                                                                Text="{Binding NewProd.DuitageID.Duitage}" />
-                                                </Grid>
-                                            </DockPanel>
+                                                    </Grid>
+                                                </DockPanel>
+                                                <DockPanel 
+                                Visibility="{Binding IsFicheTressage,Converter={StaticResource BoolToVis}}"
+                                >
+                                                    <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
+                                Machine :
+                                                    </TextBlock>
+                                                    <Grid>
+                                                        <TextBlock FontSize="16"
+                                                    Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                                    FontFamily="arial" HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"
+                                                    Text="{Binding NewProd.DuitageID.Machine.Name}" />
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Grid>
+                                            
                                         </Border>
                                         <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0 0 1 1">
                                             <DockPanel>
@@ -493,32 +514,48 @@
 
                                         <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black"
                                                 BorderThickness="0 0 1 1">
-                                            <DockPanel>
-                                                <TextBlock FontSize="16" Margin="5 0 0 0 " FontFamily="arial"
+                                            <Grid>
+                                                <DockPanel Visibility="{Binding IsFicheTissage,Converter={StaticResource BoolToVis}}">
+                                                    <TextBlock FontSize="16" Margin="5 0 0 0 " FontFamily="arial"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center">
                                                     Peigne :
-                                                </TextBlock>
-                                                <Grid HorizontalAlignment="Center">
+                                                    </TextBlock>
+                                                    <Grid HorizontalAlignment="Center">
 
-                                                    <TextBlock
+                                                        <TextBlock
 
                                                         FontSize="16" Width="50" FontFamily="arial"
                                                         HorizontalAlignment="Right"
                                                         TextAlignment="Center"
                                                         VerticalAlignment="Center"
                                                         Text="{Binding NewProd.PeigneObj.Nombre,StringFormat=0.0;;#}" />
-                                                </Grid>
-                                                <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Left"
+                                                    </Grid>
+                                                    <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Left"
                                                            VerticalAlignment="Center">
                                                     D/CM
-                                                </TextBlock>
-                                            </DockPanel>
+                                                    </TextBlock>
+                                                </DockPanel>
+                                                <DockPanel Visibility="{Binding IsFicheCrochetage,Converter={StaticResource BoolToVis}}">
+                                                    <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    Duitage Gomme :
+                                                    </TextBlock>
+                                                    <Grid HorizontalAlignment="Stretch">
+                                                        <TextBlock
+                                        FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                                        TextAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding NewProd.DuitageGomme.Duitage,StringFormat=0.0;;#}" />
+
+                                                    </Grid>
+                                                </DockPanel>
+                                            </Grid>
                                         </Border>
 
                                         <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black"
                                                 BorderThickness="0 0 1 1">
-                                            <DockPanel>
+                                            <DockPanel Visibility="{Binding IsFicheTressage,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}">
                                                 <TextBlock FontSize="16" Margin="5 0 0 0 " FontFamily="arial"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center">
@@ -542,7 +579,7 @@
 
                                 <Border
 
-                Visibility="{Binding IsFicheNormal,Converter={StaticResource BoolToVis}}"
+                Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}"
                 Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black">
                                     <Grid ZIndex="8">
                                         <Grid.RowDefinitions>

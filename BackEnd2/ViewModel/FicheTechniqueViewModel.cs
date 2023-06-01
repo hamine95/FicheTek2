@@ -260,7 +260,6 @@ namespace BackEnd2.ViewModel
         private IMvxCommand _SecondPageCmd;
 
         private SecRectangle _SecondRect;
-        private Duitages _SelectedDuitage;
 
         private FicheTechnique _SelectedFicheTechnique;
 
@@ -295,15 +294,15 @@ namespace BackEnd2.ViewModel
             FTModels = new MvxObservableCollection<ModelFiche>();
             ModelFiche ftM = new ModelFiche();
             ftM.num = 0;
-            ftM.name = "Fiche Technique Normale";
+            ftM.name = "Tissage";
             FTModels.Add(ftM);
             ftM = new ModelFiche();
             ftM.num = 1;
-            ftM.name = "Fiche Technique E.H.C";
+            ftM.name = "Tressage";
             FTModels.Add(ftM);
             ftM = new ModelFiche();
             ftM.num = 2;
-            ftM.name = "Fiche Technique Elastique";
+            ftM.name = "Crochetage";
             FTModels.Add(ftM);
         }
 
@@ -323,8 +322,33 @@ namespace BackEnd2.ViewModel
                 return;
 
             FT.ID = NewProd.FicheId;
-            FT.ModelFiche = ModelFicheTechnique.num;
+            if(IsFicheEHC)
+            {
+                FT.ModelFiche = ModelFicheTechnique.num + 3;
+                _DB2.RemoveProdClient(NewProd);
+
+
+            }
+            else
+            {
+                FT.ModelFiche = ModelFicheTechnique.num;
+                _DB2.RemoveProdName2(NewProd);
+            }
+           
             _DB2.ChangeModelFicheTechnique(FT);
+            _DB2.ResetFTModelProp(NewProd);
+            NewProd.PeigneObj = null;
+            NewProd.DuitageGomme = null;
+            NewProd.DuitageID = null;
+            Vitesse = null;
+
+            if (ModelFicheTechnique.num == 0)
+                SetFicheModel(true,false,false);
+            if (ModelFicheTechnique.num == 1)
+                SetFicheModel(false, true, false);
+            if (ModelFicheTechnique.num == 2)
+                SetFicheModel(false, false, true);
+           
         }
 
 
@@ -1186,16 +1210,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public Duitages SelectedDuitage
-        {
-            get => _SelectedDuitage;
-            set
-            {
-                _SelectedDuitage = value;
-                RaisePropertyChanged();
-                SetupVitesse();
-            }
-        }
 
         public MvxObservableCollection<Machine> MachineList
         {
@@ -2002,7 +2016,9 @@ namespace BackEnd2.ViewModel
                             NewProd.DuitageID = DuitageList.SingleOrDefault(duit =>
                                 duit.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageID.ID);
                         }
-
+                    if (SelectedFicheTechnique.Produits[LastVersion].DuitageGomme != null)
+                        NewProd.DuitageGomme = DuitageGoList.SingleOrDefault(duit =>
+                                duit.ID == SelectedFicheTechnique.Produits[LastVersion].DuitageGomme.ID);
                     if (SelectedFicheTechnique.Produits[LastVersion].Version == 0)
                     {
                         IsProduction = false;
@@ -2279,9 +2295,13 @@ namespace BackEnd2.ViewModel
             // Did the property cash change?
             if (e.PropertyName.Equals("DuitageID"))
             {
-                NewProd.DuitageID.Machine = SelectedMachine;
-                SetupVitesse();
-                _DB2.UpdateProdDuitage(NewProd);
+                if (NewProd.DuitageID != null)
+                {
+                    NewProd.DuitageID.Machine = SelectedMachine;
+                    SetupVitesse();
+                    _DB2.UpdateProdDuitage(NewProd);
+                }
+                    
             }
             else if (e.PropertyName.Equals("NumArticle"))
             {
@@ -2384,13 +2404,10 @@ namespace BackEnd2.ViewModel
 
                 _DB2.UpdateProdEpaiseur(NewProd);
             }
-            else if (e.PropertyName.Equals("DuitageID"))
-            {
-                _DB2.UpdateProdDuitage(NewProd);
-            }
             else if (e.PropertyName.Equals("DuitageGomme"))
             {
-                _DB2.UpdateProdDuitageGomme(NewProd);
+                if (NewProd.DuitageGomme != null)
+                    _DB2.UpdateProdDuitageGomme(NewProd);
             }
             else if (e.PropertyName.Equals("Dent"))
             {
@@ -2398,7 +2415,8 @@ namespace BackEnd2.ViewModel
             }
             else if (e.PropertyName.Equals("PeigneObj"))
             {
-                _DB2.UpdateProdPeigne(NewProd);
+                if(NewProd.PeigneObj!=null)
+                    _DB2.UpdateProdPeigne(NewProd);
             }
             else if (e.PropertyName.Equals("IsEnfilage"))
             {
@@ -2472,7 +2490,7 @@ namespace BackEnd2.ViewModel
         {
             await Task.Run(() =>
             {
-                //  FicheTechniqueList = new MvxObservableCollection<FicheTechnique>(_Db.GetFicheTechniques());
+                
                 if (IsAllFT)
                 {
                     FullFTList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniques());
@@ -2597,6 +2615,58 @@ namespace BackEnd2.ViewModel
                 RaisePropertyChanged(); }
         }
 
+        public void GetTissageMachine()
+        {
+            MachineList = new MvxObservableCollection<Machine>(_DB2.GetMachines());
+            MachineList=new MvxObservableCollection<Machine>(MachineList.Where(machine => machine.Model.method == ModelMachine.Method.Tissage));
+        }
+        public void GetTressageMachine()
+        {
+            MachineList = new MvxObservableCollection<Machine>(_DB2.GetMachines());
+            MachineList = new MvxObservableCollection<Machine>(MachineList.Where(machine => machine.Model.method == ModelMachine.Method.Tressage));
+
+        }
+        public void GetCrochetageMachine()
+        {
+            MachineList = new MvxObservableCollection<Machine>(_DB2.GetMachines());
+            MachineList = new MvxObservableCollection<Machine>(MachineList.Where(machine => machine.Model.method == ModelMachine.Method.Crochetage));
+
+
+        }
+
+        public void SetFicheModel(bool IsTissage,bool IsTressage,bool IsCrochetage)
+        {
+            this.IsFicheTissage = IsTissage;
+            this.IsFicheTressage = IsTressage;
+            this.IsFicheCrochetage = IsCrochetage;
+            if(IsTissage)
+            {
+                if(ModelFicheTechnique == null
+                    || ModelFicheTechnique.num != 0 )
+                {
+                    ModelFicheTechnique = FTModels.First(model => model.num == 0);
+                }
+                    
+                GetTissageMachine();
+            }
+                
+            if (IsTressage)
+            {
+                if (ModelFicheTechnique == null || ModelFicheTechnique.num != 1)
+                    ModelFicheTechnique = FTModels.First(model => model.num == 1);
+                GetTressageMachine();
+            }
+                
+            if (IsCrochetage)
+            {
+                if (ModelFicheTechnique == null || ModelFicheTechnique.num != 2)
+                    ModelFicheTechnique = FTModels.First(model => model.num == 2);
+                GetCrochetageMachine();
+            }
+                
+
+        }
+
 
         public void DisplaySelectedFicheTek(int vers)
         {
@@ -2604,30 +2674,51 @@ namespace BackEnd2.ViewModel
             SchCompList = new MvxObservableCollection<Composition>();
             if (SelectedFicheTechnique.Produits.Count > 0)
             {
-                if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.FicheTekCrochetage)
+                if(SelectedFicheTechnique.ModelFiche >= (int)ModelFiche.ModelFicheTek.EHCTissage && 
+                    SelectedFicheTechnique.ModelFiche <= (int)ModelFiche.ModelFicheTek.EHCCrochetage)
                 {
-                    IsFicheCrochetage = true;
-                    IsFicheUniDuitage = false;
-                    IsFicheEHC = false;
-                    IsFicheNormal = true;
-                    ModelFicheTechnique = FTModels.First(ftM => ftM.num == 2);
-                }
-                else if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.FicheTekEHC)
-                {
-                    IsFicheCrochetage = false;
-                    IsFicheUniDuitage = true;
                     IsFicheEHC = true;
-                    IsFicheNormal = false;
-                    ModelFicheTechnique = FTModels.First(ftM => ftM.num == 1);
+                    IsEnfilage = true;
+                    if (SelectedFicheTechnique.ModelFiche== (int)ModelFiche.ModelFicheTek.EHCTissage)
+                    {
+                        SetFicheModel(true, false, false);
+                        
+
+                    }else if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.EHCTressage)
+                    {
+                        SetFicheModel(false, true, false);
+                        
+                    }
+                    else
+                    {
+                        SetFicheModel(false, false, true);
+                        IsEnfilage = false;
+                        
+                    }
+
                 }
                 else
                 {
-                    IsFicheCrochetage = false;
-                    IsFicheUniDuitage = true;
                     IsFicheEHC = false;
-                    IsFicheNormal = true;
-                    ModelFicheTechnique = FTModels.First(ftM => ftM.num == 0);
+                    IsEnfilage = true;
+                    if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.AutreTissage)
+                    {
+                        SetFicheModel(true, false, false);
+
+                    }
+                    else if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.AutreTressage)
+                    {
+                        SetFicheModel(false, true, false);
+
+                    }
+                    else
+                    {
+                        SetFicheModel(false, false, true);
+                        IsEnfilage = false;
+
+                    }
                 }
+              
 
                 NbrDent = SelectedFicheTechnique.Produits[vers].EnfDent;
 
@@ -2675,17 +2766,7 @@ namespace BackEnd2.ViewModel
 
                 NewProd = (Produit)SelectedFicheTechnique.Produits[vers].Clone();
 
-                if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.FicheTekCrochetage)
-                {
-                    IsFicheCrochetage = true;
-                    IsFicheUniDuitage = false;
-                    IsEnfilage = false;
-                }
-                else if (SelectedFicheTechnique.ModelFiche == (int)ModelFiche.ModelFicheTek.FicheTekEHC)
-                {
-                    IsFicheEHC = true;
-                    IsFicheNormal = false;
-                }
+               
 
                 ResetComposition();
                 GetCompositions();
@@ -2979,19 +3060,8 @@ namespace BackEnd2.ViewModel
             UIServices.SetBusyState();
             if(SelectedFicheTechnique!=null)
             {
-                if(IsFicheEHC)
-                {
-                    NewProd.modelFiche = ModelFiche.ModelFicheTek.FicheTekEHC;
-                }
-                else if(IsFicheCrochetage)
-                {
-                    NewProd.modelFiche = ModelFiche.ModelFicheTek.FicheTekCrochetage;
-                }
-                else
-                {
-                    NewProd.modelFiche = ModelFiche.ModelFicheTek.FicheTekNormal;
-                }
-               
+                NewProd.modelFiche = (ModelFiche.ModelFicheTek)SelectedFicheTechnique.ModelFiche;
+                
                 _NavigationService.Navigate<PrintViewModel, Produit>(NewProd);
             }else
             {
@@ -3865,7 +3935,8 @@ namespace BackEnd2.ViewModel
             if (mf != null)
             {
                 IsEnfilage = true;
-                if (mf.model == ModelFiche.ModelFicheTek.FicheTekCrochetage) IsEnfilage = false;
+                if (mf.model == ModelFiche.ModelFicheTek.EHCCrochetage || mf.model==ModelFiche.ModelFicheTek.AutreCrochetage)
+                    IsEnfilage = false;
 
                 if (mf != null && mf.IsEchantillon)
                 {
@@ -3913,28 +3984,62 @@ namespace BackEnd2.ViewModel
                 BtnVis = true;
                 IsAddEnabled = false;
                 TotalPoids = 0;
-                if (mf.model == ModelFiche.ModelFicheTek.FicheTekCrochetage)
+
+                if (mf.model >= ModelFiche.ModelFicheTek.EHCTissage &&
+                    mf.model <= ModelFiche.ModelFicheTek.EHCCrochetage)
                 {
-                    IsFicheCrochetage = true;
-                    IsFicheUniDuitage = false;
-                    IsFicheEHC = false;
-                    IsFicheNormal = true;
-                    MachineList = new MvxObservableCollection<Machine>(_DB2.GetCrochtageMachines());
-                }
-                else if (mf.model == ModelFiche.ModelFicheTek.FicheTekEHC)
-                {
-                    IsFicheCrochetage = false;
-                    IsFicheUniDuitage = true;
                     IsFicheEHC = true;
-                    IsFicheNormal = false;
+                    IsEnfilage = true;
+                    if (mf.model == ModelFiche.ModelFicheTek.EHCTissage)
+                    {
+                        SetFicheModel(true, false, false);
+                        
+
+                    }
+                    else if (mf.model == ModelFiche.ModelFicheTek.EHCTressage)
+                    {
+                        SetFicheModel(false, true, false);
+                        
+
+                    }
+                    else
+                    {
+                        SetFicheModel(false, false, true);
+                        IsEnfilage = false;
+                        MachineList = new MvxObservableCollection<Machine>(_DB2.GetCrochtageMachines());
+                        
+
+                    }
+
                 }
                 else
                 {
-                    IsFicheCrochetage = false;
-                    IsFicheUniDuitage = true;
                     IsFicheEHC = false;
-                    IsFicheNormal = true;
+                    IsEnfilage = true;
+                    if (mf.model == ModelFiche.ModelFicheTek.AutreTissage)
+                    {
+                        SetFicheModel(true, false, false);
+                        
+
+                    }
+                    else if (mf.model == ModelFiche.ModelFicheTek.AutreTressage)
+                    {
+                        SetFicheModel(false, true, false);
+                        
+
+                    }
+                    else
+                    {
+                        SetFicheModel(false, false, true);
+                        IsEnfilage = false;
+
+                        MachineList = new MvxObservableCollection<Machine>(_DB2.GetCrochtageMachines());
+                       
+
+                    }
                 }
+
+                
 
                 ResetCompo();
                 NewProd = new Produit();
@@ -3947,12 +4052,7 @@ namespace BackEnd2.ViewModel
                 SchCompList = new MvxObservableCollection<Composition>();
                 ChaineNameList = new MvxObservableCollection<chaine>(_DB2.GetChaines());
                 var NewFicheTek = new FicheTechnique();
-                if (IsFicheCrochetage)
-                    NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekCrochetage;
-                else if (IsFicheNormal)
-                    NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekNormal;
-                else
-                    NewFicheTek.ModelFiche = (int)ModelFiche.ModelFicheTek.FicheTekEHC;
+                NewFicheTek.ModelFiche = (int)mf.model;
 
                 var GivenFiche = _DB2.AddNewFicheTechnique(NewFicheTek);
                 if (IsProduction)
@@ -4000,9 +4100,11 @@ namespace BackEnd2.ViewModel
 
         public void SaveFicheTechnique()
         {
-            AnnulerFicheTechnique();
-            UpdateFicheTek();
 
+            //AnnulerFicheTechnique();
+            //UpdateFicheTek();
+            EditDate = false;
+            DisplayDate = true;
             SelectedFicheTechnique = null;
         }
 
@@ -4031,9 +4133,7 @@ namespace BackEnd2.ViewModel
             TotalPoids = 0;
            
             IsFicheCrochetage = false;
-            IsFicheUniDuitage = true;
             IsFicheEHC = false;
-            IsFicheNormal = true;
             EditDate = false;
             DisplayDate = true;
             IsAddEnabled = true;
@@ -4105,6 +4205,8 @@ namespace BackEnd2.ViewModel
             if (SelectedMachine != null)
             {
                 DuitageList = new MvxObservableCollection<Duitages>(_DB2.GetDuitageMachine(SelectedMachine));
+                if (IsFicheTressage)
+                    NewProd.DuitageID = DuitageList.LastOrDefault();
                 if (IsFicheCrochetage)
                     DuitageGoList =
                         new MvxObservableCollection<DuitageGomme>(_DB2.GetDuitageMachineGo(SelectedMachine));
@@ -5741,9 +5843,7 @@ namespace BackEnd2.ViewModel
 
         private MvxObservableCollection<chaine> _ChaineNameList;
 
-        private bool _IsFicheUniDuitage = true;
 
-        private bool _IsFicheNormal = true;
 
         private bool _IsFicheEHC;
 
@@ -5965,15 +6065,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public bool IsFicheNormal
-        {
-            get => _IsFicheNormal;
-            set
-            {
-                _IsFicheNormal = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public MvxObservableCollection<DuitageGomme> DuitageGoList
         {
@@ -5986,6 +6077,29 @@ namespace BackEnd2.ViewModel
         }
 
         private bool _IsCreateChaine;
+
+
+        private bool _IsFicheTissage;
+
+        public bool IsFicheTissage
+        {
+            get { return _IsFicheTissage; }
+            set { _IsFicheTissage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _IsficheTressage;
+
+        public bool IsFicheTressage
+        {
+            get { return _IsficheTressage; }
+            set {
+                _IsficheTressage = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
 
         private bool _IsFicheCrochetage;
@@ -6010,15 +6124,6 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public bool IsFicheUniDuitage
-        {
-            get => _IsFicheUniDuitage;
-            set
-            {
-                _IsFicheUniDuitage = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public bool IsAddEnabled
         {

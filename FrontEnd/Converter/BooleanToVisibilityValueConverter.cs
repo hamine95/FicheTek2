@@ -9,7 +9,13 @@ namespace FrontEnd.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var IsVisible = (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            var IsVisible = Visibility.Visible;
+            if (parameter!=null && (bool)parameter==true)
+            {
+                IsVisible = (bool)value ? Visibility.Collapsed : Visibility.Visible;
+                return IsVisible;
+            }
+            IsVisible = (bool)value ? Visibility.Visible : Visibility.Collapsed;
             return IsVisible;
         }
 

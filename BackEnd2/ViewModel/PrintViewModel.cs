@@ -42,13 +42,7 @@ namespace BackEnd2.ViewModel
             Vertical, // |
             Horizontal // ——
         }
-        private bool _IsFicheNormal=true;
-
-        public bool IsFicheNormal
-        {
-            get { return _IsFicheNormal; }
-            set { _IsFicheNormal = value; RaisePropertyChanged(); }
-        }
+      
         private bool _IsFicheEHC;
 
         public bool IsFicheEHC
@@ -607,21 +601,81 @@ namespace BackEnd2.ViewModel
             if (Comp8 != null) TotalPoids = TotalPoids + Comp8.Poids;
             if (Comp9 != null) TotalPoids = TotalPoids + Comp9.Poids;
         }
+        private bool _IsFicheTissage;
+
+        public bool IsFicheTissage
+        {
+            get { return _IsFicheTissage; }
+            set { _IsFicheTissage = value;
+                RaisePropertyChanged();
+            }
+        }
+        private bool _IsFicheTressage;
+
+        public bool IsFicheTressage
+        {
+            get { return _IsFicheTressage; }
+            set { _IsFicheTressage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public void SetFicheModel(bool IsTissage, bool IsTressage, bool IsCrochetage)
+        {
+            this.IsFicheTissage = IsTissage;
+            this.IsFicheTressage = IsTressage;
+            this.IsFicheCrochetage = IsCrochetage;
+
+
+        }
 
         public override void Prepare(Produit parameter)
         {
             try
             {
                 NewProd = parameter;
-                if(NewProd.modelFiche==ModelFiche.ModelFicheTek.FicheTekEHC)
+                if ((int)NewProd.modelFiche >= (int)ModelFiche.ModelFicheTek.EHCTissage &&
+                   (int)NewProd.modelFiche <= (int)ModelFiche.ModelFicheTek.EHCCrochetage)
                 {
                     IsFicheEHC = true;
-                    IsFicheNormal = false;
-                    IsFicheCrochetage = false;
-                }else if(NewProd.modelFiche == ModelFiche.ModelFicheTek.FicheTekCrochetage)
-                {
+                    if (NewProd.modelFiche == ModelFiche.ModelFicheTek.EHCTissage)
+                    {
+                        SetFicheModel(true, false, false);
+
+                    }
+                    else if (NewProd.modelFiche == ModelFiche.ModelFicheTek.EHCTressage)
+                    {
+                        SetFicheModel(false, true, false);
+
+                    }
+                    else
+                    {
+                        SetFicheModel(false, false, true);
+
+                    }
 
                 }
+                else
+                {
+                    IsFicheEHC = false;
+                    if (NewProd.modelFiche == ModelFiche.ModelFicheTek.AutreTissage)
+                    {
+                        SetFicheModel(true, false, false);
+
+                    }
+                    else if (NewProd.modelFiche == ModelFiche.ModelFicheTek.AutreTressage)
+                    {
+                        SetFicheModel(false, true, false);
+
+                    }
+                    else
+                    {
+                        SetFicheModel(false, false, true);
+
+                    }
+                }
+
                 if (NewProd != null && NewProd.GetComposition != null)
                 {
                     SchCompList = new MvxObservableCollection<Composition>();

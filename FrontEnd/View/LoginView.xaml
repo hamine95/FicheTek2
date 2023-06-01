@@ -4,17 +4,37 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                 xmlns:converter="clr-namespace:FrontEnd.Converter"
+                 xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
                 Loaded="LoginView_OnLoaded"
                 mc:Ignorable="d"
                 Width="340" Height="250"
                  SnapsToDevicePixels="True"
                 >
     <view:MvxWpfView.Resources>
-
-
+     
     </view:MvxWpfView.Resources>
-    <TabControl>
-        <TabItem FontFamily="arial" Header="Rédacteur">
+    <TabControl FontFamily="cambria" x:Name="TabControl1" >
+        <i:Interaction.Triggers>
+            <i:EventTrigger  EventName="SelectionChanged">
+                <i:InvokeCommandAction 
+                    Command="{Binding TabClickCmd}" 
+                    CommandParameter="{Binding ElementName=TabControl1,Path=SelectedIndex}"
+                    
+                    >
+                    
+                </i:InvokeCommandAction>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <TabItem 
+            
+            x:Name="Tab1"
+            
+            Header="Rédacteur"
+            >
+
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.1*" />
@@ -39,21 +59,44 @@
                            Grid.Column="1" Grid.Row="2">
                     Nom utilisateur:
                 </TextBlock>
-                <TextBox FontSize="16" MinHeight="25" Text="{Binding UsernameRed}" VerticalAlignment="Center"
-                         Grid.Column="2" Grid.Row="2" />
-                <TextBlock FontSize="14" FontWeight="Bold" FontFamily="arial" Grid.Row="3" Grid.Column="1"
+               
+                <ComboBox 
+                    SelectionChanged="ComboBox_SelectionChanged"
+                    Grid.Row="2" Grid.Column="2"
+                    MaxHeight="25"
+                    FontSize="14"
+                    
+                    DisplayMemberPath="username"
+                    SelectedItem="{Binding SelectedRedacteur}"
+                    ItemsSource="{Binding UserList}" >
+                    
+                </ComboBox>
+                <TextBlock FontSize="14" FontWeight="Bold" 
+                           FontFamily="arial" 
+                           Grid.Row="3" 
+                           Grid.Column="1"
                            VerticalAlignment="Center">
                     Mot de passe:
                 </TextBlock>
-                <PasswordBox FontSize="16" MinHeight="25" x:Name="PasswordRed" Grid.Column="2"
-                             VerticalAlignment="Center" Grid.Row="3" />
-                <Button MaxHeight="25" Grid.Column="2" Grid.Row="4" Command="{Binding RedacteurCmd}"
+                <PasswordBox FontSize="12" 
+                            
+                             VerticalContentAlignment="Center"
+                              MinHeight="25" 
+                             x:Name="PasswordRed" 
+                             Grid.Column="2"
+                             VerticalAlignment="Center" 
+                             Grid.Row="3" />
+                <Button MaxHeight="25" Grid.Column="2" 
+                        Grid.Row="4" Command="{Binding RedacteurCmd}"
                         CommandParameter="{Binding ElementName=PasswordRed}">
                     Connecter
                 </Button>
             </Grid>
         </TabItem>
-        <TabItem FontFamily="arial" Header="Vérificateur">
+        <TabItem Header="Vérificateur">
+           
+            
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.1*" />
@@ -78,13 +121,29 @@
                            Grid.Column="1" Grid.Row="2">
                     Nom utilisateur:
                 </TextBlock>
-                <TextBox FontSize="16" MinHeight="25" Text="{Binding UsernameVer}" VerticalAlignment="Center"
-                         Grid.Column="2" Grid.Row="2" />
+               <!-- <TextBox FontSize="16" MinHeight="25" Text="{Binding UsernameVer}" VerticalAlignment="Center"
+                         Grid.Column="2" Grid.Row="2" />-->
+                <ComboBox 
+                    Grid.Row="2" Grid.Column="2"
+                    MaxHeight="25"
+                    FontSize="14" 
+                     VerticalContentAlignment="Center"
+                    DisplayMemberPath="username"
+                    ItemsSource="{Binding UserList}" 
+                    SelectionChanged="ComboBox_SelectionChanged"
+                          SelectedItem="{Binding SelectedVerificateur}">
+
+                </ComboBox>
                 <TextBlock FontSize="14" FontFamily="arial" FontWeight="Bold" Grid.Row="3" Grid.Column="1"
                            VerticalAlignment="Center">
                     Mot de passe:
                 </TextBlock>
-                <PasswordBox FontSize="16" MinHeight="25" x:Name="Password" Grid.Column="2" VerticalAlignment="Center"
+                <PasswordBox FontSize="12" 
+                             MinHeight="25" 
+                             x:Name="Password" 
+                             Grid.Column="2" 
+                             VerticalContentAlignment="Center"
+                             VerticalAlignment="Center"
                              Grid.Row="3" />
                 <Button Grid.Column="2" MaxHeight="25" Grid.Row="4" Command="{Binding VerificateurCmd}"
                         CommandParameter="{Binding ElementName=Password}">

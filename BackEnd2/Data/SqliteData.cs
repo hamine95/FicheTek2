@@ -172,7 +172,11 @@ namespace BackEnd2.Data
             db.SaveData(stm, new { duit = NewProd.DuitageID.ID, id = NewProd.Id }, connectionStringName);
         }
 
-       
+        public void ResetFTModelProp(Produit NewProd)
+        {
+            var stm = "Update Product set DuitageIDID=null,DuitageGommeID=null,Peigne=null where Id=@id";
+            db.SaveData(stm, new {  id = NewProd.Id }, connectionStringName);
+        }
 
         public void UpdateProdDent(Produit NewProd)
         {
@@ -328,7 +332,11 @@ namespace BackEnd2.Data
             var stm = "Update Product set Name2=@name where Id=@id";
             db.SaveData(stm, new { name = NewProd.Name2, id = NewProd.Id }, connectionStringName);
         }
-
+        public void RemoveProdName2(Produit NewProd)
+        {
+            var stm = "Update Product set Name2=null where Id=@id";
+            db.SaveData(stm, new {  id = NewProd.Id }, connectionStringName);
+        }
         public bool CheckVersionUnique(Produit NewProd)
         {
             var stm =
@@ -403,6 +411,11 @@ namespace BackEnd2.Data
         {
             var stm = "Update Product set ClientID=@cl where Id=@id";
             db.SaveData(stm, new { id = NewProd.Id, cl = NewProd.Client.ID }, connectionStringName);
+        }
+        public void RemoveProdClient(Produit NewProd)
+        {
+            var stm = "Update Product set ClientID=null where Id=@id";
+            db.SaveData(stm, new { id = NewProd.Id }, connectionStringName);
         }
 
         public void UpdateProdLargeur(Produit NewProd)
@@ -678,6 +691,7 @@ namespace BackEnd2.Data
                     Verificateur ver = obj[8] as Verificateur;
                     pr.Client = cl;
                     pr.DuitageID = duit;
+                    pr.DuitageGomme = duitgo;
                     if (pr.DuitageID != null)
                         pr.DuitageID.Machine = mach;
 

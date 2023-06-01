@@ -252,6 +252,9 @@
     <Compile Include="CustomClass\BindableSelectedItemBehavior.cs" />
     <Compile Include="CustomClass\GitHubButton.cs" />
     <Compile Include="CustomClass\perSizeBindingHelper.cs" />
+    <Compile Include="CustomControl\GitHubButton.xaml.cs">
+      <DependentUpon>GitHubButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Setup.cs" />
     <Compile Include="View\AddMonthReportView.xaml.cs">
       <DependentUpon>AddMonthReportView.xaml</DependentUpon>
@@ -307,6 +310,10 @@
     <Compile Include="View\SplashScreenView.xaml.cs">
       <DependentUpon>SplashScreenView.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomControl\GitHubButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

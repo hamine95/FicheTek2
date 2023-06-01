@@ -19,7 +19,7 @@ namespace FrontEnd.View
     [MvxViewFor(typeof(MachineViewModel))]
     public partial class MachineView : MvxWpfView
     {
-        private static readonly Regex _regexDouble = new Regex(@"^[0-9]*(?:\,[0-9]*)?$");
+        private static readonly Regex _regexDouble = new Regex(@"^[0-9]*(?:\,.[0-9]*)?$");
 
         private IMvxInteraction<YesNoQuestion> _ConfirmBox;
 

@@ -869,7 +869,6 @@
                                  CustClass:perSizeBindingHelper.BoundActualWidth="{Binding MainWinWidth, Mode=OneWayToSource}"
                                  Visibility="{Binding Part2Visible,Converter={StaticResource BoolToVis}}"
                                  Grid.RowSpan="2" />
-            
             <local:FicheTekPart1 x:Name="Part1Tek" KeyboardNavigation.TabIndex="0" Grid.ColumnSpan="2"
                                  KeyboardNavigation.DirectionalNavigation="Local"
                                  Visibility="{Binding Part1Visible,Converter={StaticResource BoolToVis}}" />
@@ -877,7 +876,10 @@
 
         </Grid>
 
-        <Grid Grid.Column="1" ColumnSpan="2" ZIndex="1" HorizontalAlignment="Right">
+        <Grid Grid.Column="1" 
+              ColumnSpan="2" 
+              ZIndex="1" 
+              HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="Auto" />
@@ -1036,7 +1038,11 @@
 
                 </ToggleButton.Triggers>
             </ToggleButton>
-            <StackPanel Background="WhiteSmoke" HorizontalAlignment="Right" x:Name="nav_pnl" Width="0" Grid.Column="1"
+            <StackPanel Background="WhiteSmoke" 
+                        HorizontalAlignment="Right" 
+                        x:Name="nav_pnl" 
+                        Width="0" 
+                        Grid.Column="1"
                         KeyboardNavigation.DirectionalNavigation="None">
                 <CustClass:GitHubButton Width="80" Style="{StaticResource PrintBtn}" Command="{Binding PrintCmd}"
                                         Panel.ZIndex="1">
@@ -1047,19 +1053,37 @@
                     IsChecked="{Binding IsEnfilage}">
                     Enfilage
                 </CheckBox>
-                <Grid Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
-                        <ColumnDefinition Width="0.8*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition ></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.ColumnSpan="2"  Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <ToggleButton Width="50"
+                <GroupBox FontFamily="cambria" FontWeight="Bold" BorderBrush="CadetBlue" Margin="5" Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" Header="Modèle">
+                    <Grid 
+                        
+                    
+                        >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.ColumnSpan="2" 
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                
+                                Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" 
+                                
+                                Orientation="Horizontal"
+                                >
+                            <ToggleButton Width="50"
                               Height="25"
                               Cursor="Hand"
                               x:Name="TgBtn"
@@ -1067,30 +1091,82 @@
                               IsChecked="{Binding IsProduction,Converter={StaticResource InverseBool}}"
                               Style="{StaticResource SwitchTypeToggleButton}" />
 
-                        <TextBlock IsEnabled="{Binding ElementName=TgBtn,Path=IsChecked}" Margin="5 0 0 0"
-                           VerticalAlignment="Center" FontFamily="arial" FontWeight="Bold" FontSize="16"
+                            <TextBlock 
+                            IsEnabled="{Binding ElementName=TgBtn,Path=IsChecked}" 
+                            Margin="5 0 0 0"
+                           VerticalAlignment="Center" 
+                            FontFamily="arial" 
+                            FontWeight="Bold" 
+                            FontSize="14"
                            Text="Echantillon">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Foreground" Value="Gray" />
-                                    <Style.Triggers>
-                                        <Trigger Property="TextBlock.IsEnabled" Value="True">
-                                            <Setter Property="Foreground" Value="Green" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Gray" />
+                                        <Style.Triggers>
+                                            <Trigger Property="TextBlock.IsEnabled" Value="True">
+                                                <Setter Property="Foreground" Value="Green" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
 
-                    <TextBlock Grid.Row="2">Model</TextBlock>
-                    <ComboBox Grid.Column="1" Grid.Row="2"  FontSize="10" ItemsSource="{Binding FTModels}" DisplayMemberPath="name" SelectedItem="{Binding ModelFicheTechnique}">
-                        
-                    </ComboBox>
-                    <Button Grid.Column="1" Grid.Row="3" Command="{Binding ChangeFTModel}">Appliquer</Button>
-                </Grid>
+                        <StackPanel 
+                        Grid.ColumnSpan="2"  
+                        Grid.Column="1"
+                                Grid.Row="3"
+                        Orientation="Horizontal">
+                            <ToggleButton 
+                            Width="50"
+                              Height="25"
+                              Cursor="Hand"
+                              Name="TgBtn2"
+                              IsChecked="{Binding IsFicheEHC}"
+                              Style="{StaticResource SwitchTypeToggleButton}" />
+
+                            <TextBlock IsEnabled="{Binding ElementName=TgBtn2,Path=IsChecked}" Margin="5 0 0 0"
+                           VerticalAlignment="Center" 
+                                   FontFamily="arial" 
+                                   FontWeight="Bold" 
+                                   FontSize="14"
+                           Text="E.H.C">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Gray" />
+                                        <Style.Triggers>
+                                            <Trigger Property="TextBlock.IsEnabled" Value="True">
+                                                <Setter Property="Foreground" Value="Green" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <TextBlock 
+                        Grid.Row="5" 
+                        Grid.Column="1"
+                            FontWeight="Normal"
+                        >Model</TextBlock>
+                        <ComboBox 
+                        Grid.Column="2" 
+                        Grid.Row="5"  
+                        FontSize="10" 
+                        ItemsSource="{Binding FTModels}" 
+                        DisplayMemberPath="name" 
+                        SelectedItem="{Binding ModelFicheTechnique}">
+
+                        </ComboBox>
+                        <CustClass:GitHubButton 
+                            Style="{StaticResource SaveBtn}"
+                        Grid.Column="2" 
+                        Grid.Row="7" 
+                        Command="{Binding ChangeFTModel}">Appliquer</CustClass:GitHubButton>
+                    </Grid>
+                </GroupBox>
                
-                <GroupBox IsEnabled="{Binding IsEnfilage}" Header="Nbr Fils">
+                <GroupBox IsEnabled="{Binding IsEnfilage}" Header="Nombre Fils">
                     <StackPanel Orientation="Vertical">
                         <Grid>
                             <ListView x:Name="CompNbrAudit" ItemsSource="{Binding SchCompList}">
@@ -1133,7 +1209,7 @@
                     </StackPanel>
 
                 </GroupBox>
-                <GroupBox x:Name="DentAudit" IsEnabled="{Binding IsEnfilage}" Header="Nbr Dents">
+                <GroupBox x:Name="DentAudit" IsEnabled="{Binding IsEnfilage}" Header="Nombre Dents">
                     <GroupBox.Style>
                         <Style TargetType="{x:Type GroupBox}">
                             <Setter Property="BorderBrush" Value="Red" />
@@ -1186,16 +1262,16 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2.5*" />
+                                    <ColumnDefinition Width="0.5*" />
                                     <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock FontSize="10" VerticalAlignment="Center" FontWeight="Bold">Chaine Séléctionnée</TextBlock>
+                                <TextBlock FontSize="10" VerticalAlignment="Center" FontWeight="Bold">Chaine</TextBlock>
                                 <ComboBox IsEnabled="{Binding UseCreatedChaine}" DisplayMemberPath="Nom"
                                           ItemsSource="{Binding ChaineNameList}"
                                           SelectedItem="{Binding SelectedChaine}" Grid.Column="1" Height="20" />
 
-                                <CheckBox Grid.Row="1" Command="{Binding CreateChaine}"
+                                <CheckBox Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding CreateChaine}"
                                           IsChecked="{Binding IsCreateChaine}" FontSize="10">
                                     Création
                                 </CheckBox>

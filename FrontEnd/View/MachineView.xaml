@@ -804,10 +804,19 @@
                         </TextBlock>
 
 
-                        <TextBox Grid.Row="1" Grid.Column="3" Foreground="Black" Height="30" FontSize="18"
-                                 CharacterCasing="Upper"
-                                 Text="{Binding Numero}" DataObject.Pasting="DataObject_OnPasting"
-                                 PreviewTextInput="UIElement_OnPreviewTextInput" />
+                        <xcd:DoubleUpDown
+                            Grid.Row="1" 
+                            Grid.Column="3" 
+                            FormatString="F1"
+                            Foreground="Black" 
+                            Height="30" 
+                            FontSize="18"
+                                 
+                                 Value="{Binding Numero}"
+                            >
+                            
+                        </xcd:DoubleUpDown>
+                        
 
                         <Button Command="{Binding AjouterNovPeigne}" Grid.Row="2" Grid.Column="3"
                                 Foreground="SteelBlue"

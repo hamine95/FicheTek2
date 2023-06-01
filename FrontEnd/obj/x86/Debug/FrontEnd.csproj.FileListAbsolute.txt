@@ -209,3 +209,5 @@ D:\Project\DataSheetDesign\FrontEnd\obj\x86\Debug\styles\ControlStyles.baml
 D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Plugin.MethodBinding.dll
 D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Plugin.MethodBinding.pdb
 D:\Project\DataSheetDesign\FrontEnd\bin\x86\Debug\MvvmCross.Plugin.MethodBinding.xml
+D:\Project\DataSheetDesign\FrontEnd\obj\x86\Debug\CustomControl\GitHubButton.g.cs
+D:\Project\DataSheetDesign\FrontEnd\obj\x86\Debug\CustomControl\GitHubButton.baml

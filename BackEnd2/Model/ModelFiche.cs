@@ -4,9 +4,12 @@
     {
         public enum ModelFicheTek
         {
-            FicheTekNormal,
-            FicheTekEHC,
-            FicheTekCrochetage
+            AutreTissage,
+            AutreTressage,
+            AutreCrochetage,
+            EHCTissage,
+            EHCTressage,
+            EHCCrochetage,
         }
 
         public bool IsEchantillon;

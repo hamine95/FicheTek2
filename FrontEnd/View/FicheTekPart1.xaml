@@ -6,9 +6,11 @@
              xmlns:Converter="clr-namespace:FrontEnd.Converter"
              xmlns:xcd="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:CustClass="clr-namespace:FrontEnd.CustomClass"
              d:DesignHeight="750" d:DesignWidth="800">
     <UserControl.Resources>
+        <sys:Boolean x:Key="BoolParam">true</sys:Boolean>
         <Storyboard x:Key="expandStoryboard">
             <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
                              To="2" Duration="0:0:0.2" />
@@ -23,6 +25,7 @@
             <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
                              To="1" Duration="0:0:0.2" />
         </Storyboard>
+        <Converter:InverseBooleanConverter x:Key="InverseBool" />
         <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
         <Style x:Key="ImageLBtn" TargetType="{x:Type CustClass:GitHubButton}">
             <Setter Property="UseLayoutRounding" Value="True" />
@@ -252,7 +255,7 @@
 
                     <Border
                         Grid.Column="1"
-                        Visibility="{Binding IsFicheNormal,Converter={StaticResource BoolToVis}}"
+                        Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}"
                         BorderBrush="Black" BorderThickness="0 1 0 1">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -370,26 +373,57 @@
                         </StackPanel>
                     </Border>
                     <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0 0 1 1">
-                        <DockPanel>
-                            <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                        <Grid>
+                            <DockPanel
+                                Visibility="{Binding IsFicheTressage,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}"
+                                >
+                                <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
                                        VerticalAlignment="Center">
                                 Duitage :
-                            </TextBlock>
-                            <Grid>
-                                <ComboBox Cursor="Hand" FontSize="16" FontFamily="arial"
+                                </TextBlock>
+                                <Grid>
+                                    <ComboBox Cursor="Hand" FontSize="16" FontFamily="arial"
                                           IsTextSearchEnabled="True"
                                           TextSearch.TextPath="Duitage"
                                           Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                           HorizontalAlignment="Stretch" ItemsSource="{Binding DuitageList}"
                                           DisplayMemberPath="Duitage" SelectedItem="{Binding NewProd.DuitageID}" />
-                                <TextBlock Cursor="Hand" FontSize="16" FontFamily="arial"
+                                    <TextBlock Cursor="Hand" FontSize="16" FontFamily="arial"
                                            Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
                                            Text="{Binding NewProd.DuitageID.Duitage}" />
-                            </Grid>
-                        </DockPanel>
+                                </Grid>
+                            </DockPanel>
+                            <DockPanel 
+                                Visibility="{Binding IsFicheTressage,Converter={StaticResource BoolToVis}}"
+                                >
+                                <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
+                                Machine :
+                                </TextBlock>
+                                <Grid>
+                                    <ComboBox FontSize="16" IsTextSearchEnabled="True" TextSearch.TextPath="Num"
+
+
+                                          FontFamily="arial" HorizontalContentAlignment="Stretch"
+                                          VerticalContentAlignment="Center" Cursor="Hand" DisplayMemberPath="Name"
+                                          Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                                          HorizontalAlignment="Stretch"
+
+                                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                          SelectedItem="{Binding SelectedMachine}" ItemsSource="{Binding MachineList}" />
+                                    <TextBlock FontSize="16"
+                                           Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
+                                           FontFamily="arial" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding NewProd.DuitageID.Machine.Name}" />
+                                </Grid>
+                            </DockPanel>
+                        </Grid>
+                       
+                        
                     </Border>
                     <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0 0 1 1">
                         <DockPanel>
@@ -431,7 +465,7 @@
 
                     <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0 0 1 1">
                         <Grid>
-                            <DockPanel Visibility="{Binding IsFicheUniDuitage,Converter={StaticResource BoolToVis}}">
+                            <DockPanel Visibility="{Binding IsFicheTissage,Converter={StaticResource BoolToVis}}">
                                 <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
                                            VerticalAlignment="Center">
                                     Peigne :
@@ -485,7 +519,9 @@
                     </Border>
 
                     <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="0 0 1 1">
-                        <DockPanel>
+                        <DockPanel 
+                            Visibility="{Binding IsFicheTressage,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}"
+                            >
                             <TextBlock FontSize="16" FontFamily="arial" HorizontalAlignment="Center"
                                        VerticalAlignment="Center">
                                 Machine :
@@ -1819,7 +1855,7 @@
 
             <Border
 
-                Visibility="{Binding IsFicheNormal,Converter={StaticResource BoolToVis}}"
+                Visibility="{Binding IsFicheEHC,Converter={StaticResource BoolToVis},ConverterParameter={StaticResource BoolParam}}"
                 Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" BorderThickness="1" BorderBrush="Black">
                 <Grid ZIndex="8">
                     <Grid.RowDefinitions>

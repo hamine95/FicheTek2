@@ -722,7 +722,8 @@ namespace DSheetEnfilage
                 }
                 else
                 {
-                    if (ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null)
+                    if (ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null &&
+                        ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.parent) == null)
                     {
                         MessageBox.Show("la chaine ne supporte pas " +SelectedComposant.GetComposant.Name);
                         return;
@@ -1072,7 +1073,8 @@ namespace DSheetEnfilage
             }
             else
             {
-                if (ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null)
+                if (ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null &&
+                    ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.parent) == null)
                 {
                     MessageBox.Show("la chaine ne supporte pas " +SelectedComposant.GetComposant.Name);
                     return;

@@ -8,8 +8,9 @@
                  ResizeMode="NoResize"
                  Loaded="ModelFicheTekView_OnLoaded"
                  WindowStartupLocation="CenterScreen"
+                 xmlns:CustomControl="clr-namespace:FrontEnd.CustomControl"
                  xmlns:CustClass="clr-namespace:FrontEnd.CustomClass"
-                 Title="Fiche Technique Model" Height="300" Width="300">
+                 Title="Fiche Technique Model" Height="350" Width="300">
 
     <views:MvxWindow.Resources>
         <Style x:Key="SwitchTypeToggleButton"
@@ -191,59 +192,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="#F3F3F3" Offset="0" />
-            <GradientStop Color="#EBEBEB" Offset="0.5" />
-            <GradientStop Color="#DDDDDD" Offset="0.5" />
-            <GradientStop Color="#CDCDCD" Offset="1" />
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070" />
-        <Style x:Key="Btn" TargetType="{x:Type CustClass:GitHubButton}">
-            <Setter Property="UseLayoutRounding" Value="True" />
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Setter Property="Foreground" Value="#FFFFFF" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Margin" Value="2" />
-            <Setter Property="Height" Value="25" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type CustClass:GitHubButton}">
-                        <ControlTemplate.Resources>
-                            <Style TargetType="{x:Type Border}" x:Key="IN.BORDER">
-                                <Setter Property="BorderBrush" Value="#24a0ed" />
-                                <Setter Property="BorderThickness" Value="1 1 1 1" />
-                                <Setter Property="Background" Value="#24a0ed" />
-                                <Setter Property="CornerRadius" Value="5" />
-                            </Style>
-                            <Style TargetType="{x:Type StackPanel}" x:Key="IN.PANEL">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="Orientation" Value="Horizontal" />
-                            </Style>
-                            <Style TargetType="{x:Type ContentPresenter}" x:Key="IN.CONTENT">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="Margin" Value="0 4 2 4" />
-                            </Style>
-
-
-                        </ControlTemplate.Resources>
-                        <Border x:Name="border" Style="{StaticResource IN.BORDER}">
-                            <StackPanel Style="{StaticResource IN.PANEL}">
-                                <ContentPresenter Style="{StaticResource IN.CONTENT}" />
-                            </StackPanel>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#084469" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#084469" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
         <Style TargetType="{x:Type ToggleButton}">
 
             <Setter Property="Template">
@@ -300,7 +249,9 @@
     <Grid Background="#B6D0E2">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.2*" />
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="1.2*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
@@ -325,7 +276,7 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <StackPanel  Orientation="Horizontal">
                 <ToggleButton Width="60"
                               Height="35"
                               Cursor="Hand"
@@ -350,24 +301,80 @@
             </StackPanel>
         </Border>
 
-        <RadioButton Cursor="Hand" Command="{Binding EhcCmd}" Grid.Column="1" Grid.Row="2" Height="30"
-                     Content="Fiche Technique E.H.C" Style="{StaticResource {x:Type ToggleButton}}" />
+        <Border Grid.Column="1"  Grid.Row="3" BorderThickness="1">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Gray" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=TgBtn2,Path=IsChecked}" Value="True">
+                            <Setter Property="BorderBrush" Value="Green" />
+                            <Setter Property="Background" Value="MediumSeaGreen" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel  Orientation="Horizontal">
+                <ToggleButton Width="60"
+                              Height="35"
+                              Cursor="Hand"
+                              Name="TgBtn2"
+                              IsChecked="{Binding IsEHC}"
+                              Style="{StaticResource SwitchTypeToggleButton}" />
 
-        <RadioButton Cursor="Hand" Command="{Binding CorchetCmd}" Grid.Column="1" Grid.Row="3" Height="30"
-                     Content="Fiche Technique Elastique" Style="{StaticResource {x:Type ToggleButton}}" />
+                <TextBlock IsEnabled="{Binding ElementName=TgBtn2,Path=IsChecked}" Margin="5 0 0 0"
+                           VerticalAlignment="Center" FontFamily="arial" FontWeight="Bold" FontSize="18"
+                           Text="E.H.C">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="Gray" />
+                            <Style.Triggers>
+                                <Trigger Property="TextBlock.IsEnabled" Value="True">
+                                    <Setter Property="Foreground" Value="Green" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        
+        <RadioButton Cursor="Hand" 
+                     
+                     IsChecked="{Binding IsTissage}"
+                     Grid.Column="1" 
+                     Grid.Row="4" 
+                     Height="30"
+                     FontSize="18"
+                     FontFamily="cambria"
+                     Content="Tissage" 
+                     Style="{StaticResource {x:Type ToggleButton}}" />
 
-        <RadioButton Cursor="Hand" Command="{Binding NormaleCmd}" Grid.Column="1" Grid.Row="4" Height="30"
-                     Content="Fiche Technique Normale" Style="{StaticResource {x:Type ToggleButton}}" />
+        <RadioButton Cursor="Hand" 
+                     IsChecked="{Binding IsTressage}"
+                     FontSize="18"
+                     FontFamily="cambria"
+                     Grid.Column="1" Grid.Row="5" Height="30"
+                     Content="Tressage" Style="{StaticResource {x:Type ToggleButton}}" />
 
-        <DockPanel Height="30" Grid.Row="5" Grid.Column="1" LastChildFill="False">
-            <CustClass:GitHubButton Cursor="Hand" Command="{Binding AnnulerCmd}" Style="{StaticResource Btn}"
+        <RadioButton Cursor="Hand" 
+                     FontSize="18"
+                     FontFamily="cambria"
+                     IsChecked="{Binding IsCrochetage}"
+                     Grid.Column="1" Grid.Row="6" 
+                     Height="30"
+                     Content="Crochetage" Style="{StaticResource {x:Type ToggleButton}}" />
+
+        <DockPanel Height="30" Grid.Row="7" Grid.Column="1" LastChildFill="False">
+            <CustomControl:GitHubButton 
+                                    BtnCmd="{Binding AnnulerCmd}" 
+                                    BtnText="Annuler"
                                     DockPanel.Dock="Left" Width="80">
-                Annuler
-            </CustClass:GitHubButton>
-            <CustClass:GitHubButton Cursor="Hand" Command="{Binding ValiderCmd}" DockPanel.Dock="Right" Width="80"
-                                    Style="{StaticResource Btn}">
-                Valider
-            </CustClass:GitHubButton>
+                
+            </CustomControl:GitHubButton>
+           
+
+            <CustomControl:GitHubButton BtnCmd="{Binding ValiderCmd}" DockPanel.Dock="Right" Width="80"  BtnText="valider"></CustomControl:GitHubButton>
+            
         </DockPanel>
     </Grid>
 </views:MvxWindow>

@@ -8,28 +8,27 @@ namespace BackEnd2.ViewModel
 {
     public class ModelFicheTekViewModel : MvxViewModel<ModelFiche, ModelFiche>
     {
-        private IMvxCommand _AnnulerCmd;
-
-        private IMvxCommand _CorchetCmd;
-        private IMvxCommand _EhcCmd;
-        private bool _IsCrochet;
-        private bool _IsEchantillon;
-
-        private bool _IsEhc;
-        private bool _IsNormal;
-
-        public ModelFiche _model;
 
         private readonly IMvxNavigationService _navigationService;
-
-        private IMvxCommand _NormaleCmd;
-        private IMvxCommand _ValiderCmd;
-
         public ModelFicheTekViewModel(IMvxNavigationService _navSer)
         {
             _navigationService = _navSer;
         }
 
+        public ModelFiche _model;
+        public override void Prepare(ModelFiche parameter)
+        {
+            _model = parameter;
+        }
+
+
+        private IMvxCommand _AnnulerCmd;
+
+
+        #region Properties
+        
+
+        private bool _IsEchantillon;
         public bool IsEchantillon
         {
             get => _IsEchantillon;
@@ -40,9 +39,7 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
-        public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
-
+        private bool _IsEhc;
         public bool IsEhc
         {
             get => _IsEhc;
@@ -53,26 +50,46 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        public bool IsNormal
+
+        private bool _IsTissage=true;
+
+        public bool IsTissage
         {
-            get => _IsNormal;
+            get { return _IsTissage; }
             set
             {
-                _IsNormal = value;
+                _IsTissage = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool IsCrochet
+        private bool _IsTressage;
+        public bool IsTressage
         {
-            get => _IsCrochet;
+            get => _IsTressage;
             set
             {
-                _IsCrochet = value;
+                _IsTressage = value;
                 RaisePropertyChanged();
             }
         }
 
+        private bool _IsCrochetage;
+        public bool IsCrochetage
+        {
+            get => _IsCrochetage;
+            set
+            {
+                _IsCrochetage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        #endregion
+
+
+        #region Commands
         public IMvxCommand AnnulerCmd
         {
             get
@@ -81,7 +98,7 @@ namespace BackEnd2.ViewModel
                 return _AnnulerCmd;
             }
         }
-
+        private IMvxCommand _ValiderCmd;
         public IMvxCommand ValiderCmd
         {
             get
@@ -90,85 +107,80 @@ namespace BackEnd2.ViewModel
                 return _ValiderCmd;
             }
         }
+        #endregion
 
-        public IMvxCommand NormaleCmd
-        {
-            get
-            {
-                _NormaleCmd = new MvxCommand(NormalCommand);
-                return _NormaleCmd;
-            }
-        }
-
-        public IMvxCommand CorchetCmd
-        {
-            get
-            {
-                _CorchetCmd = new MvxCommand(CrochetCommand);
-                return _CorchetCmd;
-            }
-        }
-
-        public IMvxCommand EhcCmd
-        {
-            get
-            {
-                _EhcCmd = new MvxCommand(EhcCommand);
-                return _EhcCmd;
-            }
-        }
-
+        #region Methods
         public void ClosingView(ModelFiche mModel)
         {
             _navigationService.Close(this, mModel);
         }
-
-        public override void Prepare(ModelFiche parameter)
-        {
-            _model = parameter;
-        }
-
-        public void CrochetCommand()
-        {
-            IsCrochet = true;
-        }
-
-        public void NormalCommand()
-        {
-            IsNormal = true;
-        }
-
-        public void EhcCommand()
-        {
-            IsEhc = true;
-        }
-
-        public void ValiderCommand()
-        {
-            if (IsCrochet || IsEhc || IsNormal)
-            {
-                if (IsCrochet)
-                    _model.model = ModelFiche.ModelFicheTek.FicheTekCrochetage;
-                else if (IsEhc)
-                    _model.model = ModelFiche.ModelFicheTek.FicheTekEHC;
-                else
-                    _model.model = ModelFiche.ModelFicheTek.FicheTekNormal;
-
-
-                _model.IsEchantillon = IsEchantillon;
-
-
-                ClosingView(_model);
-            }
-            else
-            {
-                SendNotification.Raise("Aucun Modèle séléctionné");
-            }
-        }
-
         public void AnnulerCommand()
         {
             ClosingView(null);
         }
+        public void ValiderCommand()
+        {
+            _model.IsEchantillon = IsEchantillon;
+            if (IsEhc)
+            {
+                if (IsTissage)
+                {
+                    _model.model = ModelFiche.ModelFicheTek.EHCTissage;
+                }
+                else if (IsTressage)
+                {
+                    _model.model = ModelFiche.ModelFicheTek.EHCTressage;
+                }
+                else
+                {
+                    _model.model = ModelFiche.ModelFicheTek.EHCCrochetage;
+                }
+            }
+            else
+            {
+                if(IsTissage)
+                {
+                    _model.model = ModelFiche.ModelFicheTek.AutreTissage;
+                }
+                else if(IsTressage)
+                {
+                    _model.model = ModelFiche.ModelFicheTek.AutreTressage;
+                }
+                else
+                {
+                    _model.model = ModelFiche.ModelFicheTek.AutreCrochetage;
+                }
+            }
+            ClosingView(_model);
+            //SendNotification.Raise("Aucun Modèle séléctionné");
+            
+        }
+
+        #endregion
+
+
+
+       
+
+        #region Events
+        public MvxInteraction<string> SendNotification { get; } = new MvxInteraction<string>();
+        public MvxInteraction<YesNoQuestion> ConfirmAction { get; } = new MvxInteraction<YesNoQuestion>();
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
     }
 }
