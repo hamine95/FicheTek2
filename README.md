@@ -6,22 +6,26 @@ A Desktop Application for Creating and managing datasheets that are designed spe
 ### Login:
 The login Interface consists of two account an editor who's responsible for creating datasheets and an inspector that validates them.
 
-![login](https://user-images.githubusercontent.com/42416837/236646462-ebe6fc14-01bc-4f35-a8bc-884c2e8024a5.PNG)
+![login](https://github.com/flyaway2/FicheTek2/assets/42416837/f09fc5fa-3a1c-4844-b40a-6b7d36f8a113)
 
 ### Categories:
-![categories](https://user-images.githubusercontent.com/42416837/236702842-3cb7c284-2d53-4360-8c9c-0a4603ab2242.PNG)
+![categories](https://github.com/flyaway2/FicheTek2/assets/42416837/651edd2e-5bfa-40d1-9403-8dc32864d58e)
 
 ### Personnel:
-![personnel](https://user-images.githubusercontent.com/42416837/236702845-2d82a2ee-9781-4872-819c-7705ec785125.PNG)
+![personnel](https://github.com/flyaway2/FicheTek2/assets/42416837/cfdbb5c5-5430-4238-b987-8a501f4c75be)
 
 ### Composition:
-![composition](https://user-images.githubusercontent.com/42416837/236702852-0b151f64-2b82-4269-8df0-9585d2ef2dd4.PNG)
+![composition](https://github.com/flyaway2/FicheTek2/assets/42416837/3724783c-1306-493b-975d-0b23a49e5140)
 
 ### Machine:
-![machines](https://user-images.githubusercontent.com/42416837/236702876-dfdc6058-87ad-435d-b6fe-3464b5ded936.PNG)
+![machine](https://github.com/flyaway2/FicheTek2/assets/42416837/c699053a-f72b-451a-a55d-26bb53f5c5bf)
+
+### Rapport:
+![rapport](https://github.com/flyaway2/FicheTek2/assets/42416837/b16fcc01-c2a9-483a-a255-8aec88d14d6e)
 
 ### Fiche Technique:
-![fiche techniques](https://user-images.githubusercontent.com/42416837/236702883-07a1e4ad-05de-44d9-87b3-4c4404dd5d6a.PNG)
+![fiche technique](https://github.com/flyaway2/FicheTek2/assets/42416837/37ad54b0-e1c4-4d15-b5e0-2fdff964e442)
+
 
 
 ## Frameworks
