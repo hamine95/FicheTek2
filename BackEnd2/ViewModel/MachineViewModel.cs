@@ -1497,6 +1497,7 @@ namespace BackEnd2.ViewModel
                 else
                 {
                     db2.DeleteModelMachine(SelectedModelMachine);
+                    UpdateMachineModelList();
                 }
                 
             }

@@ -515,7 +515,7 @@
                    <ColumnDefinition></ColumnDefinition>
                </Grid.ColumnDefinitions>
                <Border   BorderBrush="Black" BorderThickness="0 0 1 0">
-                   <Image  Height="70" Width="140" Source="../Asset/logo.png" />
+                   <Image  Height="60" Width="140" Source="../Asset/logo.png" />
                </Border>
                
                <TextBlock 
