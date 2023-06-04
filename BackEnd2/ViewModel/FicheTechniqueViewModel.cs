@@ -2271,7 +2271,7 @@ namespace BackEnd2.ViewModel
                                     else
                                         _DB2.DeleteFicheTechnique(SelectedFicheTechnique.ID, prod.Id);
 
-                                AnnulerFicheTechnique();
+                                ActivateDatasheetReadMode();
                                 UpdateFicheTek();
                             }
                             catch(Exception ex)
@@ -2777,155 +2777,168 @@ namespace BackEnd2.ViewModel
                 rep4 = new Repitition();
                 rep5 = new Repitition();
 
-                if (SelectedFicheTechnique.Produits[vers].EnfilageID != null)
-                {
-                   
-                    List<Repitition> replist = _DB2.getRepition(SelectedFicheTechnique.Produits[vers].EnfilageID.ID);
-                    for (int i=0;i<replist.Count;i++ )
-                    {
-                        if (i == 0)
-                        {
-                            rep1=replist[i];
-                            rep1.vis = true;
-                            if (rep1.x == null || rep1.y==null)
-                            {
-                                rep1.x = "0";
-                                rep1.y= "0";
-                            }
-                            else
-                            {
-                                double nbconv =0;
-
-                                bool IsParsable=Double.TryParse(rep1.x, out nbconv);
-                                if(IsParsable)
-                                {
-                                    var str = (nbconv * ContainerWidth).ToString();
-                                    rep1.x = str;
-                                    rep1.y = (Convert.ToDouble(rep1.y) * ContainerHeight).ToString();
-                                }
-                              
-                            }
-                        }else if (i == 1)
-                        {
-                            rep2=replist[i];
-                            rep2.vis = true;
-                            if (rep2.x == null || rep2.y==null)
-                            {
-                                rep2.x = "0";
-                                rep2.y= "0";
-                            } else
-                            {
-                                rep2.x = (Convert.ToDouble(rep2.x) * ContainerWidth).ToString();
-                                rep2.y = (Convert.ToDouble(rep2.y) * ContainerHeight).ToString();
-                            }
-                        }else if (i == 2)
-                        {
-                            rep3=replist[i];
-                            rep3.vis = true;
-                            if (rep3.x == null || rep3.y==null)
-                            {
-                                rep3.x = "0";
-                                rep3.y= "0";
-                            }else
-                            {
-                                rep3.x = (Convert.ToDouble(rep3.x) * ContainerWidth).ToString();
-                                rep3.y = (Convert.ToDouble(rep3.y) * ContainerHeight).ToString();
-                            }
-                        }else if (i == 3)
-                        {
-                            rep4=replist[i];
-                            rep4.vis = true;
-                            if (rep4.x == null || rep4.y==null)
-                            {
-                                rep4.x = "0";
-                                rep4.y= "0";
-                            }else
-                            {
-                                rep4.x = (Convert.ToDouble(rep4.x) * ContainerWidth).ToString();
-                                rep4.y = (Convert.ToDouble(rep4.y) * ContainerHeight).ToString();
-                            }
-                        }else if (i == 4)
-                        {
-                            rep5=replist[i];
-                            rep5.vis = true;
-                            if (rep5.x == null || rep5.y==null)
-                            {
-                                rep5.x = "0";
-                                rep5.y= "0";
-                            }else
-                            {
-                                rep5.x = (Convert.ToDouble(rep5.x) * ContainerWidth).ToString();
-                                rep5.y = (Convert.ToDouble(rep5.y) * ContainerHeight).ToString();
-                            }
-                        }
-                        
-                    }
-
-                    
-                    if (SelectedFicheTechnique.Produits[vers].EnfilageID.GetChaine != null)
-                    {
-                        ChcolList =new ObservableCollection<ChColComp>(SelectedFicheTechnique.Produits[vers].EnfilageID.GetChaine.ChaineCompos) ;
-                        SetupChaine(SelectedFicheTechnique.Produits[vers].EnfilageID.GetChaine.Colonne,
-                            SelectedFicheTechnique.Produits[vers].EnfilageID.GetChaine.Ligne,
-                            SelectedFicheTechnique.Produits[vers].EnfilageID.GetChaine.ChMatrix);
-                      
-                    }
-                    else
-
-                    {
-                        ChaineList = new ObservableCollection<ChaineMatrixElement>();
-                        ChaineList2 = new ObservableCollection<ChaineMatrixElement>();
-
-                        ChaineColumns = 8;
-                        ChaineRows = 8;
-                        ChaineRows2 = 0;
-                        ChRowSum = 0;
-                    }
-
-                    var TempList = new List<MatrixElement>();
-
-                    foreach (var EleMatx in SelectedFicheTechnique.Produits[vers].EnfilageID.GetMatrix)
-                    {
-                        var EnfMatrix = new MatrixElement(EleMatx.x, EleMatx.y);
-
-                        EnfMatrix.Content = EleMatx.value;
-                        EnfMatrix.DentFil = EleMatx.DentFil;
-                        TempList.Add(EnfMatrix);
-                    }
-                    double TrPos = 0;
-                    bool b=Double.TryParse(SelectedFicheTechnique.Produits[vers].EnfilageID.TrXposition, out TrPos);
-                    if(b)
-                    {
-                        TrameXposition =
-                                               (
-                                                   Convert.ToDouble(SelectedFicheTechnique.Produits[vers].EnfilageID.TrXposition) * ContainerWidth)
-                                               .ToString();
-                        TrameYposition = (Convert.ToDouble(SelectedFicheTechnique.Produits[vers].EnfilageID.TrYposition) * ContainerHeight).ToString();
-
-                    }else
-                    {
-
-                    }
-
-                    ContentEnfilageList = new MvxObservableCollection<MatrixElement>(TempList);
-                }
-                else
-                {
-                    ChaineList = new ObservableCollection<ChaineMatrixElement>();
-
-                    ContentEnfilageList = new MvxObservableCollection<MatrixElement>();
-                    ChaineList2 = new ObservableCollection<ChaineMatrixElement>();
-
-                    ChaineColumns = 0;
-                    ChaineRows = 0;
-                    ChaineRows2 = 0;
-                    ChRowSum = 0;
-                }
+                SetupEnfilage(SelectedFicheTechnique.Produits[vers].EnfilageID);
 
                 if (SelectedFicheTechnique.Catalog != null)
                     CategorieName = SelectedFicheTechnique.Catalog.Designation;
                 else
                     CategorieName = "";
+            }
+        }
+
+
+        public void SetupEnfilage(Enfilage enfilage)
+        {
+            if (enfilage != null)
+            {
+
+                List<Repitition> replist = _DB2.getRepition(enfilage.ID);
+                for (int i = 0; i < replist.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        rep1 = replist[i];
+                        rep1.vis = true;
+                        if (rep1.x == null || rep1.y == null)
+                        {
+                            rep1.x = "0";
+                            rep1.y = "0";
+                        }
+                        else
+                        {
+                            double nbconv = 0;
+
+                            bool IsParsable = Double.TryParse(rep1.x, out nbconv);
+                            if (IsParsable)
+                            {
+                                var str = (nbconv * ContainerWidth).ToString();
+                                rep1.x = str;
+                                rep1.y = (Convert.ToDouble(rep1.y) * ContainerHeight).ToString();
+                            }
+
+                        }
+                    }
+                    else if (i == 1)
+                    {
+                        rep2 = replist[i];
+                        rep2.vis = true;
+                        if (rep2.x == null || rep2.y == null)
+                        {
+                            rep2.x = "0";
+                            rep2.y = "0";
+                        }
+                        else
+                        {
+                            rep2.x = (Convert.ToDouble(rep2.x) * ContainerWidth).ToString();
+                            rep2.y = (Convert.ToDouble(rep2.y) * ContainerHeight).ToString();
+                        }
+                    }
+                    else if (i == 2)
+                    {
+                        rep3 = replist[i];
+                        rep3.vis = true;
+                        if (rep3.x == null || rep3.y == null)
+                        {
+                            rep3.x = "0";
+                            rep3.y = "0";
+                        }
+                        else
+                        {
+                            rep3.x = (Convert.ToDouble(rep3.x) * ContainerWidth).ToString();
+                            rep3.y = (Convert.ToDouble(rep3.y) * ContainerHeight).ToString();
+                        }
+                    }
+                    else if (i == 3)
+                    {
+                        rep4 = replist[i];
+                        rep4.vis = true;
+                        if (rep4.x == null || rep4.y == null)
+                        {
+                            rep4.x = "0";
+                            rep4.y = "0";
+                        }
+                        else
+                        {
+                            rep4.x = (Convert.ToDouble(rep4.x) * ContainerWidth).ToString();
+                            rep4.y = (Convert.ToDouble(rep4.y) * ContainerHeight).ToString();
+                        }
+                    }
+                    else if (i == 4)
+                    {
+                        rep5 = replist[i];
+                        rep5.vis = true;
+                        if (rep5.x == null || rep5.y == null)
+                        {
+                            rep5.x = "0";
+                            rep5.y = "0";
+                        }
+                        else
+                        {
+                            rep5.x = (Convert.ToDouble(rep5.x) * ContainerWidth).ToString();
+                            rep5.y = (Convert.ToDouble(rep5.y) * ContainerHeight).ToString();
+                        }
+                    }
+
+                }
+
+
+                if (enfilage.GetChaine != null)
+                {
+                    ChcolList = new ObservableCollection<ChColComp>(enfilage.GetChaine.ChaineCompos);
+                    SetupChaine(enfilage.GetChaine.Colonne,
+                        enfilage.GetChaine.Ligne,
+                        enfilage.GetChaine.ChMatrix);
+
+                }
+                else
+
+                {
+                    ChaineList = new ObservableCollection<ChaineMatrixElement>();
+                    ChaineList2 = new ObservableCollection<ChaineMatrixElement>();
+
+                    ChaineColumns = 8;
+                    ChaineRows = 8;
+                    ChaineRows2 = 0;
+                    ChRowSum = 0;
+                }
+
+                var TempList = new List<MatrixElement>();
+
+                foreach (var EleMatx in enfilage.GetMatrix)
+                {
+                    var EnfMatrix = new MatrixElement(EleMatx.x, EleMatx.y);
+
+                    EnfMatrix.Content = EleMatx.value;
+                    EnfMatrix.DentFil = EleMatx.DentFil;
+                    TempList.Add(EnfMatrix);
+                }
+                double TrPos = 0;
+                bool b = Double.TryParse(enfilage.TrXposition, out TrPos);
+                if (b)
+                {
+                    TrameXposition = (Convert.ToDouble(enfilage.TrXposition) * ContainerWidth)
+                                           .ToString();
+                    TrameYposition = (Convert.ToDouble(enfilage.TrYposition) * ContainerHeight).ToString();
+
+                }
+                else
+                {
+
+                }
+
+                ContentEnfilageList = new MvxObservableCollection<MatrixElement>(TempList);
+            }
+            else
+            {
+                ChaineList = new ObservableCollection<ChaineMatrixElement>();
+
+                ContentEnfilageList = new MvxObservableCollection<MatrixElement>();
+                ChaineList2 = new ObservableCollection<ChaineMatrixElement>();
+
+                ChaineColumns = 0;
+                ChaineRows = 0;
+                ChaineRows2 = 0;
+                ChRowSum = 0;
             }
         }
 
@@ -3047,12 +3060,12 @@ namespace BackEnd2.ViewModel
                 else
                     _DB2.DeleteFicheTechnique(NewProd.FicheId, NewProd.Id);
             }
-            
 
 
-            AnnulerFicheTechnique();
-            UpdateFicheTek();
-            SelectedFicheTechnique = null;
+
+            ActivateDatasheetReadMode();
+            // UpdateFicheTek();
+            //SelectedFicheTechnique = null;
         }
 
         public void DisplayPrintView()
@@ -3853,7 +3866,7 @@ namespace BackEnd2.ViewModel
                     }
                 }
 
-                AnnulerFicheTechnique();
+                ActivateDatasheetReadMode();
 
                 SelectedFicheTechnique = null;
                 if (IsAllFT)
@@ -3951,7 +3964,7 @@ namespace BackEnd2.ViewModel
 
                 DateEndLimit = DateTime.Now;
 
-                AnnulerFicheTechnique();
+                ActivateDatasheetReadMode();
                 AjouterFicheTechnique(mf);
             }
         }
@@ -4101,46 +4114,17 @@ namespace BackEnd2.ViewModel
         public void SaveFicheTechnique()
         {
 
-            //AnnulerFicheTechnique();
+            ActivateDatasheetReadMode();
             //UpdateFicheTek();
-            EditDate = false;
-            DisplayDate = true;
-            SelectedFicheTechnique = null;
+            //SelectedFicheTechnique = null;
+
         }
 
 
-        public void AnnulerFicheTechnique()
+        public void ActivateDatasheetReadMode()
         {
-            if (IsFicheCrochetage) MachineList = new MvxObservableCollection<Machine>(_DB2.GetMachines());
-            IsDentFilVis = false;
-
-            rep1 = new Repitition();
-            rep2 = new Repitition();
-            rep3 = new Repitition();
-            rep4 = new Repitition();
-            rep5 = new Repitition();
-            ImageProd = null;
-            IsCreateChaine = false;
-            WorkRectan = null;
-            ProhibitArea = null;
-            SelectedVersion = null;
-            TrameXposition = "0";
-            TrameYposition = "0";
-
-            SecondRect = null;
-            SelectedChaine = null;
-            IsDateCr = true;
-            TotalPoids = 0;
-           
-            IsFicheCrochetage = false;
-            IsFicheEHC = false;
             EditDate = false;
             DisplayDate = true;
-            IsAddEnabled = true;
-            EnableEditing = false;
-            SaveCancelBtn = false;
-            PrintBtn = true;
-            BtnVis = false;
             Comp1Vis = false;
             Comp2Vis = false;
             Comp3Vis = false;
@@ -4150,17 +4134,41 @@ namespace BackEnd2.ViewModel
             Comp7Vis = false;
             Comp8Vis = false;
             Comp9Vis = false;
-            NewProd = new Produit();
-            NbrDent = 0;
-            Comp1 = null;
-            Comp2 = null;
-            Comp3 = null;
-            Comp4 = null;
-            Comp5 = null;
-            Comp6 = null;
-            Comp7 = null;
-            Comp8 = null;
-            Comp9 = null;
+
+            if (IsFicheCrochetage) MachineList = new MvxObservableCollection<Machine>(_DB2.GetMachines());
+            IsDentFilVis = false;
+
+            rep1 = new Repitition();
+            rep2 = new Repitition();
+            rep3 = new Repitition();
+            rep4 = new Repitition();
+            rep5 = new Repitition();
+            WorkRectan = null;
+            ProhibitArea = null;
+            SecondRect = null;
+            SelectedChaine = null;
+            var lvide = new List<MatrixElement>();
+            ContentEnfilageList = new MvxObservableCollection<MatrixElement>(lvide);
+
+            IsCreateChaine = false;
+            _DB2.GetFullEnfilage(NewProd);
+            SetupEnfilage(NewProd.EnfilageID);
+
+            ImageProd = null;
+            
+
+            TrameXposition = "0";
+            TrameYposition = "0";
+
+            IsDateCr = true;
+            TotalPoids = 0;
+           
+            
+            IsAddEnabled = true;
+            EnableEditing = false;
+            SaveCancelBtn = false;
+            PrintBtn = true;
+            BtnVis = false;
             SelectedColor1 = null;
             SelectedColor2 = null;
             SelectedColor3 = null;
@@ -4194,10 +4202,7 @@ namespace BackEnd2.ViewModel
             InitBtnImage();
             SelectedCategorie = null;
             CategorieName = "";
-            SchCompList = new MvxObservableCollection<Composition>();
-            ChaineList = new ObservableCollection<ChaineMatrixElement>();
-            var lvide = new List<MatrixElement>();
-            ContentEnfilageList = new MvxObservableCollection<MatrixElement>(lvide);
+            
         }
 
         public void SetupDuitageList()
@@ -4877,45 +4882,7 @@ namespace BackEnd2.ViewModel
             else if (CompNum == 7) SchCompList.Remove(Comp7);
         }
 
-        public void DestroyLegend()
-        {
-        }
 
-        public void SetupLegend()
-        {
-        }
-
-        public void SetupEnfilageElement(int CompNum)
-        {
-            if (CompNum == 1)
-            {
-                Comp1.NumComposant = 1;
-            }
-            else if (CompNum == 2)
-            {
-                Comp2.NumComposant = 2;
-            }
-            else if (CompNum == 3)
-            {
-                Comp3.NumComposant = 3;
-            }
-            else if (CompNum == 4)
-            {
-                Comp4.NumComposant = 4;
-            }
-            else if (CompNum == 5)
-            {
-                Comp5.NumComposant = 5;
-            }
-            else if (CompNum == 6)
-            {
-                Comp6.NumComposant = 6;
-            }
-            else if (CompNum == 7)
-            {
-                Comp7.NumComposant = 7;
-            }
-        }
 
         public void AddComp(int i)
         {
@@ -4928,7 +4895,6 @@ namespace BackEnd2.ViewModel
                         Comp1Vis = !Comp1Vis;
                         ChangeImageBtn1 = "../Asset/remove64.png";
                         Comp1 = new Composition();
-                        SetupEnfilageElement(1);
                         if (IsEnfilage) AddLegend(1);
 
                         Comp1.NumComposant = 1;
@@ -4969,7 +4935,6 @@ namespace BackEnd2.ViewModel
                         Comp2Vis = !Comp2Vis;
                         ChangeImageBtn2 = "../Asset/remove64.png";
                         Comp2 = new Composition();
-                        SetupEnfilageElement(2);
                         if (IsEnfilage) AddLegend(2);
                         Comp2.ProdID = NewProd;
                         Comp2.NumComposant = 2;
@@ -5005,7 +4970,6 @@ namespace BackEnd2.ViewModel
                         Comp3Vis = !Comp3Vis;
                         ChangeImageBtn3 = "../Asset/remove64.png";
                         Comp3 = new Composition();
-                        SetupEnfilageElement(3);
                         if (IsEnfilage) AddLegend(3);
                         Comp3.ProdID = NewProd;
                         Comp3.NumComposant = 3;
@@ -5041,7 +5005,6 @@ namespace BackEnd2.ViewModel
                         ChangeImageBtn4 = "../Asset/remove64.png";
                         Comp4 = new Composition();
 
-                        SetupEnfilageElement(4);
                         if (IsEnfilage) AddLegend(4);
                         Comp4.ProdID = NewProd;
                         Comp4.NumComposant = 4;
@@ -5076,7 +5039,6 @@ namespace BackEnd2.ViewModel
                         Comp5Vis = !Comp5Vis;
                         ChangeImageBtn5 = "../Asset/remove64.png";
                         Comp5 = new Composition();
-                        SetupEnfilageElement(5);
                         if (IsEnfilage) AddLegend(5);
                         Comp5.ProdID = NewProd;
                         Comp5.NumComposant = 5;
@@ -5111,7 +5073,6 @@ namespace BackEnd2.ViewModel
                         Comp6Vis = !Comp6Vis;
                         ChangeImageBtn6 = "../Asset/remove64.png";
                         Comp6 = new Composition();
-                        SetupEnfilageElement(6);
                         if (IsEnfilage) AddLegend(6);
                         Comp6.ProdID = NewProd;
                         Comp6.NumComposant = 6;
@@ -5146,7 +5107,6 @@ namespace BackEnd2.ViewModel
                         Comp7Vis = !Comp7Vis;
                         ChangeImageBtn7 = "../Asset/remove64.png";
                         Comp7 = new Composition();
-                        SetupEnfilageElement(7);
                         if (IsEnfilage) AddLegend(7);
                         Comp7.ProdID = NewProd;
                         Comp7.NumComposant = 7;

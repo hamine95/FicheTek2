@@ -797,9 +797,13 @@
                              Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
                              Style="{StaticResource {x:Type ToggleButton}}" />
             </UniformGrid>
-            <ListView IsEnabled="{Binding DisplayDate}" FontSize="10" FontWeight="Bold" FontFamily="arial" Grid.Row="4"
-                      SizeChanged="ListView_SizeChanged" ItemsSource="{Binding FicheTechniqueList}"
-                      
+            <ListView IsEnabled="{Binding DisplayDate}" 
+                      FontSize="10" 
+                      FontWeight="Bold" 
+                      FontFamily="arial" 
+                      Grid.Row="4"
+                      SizeChanged="ListView_SizeChanged" 
+                      ItemsSource="{Binding FicheTechniqueList}"
                       SelectedItem="{Binding SelectedFicheTechnique}">
                
                 <ListView.View>

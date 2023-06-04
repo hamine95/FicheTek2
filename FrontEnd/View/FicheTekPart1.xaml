@@ -937,8 +937,10 @@
                                    Text="{Binding Comp1.GetMatiere.Titrage.TypeMatiere.MatiereNom}"
                                    VerticalAlignment="Center" />
                         <ComboBox DisplayMemberPath="Designation"
-                                  Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}" Grid.Column="1"
-                                  BorderThickness="0.7 0 0 0" SelectedItem="{Binding SelectedTitrage1}"
+                                  Visibility="{Binding Comp1Vis,Converter={StaticResource BoolToVis}}" 
+                                  Grid.Column="1"
+                                  BorderThickness="0.7 0 0 0" 
+                                  SelectedItem="{Binding SelectedTitrage1}"
                                   ItemsSource="{Binding ListTitrage1}" />
                         <TextBlock
                             Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}" Grid.Column="1"
@@ -1917,8 +1919,16 @@
                     <DockPanel Grid.Row="1" LastChildFill="False">
                         <Image DockPanel.Dock="Top"
                                Source="{Binding ImageProd}">
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="Image.MouseEnter">
+                                    <BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="Image.MouseLeave">
+                                    <BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
+                                </EventTrigger>
+                            </Image.Triggers>
                             <Image.RenderTransform>
-                                <ScaleTransform ScaleX="5" ScaleY="5" />
+                                <ScaleTransform CenterX="150" CenterY="0" ScaleX="1" ScaleY="1" />
                             </Image.RenderTransform>
                         </Image>
                         <CustClass:GitHubButton DockPanel.Dock="Bottom" Width="25" FontSize="10" Cursor="Hand"

@@ -704,7 +704,73 @@ namespace BackEnd2.Data
 
             
         }
+        public void GetFullEnfilage(Produit pr)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionStringName);
+            if (pr.IsEnfilage == 1)
+            {
 
+                var stm =
+                     "Select enf.ID,enf.GetChaineID,enf.TrXposition,enf.TrYposition,enf.Column,enf.Row,enf.NbrDent from Enfilage as enf,Product as pr where pr.EnfilageIDID=enf.ID and pr.Id=@id";
+                var enflist =
+                    db.LoadData<Enfilage, dynamic>(stm, new { id = pr.Id }, connectionStringName);
+                if (enflist.Count > 0)
+                {
+                    pr.EnfilageID = enflist[0];
+                    stm = "Select * from Enfilage as enf,Chaine as ch where ch.ID=enf.GetChaineID and enf.ID=@id";
+                    var chlist =
+                        db.LoadData<chaine, dynamic>(stm, new { id = pr.EnfilageID.ID }, connectionStringName);
+
+                    if (chlist.Count > 0) pr.EnfilageID.GetChaine = chlist[0];
+                    if (pr.EnfilageID.GetChaine != null)
+                    {
+
+                        stm =
+                            "Select * from ChColComp as ch,Composant as cmp where ch.ComposantID=cmp.ID and ch.ChaineID=@chid";
+
+
+                        var result = conn.Query<ChColComp, Composant, ChColComp>(stm, (ch, cmp) =>
+                        {
+                            ch.Comp = cmp;
+                            return ch;
+                        }, new { chid = pr.EnfilageID.GetChaine.ID });
+
+                        pr.EnfilageID.GetChaine.ChaineCompos = result.AsList();
+
+
+                        stm =
+                            "Select * from ChaineMatrix as chmat,Chaine as ch where chmat.ChaineID=ch.ID and ch.ID=@id";
+                        pr.EnfilageID.GetChaine.ChMatrix =
+                            db.LoadData<ChaineMatrix, dynamic>(stm, new { id = pr.EnfilageID.GetChaine.ID },
+                                connectionStringName);
+                    }
+
+
+
+                    stm = "Select " +
+                          "enf.ID,enfmat.ID,enfmat.x,enfmat.y,enfmat.valueID,enfmat.DentFil,enfmat.EnfID" +
+                          ",cmp.ID,cmp.NumComposant,cmp.DebutFil,cmp.Intermittent,cmp.GetComposantID,cmp.Num,cmp.GetMatiereID" +
+                          ",cmp.NbrFil,cmp.Torsion,cmp.Enfilage,cmp.Emb,cmp.Poids,cmp.Observation,cmp.ProdIDId" +
+                          ",cmp.EnfNbrFil" +
+                          " from Enfilage as enf,Composition as cmp,EnfilageMatrix as enfmat where enfmat.EnfID=enf.ID and enfmat.valueID=cmp.ID and enf.ID=@id";
+                    var result2 = conn.Query<EnfilageMatrix, Composition, EnfilageMatrix>(stm, (enfmat, cmp) =>
+                    {
+                        enfmat.value = cmp;
+                        return enfmat;
+                    }, new { id = pr.EnfilageID.ID });
+
+                    pr.EnfilageID.GetMatrix = result2.AsList();
+
+                    stm =
+                        "Select * from Enfilage as enf,EnfilageMatrix as enfmat where enfmat.EnfID=enf.ID and enf.ID=@id and DentFil=2";
+                    var EmptyCells = db.LoadData<EnfilageMatrix, dynamic>(stm, new { id = pr.EnfilageID.ID },
+                        connectionStringName);
+                    pr.EnfilageID.GetMatrix.AddRange(EmptyCells);
+
+
+                }
+            }
+        }
         public void GetFullEnfilage(Produit pr,SQLiteConnection conn)
         {
             if (pr.IsEnfilage == 1)
@@ -1326,11 +1392,26 @@ namespace BackEnd2.Data
         }
         public Matiere GetMatiere(Titrage tit, Couleur col)
        {
-            List<Matiere> matlist= db.LoadData<Matiere, dynamic>("Select * from Matiere  where GetCouleurID=@cl and TitrageID=@tit", new { cl = col.ID,tit=tit.ID }, connectionStringName);
-            if(matlist.Count>0)
-                return matlist[0];
-            return null;
-       }
+            string stm = "Select * from Matiere as mat,Titrage as tit,Color as col,TypeMatiere as typmat  " +
+                "where GetCouleurID=@cl and TitrageID=@tit and mat.TitrageID=tit.ID and mat.GetCouleurID=col.ID and tit.TypeMatiereID=typmat.ID";
+            SQLiteConnection conn = new SQLiteConnection(connectionStringName);
+            var matlist= conn.Query<Matiere, Titrage, Couleur, TypeMatiere, Matiere>(stm, (mat, titrage, couleur, typmat)=>
+            {
+                mat.Titrage = titrage;
+                mat.GetCouleur = couleur;
+                if(mat.Titrage!=null)
+                {
+                    mat.Titrage.TypeMatiere = typmat;
+                }
+                return mat;
+
+            },new { cl = col.ID,tit=tit.ID });
+
+            if (matlist.ToList().Count==0)
+                return null;
+            return matlist.ToList()[0];
+
+        }
         public TypeMatiere GetTypeMatiereNom(string nom)
         {
             List<TypeMatiere> typmatlist = db.LoadData<TypeMatiere, dynamic>("Select * from TypeMatiere  where MatiereNom=@NomMatiere", new { NomMatiere = nom }, connectionStringName);
