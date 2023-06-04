@@ -52,9 +52,44 @@ namespace BackEnd2.ViewModel
             Classifications.Add("Stock");
             Classifications.Add("E.H.C");
             SelectedClassification = Classifications.First(cl => cl.Equals("Tous"));
+            OrderFTBy = new MvxObservableCollection<string>();
+            OrderFTBy.Add("Création");
+            OrderFTBy.Add("Largeur");
+            SelectedOrder = OrderFTBy.First();
 
         }
         #endregion
+
+        private MvxObservableCollection<string> _OrderFTBy;
+
+        public MvxObservableCollection<string> OrderFTBy
+        {
+            get { return _OrderFTBy; }
+            set { _OrderFTBy = value; }
+        }
+
+        private string _SelectedOrder;
+
+        public string SelectedOrder
+        {
+            get { return _SelectedOrder; }
+            set { _SelectedOrder = value;
+                    OrderDatasheetBy();
+            }
+        }
+
+        public void OrderDatasheetBy()
+        {
+            if (FicheTechniqueList == null)
+                return;
+            if (SelectedOrder.Equals("Création"))
+                FicheTechniqueList= new MvxObservableCollection<FicheTechnique>(FicheTechniqueList.OrderBy(ft => ft.Produits[0]?.DateCreation));
+            if (SelectedOrder.Equals("Largeur"))
+                FicheTechniqueList = new MvxObservableCollection<FicheTechnique>(FicheTechniqueList.OrderBy(ft => ft.Produits[0]?.Largeur));
+
+
+        }
+
         public delegate void NotifySafeThread(bool b);
 
         public static NotifySafeThread SafeThEvent;

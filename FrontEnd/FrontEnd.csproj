@@ -420,6 +420,7 @@
     <Content Include="Asset\report.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Asset\sort.png" />
     <Content Include="Asset\square11.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
