@@ -20,6 +20,41 @@ namespace BackEnd2.ViewModel
 {
     public class FicheTechniqueViewModel : MvxViewModel<user>
     {
+
+        #region constructor
+        public FicheTechniqueViewModel(IMvxNavigationService _navSer)
+        {
+            _NavigationService = _navSer;
+
+            PageNumber = "1/2";
+            _DB2 = new SqliteData();
+            InitBtnImage();
+            InitComposantBtnsCommand();
+            FTModels = new MvxObservableCollection<ModelFiche>();
+            ModelFiche ftM = new ModelFiche();
+            ftM.num = 0;
+            ftM.name = "Tissage";
+            FTModels.Add(ftM);
+            ftM = new ModelFiche();
+            ftM.num = 1;
+            ftM.name = "Tressage";
+            FTModels.Add(ftM);
+            ftM = new ModelFiche();
+            ftM.num = 2;
+            ftM.name = "Crochetage";
+            FTModels.Add(ftM);
+            Classifications = new MvxObservableCollection<string>();
+            Classifications.Add("Tous");
+            Classifications.Add("Production");
+            Classifications.Add("Echantillon");
+            Classifications.Add("Non Validée");
+            Classifications.Add("Diver");
+            Classifications.Add("Stock");
+            Classifications.Add("E.H.C");
+            SelectedClassification = Classifications.First(cl => cl.Equals("Tous"));
+
+        }
+        #endregion
         public delegate void NotifySafeThread(bool b);
 
         public static NotifySafeThread SafeThEvent;
@@ -283,28 +318,7 @@ namespace BackEnd2.ViewModel
 
         private user UserSession;
 
-        public FicheTechniqueViewModel(IMvxNavigationService _navSer)
-        {
-            _NavigationService = _navSer;
-
-            PageNumber = "1/2";
-            _DB2 = new SqliteData();
-            InitBtnImage();
-            InitComposantBtnsCommand();
-            FTModels = new MvxObservableCollection<ModelFiche>();
-            ModelFiche ftM = new ModelFiche();
-            ftM.num = 0;
-            ftM.name = "Tissage";
-            FTModels.Add(ftM);
-            ftM = new ModelFiche();
-            ftM.num = 1;
-            ftM.name = "Tressage";
-            FTModels.Add(ftM);
-            ftM = new ModelFiche();
-            ftM.num = 2;
-            ftM.name = "Crochetage";
-            FTModels.Add(ftM);
-        }
+        
 
         private IMvxCommand _ChangeFTModel;
 
@@ -2509,6 +2523,24 @@ namespace BackEnd2.ViewModel
                     FullFTByCatList = FullFTList;
                     FicheTechniqueList = FullFTList;
                 }
+                else if (IsDiverdFT)
+                {
+                    FullFTList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniquesDiver());
+                    FullFTByCatList = FullFTList;
+                    FicheTechniqueList = FullFTList;
+                }
+                else if (IsEHCFT)
+                {
+                    FullFTList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniquesEHC());
+                    FullFTByCatList = FullFTList;
+                    FicheTechniqueList = FullFTList;
+                }
+                else if (IsStockFT)
+                {
+                    FullFTList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniquesStock());
+                    FullFTByCatList = FullFTList;
+                    FicheTechniqueList = FullFTList;
+                }
                 else
                 {
                     FullFTList = new MvxObservableCollection<FicheTechnique>(_DB2.GetFicheTechniquesEch());
@@ -2944,6 +2976,8 @@ namespace BackEnd2.ViewModel
 
         public void FilterFicheTechniqueList()
         {
+            if (FullFTByCatList == null)
+                return;
             int ConvertedSearchT;
             if (int.TryParse(SearchText, out ConvertedSearchT))
             {
@@ -5434,55 +5468,69 @@ namespace BackEnd2.ViewModel
             }
         }
 
-        private IMvxCommand _TousFTCmd;
+        private MvxObservableCollection<string> _Classifications;
 
-        public IMvxCommand TousFTCmd
+        public MvxObservableCollection<string> Classifications
         {
-            get
-            {
-                _TousFTCmd = new MvxCommand(GetAllFT);
-                return _TousFTCmd;
+            get { return _Classifications; }
+            set { _Classifications = value;
+                RaisePropertyChanged();
             }
         }
 
-        private IMvxCommand _ProdFTCmd;
+        private string _SelectedClassification;
 
-        public IMvxCommand ProdFTCmd
+        public string SelectedClassification
         {
-            get
-            {
-                _ProdFTCmd = new MvxCommand(GetProdFT);
-                return _ProdFTCmd;
+            get { return _SelectedClassification; }
+            set { _SelectedClassification = value;
+                RaisePropertyChanged();
+                SetupClassificationFilter();
             }
         }
-        private IMvxCommand _NonValidFTCmd;
 
-        public IMvxCommand NonValidFTCmd
+        public void SetupClassificationFilter()
         {
-            get
-            {
-                _NonValidFTCmd = new MvxCommand(GetNonValidFT);
-                return _NonValidFTCmd;
-            }
+            if (SelectedClassification.Equals("Tous"))
+                GetAllFT();
+            else if (SelectedClassification.Equals("Production"))
+                GetProdFT();
+            else if (SelectedClassification.Equals("Echantillon"))
+                GetEchFT();
+            else if (SelectedClassification.Equals("Non Validée"))
+                GetNonValidFT();
+            else if (SelectedClassification.Equals("Diver"))
+                GetDiverFT();
+            else if (SelectedClassification.Equals("Stock"))
+                GetStockFT();
+            else if (SelectedClassification.Equals("E.H.C"))
+                GetEHCFT();
+
         }
+        public void GetAllFT()
+        {
+            IsAllFT = true;
+            IsEchFT = false;
+            IsProdFT = false;
+            IsNonValidFT = false;
+            IsEHCFT = false;
+            IsDiverdFT = false;
+            IsStockFT = false;
+            SelectedCatSearch = null;
+        }
+
         public void GetNonValidFT()
         {
             IsAllFT = false;
             IsEchFT = false;
             IsProdFT = false;
             IsNonValidFT = true;
+            IsEHCFT = false;
+            IsDiverdFT = false;
+            IsStockFT = false;
             SelectedCatSearch = null;
         }
-        private IMvxCommand _EchFTCmd;
-
-        public IMvxCommand EchFTCmd
-        {
-            get
-            {
-                _EchFTCmd = new MvxCommand(GetEchFT);
-                return _EchFTCmd;
-            }
-        }
+       
 
         public void GetEchFT()
         {
@@ -5490,6 +5538,9 @@ namespace BackEnd2.ViewModel
             IsNonValidFT = false;
             IsEchFT = true;
             IsProdFT = false;
+            IsEHCFT = false;
+            IsDiverdFT = false;
+            IsStockFT = false;
             SelectedCatSearch = null;
         }
 
@@ -5499,22 +5550,54 @@ namespace BackEnd2.ViewModel
             IsEchFT = false;
             IsProdFT = true;
             IsNonValidFT = false;
+            IsEHCFT = false;
+            IsDiverdFT = false;
+            IsStockFT = false;
             SelectedCatSearch = null;
         }
-
+        public void GetDiverFT()
+        {
+            IsAllFT = false;
+            IsEchFT = false;
+            IsProdFT = false;
+            IsNonValidFT = false;
+            IsEHCFT = false;
+            IsDiverdFT = true;
+            IsStockFT = false;
+            SelectedCatSearch = null;
+        }
+        public void GetStockFT()
+        {
+            IsAllFT = false;
+            IsEchFT = false;
+            IsProdFT = false;
+            IsNonValidFT = false;
+            IsEHCFT = false;
+            IsDiverdFT = false;
+            IsStockFT = true;
+            SelectedCatSearch = null;
+        }
+        public void GetEHCFT()
+        {
+            IsAllFT = false;
+            IsEchFT = false;
+            IsProdFT = false;
+            IsNonValidFT = false;
+            IsEHCFT = true;
+            IsDiverdFT = false;
+            IsStockFT = false;
+            SelectedCatSearch = null;
+        }
         private bool IsAllFT = true;
         private bool IsEchFT;
         private bool IsNonValidFT;
         private bool IsProdFT;
 
-        public void GetAllFT()
-        {
-            IsAllFT = true;
-            IsEchFT = false;
-            IsProdFT = false;
-            IsNonValidFT = false;
-            SelectedCatSearch = null;
-        }
+        private bool IsEHCFT;
+        private bool IsDiverdFT;
+        private bool IsStockFT;
+
+       
 
         private IMvxCommand _CmdEditFicheTek;
 

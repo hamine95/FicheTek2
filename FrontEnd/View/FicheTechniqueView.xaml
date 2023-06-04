@@ -773,30 +773,42 @@
                     
                 </TextBox>
             </DockPanel>
-            <StackPanel Margin="0 0 0 10" Grid.Row="2" Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding IsSearchByCat}" Margin="0 0 10 0" VerticalAlignment="Center"
-                          FontFamily="arial" FontSize="14">
+            <Grid Margin="10" 
+                        Grid.Row="2" 
+                      >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <CheckBox IsChecked="{Binding IsSearchByCat}" 
+                          Margin="0 0 10 0" 
+                          VerticalAlignment="Center"
+                          FontFamily="arial" FontSize="12">
                     Catégorie:
                 </CheckBox>
-                <ComboBox ItemsSource="{Binding CategorieList }" IsEnabled="{Binding IsSearchByCat}"
-                          DisplayMemberPath="Designation" SelectedItem="{Binding SelectedCatSearch}" Width="100"
+                <ComboBox ItemsSource="{Binding CategorieList }" 
+                          Grid.Column="1"
+                          IsEnabled="{Binding IsSearchByCat}"
+                          DisplayMemberPath="Designation" 
+                          FontSize="12"
+                          SelectedItem="{Binding SelectedCatSearch}" 
+                          
                           Height="20" />
 
-            </StackPanel>
-            <UniformGrid Grid.Row="3" Margin="2" Rows="1">
-
-                <RadioButton Width="70" IsChecked="True" Cursor="Hand" Command="{Binding TousFTCmd}" Height="20"
-                             Content="Tous" Style="{StaticResource {x:Type ToggleButton}}" />
-
-                <RadioButton Width="70" Cursor="Hand" Command="{Binding ProdFTCmd}" Height="20" Content="Production"
-                             Style="{StaticResource {x:Type ToggleButton}}" />
-
-                <RadioButton Width="70" Cursor="Hand" Command="{Binding EchFTCmd}" Height="20" Content="Échantillon"
-                             Style="{StaticResource {x:Type ToggleButton}}" />
-                <RadioButton Width="70" Cursor="Hand" Command="{Binding NonValidFTCmd}" Height="20" Content="Non validé"
-                             Visibility="{Binding IsVerificateur,Converter={StaticResource BoolToVis}}"
-                             Style="{StaticResource {x:Type ToggleButton}}" />
-            </UniformGrid>
+            </Grid>
+            <Grid  Grid.Row="3" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    
+                    >Afficher</TextBlock>
+                <ComboBox 
+                    ItemsSource="{Binding Classifications}" 
+                    Grid.Column="1"
+                    SelectedItem="{Binding SelectedClassification}"></ComboBox>
+            </Grid>
             <ListView IsEnabled="{Binding DisplayDate}" 
                       FontSize="10" 
                       FontWeight="Bold" 
