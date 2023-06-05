@@ -364,6 +364,7 @@
                                    Resources="{StaticResource dic1}"
                                    KeyboardNavigation.DirectionalNavigation="Cycle"
                                    EnfilageList="{Binding ContentEnfilageList}"
+                                   IsCorrectPlacement="{Binding IsCorrectPlacement}"
                                    AddNewElement="{Binding AddedElement,Mode=TwoWay}"
                                    WorkspaceSpec="{Binding WorkRectan,Mode=TwoWay}"
                                    TrameXposition="{Binding TrameXposition,Mode=TwoWay}"

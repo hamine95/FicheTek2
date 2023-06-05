@@ -355,7 +355,23 @@ namespace DSheetEnfilage
             }
           
         }
-        
+
+
+
+
+        public bool IsCorrectPlacement
+        {
+            get { return (bool)GetValue(IsCorrectPlacementProperty); }
+            set { SetValue(IsCorrectPlacementProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsCorrectPlacement.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsCorrectPlacementProperty =
+            DependencyProperty.Register("IsCorrectPlacement", typeof(bool), typeof(SpaceFreeGrid), new PropertyMetadata(null));
+
+
+
+
         public static readonly DependencyProperty CreateChaineProperty = DependencyProperty.Register(
             nameof(CreateChaine), typeof(bool), typeof(SpaceFreeGrid), new PropertyMetadata(default(bool),OnSetChaineCreation));
 
@@ -712,7 +728,7 @@ namespace DSheetEnfilage
                     return;
                 if (img.ComponentStage == ComponentImage.RepresentationStage.Lisse)
                 {
-                    if (ChColList.First(ch => ch.ColNum == ((-img.position)+(ChColList.Count+1))).Comp.ID != SelectedComposant.GetComposant.ID
+                    if (IsCorrectPlacement && ChColList.First(ch => ch.ColNum == ((-img.position)+(ChColList.Count+1))).Comp.ID != SelectedComposant.GetComposant.ID
                         && ChColList.First(ch => ch.ColNum == ((-img.position)+(ChColList.Count+1))).Comp.ID != SelectedComposant.GetComposant.parent)
                     
                     {
@@ -722,7 +738,7 @@ namespace DSheetEnfilage
                 }
                 else
                 {
-                    if (ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null &&
+                    if (IsCorrectPlacement && ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null &&
                         ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.parent) == null)
                     {
                         MessageBox.Show("la chaine ne supporte pas " +SelectedComposant.GetComposant.Name);

@@ -60,6 +60,16 @@ namespace BackEnd2.ViewModel
         }
         #endregion
 
+
+        private bool _IsCorrectPlacement=true;
+
+        public bool IsCorrectPlacement
+        {
+            get { return _IsCorrectPlacement; }
+            set { _IsCorrectPlacement = value;RaisePropertyChanged(); }
+        }
+
+
         private MvxObservableCollection<string> _OrderFTBy;
 
         public MvxObservableCollection<string> OrderFTBy

@@ -1085,7 +1085,8 @@
                     IsChecked="{Binding IsEnfilage}">
                     Enfilage
                 </CheckBox>
-                <GroupBox FontFamily="cambria" FontWeight="Bold" BorderBrush="CadetBlue" Margin="5" Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" Header="Modèle">
+                <GroupBox FontFamily="cambria" FontWeight="Bold" BorderBrush="CadetBlue" Margin="5" 
+                          Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}" Header="Modèle">
                     <Grid 
                         
                     
@@ -1419,6 +1420,12 @@
                     Visibility="Collapsed">Ajouter Répétition</Button>
                 <Button Width="80" Visibility="Collapsed">Appliquer</Button>
                 <Button Width="80" Visibility="Collapsed">Vider Tous</Button>
+                <Grid Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox IsChecked="{Binding IsCorrectPlacement}">Vérification Emplacement</CheckBox>
+                </Grid>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -1448,6 +1455,7 @@
                             Annuler
                         </CustClass:GitHubButton>
                     </Grid>
+                   
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
