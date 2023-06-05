@@ -834,11 +834,23 @@ namespace DSheetEnfilage
                 //move to another chunk
                 if (moveForward)
                 {
-                    bool isTheLastCell = x > WorkspaceSpec.PartsWidthEnd;
-                    if (isTheLastCell)
+
+                    bool IsWorkspaceLastCell = x > WorkspaceSpec.PartsWidthEnd;
+                    bool IsReachSecondRectangle = SecondRect.StartHeight <= y;
+                    if (IsReachSecondRectangle)
+                    {
+                        IsWorkspaceLastCell = x > SecondRect.EndWidth;
+                    }
+                        
+                    if (IsWorkspaceLastCell)
                     {
                         x = WorkspaceSpec.PartsWidthStart;
+
+
                         y = y - WorkspaceSpec.PartHeight;
+                        IsReachSecondRectangle = SecondRect.StartHeight <= y;
+                        if (IsReachSecondRectangle)
+                            x = SecondRect.StartWidth;
                         if (y <= WorkspaceSpec.PartsHeightStart)
                         {
                             stopLoop = true;
@@ -851,9 +863,18 @@ namespace DSheetEnfilage
                 }
                 else
                 {
-                    if (x < WorkspaceSpec.PartsWidthStart)
+                    int StartingCell = WorkspaceSpec.PartsWidthEnd;
+                    bool IsWorkspaceFirstCell = x < WorkspaceSpec.PartsWidthStart;
+                    bool IsReachSecondRectangle = SecondRect.StartHeight <= y;
+                    if (IsReachSecondRectangle)
                     {
-                        x = WorkspaceSpec.PartsWidthEnd;
+                        IsWorkspaceFirstCell = x < SecondRect.StartWidth;
+                        StartingCell = SecondRect.EndWidth;
+                    }
+                        
+                    if (IsWorkspaceFirstCell)
+                    {
+                        x = StartingCell;
                         y = y + WorkspaceSpec.PartHeight;
                         if (y > WorkspaceSpec.PartsHeightEnd)
                         {
@@ -980,14 +1001,7 @@ namespace DSheetEnfilage
             {
                 if (img.NumComposant != 0)
                 {
-                    /*if (img.ComponentStage == ComponentImage.RepresentationStage.Lisse)
-                    {
-
-                        var cp = CompositionList.First(comp => comp.NumComposant == img.NumComposant);
-                        cp.EnfNbrFil = cp.EnfNbrFil - 1;
-
-                    }
-                    else*/ if (img.ComponentStage == ComponentImage.RepresentationStage.Dent)
+                     if (img.ComponentStage == ComponentImage.RepresentationStage.Dent)
                     {
 
                         int adjacentPosition=0;
