@@ -2450,7 +2450,7 @@ namespace BackEnd2.ViewModel
             else if (e.PropertyName.Equals("Ref"))
             {
                 _DB2.UpdateProdRef(NewProd);
-                UpdateFicheTek();
+                
             }
             else if (e.PropertyName.Equals("EnfDent"))
             {
@@ -2468,7 +2468,7 @@ namespace BackEnd2.ViewModel
                         }
 
                 _DB2.UpdateProdName(NewProd);
-                UpdateFicheTek();
+                
             }
             else if (e.PropertyName.Equals("Name2"))
             {
@@ -4235,8 +4235,11 @@ namespace BackEnd2.ViewModel
         {
 
             ActivateDatasheetReadMode();
-            //UpdateFicheTek();
-            //SelectedFicheTechnique = null;
+            if (SelectedFicheTechnique == null || SelectedFicheTechnique.Produits.Count==0)
+                return;
+            var prod = SelectedFicheTechnique.Produits.First(pr => pr.Id == NewProd.Id);
+            prod= _DB2.GetFullProduct(prod);
+            
 
         }
 
