@@ -1094,7 +1094,7 @@ namespace DSheetEnfilage
             SetSelectedComposant(num);
             if (img.ComponentStage == ComponentImage.RepresentationStage.Lisse)
             {
-                if (ChColList.First(ch => ch.ColNum == ((-img.position)+(ChColList.Count+1))).Comp.ID != SelectedComposant.GetComposant.ID
+                if (IsCorrectPlacement && ChColList.First(ch => ch.ColNum == ((-img.position)+(ChColList.Count+1))).Comp.ID != SelectedComposant.GetComposant.ID
                     && ChColList.First(ch => ch.ColNum == ((-img.position)+(ChColList.Count+1))).Comp.ID != SelectedComposant.GetComposant.parent)
                 {
                     MessageBox.Show("Réserver pour " +ChColList.First(ch => ch.ColNum ==((-img.position)+(ChColList.Count+1))).Comp.Name);
@@ -1103,7 +1103,7 @@ namespace DSheetEnfilage
             }
             else
             {
-                if (ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null &&
+                if (IsCorrectPlacement && ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.ID)== null &&
                     ChColList.FirstOrDefault(ch => ch.Comp.ID == SelectedComposant.GetComposant.parent) == null)
                 {
                     MessageBox.Show("la chaine ne supporte pas " +SelectedComposant.GetComposant.Name);
