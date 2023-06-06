@@ -23,8 +23,11 @@ namespace BackEnd2.Data
             connectionStringName = "Data Source=FicheTeK.db";
             db = new SqliteDataAccess();
         }
-
-        public void DeleteFicheTechnique(int Ficheid, int Prodid)
+        public void DeleteFicheTechnique(int Ficheid)
+        {
+            db.SaveData<dynamic>("delete from FicheTechnique where ID=@id", new { id = Ficheid }, connectionStringName);
+        }
+            public void DeleteFicheTechnique(int Ficheid, int Prodid)
         {
             db.SaveData<dynamic>("delete from FicheTechnique where ID=@id", new { id = Ficheid }, connectionStringName);
             db.SaveData<dynamic>("delete from Product where Id=@id", new { id = Prodid }, connectionStringName);
@@ -347,7 +350,11 @@ namespace BackEnd2.Data
                 return false;
             return true;
         }
-
+        public void ChangeProductFicheID(Produit prod)
+        {
+            var stm = "update Product set FicheId=@FicheId where Id=@ProdID";
+            db.SaveData<dynamic>(stm, new { prod.FicheId, ProdID = prod.Id },connectionStringName);
+        }
         public bool CheckNArticleUnique(int NumArticle, int ProdID)
         {
             var stm = "select * from Product where NumArticle=@num and Id!=@id";
@@ -1958,10 +1965,16 @@ namespace BackEnd2.Data
 
             return ftlist;
         }
+        public List<Produit> GetFusionFicheTechnique(Catalogue categorie,int FicheID)
+        {
+            string stm = "Select pr.* from FicheTechnique as ft,Product as pr where ft.ID=pr.FicheId and CatalogID=@CatID and ft.ID!=@FTID group by FicheId";
+
+            return db.LoadData<Produit, dynamic>(stm, new { CatID = categorie.ID, FTID= FicheID }, connectionStringName);
+        }
 
         public string GetFichetechniqueCategorie(int id)
         {
-            string stm = "Select * from FicheTechnique where ID=@id";
+            string stm = "Select * from FicheTechnique where  ID=@id";
            var ficheTek= db.LoadData<FicheTechnique, dynamic>(stm, new
             {
                 id

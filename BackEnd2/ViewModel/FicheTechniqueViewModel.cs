@@ -234,6 +234,46 @@ namespace BackEnd2.ViewModel
 
         private MvxObservableCollection<FicheTechnique> _FicheTechniqueList;
 
+        private MvxObservableCollection<Produit> _FicheTechniqueFusionList;
+
+        public MvxObservableCollection<Produit> FicheTechniqueFusionList
+        {
+            get { return _FicheTechniqueFusionList; }
+            set { _FicheTechniqueFusionList = value;RaisePropertyChanged(); }
+        }
+
+        private Produit _FicheTechniqueFusionner;
+
+        public Produit FicheTechniqueFusionner
+        {
+            get { return _FicheTechniqueFusionner; }
+            set { _FicheTechniqueFusionner = value;
+                RaisePropertyChanged();
+                FusionnerFicheTechnique();
+            }
+        }
+
+        public void FusionnerFicheTechnique()
+        {
+            if (FicheTechniqueFusionner == null)
+                return;
+
+            Produit prod = new Produit();
+            prod.Version = NewProd.Version;
+            prod.FicheId = FicheTechniqueFusionner.FicheId;
+            prod.Id = NewProd.Id;
+           if (!_DB2.CheckVersionUnique(prod))
+            {
+                SendNotification.Raise("Version existe déja avec ce produit");
+                FicheTechniqueFusionner = null;
+                return;
+            }
+            _DB2.ChangeProductFicheID(prod);
+            _DB2.DeleteFicheTechnique(NewProd.FicheId);
+            ActivateDatasheetReadMode();
+            UpdateFicheTek();
+
+        }
         private IMvxCommand _FirstPageCmd;
 
         private MvxObservableCollection<FicheTechnique> _FullFTByCatList;
@@ -2034,6 +2074,7 @@ namespace BackEnd2.ViewModel
                 IsNewDatasheet = false;
                 if (SelectedFicheTechnique != null)
                 {
+                    FicheTechniqueFusionList = new MvxObservableCollection<Produit>(_DB2.GetFusionFicheTechnique(SelectedFicheTechnique.Catalog, SelectedFicheTechnique.ID));
                     var LastVersion = SelectedFicheTechnique.Produits.Count - 1;
 
                     if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)

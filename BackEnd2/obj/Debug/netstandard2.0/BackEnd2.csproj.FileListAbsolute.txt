@@ -85,3 +85,4 @@ D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.dll
 D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.pdb
 D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\System.Printing.dll
 D:\Project\DataSheetDesign\BackEnd2\bin\Debug\netstandard2.0\ReachFramework.dll
+D:\Project\DataSheetDesign\BackEnd2\obj\Debug\netstandard2.0\BackEnd2.csprojAssemblyReference.cache

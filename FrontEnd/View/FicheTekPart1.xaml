@@ -189,8 +189,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.8*" />
                 <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <TextBlock
                 FontSize="16" FontWeight="Bold"
@@ -206,6 +208,20 @@
             <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center"
                        Visibility="{Binding DisplayDate,Converter={StaticResource BoolToVis}}"
                        Text="{Binding CategorieName}" />
+
+            <TextBlock
+                Grid.Column="3"
+                FontSize="16" FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                Fusionner:
+            </TextBlock>
+            <ComboBox Grid.Column="4"
+                      DisplayMemberPath="Name"
+                      
+                      Visibility="{Binding EditDate,Converter={StaticResource BoolToVis}}"
+                      SelectedItem="{Binding FicheTechniqueFusionner}"
+                      ItemsSource="{Binding FicheTechniqueFusionList}" />
         </Grid>
         <Grid ZIndex="1" Grid.Row="2">
             <Grid.RowDefinitions>
