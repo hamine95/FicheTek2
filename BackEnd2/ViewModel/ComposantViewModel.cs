@@ -792,7 +792,12 @@ namespace BackEnd2.ViewModel
             }
             else
             {
-                var NewTitrage = new Titrage();
+                if (SelectedTypeMatiereT == null || NumMetric == null)
+                {
+                    SendNotification.Raise("S.V.P remplit tous les champs obligatoires");
+                    return;
+                }
+                  var NewTitrage = new Titrage();
                 int NMetric;
 
                 NewTitrage.NumTwist = 0;

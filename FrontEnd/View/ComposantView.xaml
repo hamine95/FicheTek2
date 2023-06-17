@@ -6,7 +6,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  mc:Ignorable="d" Loaded="MvxWpfView_Loaded"
                  xmlns:Converter="clr-namespace:FrontEnd.Converter"
-                 d:DesignHeight="450" d:DesignWidth="800">
+                 d:DesignHeight="650" d:DesignWidth="800">
     <view:MvxWpfView.Resources>
         <Converter:BooleanToVisibilityValueConverter x:Key="BoolToVis" />
     </view:MvxWpfView.Resources>
