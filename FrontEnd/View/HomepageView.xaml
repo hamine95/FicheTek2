@@ -265,7 +265,7 @@
                         </Grid>
                         <StackPanel Margin="10" HorizontalAlignment="Center">
                             <Image ToolTip="{Binding TipText}" Source="{Binding ImageSrc}" MaxHeight="100" />
-                            <Button Height="25" Opacity="0" Command="{Binding ActivateSuperUser}" />
+                            <Button Height="25" Opacity="0" Cursor="Hand" Command="{Binding ActivateSuperUser}" />
                         </StackPanel>
 
                         <ListView

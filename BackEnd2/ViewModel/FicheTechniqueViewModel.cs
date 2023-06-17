@@ -2059,6 +2059,9 @@ namespace BackEnd2.ViewModel
             
            
         }
+
+
+
         private bool IsNewDatasheet=true;
 
         public void EditFicheTechnique()
@@ -4240,6 +4243,7 @@ namespace BackEnd2.ViewModel
 
         public void ActivateDatasheetReadMode()
         {
+            NewProd.PropertyChanged -=Prod_PropertyChanged;
             EditDate = false;
             DisplayDate = true;
             Comp1Vis = false;
@@ -4366,6 +4370,12 @@ namespace BackEnd2.ViewModel
         }
 
         #region Composant Properties and Methods
+
+        public void CorrectEnfilageCalcue()
+        {
+            _NavigationService.Navigate<EnfilageCorrectionViewModel,Produit>(NewProd);
+
+        }
 
         public void InitBtnImage()
         {

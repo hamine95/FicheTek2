@@ -1424,7 +1424,22 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
                     <CheckBox IsChecked="{Binding IsCorrectPlacement}">Vérification Emplacement</CheckBox>
+                    <Button Visibility="{Binding SuperUser,Converter={StaticResource BoolToVis}}"
+                            Grid.Row="1"
+                            Margin="5"
+                            Content="Réctifier Calcule Enfilage" 
+                            Cursor="Hand" 
+                            Foreground="White"
+                            mvx:Bi.nd="Command CorrectEnfilageCalcue"
+                            Background="#084469">
+                        
+                        
+                    </Button>
                 </Grid>
                 <Grid>
                     <Grid.RowDefinitions>

@@ -271,6 +271,9 @@
     <Compile Include="View\EditMonthReportView.xaml.cs">
       <DependentUpon>EditMonthReportView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EnfilageCorrectionView.xaml.cs">
+      <DependentUpon>EnfilageCorrectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FicheTechniqueView.xaml.cs">
       <DependentUpon>FicheTechniqueView.xaml</DependentUpon>
     </Compile>
@@ -338,6 +341,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditMonthReportView.xaml" />
+    <Page Include="View\EnfilageCorrectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FicheTechniqueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

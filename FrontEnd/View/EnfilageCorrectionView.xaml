@@ -1,0 +1,71 @@
+﻿<view:MvxWindow 
+        x:Class="FrontEnd.View.EnfilageCorrectionView"
+        xmlns:view="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ExtTools="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:FrontEnd.View"
+        xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
+        mc:Ignorable="d"
+        Title="Enfilage Correction" Height="350" Width="400">
+    <view:MvxWindow.Resources>
+        <Style x:Key="BtnStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="25"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+            <Setter Property="UseLayoutRounding" Value="True"></Setter>
+            <Setter Property="Background" Value="CadetBlue"></Setter>
+            <Setter Property="Foreground" Value="WhiteSmoke"></Setter>
+            <Setter Property="FontFamily" Value="cambria"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+        </Style>
+        <Style x:Key="TextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="cambria"></Setter>
+            <Setter Property="MaxHeight" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+
+        </Style>
+    </view:MvxWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="0.2"></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.2"></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ComposantList}" SelectedItem="{Binding SelectedComposant}" CanUserAddRows="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Composant" Width="*" Binding="{Binding GetComposant.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre Fil" Width="2*" Binding="{Binding EnfNbrFil,Mode=TwoWay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Height="25" FontSize="14" FontFamily="cambria" VerticalAlignment="Center" HorizontalAlignment="Center">Nombre Dents:</TextBlock>
+            <ExtTools:IntegerUpDown Minimum="2" Height="25" FontSize="14" FontFamily="cambria" Text="{Binding NumDent}" Grid.Column="1" HorizontalAlignment="Left" Width="80"></ExtTools:IntegerUpDown>
+        </Grid>
+        <UniformGrid Grid.Row="5" Columns="2">
+            <Button
+            Style="{StaticResource BtnStyle}"
+            Grid.Row="7"
+            Grid.Column="2"
+            mvx:Bi.nd="Command Cancel"
+            >Annuler</Button>
+            <Button
+            Style="{StaticResource BtnStyle}"
+               
+            Grid.Row="7"
+            Grid.Column="3"
+            mvx:Bi.nd="Command SaveChange"
+            >Valider</Button>
+        </UniformGrid>
+    </Grid>
+</view:MvxWindow>
