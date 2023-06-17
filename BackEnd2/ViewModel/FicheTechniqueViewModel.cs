@@ -234,13 +234,7 @@ namespace BackEnd2.ViewModel
 
         private MvxObservableCollection<FicheTechnique> _FicheTechniqueList;
 
-        private MvxObservableCollection<Produit> _FicheTechniqueFusionList;
-
-        public MvxObservableCollection<Produit> FicheTechniqueFusionList
-        {
-            get { return _FicheTechniqueFusionList; }
-            set { _FicheTechniqueFusionList = value;RaisePropertyChanged(); }
-        }
+       
 
         private Produit _FicheTechniqueFusionner;
 
@@ -2074,7 +2068,7 @@ namespace BackEnd2.ViewModel
                 IsNewDatasheet = false;
                 if (SelectedFicheTechnique != null)
                 {
-                    FicheTechniqueFusionList = new MvxObservableCollection<Produit>(_DB2.GetFusionFicheTechnique(SelectedFicheTechnique.Catalog, SelectedFicheTechnique.ID));
+                   
                     var LastVersion = SelectedFicheTechnique.Produits.Count - 1;
 
                     if (SelectedFicheTechnique.Produits[LastVersion].EnfilageID != null)
